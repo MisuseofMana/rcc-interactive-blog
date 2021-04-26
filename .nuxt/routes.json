@@ -1,9 +1,20 @@
 [
   {
+    "name": "expandedGallery",
+    "path": "/expandedGallery",
+    "component": "/Users/seanyager/rcc-interactive-blog/pages/expandedGallery.vue",
+    "chunkName": "pages/expandedGallery"
+  },
+  {
+    "name": "gallery",
+    "path": "/gallery",
+    "component": "/Users/seanyager/rcc-interactive-blog/pages/gallery.vue",
+    "chunkName": "pages/gallery"
+  },
+  {
     "name": "index",
     "path": "/",
-    "component": "C:\\\\Users\\\\Sean Yager\\\\Desktop\\\\rcc-interactive-blog\\\\pages\\\\index.vue",
-    "chunkName": "pages/index",
-    "_name": "_41fae2c4"
+    "component": "/Users/seanyager/rcc-interactive-blog/pages/index.vue",
+    "chunkName": "pages/index"
   }
 ]

@@ -8,5 +8,8 @@
   },
   "dependencies": {
     "nuxt": "^2.15.4"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.11.3"
   }
 }
