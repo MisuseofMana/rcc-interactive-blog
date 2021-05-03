@@ -4,8 +4,9 @@ export default {
   server: {
     port: 8000 // default: 3000
   },
+  css: ['~/assets/css/transitions.css'],
   buildModules: [
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
   vuetify: {
     treeShake: true,

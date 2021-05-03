@@ -5,3 +5,9 @@
 	</v-main>
 </v-app>
 </template>
+
+<style scoped>
+v-app {
+	overflow:hidden;
+}
+</style>

@@ -3,18 +3,21 @@
     "name": "expandedGallery",
     "path": "/expandedGallery",
     "component": "/Users/seanyager/rcc-interactive-blog/pages/expandedGallery.vue",
-    "chunkName": "pages/expandedGallery"
+    "chunkName": "pages/expandedGallery",
+    "_name": "_38ec8541"
   },
   {
     "name": "gallery",
     "path": "/gallery",
     "component": "/Users/seanyager/rcc-interactive-blog/pages/gallery.vue",
-    "chunkName": "pages/gallery"
+    "chunkName": "pages/gallery",
+    "_name": "_423d57ba"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/seanyager/rcc-interactive-blog/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_5532bd3a"
   }
 ]

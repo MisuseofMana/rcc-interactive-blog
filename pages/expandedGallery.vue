@@ -1,13 +1,14 @@
 <template>
-    <v-container>
-        <v-row class="my-2">
-            <v-col cols="4" class="border square">
+    <v-container class="my-5">
+        <v-row>
+            <v-col cols="4" class="border pa-0">
+                <img :src="require(`@/assets/images/${currentDir.imagesDirectory}/${currentDir.titlePhoto}`)" alt="">
             </v-col>
             <v-col cols="8">
-                <div class="text-h2 primary--text">{{ gallery[0].title }}</div>
-                <div class="text-h4 primary--text">{{ gallery[0].subtitle }}</div>
-                <div class="text-subtitle-1 primary--text">{{ gallery[0].narrative }}</div>
-                 <v-icon v-for="items in gallery[0].iconNames" :key="items" color="primary">mdi-{{ items }}</v-icon>
+                <div class="text-h2 primary--text">{{ currentDir.title }}</div>
+                <div class="text-h4 primary--text">{{ currentDir.subtitle }}</div>
+                <div class="text-subtitle-1 primary--text">{{ currentDir.narrative }}</div>
+                 <v-icon v-for="(items, index) in currentDir.iconNames" :key="items+index" color="primary">mdi-{{ items }}</v-icon>
             </v-col>
         </v-row>
         <v-row>
@@ -19,23 +20,26 @@
 </template>
 
 <script>
-    import gallery from '~/plugins/gallery.js'
+    import {mapState} from 'vuex'
+
     export default {
-        data() {
-            return {
-                gallery,
-            }
-        },
+        name: 'expandedGallery',
+        computed: {
+            ...mapState(['currentDir'])
+        }
     }
 </script>
 
 <style scoped>
 .border {
-    border: solid 2px var(--v-primary-base)
+    padding:0;
+    border: solid 2px var(--v-primary-base);
+    height:175px;
+    overflow:hidden;
+    filter: sepia() hue-rotate(70deg);
 }
 
-.square {
-    width:12rem;
-    height:12rem;
+img {
+    height:200px;
 }
 </style>

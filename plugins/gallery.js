@@ -1,100 +1,80 @@
-const gallery = [
+export const gallery = [
     {
         title: 'Lierd',
         subtitle:'Birthplace of Curses',
         narrative:'If not for Lierd, there would be no curses, and no place for curses to be removed.',
-        folderTitle: 'lierd',
+        imagesDirectory: 'lierd',
+        titlePhoto: '1.jpg',
         photoSnippet:[
             'Snippet Number 1',
             'Another Snippet',
             'A Third Snippet'
         ],
-        iconNames: ['alarm-light-outline', 'crown-outline', 'account-child-outline'],
+        iconNames: ['alarm-light-outline', 'crown-outline', 'account-settings'],
     },
     {
-        title: 'Title',
-        subtitle:'Subtitle',
-        narrative:'Proin accumsan enim vel posuere gravida. Mauris ultricies tempor odio eget vestibulum. Suspendisse potenti. Sed sollicitudin ante vitae leo scelerisque bibendum. Duis facilisis consequat ipsum. Suspendisse venenatis fermentum mi in pharetra.',
-        folderTitle: 'directoryName',
+        title: 'Fenced City',
+        subtitle:'The Contained Capitol',
+        narrative:'',
+        imagesDirectory: 'fencedCity',
+        titlePhoto: '2.jpg',
         photoSnippet:[
             'Snippet Number 1',
             'Another Snippet',
             'A Third Snippet'
         ],
-        iconName: 'mdi-alarm-light-outline',
+        iconNames: ['city-variant-outline', 'lock', 'fruit-grapes'],
     },
     {
-        title: 'Title',
-        subtitle:'Subtitle',
-        narrative:'Proin accumsan enim vel posuere gravida. Mauris ultricies tempor odio eget vestibulum. Suspendisse potenti. Sed sollicitudin ante vitae leo scelerisque bibendum. Duis facilisis consequat ipsum. Suspendisse venenatis fermentum mi in pharetra.',
-        folderTitle: 'directoryName',
+        title: 'Willow Woods',
+        subtitle:'Witch Infested Forest',
+        narrative:'',
+        imagesDirectory: 'willowWoods',
+        titlePhoto: '1.jpg',
         photoSnippet:[
             'Snippet Number 1',
             'Another Snippet',
             'A Third Snippet'
         ],
-        iconName: 'mdi-alarm-light-outline',
+        iconNames: ['tree-outline', 'sprout-outline', 'eye-circle'],
     },
     {
-        title: 'Title',
-        subtitle:'Subtitle',
-        narrative:'Proin accumsan enim vel posuere gravida. Mauris ultricies tempor odio eget vestibulum. Suspendisse potenti. Sed sollicitudin ante vitae leo scelerisque bibendum. Duis facilisis consequat ipsum. Suspendisse venenatis fermentum mi in pharetra.',
-        folderTitle: 'directoryName',
+        title: 'Councillors',
+        subtitle:'Those Few Remaining',
+        narrative:'',
+        imagesDirectory: 'councillors',
+        titlePhoto: '1.jpg',
         photoSnippet:[
             'Snippet Number 1',
             'Another Snippet',
             'A Third Snippet'
         ],
-        iconName: 'mdi-alarm-light-outline',
+        iconNames: ['account-group', 'crown-outline', 'account-group'],
     },
     {
-        title: 'Title',
-        subtitle:'Subtitle',
-        narrative:'Proin accumsan enim vel posuere gravida. Mauris ultricies tempor odio eget vestibulum. Suspendisse potenti. Sed sollicitudin ante vitae leo scelerisque bibendum. Duis facilisis consequat ipsum. Suspendisse venenatis fermentum mi in pharetra.',
-        folderTitle: 'directoryName',
+        title: 'Relic Garden',
+        subtitle:'Ruined Growth',
+        narrative:'',
+        imagesDirectory: 'oldBurrow',
+        titlePhoto: '4.jpg',
         photoSnippet:[
             'Snippet Number 1',
             'Another Snippet',
             'A Third Snippet'
         ],
-        iconName: 'mdi-alarm-light-outline',
+        iconNames: ['diamond-stone', 'leaf-off', 'chess-rook'],
     },
     {
-        title: 'Title',
-        subtitle:'Subtitle',
-        narrative:'Proin accumsan enim vel posuere gravida. Mauris ultricies tempor odio eget vestibulum. Suspendisse potenti. Sed sollicitudin ante vitae leo scelerisque bibendum. Duis facilisis consequat ipsum. Suspendisse venenatis fermentum mi in pharetra.',
-        folderTitle: 'directoryName',
+        title: 'Replacements',
+        subtitle:'Advanced Predictions',
+        narrative:'',
+        imagesDirectory: 'trueGrid',
+        titlePhoto: '3.jpg',
         photoSnippet:[
             'Snippet Number 1',
             'Another Snippet',
             'A Third Snippet'
         ],
-        iconName: 'mdi-alarm-light-outline',
+        iconNames: ['alert-octagon', 'parking', 'key'],
     },
-    {
-        title: 'Title',
-        subtitle:'Subtitle',
-        narrative:'Proin accumsan enim vel posuere gravida. Mauris ultricies tempor odio eget vestibulum. Suspendisse potenti. Sed sollicitudin ante vitae leo scelerisque bibendum. Duis facilisis consequat ipsum. Suspendisse venenatis fermentum mi in pharetra.',
-        folderTitle: 'directoryName',
-        photoSnippet:[
-            'Snippet Number 1',
-            'Another Snippet',
-            'A Third Snippet'
-        ],
-        iconName: 'mdi-alarm-light-outline',
-    },
-    {
-        title: 'Title',
-        subtitle:'Subtitle',
-        narrative:'Proin accumsan enim vel posuere gravida. Mauris ultricies tempor odio eget vestibulum. Suspendisse potenti. Sed sollicitudin ante vitae leo scelerisque bibendum. Duis facilisis consequat ipsum. Suspendisse venenatis fermentum mi in pharetra.',
-        folderTitle: 'directoryName',
-        photoSnippet:[
-            'Snippet Number 1',
-            'Another Snippet',
-            'A Third Snippet'
-        ],
-        iconName: 'mdi-alarm-light-outline',
-    },
-] 
-
-export default gallery
+]
