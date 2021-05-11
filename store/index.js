@@ -1,5 +1,4 @@
 export const state = () => ({
-    currentDir: undefined
   })
   
   export const mutations = {

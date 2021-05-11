@@ -3,8 +3,10 @@
     <v-row>
       <v-col class="d-flex justify-center" cols="12">
         <transition name="fade" mode="out-in"> 
-        <div @click="enterSite" class="text-center animate__animated cursor">
-          <div class="text-h1  primary--text">X</div>
+        <div class="text-center animate__animated cursor">
+          <NuxtLink to="realms">
+            <div class="text-h1 primary--text">X</div>
+          </NuxtLink>
         </div>
         </transition>
       </v-col>
@@ -32,5 +34,9 @@
 <style scoped>
 .cursor:hover {
   cursor:pointer;
+}
+
+a, a:-webkit-any-link {
+  text-decoration: none;
 }
 </style>

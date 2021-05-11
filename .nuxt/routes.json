@@ -1,17 +1,17 @@
 [
   {
-    "name": "expandedGallery",
-    "path": "/expandedGallery",
-    "component": "/Users/seanyager/rcc-interactive-blog/pages/expandedGallery.vue",
-    "chunkName": "pages/expandedGallery",
-    "_name": "_38ec8541"
+    "name": "realms",
+    "path": "/realms",
+    "component": "/Users/seanyager/rcc-interactive-blog/pages/realms.vue",
+    "chunkName": "pages/realms",
+    "_name": "_463f30e8"
   },
   {
-    "name": "gallery",
-    "path": "/gallery",
-    "component": "/Users/seanyager/rcc-interactive-blog/pages/gallery.vue",
-    "chunkName": "pages/gallery",
-    "_name": "_423d57ba"
+    "name": "insights-expandedInsights",
+    "path": "/insights/:expandedInsights?",
+    "component": "/Users/seanyager/rcc-interactive-blog/pages/insights/_expandedInsights.vue",
+    "chunkName": "pages/insights/_expandedInsights",
+    "_name": "_7fc3ef27"
   },
   {
     "name": "index",

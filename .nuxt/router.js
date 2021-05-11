@@ -4,8 +4,8 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _38ec8541 = () => interopDefault(import('../pages/expandedGallery.vue' /* webpackChunkName: "pages/expandedGallery" */))
-const _423d57ba = () => interopDefault(import('../pages/gallery.vue' /* webpackChunkName: "pages/gallery" */))
+const _463f30e8 = () => interopDefault(import('../pages/realms.vue' /* webpackChunkName: "pages/realms" */))
+const _7fc3ef27 = () => interopDefault(import('../pages/insights/_expandedInsights.vue' /* webpackChunkName: "pages/insights/_expandedInsights" */))
 const _5532bd3a = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -20,13 +20,13 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
-    path: "/expandedGallery",
-    component: _38ec8541,
-    name: "expandedGallery"
+    path: "/realms",
+    component: _463f30e8,
+    name: "realms"
   }, {
-    path: "/gallery",
-    component: _423d57ba,
-    name: "gallery"
+    path: "/insights/:expandedInsights?",
+    component: _7fc3ef27,
+    name: "insights-expandedInsights"
   }, {
     path: "/",
     component: _5532bd3a,

@@ -1,11 +1,13 @@
 <template>
     <v-container class="my-5">
         <v-row>
-            <v-col lg="3" md="4" sm="6" v-for="(posts, index) in gallery" :key="index">
+            <v-col lg="3" md="4" sm="6" v-for="(posts, index) in pages" :key="index">
                 <div class="text-h4 primary--text">{{ posts.title }}</div>
                 <div class="text-h5 primary--text">{{ posts.subtitle }}</div>
-                <div class="border my-2" @click="expand(posts)">
-                    <img :src="require(`@/assets/images/${posts.imagesDirectory}/${posts.titlePhoto}`)" alt="">
+                <div class="border my-2">
+                    <NuxtLink :to="`insights/${posts.slug}`">
+                        <v-img :src="require(`@/assets/images/${posts.imagesDirectory}/${posts.titlePhoto}`)" alt=""></v-img>
+                    </NuxtLink>
                 </div>
                 <div>
                     <v-icon v-for="(items, index) in posts.iconNames" :key="items+index" color="primary">mdi-{{ items }}</v-icon>
@@ -16,29 +18,24 @@
 </template>
 
 <script>
-    import  { gallery } from '~/plugins/gallery.js'
+    import { mapState } from 'vuex'
+
     export default {
         name: 'gallery',
-        data() {
-            return {
-                gallery,
-            }
-        },
         transition: 'fadeSwitch',
-
-        methods: {
-            expand(payload) {
-                this.$store.commit('changeDir', payload)
-                this.$router.push({ path: 'expandedGallery' })
-            }
-        }
+            computed: {
+                ...mapState('gallery', [
+                    'pages',
+                ])
+            },
     }
 </script>
 
 <style scoped>
 .border {
     border: solid 2px var(--v-primary-base);
-    height:175px;
+    height:10rem;
+    width:100%;
     overflow:hidden;
     filter: sepia() hue-rotate(70deg);
     transition: all .25s;
@@ -51,6 +48,6 @@
 }
 
 img {
-    height:200px;
+    max-height:400px;
 }
 </style>
