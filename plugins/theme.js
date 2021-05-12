@@ -4,7 +4,7 @@ const theme = {
     themes: {
       light: {
         // Vuetify Defaults
-        primary: '#19ED0A',
+        primary: '#5c9e29',
         secondary: '#407596',
         accent: '#BF281A',
         error: {
@@ -26,7 +26,7 @@ const theme = {
         },
         info: '#407596', // Links and such
 
-        background: '#131313',
+        background: '#121212',
       },
     },
   }

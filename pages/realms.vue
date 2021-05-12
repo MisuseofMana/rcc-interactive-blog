@@ -6,7 +6,7 @@
                 <div class="text-h5 primary--text">{{ posts.subtitle }}</div>
                 <div class="border my-2">
                     <NuxtLink :to="`insights/${posts.slug}`">
-                        <v-img :src="require(`@/assets/images/${posts.imagesDirectory}/${posts.titlePhoto}`)" alt=""></v-img>
+                        <v-img :aspect-ratio="1/1" :src="require(`@/assets/images/${posts.imagesDirectory}/${posts.titlePhoto}.jpg`)" alt=""></v-img>
                     </NuxtLink>
                 </div>
                 <div>
@@ -34,10 +34,9 @@
 <style scoped>
 .border {
     border: solid 2px var(--v-primary-base);
-    height:10rem;
     width:100%;
     overflow:hidden;
-    filter: sepia() hue-rotate(70deg);
+    filter: hue-rotate(45deg);
     transition: all .25s;
 }
 

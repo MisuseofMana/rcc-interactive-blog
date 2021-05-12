@@ -2,15 +2,18 @@ export const state = () => ({
    pages: [
     {
       title: 'Lierd',
-      slug: 'lerid',
+      slug: 'lierd',
       subtitle:'Birthplace of Curses',
-      narrative:'If not for Lierd, there would be no curses, and no place for curses to be purified.',
+      narrative:'If not for Lierd, there would be no curses, and no place for curses to be absolved.',
       imagesDirectory: 'lierd',
-      titlePhoto: '1.jpg',
-      photoSnippet:[
-          'Snippet Number 1',
-          'Another Snippet',
-          'A Third Snippet'
+      titlePhoto: 'cabin',
+      photos:[
+          { copy:"Where Lierd begins, you'll find a home which no longer belongs to you.", filePath: 'cabin' },
+          { copy:'Outside at the well you may wish to pay homage to those who have lost this home before you.', filePath: 'well' },
+          { copy:"We all leave Lierd, washed away by the ripples of the first curse.", filePath: 'sprawl' },
+          { copy:'Some Snippet', filePath: 'basin' },
+          { copy:'Some Snippet', filePath: 'wilds' },
+          { copy:'Some Snippet', filePath: 'fountain' },
       ],
       iconNames: ['alarm-light-outline', 'crown-outline', 'account-settings'],
   },
@@ -18,9 +21,9 @@ export const state = () => ({
       title: 'Fenced City',
       slug: 'fencedcity',
       subtitle:'The Contained Capitol',
-      narrative:'Sprawling grids aligned with the sun. None may leave. None may enter. We are all left here.',
+      narrative:'Sprawling grids aligned. None may leave. None may enter. We are all left here.',
       imagesDirectory: 'fencedCity',
-      titlePhoto: '2.jpg',
+      titlePhoto: '2',
       photoSnippet:[
           'Snippet Number 1',
           'Another Snippet',
@@ -32,9 +35,9 @@ export const state = () => ({
       title: 'Willow Woods',
       slug: 'willowwoods',
       subtitle:'Witch Infested Forest',
-      narrative:'',
+      narrative:'All woods, all forests, all groves. The trees have eyes.',
       imagesDirectory: 'willowWoods',
-      titlePhoto: '1.jpg',
+      titlePhoto: '1',
       photoSnippet:[
           'Snippet Number 1',
           'Another Snippet',
@@ -46,9 +49,9 @@ export const state = () => ({
       title: 'Councillors',
       slug: 'councillors',
       subtitle:'Those Few Remaining',
-      narrative:'',
+      narrative:'Those who have managed to transpose beyond the bounds of the contained capitol.',
       imagesDirectory: 'councillors',
-      titlePhoto: '1.jpg',
+      titlePhoto: '1',
       photoSnippet:[
           'Snippet Number 1',
           'Another Snippet',
@@ -60,9 +63,9 @@ export const state = () => ({
       title: 'Relic Garden',
       slug: 'relicgarden',
       subtitle:'Ruined Growth',
-      narrative:'',
+      narrative:'Documentation, record keeping. The woods before the witches. Consider all images within a commodity far beyond wealth.',
       imagesDirectory: 'oldBurrow',
-      titlePhoto: '4.jpg',
+      titlePhoto: '4',
       photoSnippet:[
           'Snippet Number 1',
           'Another Snippet',
@@ -76,7 +79,7 @@ export const state = () => ({
       subtitle:'Advanced Predictions',
       narrative:'',
       imagesDirectory: 'trueGrid',
-      titlePhoto: '3.jpg',
+      titlePhoto: '3',
       photoSnippet:[
           'Snippet Number 1',
           'Another Snippet',
