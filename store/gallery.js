@@ -11,9 +11,9 @@ export const state = () => ({
           { copy:"Where Lierd begins, you'll find a home which no longer belongs to you.", filePath: 'cabin' },
           { copy:'Outside at the well you may wish to pay homage to those who have lost this home before you.', filePath: 'well' },
           { copy:"We all leave Lierd, washed away by the ripples of the first curse.", filePath: 'sprawl' },
-          { copy:'Some Snippet', filePath: 'basin' },
-          { copy:'Some Snippet', filePath: 'wilds' },
-          { copy:'Some Snippet', filePath: 'fountain' },
+          { copy:'Those who remain are caught in the basin pools.', filePath: 'basin' },
+          { copy:'They follow the stream, into the river, into the falls. ', filePath: 'wilds' },
+          { copy:'The fountain is the last gate out. Fall, and never leave Lierd.', filePath: 'fountain' },
       ],
       iconNames: ['alarm-light-outline', 'crown-outline', 'account-settings'],
   },
@@ -21,27 +21,28 @@ export const state = () => ({
       title: 'Fenced City',
       slug: 'fencedcity',
       subtitle:'The Contained Capitol',
-      narrative:'Sprawling grids aligned. None may leave. None may enter. We are all left here.',
+      narrative:'Sprawling grids aligned. Populated by those who leave Lierd. We all start here.',
       imagesDirectory: 'fencedCity',
-      titlePhoto: '2',
-      photoSnippet:[
-          'Snippet Number 1',
-          'Another Snippet',
-          'A Third Snippet'
+      titlePhoto: 'corner',
+      photos: [
+        { copy:'Towers emerge from the grid, all connected, all of the same tapestry.', filePath: 'corner' },
+        { copy:'We on the ground are forgotten.', filePath: 'wall' },
+        { copy:'Atop this realm are researchers observatories, studying the skys outside Lierd.', filePath: 'top' },
       ],
       iconNames: ['city-variant-outline', 'lock', 'fruit-grapes'],
   },
   {
       title: 'Willow Woods',
       slug: 'willowwoods',
-      subtitle:'Witch Infested Forest',
+      subtitle:'Infested Forest',
       narrative:'All woods, all forests, all groves. The trees have eyes.',
       imagesDirectory: 'willowWoods',
-      titlePhoto: '1',
-      photoSnippet:[
-          'Snippet Number 1',
-          'Another Snippet',
-          'A Third Snippet'
+      titlePhoto: 'vestal',
+      photos: [
+        { copy:'Beyond the capitol, past the rising rock is the pilgrims route.', filePath: 'vestal' },
+        { copy:'No matter what you hear, do not look, the songs will lie to you.', filePath: 'rituals' },
+        { copy:'The growth will guide you away from the center of the woods.', filePath: 'moss' },
+        { copy:'While in the woods ignore the lights and songs you hear.', filePath: 'beyond' },
       ],
       iconNames: ['tree-outline', 'sprout-outline', 'eye-circle'],
   },
@@ -51,11 +52,9 @@ export const state = () => ({
       subtitle:'Those Few Remaining',
       narrative:'Those who have managed to transpose beyond the bounds of the contained capitol.',
       imagesDirectory: 'councillors',
-      titlePhoto: '1',
-      photoSnippet:[
-          'Snippet Number 1',
-          'Another Snippet',
-          'A Third Snippet'
+      titlePhoto: 'oracle',
+      photos: [
+        { copy:'The realms beyond acknowledge many lords. The oracle knows all who pass beyond the capitol.', filePath: 'oracle' },
       ],
       iconNames: ['account-group', 'crown-outline', 'account-group'],
   },
@@ -65,26 +64,27 @@ export const state = () => ({
       subtitle:'Ruined Growth',
       narrative:'Documentation, record keeping. The woods before the witches. Consider all images within a commodity far beyond wealth.',
       imagesDirectory: 'oldBurrow',
-      titlePhoto: '4',
-      photoSnippet:[
-          'Snippet Number 1',
-          'Another Snippet',
-          'A Third Snippet'
+      titlePhoto: 'pod',
+      photos: [
+          { copy:'Unusable fibers, long dried in the heat of the days now lived.', filePath: 'rattle' },
+        { copy:'Structural growth, wrapped around the pearls which feed the lords.', filePath: 'pod' },
+        { copy:'The hair on the cases of seeds can slow curses.', filePath: 'bean' },
+        { copy:'This growth on the wind returns to Lierd, follow it when you wish to visit the Capitol.', filePath: 'puff' },
       ],
       iconNames: ['diamond-stone', 'leaf-off', 'chess-rook'],
   },
   {
       title: 'Replacements',
       slug: 'replacements',
-      subtitle:'Advanced Predictions',
+      subtitle:'Adv. Predictions',
       narrative:'',
       imagesDirectory: 'trueGrid',
-      titlePhoto: '3',
-      photoSnippet:[
-          'Snippet Number 1',
-          'Another Snippet',
-          'A Third Snippet'
-      ],
+      titlePhoto: 'carridge',
+      photos: [
+        { copy:'Beyond the lords are the lands of men. Filled with equations and unfetterd experiments.', filePath: 'labs' },
+        { copy:'The lords have no need for growth beyond the capitol. Men need more.', filePath: 'carridge' },
+        { copy:"The lords will not leave the Capitol, no matter the antagonist.", filePath: 'labs2' },
+    ],
       iconNames: ['alert-octagon', 'parking', 'key'],
   },
   ]
