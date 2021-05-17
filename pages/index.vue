@@ -3,11 +3,11 @@
     <v-row>
       <v-col class="d-flex justify-center" cols="12">
         <transition name="fade" mode="out-in"> 
-        <div class="text-center animate__animated cursor">
           <NuxtLink to="realms">
-            <div class="text-h1 primary--text">X</div>
+            <transition name="fade" mode="out-in">
+              <v-img min-width="150px" class="abberation" :key="whichClutter" :src="require(`@/assets/images/clutter/${whichClutter}.png`)" :alt="whichClutter"></v-img>
+            </transition>
           </NuxtLink>
-        </div>
         </transition>
       </v-col>
     </v-row>
@@ -20,13 +20,33 @@
     transition:'fadeSwitch',
     data() {
       return {
-        shown: true
+        shown: true,
+        clutterNames: [ 'decay', 'formula', 'graph', 'cloud', 'dose', 'table', 'flow', 'section', 'geometry', 'calculation', 'block', 'bedding', 'path'],
+        randomNumber: 0, 
+        changeClutter: undefined,
+      }
+    },
+    computed: {
+      whichClutter() {
+        return this.clutterNames[this.randomNumber]
       }
     },
     methods: {
-      enterSite() {
-        this.$router.push({ path: 'gallery' })
-      }
+      rollRandomNumber: (max) => {
+        return Math.floor(Math.random() * (max))
+      } 
+    },
+    mounted: function() { 
+      this.randomNumber = this.rollRandomNumber(this.clutterNames.length)
+      this.changeClutter = setInterval(() => {
+        if( this.randomNumber >= this.clutterNames.length - 1 ) {
+          this.randomNumber = 0;
+        }
+        else { this.randomNumber++; }
+      }, 3500 + ((this.rollRandomNumber(this.clutterNames.length) + 1) * 100 ));
+    },
+    beforeDestroy: function() {
+      clearInterval(this.changeClutter)
     }
   }
 </script>
@@ -38,5 +58,10 @@
 
 a, a:-webkit-any-link {
   text-decoration: none;
+}
+
+.abberation {
+  padding:0;
+  filter: sepia() hue-rotate(75deg);
 }
 </style>
