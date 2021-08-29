@@ -1,0 +1,17 @@
+{
+  "name": "rcc-interactive-blog",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "start": "nuxt start"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "nuxt": "^2.15.4"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.11.3",
+    "sass": "^1.32.10"
+  }
+}
