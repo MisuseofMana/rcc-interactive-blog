@@ -7,19 +7,22 @@
         </v-row>
 
         <v-row class="mb-8">
-            <v-col cols="12" class="py-0">
+            <v-col cols="8" class="py-0">
                 <div class="text-h1 primary--text">{{ currentRealm.title }}</div>
                 <div class="text-h2 primary--text">{{ currentRealm.subtitle }}</div>
                 <div class="text-body-1 primary--text">{{ currentRealm.narrative }}</div>
                  <v-icon class="my-5" v-for="(items, index) in currentRealm.iconNames" :key="items+index" color="primary">mdi-{{ items }}</v-icon>
             </v-col>
+            <v-col cols="4" class="d-flex justify-end">
+                <v-img class="abberation" contain height="200" width="200" :aspect-ratio="1" :src="require(`@/assets/images/clutter/${currentRealm.artifactPath}.png`)" alt=""></v-img>
+            </v-col>
         </v-row>
 
         <v-row>
             <v-col cols="6" v-for="(item, index) in currentRealm.photos" :key="index+item.filePath">
-                <v-img class="abberation" :src="require(`@/assets/images/${currentRealm.imagesDirectory}/${item.filePath}.jpg`)"></v-img>
-                <div class="bar pa-2 mt-4 mb-8">
-                <div class="text-body-1 primary--text text-center">{{ item.copy }}</div>
+                <v-img class="imageBorderFilter" :src="require(`@/assets/images/${currentRealm.imagesDirectory}/${item.filePath}.jpg`)"></v-img>
+                <div class="bar pa-2 mb-8">
+                    <div class="text-body-1 primary--text text-center">{{ item.copy }}</div>
                 </div>
             </v-col>
         </v-row>
@@ -35,8 +38,11 @@
 <script>
     import { mapState } from 'vuex'
     import BackButton from '@/components/backButton.vue'
+    import pageMusic from '@/plugins/pageMusic'
 
     export default {
+        transition:'fadeSwitch',
+        mixins: [pageMusic],
         async asyncData({ params }) {
             const slug = params.expandedInsights
             return { slug }
@@ -69,7 +75,7 @@
     filter: hue-rotate(45deg);
 }
 
-.abberation {
+.imageBorderFilter {
     padding:0;
     border: solid 2px var(--v-primary-base);
     overflow:hidden;

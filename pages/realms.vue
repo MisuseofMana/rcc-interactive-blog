@@ -1,20 +1,10 @@
 <template>
     <v-container class="my-5">
+        <div class="text-h2 primary--text">
+            REALMS
+        </div>
         <v-row>
-            <v-col>
-                <v-card>
-                    <v-app-bar
-                    color="#5C9E29"
-                    >
-                        <v-tab>Realms</v-tab>
-                        <v-tab>Artifacts</v-tab>
-                        <v-tab>Tab 3</v-tab>
-                    </v-app-bar>
-                </v-card>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col lg="4" md="4" sm="6" v-for="(posts, index) in pages" :key="index">
+            <v-col v-for="(posts, index) in pages" :key="index" lg="4" md="4" sm="6">
                 <div class="border">
                     <div class="text-h2">{{ posts.title }}</div>
                     <div class="text-h3">{{ posts.subtitle }}</div>
@@ -33,16 +23,19 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+import pageMusic from '@/plugins/pageMusic'
+import { mapState } from 'vuex'
 
-    export default {
-        name: 'gallery',
-        transition: 'fadeSwitch',
-            computed: {
-                ...mapState('gallery', [
-                    'pages',
-                ])
-            },
+export default {
+    name: 'Gallery',
+    music: 'realmsTheme',
+    transition: 'fadeSwitch',
+    mixins: [pageMusic],
+    computed: {
+        ...mapState('gallery', [
+            'pages',
+        ])
+    },
     }
 </script>
 

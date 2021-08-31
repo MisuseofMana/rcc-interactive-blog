@@ -27,6 +27,7 @@ const theme = {
         info: '#407596', // Links and such
 
         background: '#121212',
+        backgroundAccent: '#222'
       },
     },
   }

@@ -1,8 +1,9 @@
 export const state = () => ({
-  })
-  
-  export const mutations = {
-    changeDir(state, payload) {
-      state.currentDir = payload;
-    }
+  currentMusic: '',
+})
+
+export const mutations = {
+  CHANGE_MUSIC(state, payload) {
+    state.currentMusic = payload
   }
+}
