@@ -20,7 +20,7 @@ export const state = () => ({
         { copy:'The divide of the colony set in. They sought a way back through the stream.', filePath: 'divide' },
       ],
       iconNames: ['water-well', 'cards-diamond', 'glass-mug'],
-      artifactPath: 'stage'
+      artifactPath: 'shakencolony'
     },
     {
       title: 'Lierd',
@@ -36,10 +36,12 @@ export const state = () => ({
           { copy:'Those who remain are caught in the basin pools.', filePath: 'basin' },
           { copy:'The fate of those sunken into the pools is a petrifying curse.', filePath: 'curse' },
           { copy:'They follow the stream, into the river, into the falls. ', filePath: 'wilds' },
+          { copy:'Where the water dwindles, the curse overflows. ', filePath: 'flow' },
+          { copy:'Pathways will present themselves, you can trust them. ', filePath: 'path' },
           { copy:'The fountain is the last gate out. Fall, and never leave Lierd.', filePath: 'fountain' },
       ],
       iconNames: ['alarm-light-outline', 'crown-outline', 'account-settings'],
-      artifactPath: 'sphere'
+      artifactPath: 'lierd'
   },
   {
       title: 'Fenced City',
@@ -54,9 +56,8 @@ export const state = () => ({
         { copy:'Atop this realm are researchers observatories, studying the skys outside Lierd.', filePath: 'top' },
       ],
       iconNames: ['city-variant-outline', 'lock', 'fruit-grapes'],
-      artifactPath: 'curve'
+      artifactPath: 'fencedcity'
   },
-
   {
       title: 'Willow Woods',
       slug: 'willowwoods',
@@ -68,11 +69,36 @@ export const state = () => ({
         { copy:'Beyond the capitol, past the rising rock is the pilgrims route.', filePath: 'vestal' },
         { copy:'No matter what you hear in the woods, ignore it. The sounds are lies.', filePath: 'rituals' },
         { copy:'The growth will guide you away from the center of the woods.', filePath: 'moss' },
+        { copy:'Where the trees grow tumors, there are few options to retreat beyond here.', filePath: 'gnarl' },
+        { copy:'Watch the roots too, they will mutate when willow witches are nearby', filePath: 'knot' },
         { copy:'You\'ll find no other Operators in this realm. Trust nothing.', filePath: 'witch' },
-        { copy:'While in the woods ignore the lights and songs you hear.', filePath: 'beyond' },
       ],
       iconNames: ['tree-outline', 'sprout-outline', 'eye-circle'],
-      artifactPath: 'antenna'
+      artifactPath: 'willowwoods'
+  },
+  {
+      title: 'Inhabited Realm',
+      slug: 'inhabitedrealm',
+      subtitle:'Population 202',
+      narrative:'Visiting hours between 1300 and 1700. MANDATORY: Leave before the last hour ends.',
+      imagesDirectory: 'inhabited',
+      titlePhoto: 'ghost',
+      photos: [
+        { copy:'During visitation, the population is docile. They live as mere memories.', filePath: 'ghost' },
+        { copy:'Move beyond the caretakers, along the only road.', filePath: 'path' },
+        { copy:'Avoid the homes on the hill, stay out of the headlights.', filePath: 'overlook' },
+        { copy:`Atop the hill, you're safe. Seek the semiotics from this vantage.`, filePath: 'hill' },
+        { copy:'The warehouse will be empty at 1500, pace your steps to arrive on time.', filePath: 'above' },
+        { copy:'Beyond the lot is a derelict farmhouse, you will want to remain. Resist the urge.', filePath: 'farmhouse' },
+        { copy:'In kind, the barn is filled with curiosity. Again, resist.', filePath: 'barn' },
+        { copy:'The population will offer you transportation. Politely ignore their offers.', filePath: 'shortcut' },
+        { copy:'Some of the population will observe you. Do not interact with these shades.', filePath: 'corner' },
+        { copy:`If you reach the dam, you've traveled too far. Hurry back downstream.`, filePath: 'dam' },
+        { copy:'At the end of the stream is a lake. Swimming is prohibited.', filePath: 'fog' },
+        { copy:'Beyond the lake is the factory, your path home is inside. Talk to no-one.', filePath: 'factory' },
+      ],
+      iconNames: ['candle', 'ferry', 'warehouse'],
+      artifactPath: 'inhabited'
   },
   {
       title: 'Councillors',
@@ -87,30 +113,31 @@ export const state = () => ({
         { copy:'If we could reach back, we would change everything. This is why they remain lost, and we remain now.', filePath: 'straightman' },
       ],
       iconNames: ['account-group', 'crown-outline', 'account-group'],
-      artifactPath: 'melt'
+      artifactPath: 'council'
   },
 
   {
       title: 'Relic Garden',
       slug: 'relicgarden',
       subtitle:'Ruined Growth',
-      narrative:'Documentation, record keeping. The woods before the witches. Consider all records here a precious beyond all wealth.',
+      narrative:'Documentation, record keeping. The woods before the witches. Consider the records here precious beyond all wealth.',
       imagesDirectory: 'oldBurrow',
       titlePhoto: 'pod',
       photos: [
-          { copy:'Unusable fibers, long dried in the heat of the days lived.', filePath: 'rattle' },
+        { copy:'Unusable fibers, long dried in the heat of the days lived.', filePath: 'rattle' },
+        { copy:'An unmottled bit of life, resistant to the creeping curses.', filePath: 'dragonfly' },
         { copy:'Structural growth, wrapped around the pearls which feed the lords.', filePath: 'pod' },
         { copy:'The hair on the cases of seeds can slow curses.', filePath: 'bean' },
         { copy:'This growth on the wind returns to Lierd, follow it when you wish to visit the Capitol.', filePath: 'puff' },
       ],
       iconNames: ['diamond-stone', 'leaf-off', 'chess-rook'],
-      artifactPath: 'section'
+      artifactPath: 'relic'
   },
   {
       title: 'Replacements',
       slug: 'replacements',
       subtitle:'Adv. Predictions',
-      narrative:'',
+      narrative:'Few Operators wield a key capable of accessing this realm. Here, there are semiotics beyond the understanding of the mundane.',
       imagesDirectory: 'trueGrid',
       titlePhoto: 'carridge',
       photos: [
@@ -119,7 +146,7 @@ export const state = () => ({
         { copy:"The lords will not leave the Capitol, no matter the antagonist.", filePath: 'labs2' },
     ],
       iconNames: ['alert-octagon', 'parking', 'key'],
-      artifactPath: 'formula'
+      artifactPath: 'predictions'
   },
   ]
 })

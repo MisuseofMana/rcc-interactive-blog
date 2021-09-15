@@ -1,13 +1,15 @@
 <template>
     <v-container fill-height class="overflow-hidden">
         <v-row class="overflow-hidden">
-            <v-col class="d-flex justify-center align-center" cols="12">
-                <transition name="fade" mode="out-in">
+                <v-col class="d-flex justify-center align-center" cols="12">
                     <NuxtLink to="/briefing">
-                        <v-img max-width="400" class="abberation" :key="whichClutter" :src="require(`@/assets/images/clutter/${whichClutter}.png`)" :alt="whichClutter"></v-img>
+                        <div class="linkSize d-flex align-center justify-center">
+                            <transition name="brainwash" mode="out-in">
+                                <v-img max-width="400" class="abberation" :key="whichClutter" :src="require(`@/assets/images/clutter/${whichClutter}.png`)" :alt="whichClutter"></v-img>
+                            </transition>
+                        </div>
                     </NuxtLink>
-                </transition>
-            </v-col>
+                </v-col>
         </v-row>
     </v-container>
 </template>
@@ -92,6 +94,10 @@ export default {
 <style lang="scss" scoped>
 .overflow-hidden {
     overflow-y: hidden;
+}
 
+.linkSize {
+    min-width:400px;
+    min-height:400px;
 }
 </style>

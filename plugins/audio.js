@@ -60,6 +60,18 @@ const replacements = new Howl({
     volume: .05,
 });
 
+const inhabitedrealm = new Howl({
+    src: ['/audio/inhabitedrealm.mp3'],
+    loop: true,
+    volume: .2,
+});
+
+const artifacts = new Howl({
+    src: ['/audio/artifacts.mp3'],
+    loop: true,
+    volume: .2,
+});
+
 export default {
     theme,
     aboutTheme,
@@ -70,5 +82,7 @@ export default {
     willowwoods,
     relicgarden,
     councillors,
-    replacements
+    replacements,
+    inhabitedrealm,
+    artifacts
 }

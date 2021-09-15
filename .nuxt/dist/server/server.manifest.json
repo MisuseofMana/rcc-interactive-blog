@@ -1,0 +1,21 @@
+{
+  "entry": "server.js",
+  "files": {
+    "pages/artifacts.js": "pages/artifacts.js",
+    "pages/brainwash.js": "pages/brainwash.js",
+    "pages/briefing.js": "pages/briefing.js",
+    "pages/index.js": "pages/index.js",
+    "pages/insights/_expandedInsights.js": "pages/insights/_expandedInsights.js",
+    "pages/realms.js": "pages/realms.js",
+    "server.js": "server.js"
+  },
+  "maps": {
+    "pages/artifacts.js": "pages/artifacts.js.map",
+    "pages/brainwash.js": "pages/brainwash.js.map",
+    "pages/briefing.js": "pages/briefing.js.map",
+    "pages/index.js": "pages/index.js.map",
+    "pages/insights/_expandedInsights.js": "pages/insights/_expandedInsights.js.map",
+    "pages/realms.js": "pages/realms.js.map",
+    "server.js": "server.js.map"
+  }
+}

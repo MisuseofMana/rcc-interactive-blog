@@ -3,7 +3,7 @@
 	<v-main>
 		<v-container class="my-5">
 			<div class="text-h1 mb-5 primary--text">CRICKBURROW ARCHIVES</div>
-			<div class="ma-2">
+			<div class="my-2">
 				<BackButton class="mr-2" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
 				<BackButton class="mr-2" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
 				<BackButton text="Artifacts" :realm-icons="['diamond-stone']" link-name="/artifacts" />
@@ -17,15 +17,27 @@
 			height="200"
 			color="background"
 		>
-			<div class="primary--text text-subtitle mr-5">
-				CRICKBURROW, &copy; 2021 
-			</div>	
-			<div class="mr-5">
-				<v-icon color="primary">mdi-eye-circle</v-icon>
-			</div>
-			<div>
-				<ExternalSiteButton text="SeanYager.com" link-name="https://www.seanyager.com" />
-			</div>
+		<v-row>
+			<v-col cols="6">
+				<div class="my-2">
+					<BackButton class="mr-2" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
+					<BackButton class="mr-2" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
+					<BackButton text="Artifacts" :realm-icons="['diamond-stone']" link-name="/artifacts" />
+				</div>
+			</v-col>
+
+			<v-col cols="6" class="d-flex justify-end align-center">
+				<div class="primary--text text-subtitle-1 mr-5">
+					CRICKBURROW, &copy; 2021 
+				</div>	
+				<div class="mr-5">
+					<v-icon color="primary">mdi-eye-circle</v-icon>
+				</div>
+				<div>
+					<ExternalSiteButton text="SeanYager.com" link-name="https://www.seanyager.com" />
+				</div>
+			</v-col>
+		</v-row>
 		</v-footer>
 	</v-container>
 </v-app>

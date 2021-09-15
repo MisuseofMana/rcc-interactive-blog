@@ -4,7 +4,7 @@
             <div v-if="frontIcon">
                 <v-icon class="mr-2" large color="primary">{{ frontIcon }}</v-icon>
             </div>
-                <div class="text-h4 primary--text mr-2">
+                <div class="text-body-1 primary--text mr-2">
                     {{ text }}
                 </div>
             <div v-if="realmIcons">

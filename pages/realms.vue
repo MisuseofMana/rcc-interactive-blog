@@ -4,10 +4,10 @@
             REALMS
         </div>
         <v-row>
-            <v-col v-for="(posts, index) in pages" :key="index" lg="4" md="4" sm="6">
+            <v-col v-for="(posts, index) in pages" :key="index" lg="4" md="4" sm="6" class="mb-8">
                 <div class="border">
-                    <div class="text-h2">{{ posts.title }}</div>
-                    <div class="text-h3">{{ posts.subtitle }}</div>
+                    <div class="text-h3">{{ posts.title }}</div>
+                    <div class="text-subtitle-1 mb-5">{{ posts.subtitle }}</div>
                     <div class="my-2 shadow">
                         <NuxtLink :to="`insights/${posts.slug}`">
                             <v-img class="realmImage" :aspect-ratio="1" :src="require(`@/assets/images/${posts.imagesDirectory}/${posts.titlePhoto}.jpg`)" alt=""></v-img>
@@ -59,7 +59,7 @@ export default {
 }
 
 .realmImage {
-    filter: contrast(125%) brightness(75%);
+    filter:  sepia() hue-rotate(35deg);
     z-index:-1;
 }
 
