@@ -25,7 +25,7 @@ export default {
     fallback: '404.html'
   },
   router: {
-    base: 'https://crickburrow.com/'
+    base: '/'
  },
   target: 'static',
   buildModules: [
