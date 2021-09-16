@@ -25,7 +25,7 @@ export default {
     fallback: '404.html'
   },
   router: {
-    base: '/rcc-interactive-blog/'
+    base: 'https://crickburrow.com/'
  },
   target: 'static',
   buildModules: [
