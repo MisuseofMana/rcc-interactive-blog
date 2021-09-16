@@ -21,8 +21,12 @@ export default {
   ],
   ssr: false,
   generate: {
-    dir: 'docs'
+    dir: 'docs',
+    fallback: '404.html'
   },
+  router: {
+    base: '/rcc-interactive-blog/'
+ },
   target: 'static',
   buildModules: [
     '@nuxtjs/vuetify',
