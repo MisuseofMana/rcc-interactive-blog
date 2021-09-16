@@ -18,8 +18,12 @@ export default {
     '~/assets/css/globalReset.css', 
     '~/assets/css/scrollBar.css',
     '~/assets/css/global.css',
-
   ],
+  ssr: false,
+  generate: {
+    dir: 'docs'
+  },
+  target: 'static',
   buildModules: [
     '@nuxtjs/vuetify',
   ],
