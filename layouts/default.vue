@@ -18,7 +18,7 @@
 			color="background"
 		>
 		<v-row>
-			<v-col cols="6">
+			<v-col cols="6" md="12">
 				<div class="my-2">
 					<BackButton class="mr-2" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
 					<BackButton class="mr-2" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
@@ -26,7 +26,7 @@
 				</div>
 			</v-col>
 
-			<v-col cols="6" class="d-flex justify-end align-center">
+			<v-col cols="6" md="12" class="d-flex justify-end align-center">
 				<div class="primary--text text-subtitle-1 mr-5">
 					CRICKBURROW, &copy; 2021 
 				</div>	

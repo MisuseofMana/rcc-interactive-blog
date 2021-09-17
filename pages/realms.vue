@@ -4,11 +4,11 @@
             REALMS
         </div>
         <v-row>
-            <v-col v-for="(posts, index) in pages" :key="index" lg="4" md="4" sm="6" class="mb-8">
+            <v-col v-for="(posts, index) in pages" :key="index" lg="4" md="12" sm="12" class="mb-8">
                 <div class="border">
                     <div class="text-h3">{{ posts.title }}</div>
                     <div class="text-subtitle-1 mb-5">{{ posts.subtitle }}</div>
-                    <div class="my-2 shadow">
+                    <div class="my-2 mb-3 shadow">
                         <NuxtLink :to="`insights/${posts.slug}`">
                             <v-img class="realmImage" :aspect-ratio="1" :src="require(`@/assets/images/${posts.imagesDirectory}/${posts.titlePhoto}.jpg`)" alt=""></v-img>
                         </NuxtLink>
@@ -64,6 +64,6 @@ export default {
 }
 
 .shadow {
-    box-shadow: inset 20px 20px 25px var(--v-background-base), inset -20px -20px 25px var(--v-background-base);
+    box-shadow: inset 30px 30px 25px var(--v-background-base), inset -30px -30px 25px var(--v-background-base);
 }
 </style>

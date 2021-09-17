@@ -10,19 +10,19 @@
 
         <div v-for="(items, index) in realms" :key="index + items.realmIcon">
             <v-row class="text-h3 mb-10 primary--text" align="center" justify="center">
-                <v-col cols="4">
+                <v-col cols="4" sm="12">
                     <div class="mb-5">
                         {{ items.realmName }}
                     </div>
                 </v-col>
-                <v-col cols="4" class="d-flex justify-end">
+                <v-col cols="4" sm="12" class="d-flex justify-end">
                     <div>
                         <v-img class="abberation" height="300" width="300" :aspect-ratio="1" :src="require(`@/assets/images/icons/${items.realmIcon}.png`)" alt=""></v-img>
                     </div>
                 </v-col>
             </v-row>
             <v-row class="mb-8" justify="center">
-                <v-col v-for="(artifacts, index) in items.artifacts" :key="index" lg="10" md="4" sm="12" class="primary--text mb-5">
+                <v-col v-for="(artifacts, index) in items.artifacts" :key="index" lg="12" md="12" sm="12" class="primary--text mb-5">
                     <div class="pa-10 bar d-flex flex-row justify-start align-center">
                         <div class="mr-10">
                             <v-img class="abberation" contain height="300" width="300" lazy-src="/images/lazyload.jpg" :src="require(`@/assets/images/artifacts/${artifacts.path}.jpg`)" alt="">
