@@ -53,13 +53,6 @@ export default {
         BackButton,
 		ExternalSiteButton
     },
-	head () {
-		return {
-			meta: [
-				{ hid: 'og:image', property: 'og:image', content: '/images/ogimage.png' }
-			]
-		}
-	}
 }
 </script>
 

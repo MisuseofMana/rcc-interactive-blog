@@ -2,6 +2,16 @@ import theme from './plugins/theme'
 
 export default {
   head: {
+    title: 'Crickburrow Archives',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        hid: 'og:image',
+        name: 'og:image',
+        content: '/images/ogImage.png'
+      }
+    ],
     link: [
       {
         rel: 'stylesheet',
