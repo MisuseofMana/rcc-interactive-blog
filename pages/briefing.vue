@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div>
-                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/itemdumpBackup.png`)" alt="">
+                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/itemdumpBackup.png`)" alt="a scrap of paper with a dotted circle around a geometric shape. a barcode is on the left of the paper surrounding the word semiotic.">
                             <template v-slot:placeholder>
                                 <v-row
                                 class="fill-height ma-0"
@@ -41,7 +41,7 @@
 
                 <div class="text-body-1 primary--text mb-2 d-flex justify-start align-center">
                     <div class="mr-10">
-                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/tower.png`)" alt="">
+                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/tower.png`)" alt="an illustration of two towers sending signals to one another">
                             <template v-slot:placeholder>
                                 <v-row
                                 class="fill-height ma-0"
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div>
-                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/hidscrap1.png`)" alt="">
+                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/hidscrap1.png`)" alt="a scrap of paper with an illustration of a tangled knot, the words 'are you paying attention' are written on the paper.">
                             <template v-slot:placeholder>
                                 <v-row
                                 class="fill-height ma-0"
@@ -101,7 +101,7 @@
 
                 <div class="text-body-1 primary--text mb-8 d-flex justify-start align-center">
                     <div class="mr-10">
-                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/minimap.png`)" alt="">
+                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/minimap.png`)" alt="a circular illustration of an arial view of roads and rivers">
                             <template v-slot:placeholder>
                                 <v-row
                                 class="fill-height ma-0"
@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-end align-end">
-                    <v-img contain aspect-ratio="1" height="300" :src="require(`@/assets/images/mocks/message.png`)" alt=""></v-img>
+                    <v-img contain aspect-ratio="1" height="300" :src="require(`@/assets/images/mocks/message.png`)" alt="a secret encoded message written in a strange language"></v-img>
                 </div>
             </v-card>
         </v-col>

@@ -17,7 +17,7 @@
                 </v-col>
                 <v-col cols="4" sm="12" class="d-flex justify-end">
                     <div>
-                        <v-img class="abberation" height="300" width="300" :aspect-ratio="1" :src="require(`@/assets/images/icons/${items.realmIcon}.png`)" alt=""></v-img>
+                        <v-img class="abberation" height="300" width="300" :aspect-ratio="1" :src="require(`@/assets/images/icons/${items.realmIcon}.png`)" alt="an icon representing the currently viewed realm"></v-img>
                     </div>
                 </v-col>
             </v-row>
@@ -25,7 +25,7 @@
                 <v-col v-for="(artifacts, index) in items.artifacts" :key="index" lg="12" md="12" sm="12" class="primary--text mb-5">
                     <div class="pa-10 bar d-flex flex-row justify-start align-center">
                         <div class="mr-10">
-                            <v-img class="abberation" contain height="300" width="300" lazy-src="/images/clearLoader.png" :src="require(`@/assets/images/artifacts/${artifacts.path}.jpg`)" alt="">
+                            <v-img class="abberation" contain height="300" width="300" lazy-src="/images/clearLoader.png" :src="require(`@/assets/images/artifacts/${artifacts.path}.jpg`)" alt="an image representing an artifact of the realm">
                                 <template v-slot:placeholder>
                                     <v-row
                                     class="fill-height ma-0"

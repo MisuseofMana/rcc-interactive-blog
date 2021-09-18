@@ -15,7 +15,7 @@
             </v-col>
             <v-spacer></v-spacer>
             <v-col cols="3" sm="12" class="d-flex justify-end">
-                <v-img class="abberation" max-height="300" max-width="300" :aspect-ratio="1" :src="require(`@/assets/images/icons/${currentRealm.artifactPath}.png`)" alt=""></v-img>
+                <v-img class="abberation" max-height="300" max-width="300" :aspect-ratio="1" :src="require(`@/assets/images/icons/${currentRealm.artifactPath}.png`)" alt="a radial icon representing the realm you're visting"></v-img>
             </v-col>
         </v-row>
 
@@ -35,7 +35,7 @@
                     </v-row>
                 </template>
                 </v-img>
-                <div class="bar pa-2 mb-8">
+                <div class="bar pa-5 mb-8">
                     <div class="text-body-1 primary--text text-center">{{ item.copy }}</div>
                 </div>
             </v-col>

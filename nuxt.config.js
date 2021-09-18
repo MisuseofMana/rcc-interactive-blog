@@ -7,7 +7,6 @@ export default {
     title: 'Crickburrow Archives',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', hid: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: "description", hid: "description", content: "You have been experiencing suspicions of adjacent realities and/or mindset shifts after long walks. There are realms beyond your own. Explore them here." },
       { property: "og:type", hid: "og:type", content: "website" },
       { property: "og:url", hid: "og:url", content: "https://crickburrow.com/" },

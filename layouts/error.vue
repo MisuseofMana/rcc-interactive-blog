@@ -7,7 +7,7 @@
                         ARCHIVE ERROR - PAGE NOT FOUND
                     </h1>
                     <div class="d-flex align-center justify-center mb-5">
-                        <v-img class="abberation" height="600" width="600" contain :aspect-ratio="1" src="/images/error.png" alt=""></v-img>
+                        <v-img class="abberation" height="600" width="600" contain :aspect-ratio="1" src="/images/error.png" alt="geometric shape"></v-img>
                     </div>
                     <h1 class="primary--text text-center text-h1 mb-5">
                         ARE YOU LOST, OPERATOR?
