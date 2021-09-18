@@ -29,6 +29,13 @@
 <script>
   export default {
     props: ['error'],
-    layout: 'error' // you can set a custom layout for the error page
+    layout: 'error', // you can set a custom layout for the error page
+    head () {
+		return {
+			meta: [
+				{ hid: 'og:image', property: 'og:image', content: '/images/ogimage.png' }
+			]
+		}
+	}
   }
 </script>
