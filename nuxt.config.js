@@ -1,22 +1,49 @@
 import theme from './plugins/theme'
 
+/* <title>Crickburrow Archives</title>
+<meta name="title" content="Crickburrow Archives">
+<meta >
+
+<!-- Open Graph / Facebook -->
+<meta >
+<meta >
+<meta >
+<meta >
+<meta >
+
+<!-- Twitter -->
+<meta >
+<meta >
+<meta >
+<meta >
+<meta>
+
+</meta> */
+
 export default {
   head: {
     title: 'Crickburrow Archives',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'og:image',
-        name: 'og:image',
-        content: '/images/ogImage.png'
-      }
+      { name: 'viewport', hid: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: "description", hid: "description", content: "You have been experiencing suspicions of adjacent realities and/or mindset shifts after long walks. There are realms beyond your own. Explore them here." },
+      { property: "og:type", hid: "description", content: "website" },
+      { property: "og:url", hid: "description", content: "https://crickburrow.com/" },
+      { property: "og:title", hid: "description", content: "Crickburrow Archives" },
+      { property: "og:description", hid: "description", content: "You have been experiencing suspicions of adjacent realities and/or mindset shifts after long walks. There are realms beyond your own. Explore them here." },
+      { property: "og:image", hid: "og:image", content: "@/assets/images/ogImage.png" },
+      { property: "twitter:card", hid: "twitter:card", content: "@/assets/images/ogImage.png" },
+      { property: "twitter:url", hid: "twitter:url", content: "https://crickburrow.com/" },
+      { property: "twitter:title", hid: "twitter:title", content: "Crickburrow Archives" },
+      { property: "twitter:description", hid: "twitter:description", content: "You have been experiencing suspicions of adjacent realities and/or mindset shifts after long walks. There are realms beyond your own. Explore them here." },
+      { property: "twitter:image", hid: "twitter:image", content: "@/assets/images/ogImage.png" }
     ],
     link: [
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=VT323&display=swap'
-      }
+      },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ]
   },
   server: {
