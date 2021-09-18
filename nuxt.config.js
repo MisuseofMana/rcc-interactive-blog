@@ -41,6 +41,7 @@ export default {
   ssr: false,
   generate: {
     dir: 'docs',
+    fallback: '404.html'
   },
   router: {
     base: '/'
