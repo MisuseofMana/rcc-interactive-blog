@@ -164,7 +164,7 @@ export const state = () => ({
       photos: [
         { copy:'Somewhere beyond the Fenced City are the lands of zealous achievers. Filled with equations and unfettered experiments.', filePath: 'labs' },
         { copy:'The lords have no need for growth beyond the capitol. We need what they waste.', filePath: 'carridge' },
-        { copy:"The replacements:substitutions:machinations in this realm are advanced but they are obvious in their meanings.", filePath: 'notice' },
+        { copy:"The replacements, substitutions, and machinations in this realm are advanced but they are obvious in their meanings.", filePath: 'notice' },
         { copy:"The technology here reaches towards the skies, sending signals through the realm.", filePath: 'towers' },
         { copy:"There are stretches of land by the sea filled with buildings that duplicate across the shore.", filePath: 'same' },
     ],
