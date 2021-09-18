@@ -4,13 +4,13 @@
             <v-col cols="12" class="d-flex align-center justify-center">
                 <div v-if="error.statusCode === 404">
                     <h1 class="primary--text text-center text-h1 mb-5">
-                        ARCHIVE ERROR - PAGE NOT FOUND
+                        ARCHIVE ERROR - ARCHIVE ERROR
                     </h1>
                     <div class="d-flex align-center justify-center mb-5">
                         <v-img class="abberation" height="600" width="600" contain :aspect-ratio="1" :src="require(`@/assets/images/icons/error.png`)" alt=""></v-img>
                     </div>
                     <h1 class="primary--text text-center text-h1 mb-5">
-                        ARCHIVE ERROR - PAGE NOT FOUND
+                        ARCHIVE ERROR - ARCHIVE ERROR
                     </h1>
                 </div>
                 <div v-else>
