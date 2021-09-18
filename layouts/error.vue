@@ -7,7 +7,7 @@
                         ARCHIVE ERROR - ARCHIVE ERROR
                     </h1>
                     <div class="d-flex align-center justify-center mb-5">
-                        <v-img class="abberation" height="600" width="600" contain :aspect-ratio="1" :src="require(`@/assets/images/icons/error.png`)" alt=""></v-img>
+                        <v-img class="abberation" height="600" width="600" contain :aspect-ratio="1" src="/images/error.png" alt=""></v-img>
                     </div>
                     <h1 class="primary--text text-center text-h1 mb-5">
                         ARCHIVE ERROR - ARCHIVE ERROR
