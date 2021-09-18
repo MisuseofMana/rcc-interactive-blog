@@ -20,7 +20,7 @@
         </v-row>
 
         <v-row>
-            <v-col cols="6" sm="12" v-for="(item, index) in currentRealm.photos" :key="index+item.filePath">
+            <v-col cols="12" lg="6" sm="12" v-for="(item, index) in currentRealm.photos" :key="index+item.filePath">
                 <v-img class="imageBorderFilter" lazy-src="/images/lazyload.jpg" :src="require(`@/assets/images/${currentRealm.imagesDirectory}/${item.filePath}.jpg`)">
                 <template v-slot:placeholder>
                     <v-row

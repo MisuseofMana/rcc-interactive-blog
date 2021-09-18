@@ -47,7 +47,7 @@ export const state = () => ({
       title: 'Fenced City',
       slug: 'fencedcity',
       subtitle:'The Contained Capitol',
-      narrative:'Sprawling grids aligned. Populated by those who leave Lierd. We all start here.',
+      narrative:'Sprawling grids aligned. Populated by those who leave Lierd. We all arrive here one way or another.',
       imagesDirectory: 'fencedCity',
       titlePhoto: 'corner',
       photos: [
@@ -75,6 +75,27 @@ export const state = () => ({
       ],
       iconNames: ['tree-outline', 'sprout-outline', 'eye-circle'],
       artifactPath: 'willowwoods'
+  },
+  {
+      title: 'Agregate Lagoon',
+      slug: 'agregatelagoon',
+      subtitle:'Bountiful Archeology',
+      narrative:'A liminal realm missing the laws of the lords. The semiotics here are potent.',
+      imagesDirectory: 'agregateLagoon',
+      titlePhoto: 'priest',
+      photos: [
+        { copy:`Realms like these are rare works of art. The rivers of the Crickstream funnel here.`, filePath: 'post' },
+        { copy:`The artifacts here are permenant and unretrievable. Respect them and their meanings.`, filePath: 'gate' },
+        { copy:`Meeting another operator in this realm is unlikely, but delving into the Fields together is recommended.`, filePath: 'drive' },
+        { copy:`Some artifacts here are yet to be interpreted. Do your best to form your own understanding of them.`, filePath: 'curl' },
+        { copy:`The petrified denizens of the Fields are stoic but are known to reanimate and travel.`, filePath: 'cryptid' },
+        { copy:`Be observant of the gates and circles. They are chaotic thresholds.`, filePath: 'wheel' },
+        { copy:`Some calcified souls hold mundane objects, clinging to their old ways.`, filePath: 'priest' },
+        { copy:`Other statues communicate with each other through touch and mind.`, filePath: 'touch' },
+        { copy:`Those who have been still for eons crumble away slowly.`, filePath: 'rubble' },
+      ],
+      iconNames: ['brush', 'chart-bubble', 'heart'],
+      artifactPath: 'agregatelagoon'
   },
   {
       title: 'Inhabited Realm',

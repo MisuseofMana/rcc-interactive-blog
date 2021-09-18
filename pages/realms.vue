@@ -10,7 +10,20 @@
                     <div class="text-subtitle-1 mb-5">{{ posts.subtitle }}</div>
                     <div class="my-2 mb-3 shadow">
                         <NuxtLink :to="`insights/${posts.slug}`">
-                            <v-img class="realmImage" :aspect-ratio="1" :src="require(`@/assets/images/${posts.imagesDirectory}/${posts.titlePhoto}.jpg`)" alt=""></v-img>
+                            <v-img class="realmImage" lazy-src="/images/realmPlaceholder.jpg" :aspect-ratio="1" :src="require(`@/assets/images/${posts.imagesDirectory}/${posts.titlePhoto}.jpg`)" alt="">
+                                <template v-slot:placeholder>
+                                    <v-row
+                                    class="fill-height ma-0"
+                                    align="center"
+                                    justify="center"
+                                    >
+                                    <v-progress-circular
+                                        indeterminate
+                                        color="primary"
+                                    ></v-progress-circular>
+                                    </v-row>
+                                </template>
+                            </v-img>
                         </NuxtLink>
                     </div>
                     <div>

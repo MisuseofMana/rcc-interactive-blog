@@ -72,6 +72,12 @@ const artifacts = new Howl({
     volume: .2,
 });
 
+const agregatelagoon = new Howl({
+    src: ['/audio/agregatelagoon.mp3'],
+    loop: true,
+    volume: .4,
+});
+
 export default {
     theme,
     aboutTheme,
@@ -84,5 +90,6 @@ export default {
     councillors,
     replacements,
     inhabitedrealm,
-    artifacts
+    artifacts,
+    agregatelagoon
 }
