@@ -25,7 +25,7 @@
                 <v-col v-for="(artifacts, index) in items.artifacts" :key="index" lg="12" md="12" sm="12" class="primary--text mb-5">
                     <div class="pa-10 bar d-flex flex-row justify-start align-center">
                         <div class="mr-10">
-                            <v-img class="abberation" contain height="300" width="300" lazy-src="/images/lazyload.jpg" :src="require(`@/assets/images/artifacts/${artifacts.path}.jpg`)" alt="">
+                            <v-img class="abberation" contain height="300" width="300" lazy-src="/images/squareLoading.png" :src="require(`@/assets/images/artifacts/${artifacts.path}.jpg`)" alt="">
                                 <template v-slot:placeholder>
                                     <v-row
                                     class="fill-height ma-0"
