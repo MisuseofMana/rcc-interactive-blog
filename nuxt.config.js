@@ -1,27 +1,5 @@
 import theme from './plugins/theme'
 
-let og_image = '/images/ogImage.png'
-
-/* <title>Crickburrow Archives</title>
-<meta name="title" content="Crickburrow Archives">
-<meta >
-
-<!-- Open Graph / Facebook -->
-<meta >
-<meta >
-<meta >
-<meta >
-<meta >
-
-<!-- Twitter -->
-<meta >
-<meta >
-<meta >
-<meta >
-<meta>
-
-</meta> */
-
 export default {
   head: {
     title: 'Crickburrow Archives',
