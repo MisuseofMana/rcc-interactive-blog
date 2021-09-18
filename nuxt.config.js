@@ -1,5 +1,7 @@
 import theme from './plugins/theme'
 
+let og_image = 'https://raw.githubusercontent.com/MisuseofMana/rcc-interactive-blog/main/ogImage.png'
+
 export default {
   head: {
     title: 'Crickburrow Archives',
