@@ -13,7 +13,7 @@ export const state = () => ({
         { copy:'They found success in structure, though the land stayed stubborn.', filePath: 'expanse' },
         { copy:'Infrastructure took slowly, through toil and technology.', filePath: 'line' },
         { copy:'That which once remained in place shook apart in time.', filePath: 'triangle' },
-        { copy:'For longevity of the conlony, they dug into the realm.', filePath: 'pipe' },
+        { copy:'For longevity of the colony, they dug into the realm.', filePath: 'pipe' },
         { copy:'There was no law, no cadence. The chasms came quickly.', filePath: 'lake' },
         { copy:'Containing the breath of the realm was a fools errand.', filePath: 'fountain' },
         { copy:'They dreamed of colonization, dreamed of a grail to drink from. We knew little then.', filePath: 'well' },
@@ -53,7 +53,7 @@ export const state = () => ({
       photos: [
         { copy:'Towers emerge from the grid, all connected, all of the same tapestry.', filePath: 'corner' },
         { copy:'We on the ground are forgotten.', filePath: 'wall' },
-        { copy:'Atop this realm are researchers observatories, studying the skys outside Lierd.', filePath: 'top' },
+        { copy:'Atop this realm are researchers observatories, studying the skies outside Lierd.', filePath: 'top' },
       ],
       iconNames: ['city-variant-outline', 'lock', 'fruit-grapes'],
       artifactPath: 'fencedcity'
@@ -77,25 +77,25 @@ export const state = () => ({
       artifactPath: 'willowwoods'
   },
   {
-      title: 'Agregate Lagoon',
-      slug: 'agregatelagoon',
+      title: 'Aggregate Lagoon',
+      slug: 'aggregatelagoon',
       subtitle:'Bountiful Archeology',
       narrative:'A liminal realm missing the laws of the lords. The semiotics here are potent.',
-      imagesDirectory: 'agregateLagoon',
+      imagesDirectory: 'aggregateLagoon',
       titlePhoto: 'priest',
       photos: [
         { copy:`Realms like these are rare works of art. The rivers of the Crickstream funnel here.`, filePath: 'post' },
-        { copy:`The artifacts here are permenant and unretrievable. Respect them and their meanings.`, filePath: 'gate' },
-        { copy:`Meeting another operator in this realm is unlikely, but delving into the Fields together is recommended.`, filePath: 'drive' },
+        { copy:`The artifacts here are permanent and irretrievable. Respect them and their meanings.`, filePath: 'gate' },
+        { copy:`Meeting another operator in this realm is unlikely, but delving into the Lagoon together is recommended.`, filePath: 'drive' },
         { copy:`Some artifacts here are yet to be interpreted. Do your best to form your own understanding of them.`, filePath: 'curl' },
-        { copy:`The petrified denizens of the Fields are stoic but are known to reanimate and travel.`, filePath: 'cryptid' },
+        { copy:`The petrified denizens of the Lagoon are stoic but are known to reanimate and travel.`, filePath: 'cryptid' },
         { copy:`Be observant of the gates and circles. They are chaotic thresholds.`, filePath: 'wheel' },
         { copy:`Some calcified souls hold mundane objects, clinging to their old ways.`, filePath: 'priest' },
         { copy:`Other statues communicate with each other through touch and mind.`, filePath: 'touch' },
         { copy:`Those who have been still for eons crumble away slowly.`, filePath: 'rubble' },
       ],
       iconNames: ['brush', 'chart-bubble', 'heart'],
-      artifactPath: 'agregatelagoon'
+      artifactPath: 'aggregatelagoon'
   },
   {
       title: 'Inhabited Realm',
@@ -131,7 +131,7 @@ export const state = () => ({
       photos: [
         { copy:'A few of the first Operators formed their coven. We can never follow in their footsteps.', filePath: 'coven' },
         { copy:'There are few names known among the first Operators. Operator 10 is no exception.', filePath: 'operator10' },
-        { copy:'If we could reach back, we would change everything. This is why they remain lost, and we remain now.', filePath: 'straightman' },
+        { copy:'If we could reach back, we would change everything. This is why they were lost, and we remain.', filePath: 'straightman' },
       ],
       iconNames: ['account-group', 'crown-outline', 'account-group'],
       artifactPath: 'council'
@@ -146,10 +146,10 @@ export const state = () => ({
       titlePhoto: 'pod',
       photos: [
         { copy:'Unusable fibers, long dried in the heat of the days lived.', filePath: 'rattle' },
-        { copy:'An unmottled bit of life, resistant to the creeping curses.', filePath: 'dragonfly' },
-        { copy:'Structural growth, wrapped around the pearls which feed the lords.', filePath: 'pod' },
+        { copy:'An unflecked bit of life, resistant to the creeping curses.', filePath: 'dragonfly' },
+        { copy:'Structural growth, wrapped around the pearls which feed the lords of the Capitol.', filePath: 'pod' },
         { copy:'The hair on the cases of seeds can slow curses.', filePath: 'bean' },
-        { copy:'This growth on the wind returns to Lierd, follow it when you wish to visit the Capitol.', filePath: 'puff' },
+        { copy:'This growth on the wind returns to Lierd, follow it when you wish to return.', filePath: 'puff' },
       ],
       iconNames: ['diamond-stone', 'leaf-off', 'chess-rook'],
       artifactPath: 'relic'
@@ -162,7 +162,7 @@ export const state = () => ({
       imagesDirectory: 'trueGrid',
       titlePhoto: 'carridge',
       photos: [
-        { copy:'Beyond the Fenced City are the lands of zealous achievers. Filled with equations and unfetterd experiments.', filePath: 'labs' },
+        { copy:'Somewhere beyond the Fenced City are the lands of zealous achievers. Filled with equations and unfettered experiments.', filePath: 'labs' },
         { copy:'The lords have no need for growth beyond the capitol. We need what they waste.', filePath: 'carridge' },
         { copy:"The lords will not leave the Capitol, no matter the antagonist.", filePath: 'labs2' },
     ],

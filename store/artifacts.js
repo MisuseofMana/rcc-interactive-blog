@@ -43,7 +43,7 @@ export const state = () => ({
         {
           path: 'font',
           title: `Ruined Font`,
-          description:'These fonts stood across the pilgrims path to Lierd before the curse.',
+          description:'These fonts stood across the pilgrims path away from Lierd before the curse.',
           description2:`Since then, they've fallen to the wild winds of the barren realm.`,
         },
       ]
@@ -55,13 +55,13 @@ export const state = () => ({
         {
           path: 'vase',
           title: `Decorative Vase`,
-          description:'Opulance is everywhere in the Fenced City. Many decorations serve multiple purposes.',
+          description:'Opulence is everywhere in the Fenced City. Many decorations serve multiple purposes.',
           description2:'',
         },
         {
           path: 'gate',
           title: `Entrance to the Fenced City`,
-          description:'Opulence. The entrance to the city rotates around the outskirts by the instruction of the lords who remain.',
+          description:'The entrance to the city rotates around the outskirts by the instruction of the lords who remain.',
           description2:'The cardinal direction of the gate changes every hour, on the hour.',
         },
         {
@@ -97,7 +97,7 @@ export const state = () => ({
         {
           path: 'defense',
           title: `Witch Ward`,
-          description:`The malformed, curse infested have cultivated the curse. They've discovered it's whims.`,
+          description:`The malformed and curse infested have cultivated the curse. They've discovered it's whims.`,
           description2:'Be wary of cursed traps you may find in the Willow Woods.',
         },
         {
@@ -110,7 +110,7 @@ export const state = () => ({
           path: 'sealilly',
           title: `Malformed Lilly`,
           description:'The depths of lakes and rivers do not fully protect life from the curse.',
-          description2:'Water diffuses the spread, but ultimately gains purchase and twists indiscriminately.',
+          description2:'Water diffuses the spread, but ultimately the curse gains purchase and twists indiscriminately.',
         },
       ]
     },
@@ -122,7 +122,7 @@ export const state = () => ({
           path: 'cabinet',
           title: `Spindle Leg Cabinet`,
           description:'The beings in the Inhabited Realm seem human on the surface. Do not be fooled.',
-          description2:'They mimic the Operators, but fail to understand our intentions.',
+          description2:'They mimic the Operators, but fail to understand our semiotics.',
         },
         {
           path: 'drawers',
@@ -151,7 +151,7 @@ export const state = () => ({
         {
           path: 'tree',
           title: `New Growth`,
-          description:'Where the curse has left much of the old growth ravaged beyond the capitol, there is new growth yet.',
+          description:'Where the curse has left much of the old growth ravaged leading to the Capitol, there is new growth yet.',
           description2:'',
         },
         
