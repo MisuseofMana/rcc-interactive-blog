@@ -22,13 +22,39 @@
                         </div>
                     </div>
                     <div>
-                        <v-img class="abberation" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/itemdumpBackup.png`)" alt=""></v-img>
+                        <v-img class="abberation" lazy-src="/images/realmPlaceholder.jpg" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/itemdumpBackup.png`)" alt="">
+                            <template v-slot:placeholder>
+                                <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                                >
+                                <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                                </v-row>
+                            </template>
+                        </v-img>
                     </div>
                 </div>
 
                 <div class="text-body-1 primary--text mb-2 d-flex justify-start align-center">
                     <div class="mr-10">
-                        <v-img class="abberation" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/tower.png`)" alt=""></v-img>
+                        <v-img class="abberation" lazy-src="/images/realmPlaceholder.jpg" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/tower.png`)" alt="">
+                            <template v-slot:placeholder>
+                                <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                                >
+                                <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                                </v-row>
+                            </template>
+                        </v-img>
                     </div>
                     <div>
                         <div class="text-h3 mb-3">
@@ -56,13 +82,39 @@
                         </div>
                     </div>
                     <div>
-                        <v-img class="abberation" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/hidscrap1.png`)" alt=""></v-img>
+                        <v-img class="abberation" lazy-src="/images/realmPlaceholder.jpg" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/hidscrap1.png`)" alt="">
+                            <template v-slot:placeholder>
+                                <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                                >
+                                <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                                </v-row>
+                            </template>
+                        </v-img>
                     </div>
                 </div>
 
                 <div class="text-body-1 primary--text mb-8 d-flex justify-start align-center">
                     <div class="mr-10">
-                        <v-img class="abberation" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/miniMap.png`)" alt=""></v-img>
+                        <v-img class="abberation" lazy-src="/images/realmPlaceholder.jpg" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/minimap.png`)" alt="">
+                            <template v-slot:placeholder>
+                                <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                                >
+                                <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                                </v-row>
+                            </template>
+                        </v-img>
                     </div>
                     <div>
                         <div class="text-h3 mb-3">
