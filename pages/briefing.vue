@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div>
-                        <v-img class="abberation" lazy-src="/images/squareLoading.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/itemdumpBackup.png`)" alt="">
+                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/itemdumpBackup.png`)" alt="">
                             <template v-slot:placeholder>
                                 <v-row
                                 class="fill-height ma-0"
@@ -41,7 +41,7 @@
 
                 <div class="text-body-1 primary--text mb-2 d-flex justify-start align-center">
                     <div class="mr-10">
-                        <v-img class="abberation" lazy-src="/images/squareLoading.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/tower.png`)" alt="">
+                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/tower.png`)" alt="">
                             <template v-slot:placeholder>
                                 <v-row
                                 class="fill-height ma-0"
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div>
-                        <v-img class="abberation" lazy-src="/images/squareLoading.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/hidscrap1.png`)" alt="">
+                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/mocks/hidscrap1.png`)" alt="">
                             <template v-slot:placeholder>
                                 <v-row
                                 class="fill-height ma-0"
@@ -101,7 +101,7 @@
 
                 <div class="text-body-1 primary--text mb-8 d-flex justify-start align-center">
                     <div class="mr-10">
-                        <v-img class="abberation" lazy-src="/images/squareLoading.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/minimap.png`)" alt="">
+                        <v-img class="abberation" lazy-src="/images/clearLoader.png" contain height="350" width="350" :aspect-ratio="1" :src="require(`@/assets/images/clutter/minimap.png`)" alt="">
                             <template v-slot:placeholder>
                                 <v-row
                                 class="fill-height ma-0"
