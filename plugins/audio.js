@@ -72,8 +72,8 @@ const artifacts = new Howl({
     volume: .2,
 });
 
-const agregatelagoon = new Howl({
-    src: ['/audio/agregatelagoon.mp3'],
+const aggregatelagoon = new Howl({
+    src: ['/audio/aggregatelagoon.mp3'],
     loop: true,
     volume: .4,
 });
@@ -91,5 +91,5 @@ export default {
     replacements,
     inhabitedrealm,
     artifacts,
-    agregatelagoon
+    aggregatelagoon
 }
