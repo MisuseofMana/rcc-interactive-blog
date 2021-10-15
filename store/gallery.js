@@ -70,8 +70,9 @@ export const state = () => ({
         { copy:'No matter what you hear in the woods, ignore it. The sounds are lies.', filePath: 'rituals' },
         { copy:'The growth will guide you away from the center of the woods.', filePath: 'moss' },
         { copy:'Where the trees grow tumors, there are few options to retreat beyond here.', filePath: 'gnarl' },
-        { copy:'Watch the roots too, they will mutate when willow witches are nearby', filePath: 'knot' },
-        { copy:'You\'ll find no other Operators in this realm. Trust nothing.', filePath: 'witch' },
+        { copy:'Watch the roots too, they will mutate when willow witches are nearby.', filePath: 'knot' },
+        { copy:`Etchings in the crawling ground-wood are horrid enchantments. `, filePath: 'etchings' },
+        { copy:`You'll find no other Operators in this realm. Trust nothing.`, filePath: 'witch' },
       ],
       iconNames: ['tree-outline', 'sprout-outline', 'eye-circle'],
       artifactPath: 'willowwoods'
@@ -86,7 +87,7 @@ export const state = () => ({
       photos: [
         { copy:`Realms like these are rare works of art. The rivers of the Crickstream funnel here.`, filePath: 'post' },
         { copy:`The artifacts here are permanent and irretrievable. Respect them and their meanings.`, filePath: 'gate' },
-        { copy:`Meeting another operator in this realm is unlikely, but delving into the Lagoon together is recommended.`, filePath: 'drive' },
+        { copy:`Meeting another Operator in this realm is unlikely, but delving into the Lagoon together is recommended.`, filePath: 'drive' },
         { copy:`Some artifacts here are yet to be interpreted. Do your best to form your own understanding of them.`, filePath: 'curl' },
         { copy:`The petrified denizens of the Lagoon are stoic but are known to reanimate and travel.`, filePath: 'cryptid' },
         { copy:`Be observant of the gates and circles. They are chaotic thresholds.`, filePath: 'wheel' },
@@ -136,7 +137,6 @@ export const state = () => ({
       iconNames: ['account-group', 'crown-outline', 'account-group'],
       artifactPath: 'council'
   },
-
   {
       title: 'Relic Garden',
       slug: 'relicgarden',
@@ -147,6 +147,7 @@ export const state = () => ({
       photos: [
         { copy:'Unusable fibers, long dried in the heat of the days lived.', filePath: 'rattle' },
         { copy:'An unflecked bit of life, resistant to the creeping curses.', filePath: 'dragonfly' },
+        { copy:'A vibrant hue from the old realm. Wards off the witches.', filePath: 'droop' },
         { copy:'Structural growth, wrapped around the pearls which feed the lords of the Capitol.', filePath: 'pod' },
         { copy:'The hair on the cases of seeds can slow curses.', filePath: 'bean' },
         { copy:'This growth on the wind returns to Lierd, follow it when you wish to return.', filePath: 'puff' },
@@ -167,9 +168,24 @@ export const state = () => ({
         { copy:"The replacements, substitutions, and machinations in this realm are advanced but they are obvious in their meanings.", filePath: 'notice' },
         { copy:"The technology here reaches towards the skies, sending signals through the realm.", filePath: 'towers' },
         { copy:"There are stretches of land by the sea filled with buildings that duplicate across the shore.", filePath: 'same' },
+        { copy:`The Replacement realm shifts by virtue of the technology scattered about.`, filePath: 'signal' },
+        { copy:`Ground rises and swirls around the signal pillars. Don't get caught in the shifting soils.`, filePath: 'relocate' },
     ],
       iconNames: ['alert-octagon', 'parking', 'key'],
       artifactPath: 'predictions'
   },
+  {
+    title: 'Silent Shores',
+    slug: '',
+    subtitle:'Temporary Waypoint',
+    narrative:'A place between realms, where Operators can find temporary refuge in the stream.',
+    imagesDirectory: 'silentShore',
+    titlePhoto: 'waters',
+    photos: [
+      { copy:'A bastion for Operators. The realm is blanketed by wards. Witches dare not set foot here.', filePath: 'waters' },
+    ],
+    iconNames: ['candle', 'ferry', 'warehouse'],
+    artifactPath: ''
+},
   ]
 })
