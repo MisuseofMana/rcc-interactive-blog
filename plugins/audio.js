@@ -78,6 +78,12 @@ const aggregatelagoon = new Howl({
     volume: .4,
 });
 
+const silentshores = new Howl({
+    src: ['/audio/silentshores.mp3'],
+    loop: true,
+    volume: .1,
+});
+
 export default {
     theme,
     aboutTheme,
@@ -91,5 +97,6 @@ export default {
     replacements,
     inhabitedrealm,
     artifacts,
-    aggregatelagoon
+    aggregatelagoon,
+    silentshores
 }

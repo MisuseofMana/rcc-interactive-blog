@@ -78,6 +78,27 @@ export const state = () => ({
       artifactPath: 'willowwoods'
   },
   {
+    title: 'Silent Shores',
+    slug: 'silentshores',
+    subtitle:'Temporary Waypoint',
+    narrative:'A place between realms, where Operators can find temporary refuge in the stream. The shores are beyond the willow woods, just skirt the edge of the treeline.',
+    imagesDirectory: 'silentShore',
+    titlePhoto: 'tower',
+    photos: [
+      { copy:'A bastion for Operators. The realm is blanketed by wards. Witches dare not set foot beyond the trees.', filePath: 'wayside' },
+      { copy:'Through the clearing in the woods is the shore, remain as long as you like under the protection of the tower.', filePath: 'shore' },
+      { copy:`The only danger here is the tower, your curiosity to approach will grow as it shimmers in the distance.`, filePath: 'tower' },
+      { copy:`At the tower's base are stone wards, do not disturb these as they keep the light about the realm.`, filePath: 'stones' },
+      { copy:`If you find yourself gazing skyward, do your best to retreat to the dunes.`, filePath: 'skyward' },
+      { copy:`Break line of sight with the tower and your curiosity will sate itself in time.`, filePath: 'rolling' },
+      { copy:`In the event you do meddle with the tower the realm will destabilize, and the light will fade.`, filePath: 'destination' },
+      { copy:`Darkness falls, the sounds here cease, the wards are deafened, and the witches seep from the trees.`, filePath: 'nightbreak' },
+      { copy:`Trudge into the water as deep as you can manage. Hold your breath, or end up twisted.`, filePath: 'grave' },
+    ],
+    iconNames: ['candle', 'ferry', 'warehouse'],
+    artifactPath: 'silentshores'
+  },
+  {
       title: 'Aggregate Lagoon',
       slug: 'aggregatelagoon',
       subtitle:'Bountiful Archeology',
@@ -90,10 +111,12 @@ export const state = () => ({
         { copy:`Meeting another Operator in this realm is unlikely, but delving into the Lagoon together is recommended.`, filePath: 'drive' },
         { copy:`Some artifacts here are yet to be interpreted. Do your best to form your own understanding of them.`, filePath: 'curl' },
         { copy:`The petrified denizens of the Lagoon are stoic but are known to reanimate and travel.`, filePath: 'cryptid' },
+        { copy:`Stay cautious about these still beings, even those you are certain will remain so.`, filePath: 'gaze' },
         { copy:`Be observant of the gates and circles. They are chaotic thresholds.`, filePath: 'wheel' },
         { copy:`Some calcified souls hold mundane objects, clinging to their old ways.`, filePath: 'priest' },
         { copy:`Other statues communicate with each other through touch and mind.`, filePath: 'touch' },
         { copy:`Those who have been still for eons crumble away slowly.`, filePath: 'rubble' },
+        { copy:`Gather your semiotics, then leave through the refacting pillar.`, filePath: 'pillar' },
       ],
       iconNames: ['brush', 'chart-bubble', 'heart'],
       artifactPath: 'aggregatelagoon'
@@ -174,18 +197,5 @@ export const state = () => ({
       iconNames: ['alert-octagon', 'parking', 'key'],
       artifactPath: 'predictions'
   },
-  {
-    title: 'Silent Shores',
-    slug: '',
-    subtitle:'Temporary Waypoint',
-    narrative:'A place between realms, where Operators can find temporary refuge in the stream.',
-    imagesDirectory: 'silentShore',
-    titlePhoto: 'waters',
-    photos: [
-      { copy:'A bastion for Operators. The realm is blanketed by wards. Witches dare not set foot here.', filePath: 'waters' },
-    ],
-    iconNames: ['candle', 'ferry', 'warehouse'],
-    artifactPath: ''
-},
   ]
 })

@@ -74,9 +74,6 @@
                 return this.pages.find(object => object.slug === this.slug)
             }
         },
-        mounted() {
-            console.log(this.slug)
-        }
     }
 </script>
 
