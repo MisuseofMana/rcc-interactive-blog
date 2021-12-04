@@ -197,5 +197,18 @@ export const state = () => ({
       iconNames: ['alert-octagon', 'parking', 'key'],
       artifactPath: 'predictions'
   },
+  {
+      title: 'Redacted',
+      slug: '',
+      subtitle:'Higher Operator Status Required',
+      narrative:'Please burn access device after reading.',
+      imagesDirectory: 'redacted',
+      titlePhoto: 'roll',
+      photos: [
+        { copy:'Unending roil.', filePath: 'roll' },
+    ],
+      iconNames: ['alien-outline', 'antenna', 'flower'],
+      artifactPath: 'redacted'
+  },
   ]
 })
