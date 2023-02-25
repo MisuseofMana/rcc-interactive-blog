@@ -1,13 +1,13 @@
 <template>
+  <NuxtLink to="/brainwash">
   <v-container fill-height>
       <v-row>
         <v-col cols="12" class="d-flex justify-center align-center">
-          <NuxtLink to="/brainwash">
-            <v-img max-width="550" class="abberation cursor" :src="require(`@/assets/images/icons/pigpen.png`)"></v-img>
-          </NuxtLink>
-        </v-col>
-      </v-row>
-  </v-container>
+            <v-img :max-width="imageWidth" class="abberation cursor" :src="require(`@/assets/images/icons/pigpen.png`)"></v-img>
+          </v-col>
+        </v-row>
+      </v-container>
+  </NuxtLink>
 </template> 
 
 <script>
@@ -15,6 +15,11 @@
     name:'Index',
     transition:'fadeSwitch',
     layout: 'landing',
+    computed: {
+      imageWidth(){
+        return this.$vuetify.breakpoint.mobile ? '90%' : '300px'
+      }
+    }
   }
 </script>
 

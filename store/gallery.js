@@ -183,8 +183,8 @@ export const state = () => ({
       slug: 'replacements',
       subtitle:'Adv. Predictions',
       narrative:'Few Operators wield a key capable of accessing this realm. Here, there are semiotics beyond the understanding of the mundane.',
-      imagesDirectory: 'trueGrid',
-      titlePhoto: 'carridge',
+      imagesDirectory: 'replacements',
+      titlePhoto: 'terminal',
       photos: [
         { copy:'Somewhere beyond the Fenced City are the lands of zealous achievers. Filled with equations and unfettered experiments.', filePath: 'labs' },
         { copy:'The lords have no need for growth beyond the capitol. We need what they waste.', filePath: 'carridge' },
@@ -193,9 +193,12 @@ export const state = () => ({
         { copy:"There are stretches of land by the sea filled with buildings that duplicate across the shore.", filePath: 'same' },
         { copy:`The Replacement realm shifts by virtue of the technology scattered about.`, filePath: 'signal' },
         { copy:`Ground rises and swirls around the signal pillars. Don't get caught in the shifting soils.`, filePath: 'relocate' },
+        { copy:`There are terminals which often lead nowhere. Wait patiently.`, filePath: 'terminal' },
+        { copy:`The signal pilars can be hijacked, though, only with the right equipment. Only from the right locations.`, filePath: 'lagoon' },
     ],
       iconNames: ['alert-octagon', 'parking', 'key'],
-      artifactPath: 'predictions'
+      artifactPath: 'predictions',
+      publishedRecently: true
   },
   {
       title: 'Redacted',

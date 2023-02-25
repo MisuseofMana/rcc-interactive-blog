@@ -42,8 +42,11 @@
                                 </template>
                             </v-img>
                     </div>
-                    <div>
-                        <v-icon :color="posts.slug ? 'primary' : 'grey darken-1'" v-for="(items, index) in posts.iconNames" :key="items+index">mdi-{{ items }}</v-icon>
+                    <div class="d-flex justify-space-between">
+                        <div class="ml-4">
+                            <v-icon :color="posts.slug ? 'primary' : 'grey darken-1'" v-for="(items, index) in posts.iconNames" :key="items+index">mdi-{{ items }}</v-icon>
+                        </div>
+                        <v-icon class="mr-4" v-icon v-if="posts.publishedRecently" color="yellow">mdi-alert-decagram</v-icon>
                     </div>
                 </div>
             </v-col>
@@ -63,7 +66,7 @@ export default {
     computed: {
         ...mapState('gallery', [
             'pages',
-        ])
+        ]),
     },
     }
 </script>
