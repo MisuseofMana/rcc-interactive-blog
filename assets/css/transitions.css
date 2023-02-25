@@ -7,19 +7,22 @@
 }
 
 .brainwash-enter-active {
-  animation: brainwash .1s;
+  animation: brainwash 800ms;
 }
 
 .brainwash-leave-active {
-  animation: brainwash .1s reverse; 
+  animation: brainwash 800ms reverse; 
 }
 
 @keyframes brainwash {
   0% {
-    transform: scale(.5);
+    transform: scale(.6);
     opacity: 0;
   }
-  75% {
+  20% {
+    opacity:0
+  }
+  80% {
     opacity: 1;
   }
   100% {

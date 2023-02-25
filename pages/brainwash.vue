@@ -1,17 +1,17 @@
 <template>
+    <NuxtLink to="/briefing">
     <v-container fill-height class="overflow-hidden">
         <v-row class="overflow-hidden">
                 <v-col class="d-flex justify-center align-center" cols="12">
-                    <NuxtLink to="/briefing">
-                        <div class="linkSize d-flex align-center justify-center">
-                            <transition name="brainwash" mode="out-in">
-                                <v-img max-width="400" class="abberation" :key="whichClutter" :src="require(`@/assets/images/clutter/${whichClutter}.png`)" :alt="whichClutter"></v-img>
-                            </transition>
-                        </div>
-                    </NuxtLink>
+                    <div class="linkSize d-flex align-center justify-center">
+                        <transition name="brainwash" mode="out-in">
+                            <v-img :max-width="imageWidth" class="abberation" :key="whichClutter" :src="require(`@/assets/images/clutter/${whichClutter}.png`)" :alt="whichClutter"></v-img>
+                        </transition>
+                    </div>
                 </v-col>
-        </v-row>
-    </v-container>
+            </v-row>
+        </v-container>
+    </NuxtLink>
 </template>
 
 <script>
@@ -66,6 +66,9 @@ export default {
     computed: {
         whichClutter() {
             return this.clutterNames[this.randomNumber]
+        },
+        imageWidth(){
+            return this.$vuetify.breakpoint.mobile ? '90%' : '400px'
         }
     },
     methods: {
@@ -83,11 +86,11 @@ export default {
                 this.randomNumber++
                 this.maxWidth += 10
             }
-        }, 500);
+        }, 1800);
     },
     beforeDestroy() {
         clearInterval(this.changeClutter);
-    }
+    },
 }
 </script>
 
