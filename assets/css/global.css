@@ -1,4 +1,4 @@
 .abberation {
     padding:0;
-    filter: sepia() hue-rotate(58deg) brightness(1.5);
+    filter: sepia() hue-rotate(50deg) brightness(1.2) saturate(220%);
 }

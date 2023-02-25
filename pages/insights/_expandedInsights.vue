@@ -1,5 +1,5 @@
 <template>
-    <v-container class="my-5">
+    <v-container class="my-5" >
          <v-row class="mb-8">
             <v-col>
              <BackButton frontIcon="mdi-arrow-left" text="Leave This Realm" :realmIcons="currentRealm.iconNames" linkName="/realms"/>
@@ -7,14 +7,14 @@
         </v-row>
 
         <v-row class="mb-8">
-            <v-col cols="6" sm="12" class="py-0">
+            <v-col cols="6" class="py-0">
                 <div class="text-h1 primary--text">{{ currentRealm.title }}</div>
                 <div class="text-h2 primary--text">{{ currentRealm.subtitle }}</div>
                 <div class="text-body-1 primary--text">{{ currentRealm.narrative }}</div>
-                 <v-icon class="my-5" v-for="(items, index) in currentRealm.iconNames" :key="items+index" color="primary">mdi-{{ items }}</v-icon>
+                <v-icon class="mr-4" :size="iconWidth" v-if="currentRealm.publishedRecently" color="yellow">mdi-alert-decagram</v-icon>
+                <v-icon class="my-5" :size="iconWidth" v-for="(items, index) in currentRealm.iconNames" :key="items+index" color="primary">mdi-{{ items }}</v-icon>
             </v-col>
-            <v-spacer></v-spacer>
-            <v-col cols="3" sm="12" class="d-flex justify-end">
+            <v-col cols="6" class="d-flex justify-end">
                 <v-img class="abberation" max-height="300" max-width="300" :aspect-ratio="1" :src="require(`@/assets/images/icons/${currentRealm.artifactPath}.png`)" alt="a radial icon representing the realm you're visting"></v-img>
             </v-col>
         </v-row>
@@ -72,6 +72,9 @@
             ),
             currentRealm() {
                 return this.pages.find(object => object.slug === this.slug)
+            },
+            iconWidth(){
+                return this.$vuetify.breakpoint.mobile ? '75px' : '45px'
             }
         },
     }

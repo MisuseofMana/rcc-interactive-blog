@@ -5,11 +5,11 @@ let target = ""
 
 function storeVolume(musicName) {
     volumes[musicName] = audio[musicName]._volume
-    console.log(volumes)
 }
 
 export default {
     mounted() {
+        console.log(this.$options.music)
         if(this.$data.slug) target = this.$data.slug
         else if (this.$options.music) target = this.$options.music
 
@@ -31,6 +31,7 @@ export default {
         audio[target].on('fade', function() {
             if (audio[target]._volume === 0) {
                 audio[target].pause(currentlyPlaying)
+                console.log(currentlyPlaying)
             }
         })
 

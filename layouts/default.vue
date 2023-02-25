@@ -2,11 +2,19 @@
 <v-app style="background: var(--v-background-base)">
 	<v-main>
 		<v-container class="my-5">
-			<div class="text-h1 mb-5 primary--text">CRICKBURROW ARCHIVES</div>
+			<h1 class="mb-5 primary--text" :class="[$vuetify.breakpoint.mobile ? 'text-h2 text-center' : 'text-h1' ]">CRICKBURROW ARCHIVES</h1>
 			<div class="my-2">
-				<BackButton class="mr-2" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
-				<BackButton class="mr-2" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
-				<BackButton text="Artifacts" :realm-icons="['diamond-stone']" link-name="/artifacts" />
+				<v-row>
+					<v-col cols="12" sm="12" md="4">
+						<BackButton class="mr-2" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
+					</v-col>
+					<v-col cols="12" sm="12" md="4">
+						<BackButton class="mr-2" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
+					</v-col>
+					<v-col cols="12" sm="12" md="4">
+						<BackButton text="Artifacts" :realm-icons="['diamond-stone']" link-name="/artifacts" />
+					</v-col>
+				</v-row>
 			</div>
 		</v-container>
 		<Nuxt />
