@@ -1,9 +1,0 @@
-{
-    "extends": [
-      "@nuxtjs",
-      "prettier"
-    ],
-    "rules": {
-        "code": 80
-    }
-}

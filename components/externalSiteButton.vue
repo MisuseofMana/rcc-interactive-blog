@@ -1,7 +1,7 @@
 <template>
     <a :href="linkName" target="_blank" class="text-decoration-none">
         <v-btn color="primary darken-4 pa-5">
-            <div class="text-body-1 primary--text mr-2">
+            <div class="text-body-1 primary--text">
                 {{ text }}
             </div>
         </v-btn>
@@ -10,10 +10,10 @@
 
 <script>
 export default {
-    props: [
-        'text',
-        'linkName',
-    ]
+	props: [
+		`text`,
+		`linkName`,
+	]
 }
 </script>
 

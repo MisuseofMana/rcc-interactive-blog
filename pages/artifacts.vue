@@ -2,48 +2,33 @@
     <v-container class="my-5">
         <v-row>
             <v-col cols="12">
-                <div class="text-h2 mb-8 primary--text">
-                    Artifacts
-                </div>
+                <h2 class="text-h2 mb-8 primary--text">
+                    ARTIFACTS
+                </h2>
             </v-col>
         </v-row>
 
-        <div v-for="(items, index) in realms" :key="index + items.realmIcon">
-            <v-row class="text-h3 mb-10 primary--text" align="center" justify="center">
-                <v-col cols="4" sm="12">
-                    <div class="mb-5">
-                        {{ items.realmName }}
-                    </div>
-                </v-col>
-                <v-col cols="4" sm="12" class="d-flex justify-end">
-                    <div>
-                        <v-img class="abberation" height="300" width="300" :aspect-ratio="1" :src="require(`@/assets/images/icons/${items.realmIcon}.png`)" alt="an icon representing the currently viewed realm"></v-img>
-                    </div>
-                </v-col>
-            </v-row>
-            <v-row class="mb-8" justify="center">
-                <v-col v-for="(artifacts, index) in items.artifacts" :key="index" lg="12" md="12" sm="12" class="primary--text mb-5">
-                    <div class="pa-10 bar d-flex flex-row justify-start align-center">
-                        <div class="mr-10">
-                            <v-img class="abberation" contain height="300" width="300" lazy-src="/images/clearLoader.png" :src="require(`@/assets/images/artifacts/${artifacts.path}.jpg`)" alt="an image representing an artifact of the realm">
-                                <template v-slot:placeholder>
-                                    <v-row
-                                    class="fill-height ma-0"
-                                    align="center"
-                                    justify="center"
-                                    >
-                                    </v-row>
-                                </template>
-                            </v-img>
-                        </div>
-                        <div>
-                            <div class="text-h3 mb-3">{{ artifacts.title }}</div>
-                            <div class="text-body-1 mb-3">{{ artifacts.description }}</div>
-                            <div class="text-body-1">{{ artifacts.description2 }}</div>
-                        </div>
-                    </div>
-                </v-col>
-            </v-row>
+        <div v-for="(items, index) in realms" :key="index + items.realmIcon" class="mb-10">
+            <div class="d-flex justify-start align-center mb-5">
+                <v-img class="abberation mr-8" height="100px" width="100px" max-width="100px" max-height="100px" :src="require(`@/assets/images/icons/${items.realmIcon}.png`)" alt="an icon representing the currently viewed realm"></v-img>
+                <h3 class="primary--text text-h3">
+                    {{ items.realmName }}
+                </h3>
+            </div>
+            
+                <v-row>
+                    <v-col v-for="(artifacts, index) in items.artifacts" :key="index" md="6">
+                        <v-card color="light-green darken-4" class="pa-10 mb-5 primary--text">
+                            <v-img class="abberation mb-2 ml-5" :max-height="getMaxHeight(artifacts.imageVertical)" :max-width="getMaxWidth(artifacts.imageVertical)" lazy-src="/images/clearLoader.png" :src="require(`@/assets/images/artifacts/${artifacts.path}.jpg`)" alt="an image representing an artifact of the realm"/>
+                            <div>
+
+                                <h4 class="text-h4 mb-3">{{ artifacts.title }}</h4>
+                                <p class="text-body-1 mb-3">{{ artifacts.description }}</p>
+                                <p class="text-body-1">{{ artifacts.description2 }}</p>
+                            </div>
+                        </v-card>
+                    </v-col>
+                </v-row>
         </div>
     </v-container>
 </template>
@@ -53,16 +38,24 @@ import pageMusic from '@/plugins/pageMusic'
 import { mapState } from 'vuex'
 
 export default {
-    name: 'Artifacts',
-    music: 'artifacts',
-    transition: 'fadeSwitch',
-    mixins: [pageMusic],
-    computed: {
-        ...mapState('artifacts', [
-            'realms',
-        ])
-    },
-    }
+	name: `Artifacts`,
+	music: `artifacts`,
+	transition: `fadeSwitch`,
+	mixins: [pageMusic],
+	computed: {
+		...mapState(`artifacts`, [
+			`realms`,
+		])
+	},
+	methods:{
+		getMaxWidth(isVertical) {
+			return isVertical ? `100px` : `250px`
+		},
+		getMaxHeight(isVertical) {
+			return isVertical ? `250px` : `100px`
+		},
+	}
+}
 </script>
 
 <style scoped>

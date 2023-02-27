@@ -18,79 +18,79 @@
 import pageMusic from '@/plugins/pageMusic'
 
 export default {
-    name:'Brainwash',
-    music: 'theme',
-    transition:'fadeSwitch',
-    layout: 'landing',
-    mixins: [pageMusic],
-    data() {
-        return {
-            clutterNames: [ 
-            'decay', 
-            'formula', 
-            'graph', 
-            'cloud', 
-            'dose', 
-            'table', 
-            'flow', 
-            'section', 
-            'geometry', 
-            'calculation', 
-            'block', 
-            'bedding', 
-            'path', 
-            'algorithm', 
-            'antenna', 
-            'board', 
-            'circuit',
-            'coil',
-            'curve',
-            'districts',
-            'door',
-            'figures',
-            'gear',
-            'knob',
-            'melt',
-            'power',
-            'pyramid',
-            'radius',
-            'realms',
-            'sphere',
-            'stage',
-            'tower',
-            ],
-            randomNumber: 0, 
-            changeClutter: undefined,
-        }
-    },
-    computed: {
-        whichClutter() {
-            return this.clutterNames[this.randomNumber]
-        },
-        imageWidth(){
-            return this.$vuetify.breakpoint.mobile ? '90%' : '400px'
-        }
-    },
-    methods: {
-        rollRandomNumber: (max) => {
-            return Math.floor(Math.random() * (max))
-        },
-    },
-    mounted() { 
-        this.randomNumber = this.rollRandomNumber(this.clutterNames.length)
-        this.changeClutter = setInterval(() => {
-            if( this.randomNumber >= this.clutterNames.length - 1 ) {
-                this.randomNumber = 0;
-            }
-            else { 
-                this.randomNumber++
-                this.maxWidth += 10
-            }
-        }, 1800);
-    },
-    beforeDestroy() {
-        clearInterval(this.changeClutter);
-    },
+	name:`Brainwash`,
+	music: `theme`,
+	transition:`fadeSwitch`,
+	layout: `landing`,
+	mixins: [pageMusic],
+	data() {
+		return {
+			clutterNames: [ 
+				`decay`, 
+				`formula`, 
+				`graph`, 
+				`cloud`, 
+				`dose`, 
+				`table`, 
+				`flow`, 
+				`section`, 
+				`geometry`, 
+				`calculation`, 
+				`block`, 
+				`bedding`, 
+				`path`, 
+				`algorithm`, 
+				`antenna`, 
+				`board`, 
+				`circuit`,
+				`coil`,
+				`curve`,
+				`districts`,
+				`door`,
+				`figures`,
+				`gear`,
+				`knob`,
+				`melt`,
+				`power`,
+				`pyramid`,
+				`radius`,
+				`realms`,
+				`sphere`,
+				`stage`,
+				`tower`,
+			],
+			randomNumber: 0, 
+			changeClutter: undefined,
+		}
+	},
+	computed: {
+		whichClutter() {
+			return this.clutterNames[this.randomNumber]
+		},
+		imageWidth(){
+			return this.$vuetify.breakpoint.sm ? `90%` : `400px`
+		}
+	},
+	methods: {
+		rollRandomNumber: (max) => {
+			return Math.floor(Math.random() * (max))
+		},
+	},
+	mounted() { 
+		this.randomNumber = this.rollRandomNumber(this.clutterNames.length)
+		this.changeClutter = setInterval(() => {
+			if( this.randomNumber >= this.clutterNames.length - 1 ) {
+				this.randomNumber = 0
+			}
+			else { 
+				this.randomNumber++
+				this.maxWidth += 10
+			}
+		}, 1800)
+	},
+	beforeDestroy() {
+		clearInterval(this.changeClutter)
+	},
 }
 </script>
 

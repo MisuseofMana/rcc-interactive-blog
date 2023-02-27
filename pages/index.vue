@@ -17,7 +17,7 @@
     layout: 'landing',
     computed: {
       imageWidth(){
-        return this.$vuetify.breakpoint.mobile ? '90%' : '300px'
+        return this.$vuetify.breakpoint.sm ? '90%' : '300px'
       }
     }
   }
