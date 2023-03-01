@@ -3,7 +3,7 @@
 		<div v-if="frontIcon">
 			<v-icon class="mr-2" :size="iconSize" color="primary">{{ frontIcon }}</v-icon>
 		</div>
-		<div class="text-body-1 primary--text mr-2">
+		<div class="primary--text mr-3" :class="[smDownScreens ? 'text-h3' : 'text-body-1']">
 			{{ text }}
 		</div>
 		<div v-if="realmIcons">
@@ -20,15 +20,26 @@ export default {
 		`realmIcons`,
 		`linkName`,
 	],
+	data() {
+		return {
+			isMounted: false,
+		}
+	},
+	mounted() {
+		this.isMounted = true
+	},
 	computed: {
+		smDownScreens() {
+			return (this.isMounted && this.$vuetify.breakpoint.mdAndDown)
+		},
 		iconSize() {
-			return this.$vuetify.breakpoint.smAndDown ? `28px` : `25px`
+			return this.smDownScreens ? `40px` : `25px`
 		},
 		buttonWidth() {
-			return this.$vuetify.breakpoint.smAndDown ? `100%` : ``
+			return this.smDownScreens ? `100%` : ``
 		},
 		buttonHeight() {
-			return this.$vuetify.breakpoint.smAndDown ? `75px` : `50px`
+			return this.smDownScreens ? `100px` : `50px`
 		}
 	}
 }

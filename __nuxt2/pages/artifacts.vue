@@ -17,7 +17,7 @@
             </div>
             
                 <v-row>
-                    <v-col v-for="(artifacts, index) in items.artifacts" :key="index" md="6">
+                    <v-col v-for="(artifacts, index) in items.artifacts" :key="index" cols="12" md="6">
                         <v-card color="light-green darken-4" class="pa-10 mb-5 primary--text">
                             <v-img class="abberation mb-2 ml-5" :max-height="getMaxHeight(artifacts.imageVertical)" :max-width="getMaxWidth(artifacts.imageVertical)" lazy-src="/images/clearLoader.png" :src="require(`@/assets/images/artifacts/${artifacts.path}.jpg`)" alt="an image representing an artifact of the realm"/>
                             <div>

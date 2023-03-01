@@ -224,7 +224,7 @@ export const state = () => ({
 			],
 			iconNames: [`alien-outline`, `antenna`, `flower`],
 			artifactPath: `redacted`,
-			publishDate: `2000-03-17`,
+			publishDate: `1993-03-26`,
 		},
 	]
 })

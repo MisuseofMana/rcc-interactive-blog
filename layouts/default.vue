@@ -1,25 +1,21 @@
 <template>
 <v-app style="background: var(--v-background-base)">
 	<v-container class="pa-10 pt-12 my-5" >
-		<h1 class="text-h3 primary--text" v-if="breakpointDebuggerOn && showDebug">
-			<div v-if="$vuetify.breakpoint.xs">XS</div>
-			<div v-if="$vuetify.breakpoint.sm">SM</div>
-			<div v-if="$vuetify.breakpoint.md">MD</div>
-			<div v-if="$vuetify.breakpoint.lg">LG</div>
-			<div v-if="$vuetify.breakpoint.xl">XL</div>
+		<h1 class="text-body-1 primary--text" v-if="breakpointDebuggerOn && showDebug">
+			<pre>{{ JSON.stringify($vuetify.breakpoint.name) }}</pre>
 		</h1>
 
 		<v-main>
-			<h1 class="mb-2 primary--text" :class="[$vuetify.breakpoint.smAndDown ? 'text-h2 text-center' : 'text-h1' ]">CRICKBURROW ARCHIVES</h1>
-			<div class="my-2">
-				<BackButton class="mb-5 mr-md-3 mb-md-0" :class="[$vuetify.breakpoint.smAndDown ? '' : 'mr-2']" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
-				<BackButton class="mb-5 mr-md-3 mb-md-0" :class="[$vuetify.breakpoint.smAndDown ? '' : 'mr-2']" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
+			<h1 class="primary--text" :class="[smDownScreens ? 'text-h1 text-center' : 'text-h1' ]">CRICKBURROW ARCHIVES</h1>
+			<div class="my-5">
+				<BackButton :class="[smDownScreens ? 'mb-6' : 'mr-2']" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
+				<BackButton :class="[smDownScreens ? 'mb-6' : 'mr-2']" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
 				<BackButton text="Artifacts" :realm-icons="['diamond-stone']" link-name="/artifacts" />
 			</div>
 			<Nuxt class="mt-8"/>
 			<div class="mt-8">
-				<BackButton class="mb-5 mr-md-3 mb-md-0" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
-				<BackButton class="mb-5 mr-md-3 mb-md-0" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
+				<BackButton :class="[smDownScreens ? 'mb-6' : 'mr-2']" text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
+				<BackButton :class="[smDownScreens ? 'mb-6' : 'mr-2']" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
 				<BackButton text="Artifacts" :realm-icons="['diamond-stone']" link-name="/artifacts" />
 			</div>
 		</v-main>
@@ -69,10 +65,19 @@ export default {
 	},
 	data() {
 		return {
-			showDebug: false,
+			isMounted: false,
+			showDebug: true,
 			breakpointDebuggerOn: Vue.config.devtools,
 		}
-	}
+	},
+	mounted() {
+		this.isMounted = true
+	},
+	computed: {
+		smDownScreens() {
+			return (this.isMounted && this.$vuetify.breakpoint.smAndDown)
+		},
+	},
 }
 </script>
 

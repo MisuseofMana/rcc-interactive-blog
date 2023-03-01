@@ -1,26 +1,21 @@
 <template>
-  <NuxtLink to="/brainwash">
-  <v-container fill-height>
-      <v-row>
-        <v-col cols="12" class="d-flex justify-center align-center">
-            <v-img :max-width="imageWidth" class="abberation cursor" :src="require(`@/assets/images/icons/pigpen.png`)"></v-img>
-          </v-col>
-        </v-row>
-      </v-container>
-  </NuxtLink>
+  <div>
+    <img :max-width="imageWidth" class="abberation cursor" src="~/assets/images/icons/pigpen.png"/>
+  </div>
 </template> 
 
-<script>
-  export default {
-    name:'Index',
-    transition:'fadeSwitch',
-    layout: 'landing',
-    computed: {
-      imageWidth(){
-        return this.$vuetify.breakpoint.sm ? '90%' : '300px'
-      }
-    }
-  }
+<script setup>
+  import { computed } from 'vue'
+  // import { useDisplay } from 'vuetify'
+
+  definePageMeta({
+    layout: `landing`,
+  });
+
+  // const { smAndUp } = useDisplay()
+  // const imageWidth = computed(() => {
+  //   return smAndUp ? '90%' : '300px'
+  // })
 </script>
 
 <style scoped>

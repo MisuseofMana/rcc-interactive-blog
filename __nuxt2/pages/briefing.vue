@@ -7,7 +7,7 @@
             <v-row>
                 <v-spacer/>
                 <v-col cols="12" md="12" lg="9">
-                    <v-img class="abberation float-left mr-6 mb-3" lazy-src="/images/clearLoader.png" contain
+                    <v-img class="abberation mr-6 mb-3" :class="[$vuetify.breakpoint.mobile ? '' : 'float-left']" lazy-src="/images/clearLoader.png" contain
                         width="472px" height="311px" :src="require(`@/assets/images/mocks/itemdumpBackup.png`)"
                         alt="a scrap of paper with a dotted circle around a geometric shape. a barcode is on the left of the paper surrounding the word semiotic." />
                     <h3 class="text-h3 mb-5">
