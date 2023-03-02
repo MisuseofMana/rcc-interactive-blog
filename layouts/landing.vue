@@ -1,24 +1,17 @@
 <template>
-<v-app style="background: var(--v-background-base)">
+<v-app full-height style="background-color: #212121;">
 	<v-main>
-		<Nuxt />
+		<slot />
 	</v-main>
 </v-app>
 </template>
 
-<script>
-export default {
-	name: 'LandingLayout',
-}
-</script>
-
-
 <style scoped>
-v-app {
-	overflow:hidden;
-	max-width:100vw;
-	max-height:100vh;
-	margin:0;
-	padding:0;
-}
+	v-app {
+		overflow:hidden;
+		max-width:100vw;
+		max-height:100vh;
+		margin:0;
+		padding:0;
+	}
 </style>
