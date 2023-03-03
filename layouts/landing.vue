@@ -1,9 +1,7 @@
 <template>
-<v-app full-height style="background-color: #212121;">
-	<v-main>
+	<v-app full-height>
 		<slot />
-	</v-main>
-</v-app>
+	</v-app>
 </template>
 
 <style scoped>
