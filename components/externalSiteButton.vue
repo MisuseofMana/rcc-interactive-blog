@@ -1,22 +1,16 @@
 <template>
-    <a :href="linkName" target="_blank" class="text-decoration-none">
-        <v-btn color="primary darken-4 pa-5">
-            <div class="text-body-1 primary--text">
-                {{ text }}
-            </div>
-        </v-btn>
-    </a>
+    <v-btn :href="linkName" :to="linkName" :min-height="[smAndDown ? `75px` : `50px`]" color="primary-darken-1">
+        <div class="text-body-1 text-uppercase text-primary">
+            {{ text }}
+        </div>
+    </v-btn>
 </template>
 
-<script>
-export default {
-	props: [
-		`text`,
-		`linkName`,
-	]
-}
+<script setup>
+import { useDisplay } from 'vuetify'
+const { smAndDown } = useDisplay()
+const props = defineProps({
+	text: String,
+	linkName: String,
+})
 </script>
-
-<style lang="scss" scoped>
-
-</style>

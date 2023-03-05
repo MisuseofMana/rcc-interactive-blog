@@ -1,0 +1,52 @@
+/* main.css */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('~/VT323-Regular.ttf') format('truetype');
+}
+
+/* HEADINGS */
+.text-h1 {
+    font-size: 6rem !important;
+    font-weight: 400 !important;
+    line-height:6rem !important;
+    text-transform: uppercase !important;
+}
+
+.text-h2 {
+    font-size: 5rem !important;
+    font-weight: 400 !important;
+    line-height: 5rem !important;
+}
+
+.text-h3 {
+    font-size: 3rem !important;
+    font-weight: 400 !important;
+    line-height: 3rem !important;
+}
+
+.text-h4 {
+    font-size: 2rem !important;
+    font-weight: 400 !important;
+    line-height: 1.8rem !important;
+}
+
+.text-h5 {
+    font-size: 2rem !important;
+    font-weight: 400 !important;
+    line-height: 1.8rem !important;
+}
+
+.text-h6 {
+    font-size: 2rem !important;
+    font-weight: 600 !important;
+    line-height: 1.8rem !important;
+}
+
+.text-body-1 {
+    font-size: 1.6rem !important;
+    font-weight: 100 !important;
+    line-height: 1.6rem !important;
+}

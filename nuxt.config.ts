@@ -9,7 +9,10 @@ export default defineNuxtConfig({
 		`~/assets/css/globalReset.css`, 
 		`~/assets/css/scrollBar.css`,
 		`~/assets/css/global.css`,
-        'vuetify/styles'
+        'vuetify/styles',
+        'vuetify/lib/styles/main.sass', 
+        '~/assets/css/main.css',
+        '@mdi/font/css/materialdesignicons.css'
 	],
     vite: {
         // @ts-ignore
@@ -17,6 +20,10 @@ export default defineNuxtConfig({
         ssr: {
             noExternal: ['vuetify'], // add the vuetify vite plugin
         },
+    },
+    vuetify: {
+        treeShake: true,
+        defaultAssets: false,
     },
     modules: [
         // @ts-ignore
@@ -27,5 +34,5 @@ export default defineNuxtConfig({
                 vuetify()
             ))
         }
-    ]
+    ],
 })

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import BackButton from '@/components/backButton.vue'
+import BackButton from '~~/components/global/BackButton.vue'
 
 export default {
 	props: [`error`],

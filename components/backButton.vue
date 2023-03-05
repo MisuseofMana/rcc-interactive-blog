@@ -1,13 +1,13 @@
 <template>
-    <v-btn nuxt :to="linkName" class="text-decoration-none" :min-height="[smAndDown ? `75px` : `50px`]" :min-width="[smAndDown ? `100%` : ``]" color="primary darken-3">
+    <v-btn nuxt :to="linkName" class="text-decoration-none" min-height="50px" :min-width="[smAndDown ? `40%` : ``]" color="primary-darken-1">
 		<div v-if="frontIcon">
 			<v-icon class="mr-2" :size="[smAndDown ? `28px` : `25px`]" color="primary">{{ frontIcon }}</v-icon>
 		</div>
-		<div class="text-body-1 primary--text mr-2">
+		<div class="text-body-1 text-uppercase text-primary mr-2" :class="smAndDown ? '' : ''">
 			{{ text }}
 		</div>
 		<div v-if="realmIcons">
-			<v-icon :size="[smAndDown ? `28px` : `25px`]" v-for="(items, index) in realmIcons" :key="items+index" color="primary">mdi-{{ items }}</v-icon>
+			<v-icon :icon="`mdi-${items}`" :size="[smAndDown ? `25px` : `25px`]" v-for="(items, index) in realmIcons" :key="items+index" color="primary"></v-icon>
 		</div>
     </v-btn>
 </template> 
@@ -22,7 +22,3 @@ const props = defineProps({
 	linkName: String,
 })
 </script>
-
-<style lang="scss" scoped>
-
-</style>

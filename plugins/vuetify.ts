@@ -1,6 +1,7 @@
 // plugins/vuetify.ts
-
+import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import '@mdi/font/css/materialdesignicons.css'
 
 const crickTheme: ThemeDefinition = {
     dark: false,
@@ -8,7 +9,7 @@ const crickTheme: ThemeDefinition = {
       background: '#212121',
       surface: '#000000',
       primary: '#89f200',
-      'primary-darken-1': '#48cf00',
+      'primary-darken-1': '#007d30',
       secondary: '#c900cc',
       'secondary-darken-1': '#9200b3',
       error: '#eb0942',
@@ -24,7 +25,10 @@ export default defineNuxtPlugin(nuxtApp => {
           defaultTheme: 'crickTheme',
           themes: {
             crickTheme
-          }
+          },
+        },
+        icons: {
+          defaultSet: 'mdi',
         }
     })
 

@@ -45,7 +45,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import BackButton from '@/components/backButton.vue'
+import BackButton from '~~/components/global/BackButton.vue'
 import pageMusic from '@/plugins/pageMusic'
 
 export default {

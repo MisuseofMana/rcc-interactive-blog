@@ -1,5 +1,5 @@
 <template>
-  	<v-app full-height>
+    <div>
       <NuxtPage/>
-    </v-app>
+    </div>
 </template> 
