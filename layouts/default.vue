@@ -3,15 +3,15 @@
 		<v-container>
 		<v-main class="text-primary mb-8">
 				<h1 :class="smAndDown ? 'text-center text-h2' : 'text-h1'">CRICKBURROW ARCHIVES</h1>
-				<div class="my-2" :class="[smAndDown ? 'd-flex flex-column' : '']">
-					<BackButton class="mb-2 mr-md-3 mb-md-0"  text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
-					<BackButton class="mb-2 mr-md-3 mb-md-0" :class="[smAndDown ? '' : 'mr-2']" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
+				<div class="my-2 d-flex justify-space-around">
+					<BackButton class="mr-3 mb-md-0"  text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
+					<BackButton class="mr-3 mb-md-0" :class="[smAndDown ? '' : 'mr-2']" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
 					<BackButton text="Artifacts" :realm-icons="['diamond-stone']" link-name="/artifacts" />
 				</div>
-				<slot class="mt-8"/>
-				<div class="mt-8" :class="[smAndDown ? 'd-flex flex-column' : '']">
-					<BackButton class="mb-2 mr-md-3 mb-md-0"  text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
-					<BackButton class="mb-2 mr-md-3 mb-md-0" :class="[smAndDown ? '' : 'mr-2']" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
+					<slot class="mt-8"/>
+					<div class="mt-8" :class="[smAndDown ? 'd-flex flex-column' : '']">
+					<BackButton class="mr-md-3 mb-md-0"  text="Briefing" :realm-icons="['puzzle']" link-name="/briefing" />
+					<BackButton class="mr-md-3 mb-md-0" :class="[smAndDown ? '' : 'mr-2']" text="Realms" :realm-icons="['city-variant-outline']" link-name="/realms" />
 					<BackButton text="Artifacts" :realm-icons="['diamond-stone']" link-name="/artifacts" />
 				</div>
 			</v-main>
@@ -49,9 +49,11 @@
 </template>
 
 <script setup>
+
 import { useDisplay } from 'vuetify'
 
 const { smAndDown, mdAndUp, name } = useDisplay()
+
 const showDebug = true
 </script>
 

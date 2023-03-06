@@ -34,9 +34,10 @@
                             </h3>
                             
                             <p class="mb-3">
-                                Start by journaling, capture moments. Build strong foundations for your future travels through age. Explore these archives, tune yourself to the nuance of your own experience.
+                                Start by journaling, capture moments. Build strong foundations for your future travels through age. Explore and tune yourself to the nuance of your own experience.
                             </p>
-                            <p class="mb-3">Spread roots as you are able. Experience anywhere you've not experienced. Explore the aggregate of adjacent realities that flow beside ours (yours).</p>
+                            <p class="mb-3">Spread roots as you are able. Experience anywhere you've not experienced. Explore the aggregate of adjacent realities that flow beside ours (yours). </p>
+                            <h3 class="mb-3 text-h3">This will prepare you for journey.</h3>
                             <p>The <strong class="font-weight-black">Crickburrow Archives</strong> is meant as a field guide, so no matter how you’ve arrived at this precipice of cross-realm knowledge, you will be prepared for what you’ll encounter.
                             </p>
                             </v-col>
@@ -63,7 +64,7 @@
                         <v-row>
                             <v-col cols="12" sm="12" md="12" class="text-body-1 mb-5">
                                 <p class="mb-3">
-                                Accessing this permissive grants the reader temporary status as a <strong class="font-weight-black">Trial Operator</strong>. In order to obtain additional clearance you must study <strong class="font-weight-black">Semiotics</strong> within the provided example imagery.
+                                    You are allowed permissive status as a <strong class="font-weight-black">Trial Operator</strong>. To obtain additional clearance, study <strong class="font-weight-black">Semiotics</strong> within the Realm gallery.
                                 </p>
                                 <p class="mb-3">
                                     <strong class="font-weight-black">Semiotics</strong> in the realms will provide insight, seek them out in your own travels and glean what you can from the records of past and present Operators.
