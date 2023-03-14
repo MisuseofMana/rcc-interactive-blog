@@ -1,17 +1,24 @@
 <template>
-    <NuxtLink to="/briefing">
-    <v-container fill-height class="overflow-hidden">
-        <v-row class="overflow-hidden">
-                <v-col class="d-flex justify-center align-center" cols="12">
-                    <div class="linkSize d-flex align-center justify-center">
-                        <transition name="brainwash" mode="out-in">
-                            <v-img :max-width="imageWidth" class="abberation" :key="whichClutter" :src="require(`@/assets/images/clutter/${whichClutter}.png`)" :alt="whichClutter"></v-img>
-                        </transition>
-                    </div>
-                </v-col>
-            </v-row>
-        </v-container>
-    </NuxtLink>
+	<NuxtLink to="/briefing">
+		<v-container fill-height
+			class="overflow-hidden">
+			<v-row class="overflow-hidden">
+				<v-col class="d-flex justify-center align-center"
+					cols="12">
+					<div class="linkSize d-flex align-center justify-center">
+						<transition name="brainwash"
+							mode="out-in">
+							<v-img :max-width="imageWidth"
+								class="abberation"
+								:key="whichClutter"
+								:src="require(`@/assets/images/clutter/${whichClutter}.png`)"
+								:alt="whichClutter"></v-img>
+						</transition>
+					</div>
+				</v-col>
+			</v-row>
+		</v-container>
+	</NuxtLink>
 </template>
 
 <script>
@@ -88,7 +95,7 @@ export default {
 			}
 		}, 1800)
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		clearInterval(this.changeClutter)
 	},
 }

@@ -1,6 +1,9 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<v-app full-height>
-		<slot />
+		<v-no-ssr>
+			<slot />
+		</v-no-ssr>
 	</v-app>
 </template>
 

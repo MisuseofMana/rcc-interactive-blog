@@ -57,9 +57,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-.bar {
-    background: var(--v-primary-darken4);
-}
-</style>
