@@ -26,14 +26,15 @@ export default defineNuxtConfig({
 		// @ts-ignore
 		// this adds the vuetify vite plugin
 		// also produces type errors in the current beta release
-		async (options, nuxt) => {
+		async (_, nuxt) => {
 			nuxt.hooks.hook(`vite:extendConfig`, config => config.plugins.push(
 				vuetify()
 			))
 		},
 	],
-	app: {
-		layoutTransition: { name: `layout`, mode: `out-in` },
-		pageTransition: { name: `page`, mode: `out-in` }
-	},
+	// page level transitions
+	// app: {
+	// 	layoutTransition: { name: `layout`, mode: `out-in` },
+	// 	pageTransition: { name: `page`, mode: `out-in` }
+	// },
 })

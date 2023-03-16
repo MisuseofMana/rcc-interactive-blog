@@ -8,15 +8,14 @@
 			class="mb-15 mt-15"
 		>
 			<!-- ARTIFACT REALM ICON -->
-			<v-row class="px-sm-15"
+			<v-row align="end"
 				v-if="items.artifacts.length > 0">
-				<v-spacer v-if="smAndDown"/>
 				<v-col cols="8"
 					sm="6"
-					md="5"
+					md="3"
 					lg="3"
-					xl="2"
-					class="offset-xl-2"
+					xl="3"
+					class="offset-2 offset-sm-3 offset-md-1 offset-lg-0 offset-xl-0"
 					:class="smAndDown ? 'd-flex justify-center' : ''">
 					<v-img class="abberation"
 						aspect-ratio="1"
@@ -24,16 +23,14 @@
 						alt="an icon representing the currently viewed realm">
 					</v-img>
 				</v-col>
-			</v-row>
 
-			<v-row class="mb-7 px-sm-15"
-				v-if="items.artifacts.length > 0">
-				<!-- ARTIFACT REALM DESCRIPTION -->
-				<v-col cols="12"
-					sm="8"
-					md="12"
+				<!-- REALM DESCRIPTION -->
+				<v-col cols="8"
+					sm="6"
+					md="6"
+					lg="6"
 					xl="5"
-					class="offset-sm-2 offset-md-0 offset-xl-2"
+					class="offset-2 offset-sm-3 offset-md-0 offset-xl-0"
 					:class="smAndDown ? 'text-center' : ''"
 				>
 					<h3 class="text-primary text-h3">
@@ -42,7 +39,7 @@
 					<p class="text-primary text-body-1 mb-4">
 						{{ items.subtitle }}
 					</p>
-					<p class="text-primary text-body-1 mb-8">
+					<p class="text-primary text-body-1 mb-3">
 						{{ items.narrative }}
 					</p>
 					<v-icon class="p-0 mr-2"
@@ -53,23 +50,21 @@
 			</v-row>
 		
 			<!-- ITERATE OVER ARTIFACTS -->
-			<v-row class="px-sm-15">
+			<v-row>
 				<v-col 
 					v-for="(artifacts, innerIndex) in items.artifacts"
 					:key="innerIndex"
 					cols="12"
-					sm="8"
+					sm="10"
 					md="6"
 					lg="6"
-					xl="4"
-					class="offset-sm-2 offset-md-0"
-					:class="(innerIndex) % 2 === 0 || innerIndex === 0 ? `offset-xl-2` : ``">
+					xl="6"
+					class="offset-sm-1 offset-md-0">
 					<v-card
 						color="primary-darken-1"
 						class="pa-5 text-primary"
 						height="100%">
 						<v-row dense>
-
 							<v-col cols="12"
 								md="12"
 								:lg="artifacts?.imageVertical ? `6` : `12`"

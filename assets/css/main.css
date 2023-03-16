@@ -7,7 +7,6 @@
     src: url('~/VT323-Regular.ttf') format('truetype');
 }
 
-HEADINGS
 .text-h1 {
     font-size: 5rem !important;
     font-weight: 400 !important;

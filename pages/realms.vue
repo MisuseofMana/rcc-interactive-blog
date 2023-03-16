@@ -7,11 +7,11 @@
 				<v-col v-for="(post, index) in classifiedRealms"
 					:key="index"
 					cols="12"
-					sm="12"
+					sm="6"
 					md="6"
 					lg="4"
-					xl="3"
-					class="mb-15 px-10 px-sm-15 px-md-0">
+					xl="4"
+					class="mb-15">
 					<div class="border mx-5">
 						<div class="px-8">
 							<div class="d-flex justify-space-between align-end mb-2">

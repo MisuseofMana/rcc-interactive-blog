@@ -39,7 +39,7 @@ export const pages = [
 	{
 		title: `Lierd`,
 		slug: `lierd`,
-		subtitle:`Birthplace of Curses`,
+		subtitle:`Cursed Birthplace`,
 		narrative:`If not for Lierd, there would be no curses, and no place for curses to be absolved.`,
 		documents:[
 			{ hint: true, copy:`Where Lierd begins, you'll find a home which no longer belongs to you`, filePath: `cabin` },

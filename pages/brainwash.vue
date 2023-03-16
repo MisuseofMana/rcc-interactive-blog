@@ -6,10 +6,9 @@
 				no-gutters>
 				<v-col class="d-flex justify-center align-center"
 					cols="12">
-					<transition name="brainwash"
-						mode="out-in">
+					<transition name="brainwash" mode="in-out">
 						<v-img
-							:max-width="maxWidth + 'px'"
+							max-width="200px"
 							class="abberation"
 							:key="whichClutter"
 							:src="`/images/clutter/${whichClutter}.png`"
@@ -64,7 +63,7 @@ const changeClutter = ref(null)
 const whichClutter = computed(() => {
 	return clutterNames[randomNumber.value]
 })	
-const maxWidth = ref(300)
+const shown = ref(0)
 
 const rollRandomNumber = (max) => {
 	return Math.floor(Math.random() * (max))
@@ -74,9 +73,10 @@ onMounted(() => {
 	randomNumber.value = rollRandomNumber(clutterNames.length)
 	changeClutter.value = setInterval(() => {
 		randomNumber.value = rollRandomNumber(clutterNames.length)
-		maxWidth.value += 20
-		if(maxWidth.value >= 420) navigateTo({ path: '/briefing' })
-	}, 2150)
+		shown.value++
+		if(shown.value >= 25) navigateTo({ path: '/briefing' })
+	}, 300)
+	randomNumber.value = rollRandomNumber(clutterNames.length)
 })
 
 onBeforeUnmount(() => {

@@ -7,37 +7,26 @@
 }
 
 .brainwash-enter-active {
-  animation: brainwash 900ms;
+  animation: brainwash 300ms;
 }
-
 .brainwash-leave-active {
-  animation: brainwash-out 1200ms; 
+  animation: brainwash-out 300ms;
 }
 
 @keyframes brainwash {
   0% {
-    transform: scale(.6);
-    opacity: 0;
-  }
-  20% {
-    opacity:0
-  }
-  80% {
-    opacity: 1;
+    transform: scale(0) translateX(100%);
   }
   100% {
-    transform: scale(1);
-    opacity: 1;
+    transform: scale(1) translateX(0%);
   }
 }
 
 @keyframes brainwash-out {
   0% {
-    transform: scale(1);
-    opacity: 1;
+    transform: scale(1) translateX(0%);
   }
   100% {
-    transform: scale(1.05);
-    opacity: 0;
+    transform: scale(0) translateX(-100%);
   }
 }
