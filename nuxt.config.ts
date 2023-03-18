@@ -32,9 +32,13 @@ export default defineNuxtConfig({
 			))
 		},
 	],
+	components: [
+		{ path: `~/components/exam-components`, prefix: `exam` },
+		`~/components`
+	],
 	// page level transitions
-	// app: {
-	// 	layoutTransition: { name: `layout`, mode: `out-in` },
-	// 	pageTransition: { name: `page`, mode: `out-in` }
-	// },
+	app: {
+		layoutTransition: { name: `layout`, mode: `out-in` },
+		pageTransition: { name: `page`, mode: `out-in` }
+	},
 })

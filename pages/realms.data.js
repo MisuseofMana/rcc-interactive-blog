@@ -3,7 +3,7 @@ export const pages = [
 		title: `Shaken Colony`,
 		slug: `shaken-colony`,
 		subtitle:`Foundation Realm`,
-		narrative:`The original operators tried terraforming the realms. Now we know better. Now we know the fools we were.`,
+		narrative:`The original operators tried to terraform the realms. Now we know better. Now we know the fools we were.`,
 		titleIndex: 4,
 		documents: [
 			{ copy:`Operator 3 surveys the first realm.`, filePath: `site` },
@@ -212,7 +212,7 @@ export const pages = [
 			{ copy:`Some calcified souls hold mundane objects, clinging to their old ways.`, filePath: `priest` },
 			{ copy:`Other statues communicate with each other through touch and mind.`, filePath: `touch` },
 			{ copy:`Those who have been still for eons crumble away slowly.`, filePath: `rubble` },
-			{ copy:`Gather your semiotics, then leave through the refacting pillar.`, filePath: `pillar` },
+			{ copy:`Gather your semiotics, then leave through the refracting pillar.`, filePath: `pillar` },
 		],
 		iconNames: [`camera-iris`, `chart-bubble`, `heart`],
 		artifacts: [],
@@ -272,8 +272,8 @@ export const pages = [
 		publishDate: `10/14/2021`
 	},
 	{
-		title: `Councillors`,
-		slug: `councillors`,
+		title: `Councilors`,
+		slug: `councilors`,
 		subtitle:`Those Few Remaining`,
 		narrative:`Those who have managed to transpose beyond the bounds of the contained capitol.`,
 		documents: [
@@ -346,7 +346,7 @@ export const pages = [
 			{ copy:`The Replacement realm shifts by virtue of the technology scattered about.`, filePath: `signal` },
 			{ copy:`Ground rises and swirls around the signal pillars. Don't get caught in the shifting soils.`, filePath: `relocate` },
 			{ copy:`There are terminals which often lead nowhere. Wait patiently.`, filePath: `terminal` },
-			{ copy:`The signal pilars can be hijacked, though, only with the right equipment. Only from the right locations.`, filePath: `lagoon` },
+			{ copy:`The signal pillars can be hijacked, though, only with the right equipment. Only from the right locations.`, filePath: `lagoon` },
 		],
 		iconNames: [`transmission-tower`, `parking`, `key`],
 		artifacts: [

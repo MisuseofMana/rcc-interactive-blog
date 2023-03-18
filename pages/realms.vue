@@ -14,30 +14,45 @@
 					class="mb-15">
 					<div class="border mx-5">
 						<div class="px-8">
-							<div class="d-flex justify-space-between align-end mb-2">
+							<div class="d-flex justify-space-between align-end mb-1">
 								<h3 class="text-h4"
 									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
 									{{ post.abbTitle ? post.abbTitle : post.title }}
 								</h3>
-								<h4 class="text-h5"
-									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
-									{{ post.lastUpdated }}
-								</h4>
 							</div>
-							<p class="text-body-1"
+							<p class="text-body-1 mb-4"
 								:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
 								{{ post.subtitle }}
 							</p>
-							<div class="d-flex justify-space-between align-end mb-2">
+							<div class="d-flex justify-space-between align-center mb-1">
 								<p
 									class="text-subtitle-1"
 									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
 									{{ post.realmCipher }}
 								</p>
-								<p class="text-subtitle-1"
+								<v-chip class="text-subtitle-1"
 									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
 									{{ post.designation }}
-								</p>
+								</v-chip>
+							</div>
+							<div class="d-flex justify-space-between align-center mb-2">
+								<h4 class="text-h5"
+									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
+									{{ post.lastUpdated }}
+								</h4>
+								<div>
+									<v-icon v-if="post.semiotics"
+										class="mr-2"
+										:color="post.clearanceNeeded ? 'grey-darken-1' : 'teal-accent-3'"
+										size="20px">
+										mdi-eye-circle
+									</v-icon>
+									<v-icon v-if="post.isRecent"
+										:color="post.clearanceNeeded ? 'grey-darken-1' : 'yellow-accent-3'"
+										size="20px">
+										mdi-alert-decagram
+									</v-icon>
+								</div>
 							</div>
 						</div>
 			
@@ -61,23 +76,13 @@
 							</v-img>
 						</div>
 
-						<div class="px-8 d-flex justify-space-between">
+						<div class="px-8">
 							<div>
 								<v-icon class="p-0 mr-2"
 									:color="post.clearanceNeeded ? 'grey-darken-1' : 'primary'"
 									v-for="(items, index) in post.iconNames"
-									:key="items + index">mdi-{{ items }}</v-icon>
-							</div>
-							<div>
-								<v-icon v-if="post.semiotics"
-									class="mr-2"
-									:color="post.clearanceNeeded ? 'grey-darken-1' : 'teal-accent-3'">
-									mdi-eye-circle
-								</v-icon>
-								<v-icon v-if="post.isRecent"
-									:color="post.clearanceNeeded ? 'grey-darken-1' : 'yellow-accent-3'">
-									mdi-alert-decagram
-								</v-icon>
+									:key="items + index"
+									size="20px">mdi-{{ items }}</v-icon>
 							</div>
 						</div>
 					</div>
@@ -90,13 +95,11 @@
 <script setup>
 import { pages } from './realms.data'
 import { useClassifyRealm } from '~/composables/useClassifyRealm'
-
+import { useRandomNumber } from '~/composables/useRandomNumber'
 const { classifiedRealms } = useClassifyRealm(pages)
 
-const getIndexOfCover = (post) => {
-	const { documents } = post
-	const max = documents.length
-	const randomIndex = Math.floor(Math.random() * max )
+const getIndexOfCover = ({ documents }) => {
+	const randomIndex = useRandomNumber(documents.length)
 	const target = documents[randomIndex]
 	return target.filePath
 }

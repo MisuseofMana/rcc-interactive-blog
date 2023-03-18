@@ -11,7 +11,7 @@ const crickTheme: ThemeDefinition = {
       surface: '#000000',
       primary: '#89f200',
       'primary-darken-1': '#217d00',
-      'hidden-primary-darken-1': '#007d32',
+      'hidden-primary-darken-1': '#299602',
       secondary: '#c900cc',
       'secondary-darken-1': '#9200b3',
       error: '#eb0942',

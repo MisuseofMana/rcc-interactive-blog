@@ -21,7 +21,7 @@
 					max-height="500"
 					max-width="500"
 					:src="`/images/icons/${currentRealm.slug}.png`"
-					alt="a radial icon representing the realm you're visting"></v-img>
+					alt="a radial icon representing the realm you're visiting"></v-img>
 			</v-col>
 			<v-col cols="12"
 				sm="7"
@@ -65,7 +65,9 @@
 					:src="`/images/${currentRealm.slug}/${item.filePath}.jpg`" />
 				<v-card
 					color="primary-darken-1"
-					class="mx-8 d-flex align-center justify-center px-5 py-5">
+					class="mx-8 px-5 py-5">
+					<v-badge dot
+						color="hidden-primary-darken-1"></v-badge>
 					<p class="text-primary text-body-1 text-center"> {{ item.copy }}<v-icon class="ml-1 mt-2"
 						v-if="item.hint"
 						size="6px"

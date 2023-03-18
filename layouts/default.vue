@@ -8,7 +8,8 @@
 						sm="12"
 						md="12"
 						lg="12"
-						xl="8" class="offset-xl-2">
+						xl="8"
+						class="offset-xl-2">
 						<p
 							v-if="showDebug"
 							class="text-warning text-body-1" 
@@ -63,9 +64,6 @@
 <script setup>
 import { useDisplay } from 'vuetify'
 
-// eslint-disable-next-line no-undef
-const route = useRoute()
-
 const { smAndDown, name } = useDisplay()
 const showDebug = false
 </script>
@@ -89,5 +87,4 @@ v-app {
   opacity: .1;
   filter: blur(.8rem);
 }
-
 </style>

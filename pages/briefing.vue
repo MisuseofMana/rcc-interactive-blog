@@ -47,7 +47,7 @@
 
 						</h3>
 						<p class="mb-5">
-							Effective immediately, you are granted <strong class="font-weight-black">Trial Operator</strong> status. To obtain additional clearance please study the <strong class="font-weight-black">semiotics</strong> present in each realm, accessable through the /REALMS gallery.
+							Effective immediately, you are granted <strong class="font-weight-black">Trial Operator</strong> status. To obtain additional clearance please study the <strong class="font-weight-black">semiotics</strong> present in each documented realm, accessible through the /REALMS gallery. Subsequently complete the Operator Exam.
 						</p>
 						<p class="mb-5">
 							<strong class="font-weight-black">Semiotics</strong> in the realms can provide insight if you are inclined to notice. Seek them out in the gallery and your own travels. Glean what you can from the records of past and present <strong class="font-weight-black">Operators</strong>.
@@ -68,7 +68,7 @@
 							First and foremost, you should begin with an open mind.
 						</h3>
 						<p class="mb-5">
-							Start by journaling, capture moments. Build strong foundations for your future travels through your age. Explore and tune yourself to the nuance of your own experience.
+							Start by taking notes, capture moments. Build strong foundations for your future travels through your age. Explore and tune yourself to the nuance of each realm.
 						</p>
 						<p class="mb-5">Spread roots as you are able. Experience anywhere you've not experienced. Explore the aggregate of adjacent realities that flow beside ours (yours). </p>
 						<p class="mb-5 text-body-1">These archives will prepare you to gain insights by navigating the overlapping realms.</p>
@@ -108,7 +108,9 @@
 
 			</v-card>
 			<v-row class="text-primary mb-5">
-				<v-col cols="12" sm="10" class="offset-sm-1">
+				<v-col cols="12"
+					sm="10"
+					class="offset-sm-1">
 					<v-img v-if="smAndUp"
 						class="mt-9 text-center abberation"
 						contain
