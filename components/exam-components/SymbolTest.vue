@@ -1,7 +1,10 @@
 <template>
 	<v-row>
 		<v-col cols="12"
-			class="d-flex align-center justify-center">
+			md="8"
+			lg="6"
+			xl="4"
+			class="offset-md-2 offset-lg-3 offset-xl-4 d-flex align-center justify-center">
 			<v-img v-if="which"
 				class="realmImage"
 				contain

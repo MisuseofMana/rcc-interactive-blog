@@ -24,11 +24,11 @@
 
 						<SiteNavigation />
 
-						<v-main class="text-primary mb-8">
+						<v-main class="text-primary">
 							<slot class="mt-8"></slot>
 						</v-main>
 						
-						<SiteNavigation/>
+						<SiteNavigation alignRight/>
 			
 						<v-footer
 							class="d-flex align-center pa-0 mt-15 mb-5"
@@ -63,6 +63,8 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
+import { usePageAudio } from '~/composables/usePageAudio'
+usePageAudio()
 
 const { smAndDown, name } = useDisplay()
 const showDebug = false

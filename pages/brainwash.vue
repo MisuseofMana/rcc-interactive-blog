@@ -26,6 +26,10 @@
 import { ref, computed, onMounted, onBeforeUnmount, onBeforeMount } from 'vue'
 import { useRandomNumber } from '~/composables/useRandomNumber'
 
+import { usePageAudio } from '~/composables/usePageAudio'
+usePageAudio()
+
+
 const clutterNames = [ 
 	`algorithm`, 
 	`antenna`, 

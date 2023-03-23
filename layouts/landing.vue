@@ -2,10 +2,25 @@
 <template>
 	<v-app full-height>
 		<v-no-ssr>
+			<p
+				v-if="showDebug"
+				class="text-warning text-body-1" 
+			>
+				{{ name }}
+			</p>
 			<slot />
 		</v-no-ssr>
 	</v-app>
 </template>
+
+<script setup>
+import { useDisplay } from 'vuetify'
+import { usePageAudio } from '~/composables/usePageAudio'
+usePageAudio()
+
+const { name } = useDisplay()
+const showDebug = false
+</script>
 
 <style scoped>
 	v-app {

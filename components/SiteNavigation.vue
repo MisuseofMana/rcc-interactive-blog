@@ -1,43 +1,45 @@
 <template>
-	<v-row
-		dense
-		class="mx-md-0">
+	<v-row dense class="my-12">
 		<v-col cols="6"
-			sm="4"
+			sm="6"
 			md="3"
 			xl="2"
-			class="mb-sm-2 mb-md-0">
-			<BackButton class="mr-0 "
+			:class="alignRight ? `offset-xl-4` : ``">
+			<BackButton
 				text="/Briefing"
 				:realm-icons="['file-document-alert']"
 				link-name="/briefing" />
 		</v-col>
 		<v-col cols="6"
-			sm="4"
+			sm="6"
 			md="3"
-			xl="2"
-			class="mb-sm-2 mb-md-0">
+			xl="2">
 			<BackButton
 				text="/Realms"
 				:realm-icons="['map-search-outline']"
 				link-name="/realms" />
 		</v-col>
 		<v-col cols="6"
-			sm="4"
+			sm="6"
 			md="3"
-			xl="2"
-			class="mb-sm-2 mb-md-0">
+			xl="2">
 			<BackButton text="/Artifacts"
 				:realm-icons="['diamond-stone']"
 				link-name="/artifacts" />
 		</v-col>
 		<v-col cols="6"
-			sm="4"
+			sm="6"
 			md="3"
 			xl="2">
 			<BackButton text="/EXAM"
 				:realm-icons="['radar']"
-				link-name="/operators" />
+				link-name="/operator-exam" />
 		</v-col>
 	</v-row>
 </template>
+
+<script setup>
+defineProps({
+	alignRight: Boolean
+})
+</script>

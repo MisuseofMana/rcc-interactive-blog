@@ -30,15 +30,15 @@ export default defineNuxtConfig({
 			nuxt.hooks.hook(`vite:extendConfig`, config => config.plugins.push(
 				vuetify()
 			))
-		},
+		}
 	],
-	components: [
-		{ path: `~/components/exam-components`, prefix: `exam` },
+	components:  [
+		{ path: `~/components/exam-components`, global: true, pathPrefix: false },
 		`~/components`
 	],
 	// page level transitions
 	app: {
 		layoutTransition: { name: `layout`, mode: `out-in` },
-		pageTransition: { name: `page`, mode: `out-in` }
+		pageTransition: { name: `page`, mode: `out-in` },
 	},
 })

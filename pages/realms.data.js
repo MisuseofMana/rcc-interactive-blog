@@ -1,20 +1,20 @@
 export const pages = [
 	{
-		title: `Shaken Colony`,
-		slug: `shaken-colony`,
+		semiotics: true,
+		title: `Lost Colony`,
+		slug: `lost-colony`,
 		subtitle:`Foundation Realm`,
 		narrative:`The original operators tried to terraform the realms. Now we know better. Now we know the fools we were.`,
-		titleIndex: 4,
 		documents: [
-			{ copy:`Operator 3 surveys the first realm.`, filePath: `site` },
+			{ hint: true, copy:`Operator 8 surveys the first realm.`, filePath: `site` },
 			{ copy:`What little the first realm offered, the original of us claimed.`, filePath: `mound` },
 			{ copy:`The original Operators built what they could. The realm stayed stubborn.`, filePath: `expanse` },
 			{ copy:`Infrastructure took slowly, through toil and technology and a stubborn will.`, filePath: `line` },
-			{ copy:`Their constructs in the realm shook apart in time.`, filePath: `triangle` },
+			{ hint: true, copy:`Their constructs in the realm shook apart in time.`, filePath: `triangle` },
 			{ copy:`For longevity of the colony, they dug into the realm.`, filePath: `pipe` },
-			{ copy:`There was no law, no cadence. The chasms came quickly.`, filePath: `lake` },
+			{ hint: true, copy:`There was no law, no cadence. The chasms came quickly.`, filePath: `lake` },
 			{ copy:`Containing the breath of the realm was a fools errand.`, filePath: `fountain` },
-			{ copy:`They dreamed of staying in the realm, dreamed of a grail to drink from. Oh, how little we knew back then.`, filePath: `well` },
+			{ hint: true, copy:`They dreamed of staying in the realm, dreamed of a grail to drink from. Oh, how little we knew back then.`, filePath: `well` },
 			{ copy:`The divide of the colony set in. They sought a way to abandon the realm.`, filePath: `divide` },
 		],
 		iconNames: [`water-well`, `hammer-screwdriver`, `glass-mug`],
@@ -34,9 +34,11 @@ export const pages = [
 				imageVertical: true,
 			},
 		],
-		publishDate: `10/14/2021`
+		publishDate: `10/14/2021`,
+		realmCode: `8391`
 	},
 	{
+		semiotics: true,
 		title: `Lierd`,
 		slug: `lierd`,
 		subtitle:`Cursed Birthplace`,
@@ -45,12 +47,12 @@ export const pages = [
 			{ hint: true, copy:`Where Lierd begins, you'll find a home which no longer belongs to you`, filePath: `cabin` },
 			{ copy:`Outside at the well you may wish to pay homage to those who have lost this home before you.`, filePath: `well` },
 			{ copy:`We all leave Lierd, washed away by the ripples of the first curse.`, filePath: `sprawl` },
+			{ hint: true, copy: `They mountains here may prevent passing, consult with them to continue on. `, filePath: `wilds` },
 			{ copy:`Those who remain are caught in the basin pools.`, filePath: `basin` },
 			{ copy:`The fate of those sunken into the pools is a petrifying curse.`, filePath: `curse` },
-			{ copy:`They follow the stream, into the river, into the falls. `, filePath: `wilds` },
-			{ copy:`Where the water dwindles, the curse overflows. `, filePath: `flow` },
+			{ hint: true, copy:`Where the water dwindles, the curse overflows. `, filePath: `flow` },
 			{ copy:`Pathways will present themselves, you can trust them. `, filePath: `path` },
-			{ copy:`The fountain is the last gate out. Fall, and never leave Lierd.`, filePath: `fountain` },
+			{ hint: true, copy:`The fountain is the last gate out. Fall short, and you'll never leave Lierd.`, filePath: `fountain` },
 		],
 		iconNames: [`eye`, `ghost-outline`, `account-multiple-minus-outline`],
 		artifacts: [
@@ -83,9 +85,11 @@ export const pages = [
 				imageVertical: true,
 			},
 		],
-		publishDate: `2021-05-11`
+		publishDate: `2021-05-11`,
+		realmCode: `963*`
 	},
 	{
+		semiotics: false,
 		title: `Fenced City`,
 		slug: `fenced-city`,
 		subtitle:`The Contained Capitol`,
@@ -126,20 +130,22 @@ export const pages = [
 				imageVertical: true,
 			},
 		],
-		publishDate: `2021-10-14`
+		publishDate: `8/21/2020`,
+		realmCode: `#074`
 	},
 	{
+		semiotics: true,
 		title: `Willow Woods`,
 		slug: `willow-woods`,
 		subtitle:`Infested Forest`,
 		narrative:`All woods, all forests, all groves. The trees have eyes.`,
 		documents: [
 			{ copy:`Beyond the capitol, past the rising rock is the pilgrims route.`, filePath: `vestal` },
-			{ copy:`No matter what you hear in the woods, ignore it. The sounds are lies.`, filePath: `rituals` },
+			{ hint: true, copy:`No matter what you hear in the woods, ignore it. The sounds are lies.`, filePath: `rituals` },
 			{ copy:`The growth will guide you away from the center of the woods.`, filePath: `moss` },
-			{ copy:`Where the trees grow tumors, there are few options to retreat beyond here.`, filePath: `gnarl` },
-			{ copy:`Watch the roots too, they will mutate when willow witches are nearby.`, filePath: `knot` },
-			{ copy:`Etchings in the crawling ground-wood are horrid enchantments. `, filePath: `etchings` },
+			{ hint: true, copy:`Where the trees grow tumors, there are few options to retreat beyond here.`, filePath: `gnarl` },
+			{ hint: true, copy:`Watch the roots too, they will mutate when willow witches are nearby.`, filePath: `knot` },
+			{ hint: true, copy:`Etchings in the crawling ground-wood are horrid enchantments. `, filePath: `etchings` },
 			{ copy:`You'll find no other Operators in this realm. Trust nothing.`, filePath: `witch` },
 		],
 		iconNames: [`forest`, `sprout-outline`, `eye`],
@@ -173,29 +179,33 @@ export const pages = [
 				imageVertical: true,
 			},
 		],
-		publishDate: `10/14/2021`
+		publishDate: `5/12/2021`,
+		realmCode: `3745`
 	},
 	{
+		semiotics: true,
 		title: `Silent Shores`,
 		slug: `silent-shores`,
 		subtitle:`Temporary Waypoint`,
 		narrative:`A place between realms, where Operators can find temporary refuge in the stream. The shores are beyond the willow woods, just skirt the edge of the treeline.`,
 		documents: [
 			{ copy: `A bastion for Operators. The realm is blanketed by wards. Witches dare not set foot beyond the trees.`, filePath: `wayside` },
-			{ copy: `Through the clearing in the woods is the shore, remain as long as you like under the protection of the tower.`, filePath: `shore` },
+			{ hint: true, copy: `Through the clearing in the woods is the shore, remain as long as you like under the protection of the tower.`, filePath: `shore` },
 			{ copy: `The only danger here is the tower, your curiosity to approach will grow as it shimmers in the distance.`, filePath: `tower` },
-			{ copy: `At the tower's base are stone wards, do not disturb these as they keep the light about the realm.`, filePath: `stones` },
+			{ hint: true, copy: `At the tower's base are stone wards, do not disturb these as they keep the light about the realm.`, filePath: `stones` },
 			{ copy: `If you find yourself gazing skyward, do your best to retreat to the dunes.`, filePath: `skyward` },
-			{ copy: `Break line of sight with the tower and your curiosity will sate itself in time.`, filePath: `rolling` },
-			{ copy: `In the event you do meddle with the tower the realm will destabilize, and the light will fade.`, filePath: `destination` },
+			{ hint: true, copy: `Break line of sight with the tower and your curiosity will sate itself in time.`, filePath: `rolling` },
+			{ hint: true, copy: `In the event you do meddle with the tower the realm will destabilize, and the light will fade.`, filePath: `destination` },
 			{ copy: `Darkness falls, the sounds here cease, the wards are deafened, and the witches seep from the trees.`, filePath: `nightbreak` },
 			{ copy: `Trudge into the water as deep as you can manage. Hold your breath, or end up twisted.`, filePath: `grave` },
 		],
-		iconNames: [`moon-waxing-crescent`, `moon-first-quarter`, `moon-waxing-gibbous`, `eye-circle`, `moon-waning-gibbous`, `moon-last-quarter`, `moon-waning-crescent`, `candle` ],
+		iconNames: [`moon-waxing-crescent`, `eye-circle`, `moon-waning-crescent` ],
 		artifacts: [],
-		publishDate: `4/12/2021`
+		publishDate: `4/12/2021`,
+		realmCode: `620#`
 	},
 	{
+		semiotics: true,
 		title: `Aggregate Lagoon`,
 		abbTitle: `Agg. Lagoon`,
 		slug: `aggregate-lagoon`,
@@ -204,38 +214,40 @@ export const pages = [
 		documents: [
 			{ copy:`Realms like these are rare works of art. The rivers of the Crickstream funnel here.`, filePath: `post` },
 			{ copy:`The artifacts here are permanent and irretrievable. Respect them and their meanings.`, filePath: `gate` },
-			{ copy:`Meeting another Operator in this realm is unlikely, but delving into the Lagoon together is recommended.`, filePath: `drive` },
-			{ copy:`Some artifacts here are yet to be interpreted. Do your best to form your own understanding of them.`, filePath: `curl` },
+			{ hint: true, copy:`Meeting another Operator in this realm is unlikely, but delving into the Lagoon together is recommended.`, filePath: `drive` },
+			{ hint: true, copy:`Some artifacts here are yet to be interpreted. Do your best to form your own understanding of them.`, filePath: `curl` },
 			{ copy:`The petrified denizens of the Lagoon are stoic but are known to reanimate and travel.`, filePath: `cryptid` },
 			{ copy:`Stay cautious about these still beings, even those you are certain will remain so.`, filePath: `gaze` },
-			{ copy:`Be observant of the gates and circles. They are chaotic thresholds.`, filePath: `wheel` },
+			{ hint: true, copy:`Be observant of the gates and circles. They are chaotic thresholds.`, filePath: `wheel` },
 			{ copy:`Some calcified souls hold mundane objects, clinging to their old ways.`, filePath: `priest` },
 			{ copy:`Other statues communicate with each other through touch and mind.`, filePath: `touch` },
 			{ copy:`Those who have been still for eons crumble away slowly.`, filePath: `rubble` },
-			{ copy:`Gather your semiotics, then leave through the refracting pillar.`, filePath: `pillar` },
+			{ hint: true, copy:`Gather your semiotics, then leave through the refracting pillar.`, filePath: `pillar` },
 		],
 		iconNames: [`camera-iris`, `chart-bubble`, `heart`],
 		artifacts: [],
-		publishDate: `10/14/2021`
+		publishDate: `1/14/2022`,
+		realmCode: `1897`
 	},
 	{
+		semiotics: true,
 		title: `Inhabited Realm`,
 		abbTitle: `Inhb. Realm`,
 		slug: `inhabited-realm`,
 		subtitle:`Population 202`,
 		narrative:`Visiting hours between 1300 and 1700. MANDATORY: Leave before the last hour ends.`,
 		documents: [
-			{ copy:`During visitation, the population is docile. They live as mere memories.`, filePath: `ghost` },
+			{ hint: true, copy:`During visitation, the population is docile. They live as mere memories.`, filePath: `ghost` },
 			{ copy:`Move beyond the caretakers, along the only road.`, filePath: `path` },
 			{ copy:`Avoid the homes on the hill, stay out of the headlights.`, filePath: `overlook` },
-			{ copy:`Atop the hill, you're safe. Seek the semiotics from this vantage.`, filePath: `hill` },
+			{ hint: true, copy:`Atop the hill, you're safe. Seek the semiotics from this vantage.`, filePath: `hill` },
 			{ copy:`The warehouse will be empty at 1500, pace your steps to arrive on time.`, filePath: `above` },
 			{ copy:`Beyond the lot is a derelict farmhouse, you will want to remain. Resist the urge.`, filePath: `farmhouse` },
 			{ copy:`In kind, the barn is filled with curiosity. Again, resist.`, filePath: `barn` },
 			{ copy:`The population will offer you transportation. Politely ignore their offers.`, filePath: `shortcut` },
-			{ copy:`Some of the population will observe you. Do not interact with these shades.`, filePath: `corner` },
-			{ copy:`If you reach the dam, you've traveled too far. Hurry back downstream.`, filePath: `dam` },
-			{ copy:`At the end of the stream is a lake. Swimming is prohibited.`, filePath: `fog` },
+			{ hint: true, copy:`Some of the population will observe you. Do not interact with these shades.`, filePath: `corner` },
+			{ copy:`If you reach the dam you've traveled too far, quickly head back downstream.`, filePath: `dam` },
+			{ hint: true, copy:`At the end of the stream is a lake. Swimming is prohibited.`, filePath: `fog` },
 			{ copy:`Beyond the lake is the factory, your path home is inside. Talk to no-one.`, filePath: `factory` },
 		],
 		iconNames: [`account-voice`, `ferry`, `warehouse`],
@@ -269,9 +281,11 @@ export const pages = [
 				imageVertical: false,
 			},
 		],
-		publishDate: `10/14/2021`
+		publishDate: `9/21/2020`,
+		realmCode: `7823`
 	},
 	{
+		semiotics: false,
 		title: `Councilors`,
 		slug: `councilors`,
 		subtitle:`Those Few Remaining`,
@@ -283,9 +297,11 @@ export const pages = [
 		],
 		iconNames: [`account-group`, `crown-outline`, `account-group`],
 		artifacts: [],
-		publishDate: `10/14/2021`
+		publishDate: `4/21/2020`,
+		realmCode: `87#4`
 	},
 	{
+		semiotics: false,
 		title: `Relic Garden`,
 		slug: `relic-garden`,
 		subtitle:`Ruined Growth`,
@@ -330,23 +346,25 @@ export const pages = [
 				imageVertical: false,
 			},
 		],
-		publishDate: `5/16/2021`
+		publishDate: `5/16/2021`,
+		realmCode: `49*1`
 	},
 	{
+		semiotics: true,
 		title: `Replacements`,
 		slug: `replacements`,
 		subtitle:`Adv. Predictions`,
 		narrative:`Few Operators wield a key capable of accessing this realm. Here, there are semiotics beyond the understanding of the mundane.`,
 		documents: [
 			{ copy:`Somewhere beyond the Fenced City are the lands of zealous achievers. Filled with equations and unfettered experiments.`, filePath: `labs` },
-			{ copy:`The lords have no need for growth beyond the capitol. We need what they waste.`, filePath: `carridge` },
-			{ copy:`The replacements, substitutions, and machinations in this realm are advanced but they are obvious in their meanings.`, filePath: `notice` },
+			{ hint: true, copy:`The lords have no need for growth beyond the capitol. We need what they waste.`, filePath: `carridge` },
+			{ hint: true, copy:`The replacements, substitutions, and machinations in this realm are advanced but they are obvious in their meanings.`, filePath: `notice` },
 			{ copy:`The technology here reaches towards the skies, sending signals through the realm.`, filePath: `towers` },
-			{ copy:`There are stretches of land by the sea filled with buildings that duplicate across the shore.`, filePath: `same` },
+			{ hint: true, copy:`There are stretches of land by the sea filled with buildings that duplicate across the shore.`, filePath: `same` },
 			{ copy:`The Replacement realm shifts by virtue of the technology scattered about.`, filePath: `signal` },
 			{ copy:`Ground rises and swirls around the signal pillars. Don't get caught in the shifting soils.`, filePath: `relocate` },
-			{ copy:`There are terminals which often lead nowhere. Wait patiently.`, filePath: `terminal` },
-			{ copy:`The signal pillars can be hijacked, though, only with the right equipment. Only from the right locations.`, filePath: `lagoon` },
+			{ hint: true, copy:`There are terminals which often lead nowhere. Wait patiently.`, filePath: `terminal` },
+			{ copy:`The signal pillars can be hijacked with the right equipment. Do not take the risk.`, filePath: `lagoon` },
 		],
 		iconNames: [`transmission-tower`, `parking`, `key`],
 		artifacts: [
@@ -357,9 +375,11 @@ export const pages = [
 				description2:`These cures are likely to be your end without proper dosage and devout attention by the medically minded.`,
 			},
 		],
-		publishDate: `2/26/2023`
+		publishDate: `2/26/2023`,
+		realmCode: `5#25`
 	},
 	{
+		semiotics: false,
 		title: `Uplink`,
 		clearanceNeeded: true,
 		slug: `uplink`,
@@ -372,5 +392,6 @@ export const pages = [
 		iconNames: [`alien-outline`, `radio-tower`, `boom-gate-alert`],
 		artifacts: [],
 		publishDate: `3/26/1993`,
+		realmCode: `*43#`
 	},
 ]

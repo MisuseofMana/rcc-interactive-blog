@@ -1,12 +1,15 @@
 <template>
 	<v-row>
 		<v-col cols="12"
-			class="d-flex align-center justify-center">
-			<v-img v-if="which" class="artifactImage"
-				contain
-				max-width="400px"
-				max-height="200px"
-				:aspect-ratio="which.imageVertical ? `1/5` : `8/3`"
+			md="8"
+			lg="6"
+			xl="4"
+			class="offset-md-2 offset-lg-3 offset-xl-4 d-flex align-center justify-center">
+			<v-img v-if="which"
+				class="realmImage"
+				cover
+				max-width="500px"
+				aspect-ratio="1.5"
 				:src="`/images/artifacts/${which.path}.jpg`"
 				alt="an image representing an artifact of the realm"/>
 		</v-col>
@@ -19,13 +22,12 @@
 				class="text-decoration-none"
 				:class="index<=2 ? 'mr-2' : ''"
 				min-height="50px"
-				:height="smAndDown ? '75px' : '50px'"
+				min-width="120px"
+				:height="smAndDown ? '65px' : '50px'"
 				color="primary-darken-1"
 				@click="checkAnswer(realm.folderPath)">
-				<v-icon :icon="`mdi-${icon}`"
+				<v-icon :icon="`mdi-${realm.realmIcons[0]}`"
 					size="25px"
-					v-for="(icon, index) in realm.realmIcons"
-					:key="icon+index"
 					color="primary"/>
 			</v-btn>
 		</v-col>
@@ -35,10 +37,13 @@
 <script setup>
 import { pages } from '../../pages/realms.data'
 import { ref } from 'vue'
+import { useDisplay } from 'vuetify'
 import { useRandomNumber } from '~/composables/useRandomNumber'
 import { useClassifyRealm } from '~/composables/useClassifyRealm'
 
 const emit = defineEmits([`solved`, `failed`])
+
+const { smAndDown } = useDisplay()
 
 const which = ref(null)
 const correct = ref(null)
@@ -79,8 +84,6 @@ const randomSelectRealms = () => {
 	correct.value = swapArray.folderPath
 	return returnedArray
 }
-
-
 </script>
 
 <style scoped>

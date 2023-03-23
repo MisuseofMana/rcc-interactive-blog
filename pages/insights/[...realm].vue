@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<NuxtLayout name="default">
-		<v-row no-gutters
-			class="mb-10 mx-10 mx-md-0">
-			<v-col cols="12">
-				<BackButton class="mt-8"
-					:width="smAndDown ? `100%` : ``"
+		<v-row dense
+			class="mt-1 mb-15">
+			<v-col cols="12"
+				md="4">
+				<BackButton
 					frontIcon="mdi-arrow-left"
 					text="Abandon This Realm"
 					linkName="/realms" />
@@ -13,10 +13,9 @@
 		</v-row>
 
 		<v-row class="mb-1">
-			<v-col cols="12"
+			<v-col cols="4"
 				sm="5"
-				md="4"
-				class="mb-5 px-15 px-sm-5 mb-md-0 ">
+				md="4">
 				<v-img class="abberation"
 					max-height="500"
 					max-width="500"
@@ -29,7 +28,7 @@
 				class="mb-2">
 				<div>
 					<h2 class="text-h2">{{ currentRealm.title }}</h2>
-					<h3 class="text-h3 mb-7">{{ currentRealm.subtitle }}</h3>
+					<h3 class="text-h3">{{ currentRealm.subtitle }}</h3>
 					<p class="text-body-1">{{ currentRealm.narrative }}</p>
 					<div class="d-flex justify-space-between align-center ">
 						<p class="text-subtitle-1">{{ currentRealm.lastUpdated }}</p>
@@ -57,31 +56,32 @@
 				lg="6"
 				v-for="(item, index) in currentRealm.documents"
 				:key="index + item.filePath"
-				class="d-flex justify-center flex-column mb-10">
+				class="d-flex justify-center flex-column">
 				<v-img contain
 					class="realmImage"
 					lazy-src="/images/mocks/placeholder.jpg"
 					aspect-ratio="1.5"
-					:src="`/images/${currentRealm.slug}/${item.filePath}.jpg`" />
-				<v-card
-					color="primary-darken-1"
-					class="mx-8 px-5 py-5">
-					<v-badge dot
-						color="hidden-primary-darken-1"></v-badge>
-					<p class="text-primary text-body-1 text-center"> {{ item.copy }}<v-icon class="ml-1 mt-2"
-						v-if="item.hint"
-						size="6px"
-						color="primary">mdi-eye-circle</v-icon></p>
-
-				</v-card>
+					:src="`/images/${currentRealm.slug}/${item.filePath}.jpg`" />	
+				<span class="pl-9 mr-10 mt-n6 mb-1 zUp text-primary text-subtitle-1 d-flex align-center justify-space-between">
+					<p>
+						{{ item.operator }}
+					</p>
+					<v-badge floating
+						dot
+						color="primary"
+						v-if="item.hint"></v-badge>
+				</span>
+				<p class="text-primary minHeight text-body-1 mx-8 px-5 py-5 text-center"> {{ item.copy }}</p>
 			</v-col>
 		</v-row>
 
-		<v-row class="mb-8">
-			<v-col class="d-flex justify-end">
-				<BackButton frontIcon="mdi-arrow-left"
-					:width="smAndDown ? `100%` : ``"
-					text="Return from this Realm"
+		<v-row dense
+			class="mb-1">
+			<v-col cols="4"
+				class="offset-xl-8">
+				<BackButton
+					frontIcon="mdi-arrow-left"
+					text="Return From This Realm"
 					linkName="/realms" />
 			</v-col>
 		</v-row>
@@ -119,6 +119,10 @@ const iconWidth = computed(() => {
     position: absolute;
     top: 0;
     width: 100%;
-    box-shadow: inset 30px 30px 10px #101010, inset -30px -30px 10px #101010, inset 4px 4px 0px #101010, inset -4px -4px 0px #101010;
+    box-shadow: inset 30px 30px 10px #000, inset -30px -30px 10px #000, inset 4px 4px 0px #000, inset -4px -4px 0px #000;
+}
+
+.minHeight {
+	min-height: 150px;
 }
 </style>

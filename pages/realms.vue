@@ -41,7 +41,7 @@
 									{{ post.lastUpdated }}
 								</h4>
 								<div>
-									<v-icon v-if="post.semiotics"
+									<v-icon v-if="checkSemiotic(post, index)"
 										class="mr-2"
 										:color="post.clearanceNeeded ? 'grey-darken-1' : 'teal-accent-3'"
 										size="20px">
@@ -104,6 +104,18 @@ const getIndexOfCover = ({ documents }) => {
 	return target.filePath
 }
 
+const checkSemiotic = (realm) => {
+	const indexOfRealm = realmsWithSemiotics.findIndex(item => {
+		return item.slug === realm.slug
+	})
+	return indexOfRealm === new Date().getDay()
+
+}
+
+const realmsWithSemiotics = pages.filter(realm => {
+	if(realm.semiotics) return realm
+})
+
 </script>
 
 <style scoped>
@@ -134,7 +146,7 @@ const getIndexOfCover = ({ documents }) => {
 }
 
 .shadow {
-	box-shadow: inset 30px 30px 15px 10px #101010, inset -30px -30px 15px 10px #101010;
+	box-shadow: inset 30px 30px 15px 10px #000, inset -30px -30px 15px 10px #000;
 	overflow: hidden;
 }
 </style>

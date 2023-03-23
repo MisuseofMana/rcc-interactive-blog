@@ -55,13 +55,48 @@ export function useClassifyRealm(realms){
 		// determine isOutdated - true after 60 days have passed
 		const isRecent = (daysPassed < 60)
 
+		const generateOperatorId = ({firstName, lastName}) => {
+			// determine which name is longer and assign to variables
+			const splitFirstName = firstName.split(``)
+			const splitLastName = lastName.split(``)
+			const isFirstNameLonger = (splitFirstName.length >= splitLastName.length)
+			const shortName = isFirstNameLonger ? splitFirstName : splitLastName
+			const longName = isFirstNameLonger ? splitLastName : splitFirstName
+			
+			// variable to return
+			let operatorId = ``
+
+			// for loops to encode names
+			for(let i = 0; i <= shortName.length; i+=2) {
+				const letterOne = shortName[i] || ``
+				const letterTwo = longName[i+1] || ``
+				operatorId += alphabet.indexOf(letterOne) + alphabet.indexOf(letterTwo)
+			}
+
+			for(let i = 0; i <= longName.length; i+=2) {
+				const letterOne = longName[i] || ``
+				const letterTwo = shortName[i+1] || ``
+				operatorId += alphabet.indexOf(letterOne) + alphabet.indexOf(letterTwo)
+			}
+
+			return `Operator ${operatorId}`
+		}
+
+		const documents = realm.documents.map(item => {
+			return {
+				...item,
+				operator: generateOperatorId({ firstName: `Sean`, lastName: `Yager` })
+			}
+		})
+
 		return {
 			...realm,
 			daysPassed,
 			designation,
 			isRecent,
 			lastUpdated,
-			realmCipher
+			realmCipher,
+			documents
 		}
 	})
 

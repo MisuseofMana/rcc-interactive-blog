@@ -17,3 +17,7 @@
     padding:0;
     filter: sepia() saturate(100) hue-rotate(50deg) brightness(1.1);
 }
+
+.zUp {
+    z-index: 1000;
+}

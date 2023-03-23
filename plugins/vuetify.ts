@@ -6,7 +6,7 @@ import '@mdi/font/css/materialdesignicons.css'
 const crickTheme: ThemeDefinition = {
     dark: false,
     colors: {
-      background: '#101010',
+      background: '#000',
       'on-surface': '#89f200',
       surface: '#000000',
       primary: '#89f200',

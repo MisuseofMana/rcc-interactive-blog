@@ -1,64 +1,81 @@
 <template>
-	<v-row no-gutters dense>
-		<v-col cols="12"
-			class="text-center text-primary text-h3">
-			<p>Which image depicts the realm designated {{ which.realmCipher }}</p>
-		</v-col>
-	</v-row>
+	<v-container>
+		<v-row no-gutters
+			dense>
+			<v-col cols="12"
+				class="text-center text-primary text-h3">
+				<p>ACCESS GRANTED</p>
+			
+			
+			</v-col>
+		
+		</v-row>
+		<v-row>
+			<v-spacer/>
+			<v-col cols="12"
+				md="6"
+				lg="4">
+				<v-form>
+					<v-text-field
+						v-model="firstname"
+						:rules="nameRules"
+						:counter="10"
+						label="First name"
+						required
+					></v-text-field>
+
+					<v-text-field
+						v-model="lastname"
+						:rules="nameRules"
+						:counter="10"
+						label="Last name"
+						required
+					></v-text-field>
+
+					<v-text-field
+						v-model="email"
+						:rules="emailRules"
+						label="E-mail"
+						required
+					></v-text-field>
+			
+				</v-form>
+			</v-col>
+			<v-spacer/>
+			<v-col cols="12"
+				md="6"
+				lg="4">
+				<v-form v-model="valid">
+					<v-text-field
+						v-model="firstname"
+						:rules="nameRules"
+						:counter="10"
+						label="First name"
+						required
+					></v-text-field>
+
+					<v-text-field
+						v-model="lastname"
+						:rules="nameRules"
+						:counter="10"
+						label="Last name"
+						required
+					></v-text-field>
+
+					<v-text-field
+						v-model="email"
+						:rules="emailRules"
+						label="E-mail"
+						required
+					></v-text-field>
+			
+				</v-form>
+			</v-col>
+			<v-spacer/>
+		</v-row>
+	</v-container>
 </template>
 
 <script setup>
-import { pages } from '../../pages/realms.data'
-import { ref } from 'vue'
-import { useRandomNumber } from '~/composables/useRandomNumber'
-import { useClassifyRealm } from '~/composables/useClassifyRealm'
-
-
-const { classifiedRealms } = useClassifyRealm(pages)
-
-const threeImagesFromSeparateRealms = () => {
-	let returnedArray = [{},{},{},{}]
-	let destructableRealmsArray = [...classifiedRealms.value]
-	destructableRealmsArray.splice(destructableRealmsArray.indexOf(item => item.abbTitle === `Redacted`))[0]
-	returnedArray.forEach((_item, index) => {
-		const removedRealm = destructableRealmsArray.splice(useRandomNumber(destructableRealmsArray.length),1)[0]
-		const lengthOfDocuments = removedRealm.documents.length
-		returnedArray[index] = {
-			documentPath: removedRealm.documents[useRandomNumber(lengthOfDocuments)].filePath,
-			realmName: removedRealm.title,
-			folderPath: removedRealm.slug,
-			realmCipher: removedRealm.realmCipher
-		}
-	})
-	which.value = returnedArray[useRandomNumber(returnedArray.length)]
-	return returnedArray
-}
-
-
-
+	
 </script>
-
-<style scoped>
-.realmImage {
-	cursor: pointer;
-}
-.realmImage::after {
-    content: '';
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    box-shadow: inset 30px 30px 10px #101010, inset -30px -30px 10px #101010, inset 4px 4px 0px #101010, inset -4px -4px 0px #101010;
-}
-.grow {
-	padding: 20px 20px;
-	transition: all .5s;
-}
-
-.grow:hover {
-	cursor: pointer;
-	padding: 10px 10px;
-	transition: all .5s;
-}
-</style>

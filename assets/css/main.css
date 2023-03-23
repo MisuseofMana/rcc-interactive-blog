@@ -8,14 +8,14 @@
 }
 
 .text-h1 {
-    font-size: 5rem !important;
+    font-size: 6rem !important;
     font-weight: 400 !important;
     line-height:5rem !important;
     text-transform: uppercase !important;
 }
 
 .text-h2 {
-    font-size: 4rem !important;
+    font-size: 5rem !important;
     font-weight: 400 !important;
     line-height: 4rem !important;
 }
@@ -45,7 +45,13 @@
 }
 
 .text-body-1 {
-    font-size: 1.6rem !important;
+    font-size: 1.4rem !important;
     font-weight: 100 !important;
-    line-height: 1.6rem !important;
+    line-height: 1.4rem !important;
+}
+
+.text-subtitle-1 {
+    font-size: 1rem !important;
+    font-weight: 100 !important;
+    line-height: 1.2rem !important;
 }
