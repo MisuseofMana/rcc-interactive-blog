@@ -30,7 +30,8 @@ export default defineNuxtConfig({
 			nuxt.hooks.hook(`vite:extendConfig`, config => config.plugins.push(
 				vuetify()
 			))
-		}
+		},
+		`@pinia/nuxt`,
 	],
 	components:  [
 		{ path: `~/components/exam-components`, global: true, pathPrefix: false },

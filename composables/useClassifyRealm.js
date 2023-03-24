@@ -70,13 +70,15 @@ export function useClassifyRealm(realms){
 			for(let i = 0; i <= shortName.length; i+=2) {
 				const letterOne = shortName[i] || ``
 				const letterTwo = longName[i+1] || ``
-				operatorId += alphabet.indexOf(letterOne) + alphabet.indexOf(letterTwo)
+				// operatorId += alphabet.indexOf(letterOne) + alphabet.indexOf(letterTwo)
+				operatorId += letterOne + letterTwo
 			}
 
 			for(let i = 0; i <= longName.length; i+=2) {
 				const letterOne = longName[i] || ``
 				const letterTwo = shortName[i+1] || ``
-				operatorId += alphabet.indexOf(letterOne) + alphabet.indexOf(letterTwo)
+				// operatorId += alphabet.indexOf(letterOne) + alphabet.indexOf(letterTwo)
+				operatorId += letterOne + letterTwo
 			}
 
 			return `Operator ${operatorId}`

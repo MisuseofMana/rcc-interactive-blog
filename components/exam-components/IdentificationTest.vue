@@ -84,7 +84,7 @@ const threeImagesFromSeparateRealms = () => {
     position: absolute;
     top: 0;
     width: 100%;
-    box-shadow: inset 9px 9px 5px #101010, inset -9px -9px 5px #101010, inset 4px 4px 0px #101010, inset -4px -4px 0px #101010;
+    box-shadow: inset 9px 9px 5px #000, inset -9px -9px 5px #000, inset 4px 4px 0px #000, inset -4px -4px 0px #000;
 }
 .grow {
 	padding: 20px 20px;

@@ -19,6 +19,7 @@
     "@pinia/nuxt": "^0.4.7",
     "howler": "^2.2.3",
     "moment": "^2.29.4",
+    "pinia": "^2.0.33",
     "vite-plugin-vuetify": "^1.0.2"
   }
 }

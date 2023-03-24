@@ -1,10 +1,10 @@
 import { Howl } from 'Howler'
 
-export function usePlaySound(targetSound, callback, fadeTo=1) {
+export function usePlaySound(targetSound, callback) {
 	const currentSound = new Howl({
 		src: [`/audio/sound-effects/${targetSound}.mp3`],
 		loop: false,
-		volume: fadeTo,
+		volume: 1,
 		onend: callback
 	})
 	

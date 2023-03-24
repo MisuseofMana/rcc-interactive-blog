@@ -43,11 +43,11 @@ export function usePageAudio() {
 		else {
 			currentSound.stop(currentlyPlaying)
 		} 
-		let realmTransition = new Howl({
-			src: [`/audio/sound-effects/realmTransition.mp3`],
-			loop: false,
-			volume: .001
-		})
-		realmTransition.play()
+		// let realmTransition = new Howl({
+		// 	src: [`/audio/sound-effects/realmTransition.mp3`],
+		// 	loop: false,
+		// 	volume: .05
+		// })
+		// realmTransition.play()
 	})
 }

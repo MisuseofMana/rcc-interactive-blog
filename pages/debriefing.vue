@@ -18,24 +18,6 @@
 							<div 
 								class="d-flex flex-column align-center justify-center">
 								<p class="text-body-1 mb-2">Not quite, that's a shame.</p>
-								<p class="text-deep-orange-darken-4 text-center text-body-1 mb-10">Please consider your understanding of the following.</p>
-								<ul class="text-deep-orange-darken-4 text-body-1 mb-6">
-									<li class="mb-1">
-										Are you paying attention?
-									</li>
-									<li class="mb-1">
-										Are you confident in you memory?
-									</li>
-									<li class="mb-1">
-										Have you gained the correct insights?
-									</li>
-									<li>
-										Can you recognize the documented realms?
-									</li>
-								</ul>
-								
-								<p class="text-deep-orange-darken-4 text-center text-body-1 mb-1">Still feeling lost?</p>
-								<p class="text-deep-orange-darken-4 text-center text-body-1 mb-8">Review /BRIEFING for instructions.</p>
 								
 								<v-row>
 									<v-col cols="12"

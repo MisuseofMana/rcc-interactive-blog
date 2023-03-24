@@ -19,6 +19,7 @@
 						mode="out-in">
 						<component @solved="nextQuestion"
 							@failed="sendToDebriefing"
+							@completed="passedExam"
 							:is="currentQuestion"
 							:key="currentQuestion"
 						>
@@ -57,12 +58,15 @@ const sendToDebriefing = () => {
 	navigateTo(`/debriefing`)
 }
 
+const passedExam = () => {
+	// eslint-disable-next-line no-undef
+	navigateTo('/uplink')
+}
+
 const nextQuestion = () => {
 	questionIndex.value++
 	progressNumber.value = 0
-	usePlaySound(`correct`, () => {
-		console.log('ended')
-	})
+	usePlaySound(`correct`)
 }
 
 onMounted(() => {

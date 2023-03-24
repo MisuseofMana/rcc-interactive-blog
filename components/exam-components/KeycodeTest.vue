@@ -75,7 +75,7 @@ const targetRealm = realmsWithSemiotics[new Date().getDay()]
 
 const addNumToAccessCode = (num) => {
 	digits.value.push(`${num}`)
-	if(targetRealm.realmCode === digits.value.join(``)) emit(`solved`)
+	if(targetRealm.realmCode === digits.value.join(``)) emit(`completed`)
 	else if(digits.value.length >= reset.length) {
 		usePlaySound(`disconnected`, () => {
 			emit(`failed`)
