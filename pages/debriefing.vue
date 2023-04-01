@@ -13,11 +13,12 @@
 						<v-card
 							variant="outlined"
 							color="deep-orange-darken-4"
-							class="pa-15 text-primary customBackground">
+							class="pa-15 text-primary">
 							
 							<div 
 								class="d-flex flex-column align-center justify-center">
-								<p class="text-body-1 mb-2">Not quite, that's a shame.</p>
+								<p class="text-body-1 mb-3">Not quite, that's a shame.</p>
+								<p class="text-body-1 mb-10">You may try as many times as necessary.</p>
 								
 								<v-row>
 									<v-col cols="12"
@@ -33,7 +34,7 @@
 										<BackButton class="mr-2"
 											:caution="true"
 											variant="outlined"
-											text="Begin Exam"
+											text="Retake Exam"
 											:realm-icons="['key']"
 											link-name="/operator-exam" />
 									</v-col>

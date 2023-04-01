@@ -3,13 +3,14 @@
 		:to="linkName"
 		class="text-decoration-none"
 		min-height="50px"
-		:height="smAndDown ? '75px' : '50px'"
+		:height="smAndDown ? '55px' : '50px'"
 		min-width="100%"
 		:color="caution ? 'deep-orange-darken-4' : 'primary-darken-1'">
 		<div v-if="frontIcon">
 			<v-icon class="mr-2"
 				size="25px"
-				:color="caution ? 'deep-orange-darken-4' : 'primary'">{{ frontIcon }}</v-icon>
+				:color="caution ? 'deep-orange-darken-4' : 'primary'"
+				:icon="`mdi-${frontIcon}`"></v-icon>
 		</div>
 		<div class="text-body-1 text-uppercase mr-2"
 			:class="caution ? 'text-deep-orange-darken-4' : 'text-primary'">

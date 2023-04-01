@@ -1,11 +1,11 @@
 <template>
-	<v-row>
+	<v-row class="mt-5">
 		<v-col class="d-flex justify-center">
 			<v-card
 				max-width="400px"
 				variant="outlined"
 				color="primary-darken-1"
-				class="pa-15 text-primary customBackground">
+				class="pa-15 text-primary">
 				<div class="d-flex align-center justify-center mb-8">
 					<v-icon :icon="`mdi-${icon}`"
 						size="30px"
@@ -13,7 +13,7 @@
 						:key="icon+index"
 						color="primary"/>
 				</div>
-				<div class="text-primary text-h3 d-flex justify-space-around align-end mb-10 inputReadout">
+				<div class="text-primary text-h3 d-flex justify-space-around align-end mb-6 inputReadout">
 					<div v-for="(entry, index) in computedDigits"
 						:key="`entry-${index}`"
 					>
@@ -22,35 +22,35 @@
 				</div>
 				<div class="d-flex justify-space-between mb-2">
 					<div @click="addNumToAccessCode('1')"
-						class="accessButton mr-2 text-primary text-h3">1</div>
+						class="customButton mr-2 text-primary text-h3">1</div>
 					<div @click="addNumToAccessCode('2')"
-						class="accessButton mr-2 text-primary text-h3">2</div>
+						class="customButton mr-2 text-primary text-h3">2</div>
 					<div @click="addNumToAccessCode('3')"
-						class="accessButton text-primary text-h3">3</div>
+						class="customButton text-primary text-h3">3</div>
 				</div>
 				<div class="d-flex justify-space-between mb-2">
 					<div @click="addNumToAccessCode('4')"
-						class="accessButton mr-2 text-primary text-h3">4</div>
+						class="customButton mr-2 text-primary text-h3">4</div>
 					<div @click="addNumToAccessCode('5')"
-						class="accessButton mr-2 text-primary text-h3">5</div>
+						class="customButton mr-2 text-primary text-h3">5</div>
 					<div @click="addNumToAccessCode('6')"
-						class="accessButton text-primary text-h3">6</div>
+						class="customButton text-primary text-h3">6</div>
 				</div>
 				<div class="d-flex justify-space-between mb-2">
 					<div @click="addNumToAccessCode('7')"
-						class="accessButton mr-2 text-primary text-h3">7</div>
+						class="customButton mr-2 text-primary text-h3">7</div>
 					<div @click="addNumToAccessCode('8')"
-						class="accessButton mr-2 text-primary text-h3">8</div>
+						class="customButton mr-2 text-primary text-h3">8</div>
 					<div @click="addNumToAccessCode('9')"
-						class="accessButton text-primary text-h3">9</div>
+						class="customButton text-primary text-h3">9</div>
 				</div>
 				<div class="d-flex justify-space-between">
 					<div @click="addNumToAccessCode('*')"
-						class="accessButton mr-2 text-primary text-h3">*</div>
+						class="customButton mr-2 text-primary text-h3">*</div>
 					<div @click="addNumToAccessCode('0')"
-						class="accessButton mr-2 text-primary text-h3">0</div>
+						class="customButton mr-2 text-primary text-h3">0</div>
 					<div @click="addNumToAccessCode('#')"
-						class="accessButton text-primary text-h3">#</div>
+						class="customButton text-primary text-h3">#</div>
 				</div>
 			</v-card>
 		</v-col>
@@ -62,21 +62,21 @@ import { ref, computed } from 'vue'
 import { pages } from '../../pages/realms.data'
 import { usePlaySound } from '~/composables/usePlaySound'
 
-const props = defineProps({
-	alreadyFailed: Boolean
-})
-
 const realmsWithSemiotics = pages.filter(realm => {
 	if(realm.semiotics) return realm
 })
+
+const disabled = ref(false)
 
 const emit = defineEmits([`completed`, `failed`])
 const targetRealm = realmsWithSemiotics[new Date().getDay()]
 
 const addNumToAccessCode = (num) => {
+	if(disabled.value) return
 	digits.value.push(`${num}`)
 	if(targetRealm.realmCode === digits.value.join(``)) emit(`completed`)
 	else if(digits.value.length >= reset.length) {
+		disabled.value = true
 		usePlaySound(`disconnected`, () => {
 			emit(`failed`)
 		})
@@ -96,16 +96,6 @@ const computedDigits = computed(() => {
 </script>
 
 <style scoped>
-.accessButton {
-	background: rgb(var(--v-theme-primary-darken-1));
-	border-radius: 5px;
-	width: 85px;
-	height: 85px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
 .inputReadout {
 	background: rgb(var(--v-theme-primary-darken-1));
 	border-radius: 5px;

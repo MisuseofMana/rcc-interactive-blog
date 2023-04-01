@@ -1,11 +1,12 @@
 import { Howl } from 'Howler'
 import { onMounted, onUnmounted } from 'vue'
+import { useSiteStore } from '~/store/useSiteStore.js'
 
 export function usePageAudio() {
 	let target = ``
 	let currentSound = null
 	let currentlyPlaying
-	let isUnlocked = false
+	const siteStore = useSiteStore()
 	
 	onMounted(() => {
 		// eslint-disable-next-line no-undef
@@ -26,10 +27,9 @@ export function usePageAudio() {
 			volume: 0,
 			onunlock: function () {
 				setTimeout(() => {
-					isUnlocked = true
+					siteStore.hasInteracted = true
 				}, 1100)
 			},
-			
 		})
 		
 		currentlyPlaying = currentSound.play()
@@ -37,7 +37,7 @@ export function usePageAudio() {
 	})
 
 	onUnmounted(() => {
-		if(isUnlocked) {
+		if(siteStore.hasInteracted) {
 			currentSound.fade(1, 0, 1000, currentlyPlaying)
 		}
 		else {

@@ -9,7 +9,7 @@
 						color="primary"
 						rounded
 						v-model="progressNumber"
-						class="mb-10"/>
+						class="mb-3"/>
 				</v-col>
 			</v-row>
 			<v-row dense
@@ -72,7 +72,7 @@ const nextQuestion = () => {
 onMounted(() => {
 	tickingClock = setInterval(() => {
 		progressNumber.value += 100 / 30
-		// if(progressNumber.value >= 100) sendToDebriefing()
+		if(progressNumber.value >= 100) sendToDebriefing()
 	}, 1000)
 })
 

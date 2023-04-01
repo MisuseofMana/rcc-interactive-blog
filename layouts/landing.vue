@@ -19,7 +19,7 @@ import { usePageAudio } from '~/composables/usePageAudio'
 usePageAudio()
 
 const { name } = useDisplay()
-const showDebug = true
+const showDebug = false
 </script>
 
 <style scoped>
