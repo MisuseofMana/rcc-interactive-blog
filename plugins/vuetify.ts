@@ -12,6 +12,7 @@ const crickTheme: ThemeDefinition = {
       primary: '#89f200',
       'primary-darken-1': '#217d00',
       'primary-darken-2': '#1f7300',
+      'primary-darken-3': '#154d00',
       'hidden-primary-darken-1': '#299602',
       secondary: '#c900cc',
       'secondary-darken-1': '#9200b3',

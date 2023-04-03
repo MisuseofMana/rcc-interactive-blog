@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<NuxtLayout name="landing">
+	<NuxtLayout name="admin">
 		<v-container class="my-5">
 			<v-row>
 				<v-col cols="12"
@@ -39,6 +39,11 @@
 									color="primary-darken-1"
 									class="text-primary"
 									text="Log In"/>
+							</v-col>
+							<v-col cols="12" xl="2" class="offset-xl-1 text-right text-h6 text-primary d-flex align-center justify-end">
+								<NuxtLink class="text-primary text-decoration-none" to="/apply">
+									Or Sign Up
+								</NuxtLink>
 							</v-col>
 						</v-row>
 					</v-card>

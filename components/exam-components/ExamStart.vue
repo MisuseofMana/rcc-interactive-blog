@@ -38,7 +38,8 @@
 							
 							<p class="text-deep-orange-darken-4 text-body-1 mb-3">Still feeling lost or uncertain?</p>
 							<p class="text-deep-orange-darken-4 text-body-1 mb-3">It would be best to brush up in <strong class="font-weight-black">/briefing</strong> before the exam.</p>
-							<p class="text-deep-orange-darken-4 text-body-1 mb-15">Once started you will have 30 seconds to answer each question.</p>
+							<p class="text-deep-orange-darken-4 text-body-1 mb-6">Once started you will have 30 seconds to answer each question.</p>
+							<p class="text-deep-orange-darken-4 text-body-1 mb-15">You have {{ remainingAttempts }} attempts remaining today.</p>
 							
 							<v-row>
 								<v-col cols="12"
@@ -55,6 +56,7 @@
 										:caution="true"
 										variant="outlined"
 										text="Begin Exam"
+										:disabled="examDisabled"
 										:realm-icons="['key']"
 										@click="startExam"/>
 								</v-col>
@@ -68,10 +70,21 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 const emit = defineEmits([`solved`])
 const startExam = () => {
 	emit(`solved`)
 }
+const examDisabled = ref(false)
+const remainingAttempts = ref(0)
+
+onMounted(() => {
+	remainingAttempts.value = localStorage.remainingAttempts || 5
+	if(localStorage.remainingAttempts <= 0) {
+		examDisabled.value = true
+	}
+})
+
 </script>
 
 <style scoped>

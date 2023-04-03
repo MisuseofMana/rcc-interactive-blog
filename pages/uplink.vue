@@ -20,8 +20,7 @@
 							<h1 class="text-primary text-center text-h1 mb-8">
 								ACCESS GRANTED
 							</h1>
-							<p class="text-body-1 mb-8">If you take a moment to consider your accomplishment, you may ask yourself "what's next?"</p>
-							<p class="text-body-1 mb-3">You may wish to join in documenting the myriad of realms to greater this project.</p>
+							<p class="text-body-1 mb-8">If you take a moment to consider your accomplishment, you may ask yourself "what's next?"  You may wish to join in documenting the myriad of realms to greater this project.</p>
 							<p class="text-body-1">If you find yourself uninterested in this task, you may go <strong class="font-weight-black">elsewhere</strong>.</p>
 						</div>
 						
@@ -45,7 +44,7 @@
 									▛ ▙▏▜▜▎▓ ▜▛ ▙▏▜▐▜ ▜▜█▐▎▓ █▛ ▜█▜ █▛ ▜█▚▋▎╽.
 								</span>
 							</p>
-							<p class="text-body-1">Alternatively apply electronically below.</p>
+							<p class="text-body-1">Alternatively - apply electronically below.</p>
 						</div>
 						
 						<v-row class="mb-15" no-gutters dense>

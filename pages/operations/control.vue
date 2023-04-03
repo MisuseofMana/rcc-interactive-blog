@@ -9,10 +9,9 @@
 					lg="6"
 					xl="6"
 					class="offset-sm-2 offset-md-3">
-					<p class="text-body-1 text-center">Hello <span class="text-white">Operator Name.</span></p>
-					<h1 class="text-h1 text-center mb-6">Control Panel</h1>
+					<p class="text-body-1 text-center">Hello <span class="text-deep-orange-darken-4">Operator Name.</span></p>
 					<p class="text-subtitle-1 text-center mb-10">{{ musings[chosenMusing] }}</p>
-					
+					<h1 class="text-h1 text-center mb-3">Control Panel</h1>
 				</v-col>
 			</v-row>
 			<v-row>
@@ -22,19 +21,27 @@
 					lg="4"
 					xl="4"
 					class="offset-sm-2 offset-md-3 offset-lg-4">
-					<BackButton class="mb-3"
-						text="/Existing Realm Submission"
-						:realm-icons="['earth']"
-						link-name="/operations/realm-submission"/>
+					<p class="text-primary text-body-1 mb-3">Operator Clearance</p>
 					<BackButton class="mb-15"
-						text="/Realm Submission Approval"
+						text="/Submit a Photo"
+						:realm-icons="['camera']"
+						link-name="/operations/realm-submission"/>
+					
+					<p class="text-primary text-body-1 mb-3">Classified Clearance</p>
+					<BackButton class="mb-3"
+						text="/Realm Approval"
 						:realm-icons="['map-search-outline']"
 						:disabled="!isAdmin"
 						link-name="/operations/realm-approval"/>
+					<BackButton class="mb-15"
+						text="/Realm Management"
+						:realm-icons="['pencil']"
+						:disabled="!isAdmin"
+						link-name="/operations/realm-management"/>
 
-					<p class="text-body-1 mb-5 text-center text-primary"> Coming soon...</p>
+					<p class="text-body-1 mb-3 mt-15 text-primary"> Coming Soon...</p>
 					<BackButton class="mb-3"
-						text="/New Realm Submission"
+						text="/New Realm Proposal"
 						:realm-icons="['earth']"
 						disabled/>
 					<BackButton class="mb-3"
@@ -57,7 +64,7 @@ const musings = [
 	`The realms seem calm today. What's in store?`,
 	`Remember to submit to the appropriate realm.`,
 	`You seem focused. Did you discover a new realm?`,
-	`Hello there, glad to see you.`,
+	`So glad to see you.`,
 ]
 const chosenMusing = useRandomNumber(musings.length)
 const isAdmin = true

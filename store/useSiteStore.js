@@ -6,5 +6,6 @@ import { defineStore } from 'pinia'
 // the first argument is a unique id of the store across your application
 export const useSiteStore = defineStore(`site`, () => {
     const hasInteracted = ref(false)
-    return hasInteracted
+    const examAutoStart = ref(false)
+    return { hasInteracted, examAutoStart }
 })

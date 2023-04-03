@@ -17,9 +17,12 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
+    "firebase": "^9.19.1",
     "howler": "^2.2.3",
     "moment": "^2.29.4",
+    "nuxt-vuefire": "^0.1.6",
     "pinia": "^2.0.33",
-    "vite-plugin-vuetify": "^1.0.2"
+    "vite-plugin-vuetify": "^1.0.2",
+    "vuefire": "^3.1.0"
   }
 }

@@ -5,7 +5,9 @@
 			<v-row>
 				<v-col cols="12"
 					class="">
-					<h1 class="text-h1 text-center mb-10">Realm Submission</h1>
+					<h1 class="text-h1 text-center mb-5">Realm Submission</h1>
+					<p class="text-body-1 text-center mb-3">Submit one or multiple photos to a realm of your choosing.</p>
+					<p class="text-body-1 text-center mb-10">If you are unsure which realm you are submitting to, please select "Uncertain" as the Realm Name.</p>
 				</v-col>
 			</v-row>
 			<v-row>
@@ -26,8 +28,8 @@
 				<v-col cols="12"
 					xl="6">
 					<v-textarea
+						class="text-primary primary"
 						prepend-icon="mdi-comment"
-						name="input-7-1"
 						variant="filled"
 						label="Image Lore"
 						counter="120"

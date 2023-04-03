@@ -80,15 +80,3 @@ onMounted(() => {
 	question.value = returnedArray
 })
 </script>
-
-<style scoped>
-.realmImage::after {
-    content: '';
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    box-shadow: inset 30px 30px 10px #000, inset -30px -30px 10px #000, inset 4px 4px 0px #000, inset -4px -4px 0px #000;
-}
-</style>

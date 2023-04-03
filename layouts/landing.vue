@@ -4,7 +4,7 @@
 		<v-no-ssr>
 			<p
 				v-if="showDebug"
-				class="text-warning text-body-1" 
+				class="text-deep-orange-darken-4 text-body-1" 
 			>
 				{{ name }}
 			</p>

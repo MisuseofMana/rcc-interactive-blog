@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<NuxtLayout name="landing">
+	<NuxtLayout name="admin">
 		<v-container class="my-5">
 			<v-row>
 				<v-col cols="12"

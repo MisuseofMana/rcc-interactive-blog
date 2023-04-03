@@ -51,28 +51,3 @@ const checkAnswer = (guess) => {
 
 
 </script>
-
-<style scoped>
-.realmImage {
-	cursor: pointer;
-}
-.realmImage::after {
-    content: '';
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    box-shadow: inset 9px 9px 5px #000, inset -9px -9px 5px #000, inset 4px 4px 0px #000, inset -4px -4px 0px #000;
-}
-.grow {
-	padding: 10px 10px;
-	transition: all .5s;
-}
-
-.grow:hover {
-	cursor: pointer;
-	padding: 5px 5px;
-	transition: all .5s;
-}
-</style>

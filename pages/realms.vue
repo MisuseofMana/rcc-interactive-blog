@@ -124,17 +124,6 @@ const realmsWithSemiotics = pages.filter(realm => {
 	transition: all .25s;
 }
 
-.grow {
-	padding: 20px 20px;
-	transition: all .5s;
-}
-
-.grow:hover {
-	cursor: pointer;
-	padding: 10px 10px;
-	transition: all .5s;
-}
-
 .realmImage {
 	filter: sepia() hue-rotate(60deg);
 	z-index: -1;

@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<NuxtLayout name="default">
-		<v-row dense
+		<v-row
 			class="mt-1 mb-15">
 			<v-col cols="12"
 				md="4">
@@ -48,9 +48,7 @@
 			</v-col>
 		</v-row>
 
-		<v-row class="mb-10"
-			no-gutters
-			dense>
+		<v-row class="mb-10">
 			<v-col cols="12"
 				sm="12"
 				lg="6"
@@ -62,7 +60,7 @@
 					lazy-src="/images/mocks/placeholder.jpg"
 					aspect-ratio="1.5"
 					:src="`/images/${currentRealm.slug}/${item.filePath}.jpg`" />	
-				<span class="pl-9 mr-10 mt-n6 mb-1 zUp text-primary text-subtitle-1 d-flex align-center justify-space-between">
+				<span class="pl-2 mr-5 mt-n2 mb-1 zUp text-primary text-subtitle-1 d-flex align-center justify-space-between">
 					<p>
 						{{ item.operator }}
 					</p>
@@ -103,7 +101,7 @@ const route = useRoute()
 const currentRealm = ref({})
 
 onMounted(() => {
-	currentRealm.value = classifiedRealms.value.find(object => object.slug === route.params.realm[0])
+	currentRealm.value = classifiedRealms.value.find(object => object.slug === route.params.realm)
 })
 
 const iconWidth = computed(() => {
@@ -112,16 +110,6 @@ const iconWidth = computed(() => {
 </script>
 
 <style scoped>
-.realmImage::after {
-    content: '';
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    box-shadow: inset 30px 30px 10px #000, inset -30px -30px 10px #000, inset 4px 4px 0px #000, inset -4px -4px 0px #000;
-}
-
 .minHeight {
 	min-height: 150px;
 }

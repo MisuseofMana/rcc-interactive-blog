@@ -12,11 +12,11 @@
 						class="offset-xl-2">
 						<p
 							v-if="showDebug"
-							class="text-warning text-body-1"
+							class="text-deep-orange-darken-4 text-body-1"
 						>
 							{{ name }}
 						</p>
-						<v-row class="mx-1">
+						<v-row>
 							<v-col cols="12"
 								sm="6"
 								md="4"

@@ -34,6 +34,8 @@
 <script setup>
 import { usePlaySound } from '~/composables/usePlaySound'
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useSiteStore } from '~/store/useSiteStore.js'
+const siteStore = useSiteStore()
 
 // eslint-disable-next-line no-undef
 const progressNumber = ref(0)
@@ -60,7 +62,7 @@ const sendToDebriefing = () => {
 
 const passedExam = () => {
 	// eslint-disable-next-line no-undef
-	navigateTo('/uplink')
+	navigateTo(`/uplink`)
 }
 
 const nextQuestion = () => {
@@ -70,9 +72,20 @@ const nextQuestion = () => {
 }
 
 onMounted(() => {
+	localStorage.savedDay = new Date().setHours(0,0,0,0)
+	localStorage.remainingAttempts = localStorage.remainingAttempts ? localStorage.remainingAttempts : 5
+	if( localStorage.savedDay < new Date().setHours(0,0,0,0) ) {
+		localStorage.remainingAttempts = 5
+		localStorage.savedDay = new Date().setHours(0,0,0,0)
+	}
+
+	if(siteStore.examAutoStart) {
+		questionIndex.value++
+		siteStore.examAutoStart = false
+	}
 	tickingClock = setInterval(() => {
 		progressNumber.value += 100 / 30
-		if(progressNumber.value >= 100) sendToDebriefing()
+		if(progressNumber.value >= 100 && questionIndex.value > 0) sendToDebriefing()
 	}, 1000)
 })
 

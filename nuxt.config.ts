@@ -32,10 +32,31 @@ export default defineNuxtConfig({
 			))
 		},
 		`@pinia/nuxt`,
+		`nuxt-vuefire`
 	],
+	vuefire: {
+		auth: true,
+		config: {
+			apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
+			authDomain: `crickburrowarchives.firebaseapp.com`,
+			projectId: `crickburrowarchives`,
+			storageBucket: `crickburrowarchives.appspot.com`,
+			messagingSenderId: `708349315619`,
+			appId: `1:708349315619:web:5a599bfa7961f0bf217f96`,
+			measurementId: `G-CLXB8V1MH8`
+		},
+		appCheck: {
+			// Allows you to use a debug token in development
+			debug: process.env.NODE_ENV !== 'production',
+			isTokenAutoRefreshEnabled: true,
+			provider: 'ReCaptchaV3',
+			// Find the instructions in the Firebase documentation, link above
+			key: '...',
+		},
+	},
 	components:  [
 		{ path: `~/components/exam-components`, global: true, pathPrefix: false },
-		`~/components`
+		`~/components`,
 	],
 	// page level transitions
 	app: {

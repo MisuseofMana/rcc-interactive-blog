@@ -16,19 +16,19 @@
 				:key="submission.lore+index">
 				<v-row>
 					<v-col cols="12"
-						xl="4">
+						lg="4">
 						<v-img class="abberation"
 							contain
 							:src="submission.imageSrc"
 							alt="geometric shape"/>
 					</v-col>	
 					<v-col cols="12"
-						xl="5">
+						lg="5">
 						<h6 class="text-h6 text-primary mb-4">{{ submission.title }}</h6>
 						<p class="text-body-1 text-primary">{{ submission.lore }}</p>
 					</v-col>
 					<v-col cols="12"
-						xl="3"
+						lg="3"
 						class="d-flex flex-column align-center justify-center">
 						<BackButton class="mr-2 mb-3"
 							rounded
