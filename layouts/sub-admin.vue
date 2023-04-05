@@ -22,7 +22,7 @@
 								md="4"
 								xl="3">
 								<BackButton
-									text="Return to Operations"
+									text="Return to Control Panel"
 									front-icon="eye-settings"
 									link-name="/operations/control" />
 							</v-col>

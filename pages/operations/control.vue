@@ -21,6 +21,7 @@
 					lg="4"
 					xl="4"
 					class="offset-sm-2 offset-md-3 offset-lg-4">
+					{{ realms }}
 					<p class="text-primary text-body-1 mb-3">Operator Clearance</p>
 					<BackButton class="mb-15"
 						text="/Submit a Photo"
@@ -59,6 +60,41 @@
 
 <script setup>
 import { useRandomNumber } from '~/composables/useRandomNumber'
+import { ref, onMounted } from 'vue'
+import { useFirestore, useCollection } from 'vuefire'
+import { collection, query, getDocs, onSnapshot } from 'firebase/firestore'
+const db = useFirestore()
+const q = query(collection(db, `realms`))
+
+const realmsCollection = ref([])
+const querySnapshot = await getDocs(q)
+onSnapshot(q, (querySnapshot) => {
+	querySnapshot.forEach((doc) => {
+		console.log(doc.id, ` => `, doc.data())
+		realmsCollection.value.push(doc.data())
+	})
+})
+
+
+const realms = useCollection(collection(db, `realms`))
+
+onMounted(() => {
+	console.log(db)
+	realms.value = useCollection(collection(db, `realms`))
+})
+
+// eslint-disable-next-line no-undef
+definePageMeta({
+	middleware: [`auth`],
+})
+
+// await setDoc(doc(db, "", "LA"), {
+//   name: "Los Angeles",
+//   state: "CA",
+//   country: "USA"
+// });
+
+
 const musings = [
 	`Stumble upon any new realms?`,
 	`The realms seem calm today. What's in store?`,

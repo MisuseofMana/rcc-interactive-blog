@@ -22,6 +22,8 @@
 								md="4"
 								xl="3">
 								<BackButton
+									caution
+									variant="outlined"
 									text="Leave Operations"
 									front-icon="arrow-left"
 									link-name="/brainwash" />

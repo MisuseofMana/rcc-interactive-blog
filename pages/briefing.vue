@@ -141,13 +141,6 @@
 <script setup>
 import { useDisplay } from 'vuetify'
 const { mdAndUp, smAndUp } = useDisplay()
-
-
-// TODO
-// import pageMusic from '@/plugins/pageMusic'
-// music: `aboutTheme`,
-// transition: `fadeSwitch`,
-// mixins: [pageMusic],
 </script>
 
 <style scoped>

@@ -60,3 +60,11 @@
     width: 100%;
     box-shadow: inset 9px 9px 5px #000, inset -9px -9px 5px #000, inset 4px 4px 0px #000, inset -4px -4px 0px #000;
 }
+
+.v-messages {
+    font-size: 1rem !important;
+}
+
+.v-counter {
+    font-size: 1rem !important;
+}

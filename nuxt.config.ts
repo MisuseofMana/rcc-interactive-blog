@@ -5,6 +5,7 @@ import vuetify from 'vite-plugin-vuetify'
 // @ts-ignore
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
+	ssr: false,
 	css: [
 		`~/assets/css/transitions.css`,
 		`~/assets/css/globalReset.css`, 
@@ -51,7 +52,7 @@ export default defineNuxtConfig({
 			isTokenAutoRefreshEnabled: true,
 			provider: 'ReCaptchaV3',
 			// Find the instructions in the Firebase documentation, link above
-			key: '...',
+			key: '6LejtlUlAAAAAEvIfVKCit8UQxmBMvnIBPoWEYoa',
 		},
 	},
 	components:  [

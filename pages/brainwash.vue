@@ -84,7 +84,7 @@ onMounted(() => {
 		}
 		shown.value++
 		// eslint-disable-next-line no-undef
-		if(shown.value > 12) navigateTo({ path: `/briefing` })
+		if(shown.value > 6) navigateTo({ path: `/briefing` })
 	}, 450)
 	randomNumber.value = useRandomNumber(clutterNames.length)
 })
