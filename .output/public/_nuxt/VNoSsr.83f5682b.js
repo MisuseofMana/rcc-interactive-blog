@@ -1,0 +1,1 @@
+import{u as r}from"./hydration.6ea90cfa.js";import{B as a}from"./entry.c9a1c00a.js";const m=a({name:"VNoSsr",setup(l,s){let{slots:o}=s;const e=r();return()=>{var t;return e.value&&((t=o.default)==null?void 0:t.call(o))}}});export{m as V};
