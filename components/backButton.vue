@@ -1,39 +1,47 @@
 <template>
-    <v-btn nuxt :to="linkName" class="text-decoration-none" :min-height="buttonHeight" :min-width="buttonWidth" color="primary darken-3">
+	<v-btn nuxt
+		:to="linkName"
+		class="text-decoration-none"
+		min-height="50px"
+		:height="smAndDown ? '55px' : '50px'"
+		min-width="100%"
+		:color="caution ? 'deep-orange-darken-4' : 'primary-darken-1'">
 		<div v-if="frontIcon">
-			<v-icon class="mr-2" :size="iconSize" color="primary">{{ frontIcon }}</v-icon>
+			<v-icon class="mr-2"
+				size="25px"
+				:color="caution ? 'deep-orange-darken-4' : 'primary'"
+				:icon="`mdi-${frontIcon}`"></v-icon>
 		</div>
-		<div class="text-body-1 primary--text mr-2">
+		<div class="text-body-1 text-uppercase mr-2"
+			:class="caution ? 'text-deep-orange-darken-4' : 'text-primary'">
 			{{ text }}
 		</div>
 		<div v-if="realmIcons">
-			<v-icon :size="iconSize" v-for="(items, index) in realmIcons" :key="items+index" color="primary">mdi-{{ items }}</v-icon>
+			<v-icon :icon="`mdi-${items}`"
+				size="25px"
+				v-for="(items, index) in realmIcons"
+				:key="items+index"
+				:color="caution ? 'deep-orange-darken-4' : 'primary'"></v-icon>
 		</div>
-    </v-btn>
-</template>
+	</v-btn>
+</template> 
 
-<script>
-export default {
-	props: [
-		`frontIcon`,
-		`text`,
-		`realmIcons`,
-		`linkName`,
-	],
-	computed: {
-		iconSize() {
-			return this.$vuetify.breakpoint.smAndDown ? `28px` : `25px`
-		},
-		buttonWidth() {
-			return this.$vuetify.breakpoint.smAndDown ? `100%` : ``
-		},
-		buttonHeight() {
-			return this.$vuetify.breakpoint.smAndDown ? `75px` : `50px`
-		}
-	}
-}
+<script setup>
+import { onMounted, ref } from 'vue'
+import { useDisplay } from 'vuetify'
+
+defineProps({
+	frontIcon: String,
+	text: String,
+	realmIcons: Array,
+	linkName: String,
+	caution: Boolean
+})
+
+const { smAndDown } = useDisplay()
+const isMounted = ref(false)
+
+onMounted(() => {
+	isMounted.value = true
+})
 </script>
-
-<style lang="scss" scoped>
-
-</style>

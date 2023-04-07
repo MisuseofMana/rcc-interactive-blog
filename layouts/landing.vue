@@ -1,24 +1,33 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-<v-app style="background: var(--v-background-base)">
-	<v-main>
-		<Nuxt />
-	</v-main>
-</v-app>
+	<v-app full-height class="text-primary">
+		<v-no-ssr>
+			<p
+				v-if="showDebug"
+				class="text-deep-orange-darken-4 text-body-1" 
+			>
+				{{ name }}
+			</p>
+			<slot />
+		</v-no-ssr>
+	</v-app>
 </template>
 
-<script>
-export default {
-	name: 'LandingLayout',
-}
+<script setup>
+import { useDisplay } from 'vuetify'
+import { usePageAudio } from '~/composables/usePageAudio'
+usePageAudio()
+
+const { name } = useDisplay()
+const showDebug = false
 </script>
 
-
 <style scoped>
-v-app {
-	overflow:hidden;
-	max-width:100vw;
-	max-height:100vh;
-	margin:0;
-	padding:0;
-}
+	v-app {
+		overflow:hidden;
+		max-width:100vw;
+		max-height:100vh;
+		margin:0;
+		padding:0;
+	}
 </style>

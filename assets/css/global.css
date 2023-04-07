@@ -1,4 +1,70 @@
+.item {
+    padding:0;
+    filter: sepia() hue-rotate(50deg) brightness(1) saturate(2);
+}
+
 .abberation {
     padding:0;
-    filter: sepia() hue-rotate(50deg) brightness(1.2) saturate(220%);
+    filter: sepia() hue-rotate(45deg) brightness(1.1) saturate(4);
+}
+
+.dullAbberation {
+    padding:0;
+    filter: sepia() hue-rotate(45deg) brightness(.8) saturate(2);
+}
+
+.errorAbberation {
+    padding:0;
+    filter: sepia() saturate(100) hue-rotate(50deg) brightness(1.1);
+}
+
+.zUp {
+    z-index: 1000;
+}
+
+.customButton {
+	background: rgb(var(--v-theme-primary-darken-1));
+	border-radius: 5px;
+	width: 85px;
+	height: 85px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.customButton:hover {
+    background: rgb(var(--v-theme-primary-darken-2));
+    cursor: pointer;
+}
+
+.grow {
+	padding: 10px 10px;
+	transition: all .5s;
+}
+
+.grow:hover {
+	cursor: pointer;
+	padding: 5px 5px;
+	transition: all .5s;
+}
+
+.realmImage {
+	cursor: pointer;
+}
+.realmImage::after {
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    box-shadow: inset 9px 9px 5px #000, inset -9px -9px 5px #000, inset 4px 4px 0px #000, inset -4px -4px 0px #000;
+}
+
+.v-messages {
+    font-size: 1rem !important;
+}
+
+.v-counter {
+    font-size: 1rem !important;
 }

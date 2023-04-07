@@ -2,35 +2,52 @@
 /*global module*/
 
 module.exports = {
-	'env': {
-		'browser': true,
-		'es2021': true
+	"env": {
+		"browser": true,
+		"es2021": true
 	},
-	'extends': [
+	"extends": [
 		`eslint:recommended`,
-		`plugin:vue/essential`
+		`plugin:vue/vue3-essential`
 	],
-	'parserOptions': {
-		'ecmaVersion': 12,
-		'sourceType': `module`
+	"overrides": [
+	],
+	"parserOptions": {
+		"ecmaVersion": `latest`,
+		"sourceType": `module`
 	},
-	'plugins': [
+	"plugins": [
 		`vue`
 	],
-	'rules': {
-		'indent': [
+	"rules": {
+		"vue/html-indent": [`error`, `tab`, {
+			"attribute": 1,
+			"baseIndent": 1,
+			"closeBracket": 0,
+			"alignAttributesVertically": false,
+			"ignores": []
+		}],
+		"vue/max-attributes-per-line": [`error`, {
+			"singleline": {
+				"max": 1
+			},      
+			"multiline": {
+				"max": 1
+			}
+		}],
+		"indent": [
 			`error`,
 			`tab`
 		],
-		'linebreak-style': [
+		"linebreak-style": [
 			`error`,
 			`unix`
 		],
-		'quotes': [
+		"quotes": [
 			`error`,
 			`backtick`
 		],
-		'semi': [
+		"semi": [
 			`error`,
 			`never`
 		]

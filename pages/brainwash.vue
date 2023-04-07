@@ -1,106 +1,102 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <NuxtLink to="/briefing">
-    <v-container fill-height class="overflow-hidden">
-        <v-row class="overflow-hidden">
-                <v-col class="d-flex justify-center align-center" cols="12">
-                    <div class="linkSize d-flex align-center justify-center">
-                        <transition name="brainwash" mode="out-in">
-                            <v-img :max-width="imageWidth" class="abberation" :key="whichClutter" :src="require(`@/assets/images/clutter/${whichClutter}.png`)" :alt="whichClutter"></v-img>
-                        </transition>
-                    </div>
-                </v-col>
-            </v-row>
-        </v-container>
-    </NuxtLink>
+	<NuxtLink to="/briefing">
+		<NuxtLayout name="landing">
+			<v-row dense
+				no-gutters>
+				<v-col class="d-flex justify-center align-center"
+					cols="12">
+					<Transition name="brainwash"
+						mode="out-in">
+						<v-img 
+							max-width="200px"
+							max-height="200px"
+							class="abberation"
+							:key="whichClutter"
+							:src="`/images/clutter/${whichClutter}.png`"
+							:alt="whichClutter"></v-img>
+					</Transition>
+				</v-col>
+			</v-row>
+		</NuxtLayout>
+	</NuxtLink>
 </template>
 
-<script>
-import pageMusic from '@/plugins/pageMusic'
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount, onBeforeMount } from 'vue'
+import { useRandomNumber } from '~/composables/useRandomNumber'
 
-export default {
-	name:`Brainwash`,
-	music: `theme`,
-	transition:`fadeSwitch`,
-	layout: `landing`,
-	mixins: [pageMusic],
-	data() {
-		return {
-			clutterNames: [ 
-				`decay`, 
-				`formula`, 
-				`graph`, 
-				`cloud`, 
-				`dose`, 
-				`table`, 
-				`flow`, 
-				`section`, 
-				`geometry`, 
-				`calculation`, 
-				`block`, 
-				`bedding`, 
-				`path`, 
-				`algorithm`, 
-				`antenna`, 
-				`board`, 
-				`circuit`,
-				`coil`,
-				`curve`,
-				`districts`,
-				`door`,
-				`figures`,
-				`gear`,
-				`knob`,
-				`melt`,
-				`power`,
-				`pyramid`,
-				`radius`,
-				`realms`,
-				`sphere`,
-				`stage`,
-				`tower`,
-			],
-			randomNumber: 0, 
-			changeClutter: undefined,
+import { usePageAudio } from '~/composables/usePageAudio'
+usePageAudio()
+
+
+const clutterNames = [ 
+	`algorithm`, 
+	`antenna`, 
+	`block`, 
+	`bedding`, 
+	`board`, 
+	`calculation`, 
+	`circuit`,
+	`cloud`, 
+	`coil`,
+	`curve`,
+	`decay`, 
+	`districts`,
+	`door`,
+	`dose`, 
+	`figures`,
+	`flow`, 
+	`formula`, 
+	`gear`,
+	`geometry`, 
+	`graph`, 
+	`knob`,
+	`melt`,
+	`path`, 
+	`power`,
+	`pyramid`,
+	`radius`,
+	`realms`,
+	`section`, 
+	`stage`,
+	`sphere`,
+	`table`, 
+	`tower`,
+]
+const randomNumber = ref(0) 
+let changeClutter = null
+
+const whichClutter = computed(() => {
+	return clutterNames[randomNumber.value]
+})	
+
+const shown = ref(0)
+
+onMounted(() => {
+	randomNumber.value = useRandomNumber(clutterNames.length)
+	changeClutter = setInterval(() => {
+		if(randomNumber.value < clutterNames.length - 1) {
+			randomNumber.value += 1
 		}
-	},
-	computed: {
-		whichClutter() {
-			return this.clutterNames[this.randomNumber]
-		},
-		imageWidth(){
-			return this.$vuetify.breakpoint.sm ? `90%` : `400px`
+		else {
+			randomNumber.value = 0
 		}
-	},
-	methods: {
-		rollRandomNumber: (max) => {
-			return Math.floor(Math.random() * (max))
-		},
-	},
-	mounted() { 
-		this.randomNumber = this.rollRandomNumber(this.clutterNames.length)
-		this.changeClutter = setInterval(() => {
-			if( this.randomNumber >= this.clutterNames.length - 1 ) {
-				this.randomNumber = 0
-			}
-			else { 
-				this.randomNumber++
-				this.maxWidth += 10
-			}
-		}, 1800)
-	},
-	beforeDestroy() {
-		clearInterval(this.changeClutter)
-	},
-}
+		shown.value++
+		// eslint-disable-next-line no-undef
+		if(shown.value > 6) navigateTo({ path: `/briefing` })
+	}, 450)
+	randomNumber.value = useRandomNumber(clutterNames.length)
+})
+
+onBeforeUnmount(() => {
+	clearInterval(changeClutter)
+})
+
+onBeforeMount(() => {
+	clutterNames.forEach((name) => {
+		let image = new Image()
+		image.src = `/images/clutter/${name}.png` 
+	})
+})
 </script>
-
-<style lang="scss" scoped>
-.overflow-hidden {
-    overflow-y: hidden;
-}
-
-.linkSize {
-    min-width:400px;
-    min-height:400px;
-}
-</style>
