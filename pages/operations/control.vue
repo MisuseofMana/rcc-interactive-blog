@@ -9,7 +9,7 @@
 					lg="6"
 					xl="6"
 					class="offset-sm-2 offset-md-3">
-					<p class="text-body-1 text-center">Hello <span class="text-deep-orange-darken-4">Operator Name.</span></p>
+					<p class="text-body-1 text-center">Hello <span class="text-deep-orange-darken-4">{{ user.displayName }}.</span></p>
 					<p class="text-subtitle-1 text-center mb-10">{{ musings[chosenMusing] }}</p>
 					<h1 class="text-h1 text-center mb-3">Control Panel</h1>
 				</v-col>
@@ -63,6 +63,8 @@ import { useRandomNumber } from '~/composables/useRandomNumber'
 import { ref, onMounted } from 'vue'
 import { useFirestore, useCollection } from 'vuefire'
 import { collection, query, getDocs, onSnapshot } from 'firebase/firestore'
+
+const user = await getCurrentUser()
 const db = useFirestore()
 const q = query(collection(db, `realms`))
 

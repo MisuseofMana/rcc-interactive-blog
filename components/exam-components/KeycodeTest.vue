@@ -68,13 +68,13 @@ const realmsWithSemiotics = pages.filter(realm => {
 
 const disabled = ref(false)
 
-const emit = defineEmits([`completed`, `failed`])
+const emit = defineEmits([`solved`, `failed`])
 const targetRealm = realmsWithSemiotics[new Date().getDay()]
 
 const addNumToAccessCode = (num) => {
 	if(disabled.value) return
 	digits.value.push(`${num}`)
-	if(targetRealm.realmCode === digits.value.join(``)) emit(`completed`)
+	if(targetRealm.realmCode === digits.value.join(``)) emit(`solved`)
 	else if(digits.value.length >= reset.length) {
 		disabled.value = true
 		usePlaySound(`disconnected`, () => {

@@ -19,7 +19,6 @@
 						mode="out-in">
 						<component @solved="nextQuestion"
 							@failed="sendToDebriefing"
-							@completed="passedExam"
 							:is="currentQuestion"
 							:key="currentQuestion"
 						>
@@ -33,13 +32,13 @@
 
 <script setup>
 import { usePlaySound } from '~/composables/usePlaySound'
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useSiteStore } from '~/store/useSiteStore.js'
 const siteStore = useSiteStore()
 
 // eslint-disable-next-line no-undef
 const progressNumber = ref(0)
-const questionIndex = ref(0)
+const questionIndex = ref(4)
 let tickingClock = null
 
 const questions = [
@@ -48,7 +47,7 @@ const questions = [
 	`SymbolTest`,
 	`ArtifactTest`,
 	`KeycodeTest`,
-	`PlaceholderLogin`
+	`ExamPassed`
 ]
 
 const currentQuestion = computed(() => {
@@ -60,22 +59,26 @@ const sendToDebriefing = () => {
 	navigateTo(`/debriefing`)
 }
 
-const passedExam = () => {
-	// eslint-disable-next-line no-undef
-	navigateTo(`/uplink`)
-}
-
 const nextQuestion = () => {
 	questionIndex.value++
 	progressNumber.value = 0
 	usePlaySound(`correct`)
 }
 
+onBeforeMount(() => {
+	if(localStorage.remainingAttempts <= 0) {
+		// eslint-disable-next-line no-undef
+		navigateTo(`/brainwash`)
+	}
+})
+
 onMounted(() => {
-	localStorage.savedDay = new Date().setHours(0,0,0,0)
+	if(localStorage.savedDay === undefined){
+		localStorage.savedDay = new Date().setHours(0,0,0,0)
+		localStorage.remainingAttempts = 5
+	}
 	localStorage.remainingAttempts = localStorage.remainingAttempts ? localStorage.remainingAttempts : 5
 	if( localStorage.savedDay < new Date().setHours(0,0,0,0) ) {
-		localStorage.remainingAttempts = 5
 		localStorage.savedDay = new Date().setHours(0,0,0,0)
 	}
 
@@ -85,7 +88,7 @@ onMounted(() => {
 	}
 	tickingClock = setInterval(() => {
 		progressNumber.value += 100 / 30
-		if(progressNumber.value >= 100 && questionIndex.value > 0) sendToDebriefing()
+		if(progressNumber.value >= 100 && (questionIndex.value > 0 && questionIndex.value < 4)) sendToDebriefing()
 	}, 1000)
 })
 

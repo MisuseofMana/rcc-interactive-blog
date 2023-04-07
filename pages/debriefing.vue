@@ -13,7 +13,7 @@
 						<v-card
 							variant="outlined"
 							color="deep-orange-darken-4"
-							class="pa-15 text-primary">
+							class="pa-15 text-deep-orange-darken-4">
 							
 							<v-col cols="12"
 								sm="8"
@@ -83,7 +83,6 @@ const siteStore = useSiteStore()
 const remainingAttempts = ref(5)
 
 onMounted(() => {
-	localStorage.remainingAttempts--
 	remainingAttempts.value = localStorage.remainingAttempts
 })
 

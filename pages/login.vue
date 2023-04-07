@@ -31,7 +31,7 @@
 									xl="6"
 									class="offset-xl-3">
 									<v-text-field variant="outlined"
-										counter="30"
+										counter="20"
 										label="Password *"
 										hint="Your password."
 										:error-messages="password.errorMessage.value"
@@ -69,10 +69,10 @@ import { ref, computed } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useField, useForm } from 'vee-validate'
 
-const { handleSubmit, handleReset } = useForm({
+const { handleSubmit } = useForm({
 	validationSchema: {
 		username (value) {
-			if (value?.length < 3) return `Username to be at least 3 characters.`
+			if (value?.length < 3) return `Username must be more than 2 characters.`
 			if (!value) return `Username is required.`
 			return true
 		},

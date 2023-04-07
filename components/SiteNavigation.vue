@@ -33,13 +33,21 @@
 			xl="2">
 			<BackButton text="/EXAM"
 				:realm-icons="['radar']"
+				:disabled="lockedFromExam"
 				link-name="/operator-exam" />
 		</v-col>
 	</v-row>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 defineProps({
 	alignRight: Boolean
 })
+
+const lockedFromExam = computed(() => {
+	return localStorage.remainingAttempts <= 0
+})
+
 </script>

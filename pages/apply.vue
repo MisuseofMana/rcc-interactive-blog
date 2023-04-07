@@ -15,62 +15,68 @@
 						width="100%"
 						class="pa-15 text-primary">
 						<h1 class="text-h1 text-center mb-10">SIGN UP</h1>
-						<v-row>
-							<v-col cols="12"
-								xl="6"
-								class="offset-xl-3">
-								<v-text-field variant="outlined"
-									counter="20"
-									label="Username *"
-									hint="Your desired Operator identifier. Will be obfuscated and displayed alongside submissions."
-									v-model="username"
+						<form @submit.prevent="createUser">
+							<v-row>
+								<v-col cols="12"
+									xl="6"
+									class="offset-xl-3">
+									<v-text-field variant="outlined"
+										counter="20"
+										label="Username *"
+										hint="Your desired Operator identifier. Will be obfuscated and displayed alongside submissions."
+										:error-messages="username.errorMessage.value"
+										v-model="username.value.value"
 									></v-text-field>
-							</v-col>
-							<v-col cols="12"
-								xl="6"
-								class="offset-xl-3">
-								<v-text-field variant="outlined"
-									counter="20"
-									label="Email"
-									hint="An email to reach you at. Not necessary to make an account, though recommended."
-									v-model="email"
+								</v-col>
+								<v-col cols="12"
+									xl="6"
+									class="offset-xl-3">
+									<v-text-field variant="outlined"
+										counter="20"
+										label="Email"
+										hint="An email to reach you at. Not necessary to make an account, though recommended."
+										:error-messages="email.errorMessage.value"
+										v-model="email.value.value"
 									></v-text-field>
-							</v-col>
-							<v-col cols="12"
-								xl="6"
-								class="offset-xl-3">
-								<v-text-field variant="outlined"
-									counter="30"
-									label="Password *"
-									hint="Make it secure."
-									v-model="password"></v-text-field>
-							</v-col>
-							<v-col cols="12"
-								xl="6"
-								class="offset-xl-3">
-								<v-text-field variant="outlined"
-									counter="30"
-									label="Confirm Password *"
-									hint="Confirm your password."
-									v-model="confirmPassword"></v-text-field>
-							</v-col>
-							<v-col cols="12"
-								xl="3">
-								<BackButton
-									color="primary-darken-1"
-									class="text-primary"
-									text="Apply to the Operations Team"
-									@click="createUser"/>
-							</v-col>
-							<v-col cols="12"
-								xl="2"
-								class="offset-xl-1 text-right text-h6 text-primary d-flex align-center justify-end">
-								<NuxtLink class="text-primary text-decoration-none"
-									to="/login">
-									Or Log In
-								</NuxtLink>
-							</v-col>
-						</v-row>
+								</v-col>
+								<v-col cols="12"
+									xl="6"
+									class="offset-xl-3">
+									<v-text-field variant="outlined"
+										counter="20"
+										label="Password *"
+										hint="Make it secure."
+										:error-messages="password.errorMessage.value"
+										v-model="password.value.value"></v-text-field>
+								</v-col>
+								<v-col cols="12"
+									xl="6"
+									class="offset-xl-3">
+									<v-text-field variant="outlined"
+										counter="20"
+										label="Confirm Password *"
+										hint="Confirm your password."
+										:error-messages="confirmPassword.errorMessage.value"
+										v-model="confirmPassword.value.value"></v-text-field>
+								</v-col>
+								<v-col cols="12"
+									xl="3">
+									<BackButton
+										color="primary-darken-1"
+										class="text-primary"
+										text="Apply to the Operations Team"
+										@click="createUser"/>
+								</v-col>
+								<v-col cols="12"
+									xl="2"
+									class="offset-xl-1 text-right text-h6 text-primary d-flex align-center justify-end">
+									<NuxtLink class="text-primary text-decoration-none"
+										to="/login">
+										Or Log In
+									</NuxtLink>
+								</v-col>
+							</v-row>
+						</form>
 					</v-card>
 				</v-col>
 			</v-row>
@@ -79,18 +85,42 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { useField, useForm } from 'vee-validate'
+
+const { handleSubmit } = useForm({
+	validationSchema: {
+		username (value) {
+			if(!/^[A-Za-z]+$/.test( value )) return `Username may only contain the letters "a" to "z".`
+			if (value?.length < 3) return `Username must be more than 2 characters.`
+			if (value?.length > 20) return `Username must be under 21 characters.`
+			if (!value) return `Username is required.`
+			return true
+		},
+		email (value) {
+			if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) return `Must be a valid email.`
+			return true
+		},
+		password (value) {
+			if (value?.length < 9) return `Password must be at least 9 characters.`
+			if (value?.length > 20) return `Password cannot be greater than 20 characters.`
+			return true
+		},
+		confirmPassword (value) {
+			if (value != password.value.value) return `Passwords do not match. Please double check.`
+			if (value?.length > 20) return `Password cannot be greater than 20 characters.`
+			return true
+		},
+	},
+})
 
 const auth = getAuth()
-const username = ref(``)
-const email = ref(``)
-const password = ref(``)
-const confirmPassword = ref(``)
+const username = useField(`username`)
+const password = useField(`password`)
+const email = useField(`email`)
+const confirmPassword = useField(`confirmPassword`)
 
-const createUser = () => {
-	if(password.value != confirmPassword.value) return
-	if(password.value.length <= 8) return
+const createUser = handleSubmit(values => {
 	const fakeUserEmail = `${username.value}@CBArchives.com`
 
 	createUserWithEmailAndPassword(auth, fakeUserEmail, password.value)
@@ -105,6 +135,6 @@ const createUser = () => {
 			console.log(error.code)
 			console.log(error.message)
 		})
-}
+})
 </script>
 
