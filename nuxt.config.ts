@@ -38,21 +38,21 @@ export default defineNuxtConfig({
 	vuefire: {
 		auth: true,
 		config: {
-			apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
-			authDomain: `crickburrowarchives.firebaseapp.com`,
-			projectId: `crickburrowarchives`,
-			storageBucket: `crickburrowarchives.appspot.com`,
-			messagingSenderId: `708349315619`,
-			appId: `1:708349315619:web:5a599bfa7961f0bf217f96`,
-			measurementId: `G-CLXB8V1MH8`
+			apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+			authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+			projectId:import.meta.env.VITE_FIREBASE_PROJECT_ID,
+			storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+			messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+			appId: import.meta.env.VITE_FIREBASE_APP_ID,
+			measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 		},
 		appCheck: {
 			// Allows you to use a debug token in development
-			debug: process.env.NODE_ENV !== 'production',
+			debug: process.env.NODE_ENV !== `production`,
 			isTokenAutoRefreshEnabled: true,
-			provider: 'ReCaptchaV3',
+			provider: `ReCaptchaV3`,
 			// Find the instructions in the Firebase documentation, link above
-			key: '6LejtlUlAAAAAEvIfVKCit8UQxmBMvnIBPoWEYoa',
+			key: `6LejtlUlAAAAAEvIfVKCit8UQxmBMvnIBPoWEYoa`,
 		},
 	},
 	components:  [
