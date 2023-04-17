@@ -15,7 +15,7 @@
 						width="100%"
 						class="pa-15 text-primary">
 						<h1 class="text-h1 text-center mb-10">SIGN UP</h1>
-						<form @submit.prevent="createUser">
+						<div>
 							<v-row>
 								<v-col cols="12"
 									xl="6"
@@ -45,6 +45,9 @@
 									<v-text-field variant="outlined"
 										counter="20"
 										label="Password *"
+										:append-icon="passwordShown ? 'mdi-eye' : 'mdi-eye-off'"
+										:type="passwordShown ? 'text' : 'password'"
+										@click:append="passwordShown = !passwordShown"
 										hint="Make it secure."
 										:error-messages="password.errorMessage.value"
 										v-model="password.value.value"></v-text-field>
@@ -56,16 +59,19 @@
 										counter="20"
 										label="Confirm Password *"
 										hint="Confirm your password."
+										:append-icon="confirmPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
+										:type="confirmPasswordShown ? 'text' : 'password'"
+										@click:append="confirmPasswordShown = !confirmPasswordShown"
 										:error-messages="confirmPassword.errorMessage.value"
 										v-model="confirmPassword.value.value"></v-text-field>
 								</v-col>
 								<v-col cols="12"
 									xl="3">
 									<BackButton
+										@click="createUser"
 										color="primary-darken-1"
 										class="text-primary"
-										text="Apply to the Operations Team"
-										@click="createUser"/>
+										text="Apply to the Operations Team"/>
 								</v-col>
 								<v-col cols="12"
 									xl="2"
@@ -76,7 +82,7 @@
 									</NuxtLink>
 								</v-col>
 							</v-row>
-						</form>
+						</div>
 					</v-card>
 				</v-col>
 			</v-row>
@@ -85,8 +91,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { useField, useForm } from 'vee-validate'
+
+const passwordShown = ref(false)
+const confirmPasswordShown = ref(false)
 
 const { handleSubmit } = useForm({
 	validationSchema: {
@@ -98,6 +108,7 @@ const { handleSubmit } = useForm({
 			return true
 		},
 		email (value) {
+			if(!value) return true
 			if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) return `Must be a valid email.`
 			return true
 		},

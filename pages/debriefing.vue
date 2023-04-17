@@ -17,7 +17,7 @@
 							
 							<v-col cols="12"
 								sm="8"
-								md="4"
+								md="10"
 								lg="10"
 								xl="10"
 								class="offset-sm-2 offset-md-1 offset-lg-1 text-center"
@@ -34,14 +34,12 @@
 							<v-col cols="12"
 								sm="8"
 								md="4"
-								lg="10"
+								lg="4"
 								xl="4"
-								class="offset-sm-2 offset-md-1 offset-lg-4 mb-10"
+								class="offset-sm-2 offset-md-4 offset-lg-4 mb-10"
 								justify-self="center">
 								<v-img 
 									class="errorAbberation"
-									max-height="200px"
-									max-width="400px"
 									src="/images/mocks/hidscrap1.png"
 									alt="a scrap of paper with an illustration of a tangled knot, the words 'are you paying attention' are written on the paper."
 								/>

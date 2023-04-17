@@ -15,7 +15,7 @@
 						width="100%"
 						class="pa-15 text-primary">
 						<h1 class="text-h1 text-center mb-10">LOG IN</h1>
-						<form @submit.prevent="logIn">
+						<div>
 							<v-row>
 								<v-col cols="12"
 									xl="6"
@@ -33,7 +33,10 @@
 									<v-text-field variant="outlined"
 										counter="20"
 										label="Password *"
+										:append-icon="passwordShown ? 'mdi-eye' : 'mdi-eye-off'"
+										:type="passwordShown ? 'text' : 'password'"
 										hint="Your password."
+										@click:append="passwordShown = !passwordShown"
 										:error-messages="password.errorMessage.value"
 										v-model="password.value.value"></v-text-field>
 								</v-col>
@@ -42,7 +45,7 @@
 									class="offset-xl-3">
 									<p class="text-center text-deep-orange-darken-4 text-body-1 mb-3">{{ logInError }}</p>
 									<BackButton
-										type="submit"
+										@click="logIn"
 										color="primary-darken-1"
 										class="text-primary"
 										text="Log In"/>
@@ -56,7 +59,7 @@
 									</NuxtLink>
 								</v-col>
 							</v-row>
-						</form>
+						</div>
 					</v-card>
 				</v-col>
 			</v-row>
@@ -68,6 +71,8 @@
 import { ref, computed } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useField, useForm } from 'vee-validate'
+
+const passwordShown = ref(false)
 
 const { handleSubmit } = useForm({
 	validationSchema: {
@@ -106,8 +111,7 @@ const logIn = handleSubmit(values => {
 			if(error){
 				logInError.value = `Sorry, something isn't quite right.`
 			}
-			console.log(error.code)
-			console.log(error.message)
+			console.log(error)
 		})
 })
 </script>

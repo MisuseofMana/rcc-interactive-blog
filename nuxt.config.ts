@@ -38,13 +38,13 @@ export default defineNuxtConfig({
 	vuefire: {
 		auth: true,
 		config: {
-			apiKey: process.env.VITE_FIREBASE_API_KEY,
-			authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
-			projectId:process.env.VITE_FIREBASE_PROJECT_ID,
-			storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
-			messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-			appId: process.env.VITE_FIREBASE_APP_ID,
-			measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID,
+			apiKey: "AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY",
+			authDomain: "crickburrowarchives.firebaseapp.com",
+			projectId: "crickburrowarchives",
+			storageBucket: "crickburrowarchives.appspot.com",
+			messagingSenderId: "708349315619",
+			appId: "1:708349315619:web:5a599bfa7961f0bf217f96",
+			measurementId: "G-CLXB8V1MH8"
 		},
 		appCheck: {
 			// Allows you to use a debug token in development

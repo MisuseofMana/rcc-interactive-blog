@@ -38,7 +38,7 @@ const siteStore = useSiteStore()
 
 // eslint-disable-next-line no-undef
 const progressNumber = ref(0)
-const questionIndex = ref(4)
+const questionIndex = ref(0)
 let tickingClock = null
 
 const questions = [
