@@ -10,13 +10,16 @@
 					<p class="text-body-1 text-center mb-10">If you are unsure which realm you are submitting to, please select "Uncertain" as the Realm Name.</p>
 				</v-col>
 			</v-row>
-			<v-row>
+			<v-row v-for="(field, idx) in fields" :key="field.key">
 				<v-col cols="12"
 					xl="12"
 					class="mb-10">
 					<v-select
 						label="Realm Name"
+						:name="`submissions[${idx}]`"
 						:items="realmNames"
+						:error-messages="errors.TargetRealm"
+						v-model="TargetRealm.value.value"
 						hint="Be sure you select the realm you wish to submit evidence of."
 					></v-select>
 				</v-col>	
@@ -68,6 +71,39 @@
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
+import { useFieldArray, useForm } from 'vee-validate'
+
+const blankSubmission = {
+	image: '',
+	
+}
+const { remove, push, fields } = useFieldArray('submissions');
+
+const { handleSubmit, errors } = useForm({
+	initialValues: {
+    	realms: [
+			{ id: 1, url: 'https://github.com/logaretm' }
+		],
+  	},
+	validationSchema: {
+		Username: {
+			required: [true, 'Username'],
+			alpha: true,
+			min: 5,
+			max: 20,
+		},
+		Password: {
+			required: [true, 'Password'],
+			min: 9,
+			max: 20,
+		},
+	},
+})
+
+const submitRealms = handleSubmit(values => {
+	console.log(values)
+})
 const realmNames = [
 	`Silent Shores`,
 	`Lost Colony`,

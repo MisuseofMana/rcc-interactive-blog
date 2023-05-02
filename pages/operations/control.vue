@@ -60,28 +60,17 @@
 
 <script setup>
 import { useRandomNumber } from '~/composables/useRandomNumber'
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useFirestore, useCollection } from 'vuefire'
-import { collection, query, getDocs, onSnapshot } from 'firebase/firestore'
+import { collection } from 'firebase/firestore'
 
+// eslint-disable-next-line no-undef
 const user = await getCurrentUser()
 const db = useFirestore()
-const q = query(collection(db, `realms`))
-
-const realmsCollection = ref([])
-const querySnapshot = await getDocs(q)
-onSnapshot(q, (querySnapshot) => {
-	querySnapshot.forEach((doc) => {
-		console.log(doc.id, ` => `, doc.data())
-		realmsCollection.value.push(doc.data())
-	})
-})
-
 
 const realms = useCollection(collection(db, `realms`))
 
 onMounted(() => {
-	console.log(db)
 	realms.value = useCollection(collection(db, `realms`))
 })
 
@@ -89,13 +78,6 @@ onMounted(() => {
 definePageMeta({
 	middleware: [`auth`],
 })
-
-// await setDoc(doc(db, "", "LA"), {
-//   name: "Los Angeles",
-//   state: "CA",
-//   country: "USA"
-// });
-
 
 const musings = [
 	`Stumble upon any new realms?`,

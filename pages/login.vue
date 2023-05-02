@@ -3,12 +3,7 @@
 	<NuxtLayout name="admin">
 		<v-container class="my-5">
 			<v-row>
-				<v-col cols="12"
-					sm="12"
-					md="12"
-					lg="10"
-					xl="10"
-					class="offset-lg-1">
+				<v-col cols="12">
 					<v-card
 						variant="outlined"
 						color="primary"
@@ -18,31 +13,29 @@
 						<div>
 							<v-row>
 								<v-col cols="12"
-									xl="6"
-									class="offset-xl-3">
+									xl="8"
+									class="offset-xl-2">
 									<v-text-field variant="outlined"
-										counter="20"
 										label="Username or Email *"
 										hint="Your assigned Operator identifier."
-										:error-messages="username.errorMessage.value"
-										v-model="username.value.value"></v-text-field>
+										:error-messages="errors.Username"
+										v-model="Username.value.value"></v-text-field>
 								</v-col>	
 								<v-col cols="12"
-									xl="6"
-									class="offset-xl-3">
+									xl="8"
+									class="offset-xl-2">
 									<v-text-field variant="outlined"
-										counter="20"
 										label="Password *"
 										:append-icon="passwordShown ? 'mdi-eye' : 'mdi-eye-off'"
 										:type="passwordShown ? 'text' : 'password'"
 										hint="Your password."
 										@click:append="passwordShown = !passwordShown"
-										:error-messages="password.errorMessage.value"
-										v-model="password.value.value"></v-text-field>
+										:error-messages="errors.Password"
+										v-model="Password.value.value"></v-text-field>
 								</v-col>
 								<v-col cols="12"
-									xl="3"
-									class="offset-xl-3">
+									xl="5"
+									class="offset-xl-2">
 									<p class="text-center text-deep-orange-darken-4 text-body-1 mb-3">{{ logInError }}</p>
 									<BackButton
 										@click="logIn"
@@ -51,8 +44,8 @@
 										text="Log In"/>
 								</v-col>
 								<v-col cols="12"
-									xl="2"
-									class="offset-xl-1 text-right text-h6 text-primary d-flex align-center justify-end">
+									xl="3"
+									class="text-right text-subtitle-1 text-primary d-flex align-center justify-end">
 									<NuxtLink class="text-primary text-decoration-none"
 										to="/apply">
 										Or Sign Up
@@ -74,17 +67,18 @@ import { useField, useForm } from 'vee-validate'
 
 const passwordShown = ref(false)
 
-const { handleSubmit } = useForm({
+const { handleSubmit, errors } = useForm({
 	validationSchema: {
-		username (value) {
-			if (value?.length < 3) return `Username must be more than 2 characters.`
-			if (!value) return `Username is required.`
-			return true
+		Username: {
+			required: [true, 'Username'],
+			alpha: true,
+			min: 5,
+			max: 20,
 		},
-		password (value) {
-			if (value?.length > 9) return true
-
-			return `Password must be at least 9 characters.`
+		Password: {
+			required: [true, 'Password'],
+			min: 9,
+			max: 20,
 		},
 	},
 })

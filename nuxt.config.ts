@@ -12,7 +12,7 @@ export default defineNuxtConfig({
 		`~/assets/css/scrollBar.css`,
 		`~/assets/css/global.css`,
 		`vuetify/styles`,
-		`vuetify/lib/styles/main.sass`, 
+		`vuetify/lib/styles/main.sass`,
 		`~/assets/css/main.css`,
 		`@mdi/font/css/materialdesignicons.css`
 	],
@@ -38,16 +38,17 @@ export default defineNuxtConfig({
 	vuefire: {
 		auth: true,
 		config: {
-			apiKey: "AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY",
-			authDomain: "crickburrowarchives.firebaseapp.com",
-			projectId: "crickburrowarchives",
-			storageBucket: "crickburrowarchives.appspot.com",
-			messagingSenderId: "708349315619",
-			appId: "1:708349315619:web:5a599bfa7961f0bf217f96",
-			measurementId: "G-CLXB8V1MH8"
+			apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
+			authDomain: `crickburrowarchives.firebaseapp.com`,
+			projectId: `crickburrowarchives`,
+			storageBucket: `crickburrowarchives.appspot.com`,
+			messagingSenderId: `708349315619`,
+			appId: `1:708349315619:web:5a599bfa7961f0bf217f96`,
+			measurementId: `G-CLXB8V1MH8`
 		},
 		appCheck: {
 			// Allows you to use a debug token in development
+			// eslint-disable-next-line no-undef
 			debug: process.env.NODE_ENV !== `production`,
 			isTokenAutoRefreshEnabled: true,
 			provider: `ReCaptchaV3`,

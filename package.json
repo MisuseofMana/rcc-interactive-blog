@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
+    "@vee-validate/i18n": "^4.8.6",
+    "@vee-validate/rules": "^4.8.6",
     "firebase": "^9.19.1",
     "howler": "^2.2.3",
     "moment": "^2.29.4",
