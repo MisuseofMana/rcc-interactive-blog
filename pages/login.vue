@@ -70,13 +70,13 @@ const passwordShown = ref(false)
 const { handleSubmit, errors } = useForm({
 	validationSchema: {
 		Username: {
-			required: [true, 'Username'],
+			required: [true, `Username`],
 			alpha: true,
 			min: 5,
 			max: 20,
 		},
 		Password: {
-			required: [true, 'Password'],
+			required: [true, `Password`],
 			min: 9,
 			max: 20,
 		},

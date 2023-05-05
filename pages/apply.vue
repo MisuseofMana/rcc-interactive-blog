@@ -14,47 +14,42 @@
 							<v-col cols="12"
 								xl="8"
 								class="offset-xl-2">
-								<v-text-field variant="outlined"
+								<CBTextField
 									label="Username *"
+									name="username"
 									hint="Your desired Operator identifier. Will be obfuscated and displayed alongside submissions."
-									:error-messages="errors.Username"
-									v-model="Username.value.value"
-								></v-text-field>
+									:error-messages="errors.username"
+								/>
 							</v-col>
 							<v-col cols="12"
 								xl="8"
 								class="offset-xl-2">
-								<v-text-field variant="outlined"
+								<CBTextField
 									label="Email"
+									name="email"
 									hint="An email to reach you at. Not necessary to make an account, though recommended."
-									:error-messages="errors.Email"
-									v-model="Email.value.value"
-								></v-text-field>
+									:error-messages="errors.email"
+								/>
 							</v-col>
 							<v-col cols="12"
 								xl="8"
 								class="offset-xl-2">
-								<v-text-field variant="outlined"
+								<CBPasswordField
+									name="password"
 									label="Password *"
-									:append-icon="passwordShown ? 'mdi-eye' : 'mdi-eye-off'"
-									:type="passwordShown ? 'text' : 'password'"
-									@click:append="passwordShown = !passwordShown"
 									hint="Make it secure."
-									:error-messages="errors.Password"
-									v-model="Password.value.value"></v-text-field>
+									:errors="errors.password"
+								/>
 							</v-col>
 							<v-col cols="12"
 								xl="8"
 								class="offset-xl-2">
-								<v-text-field variant="outlined"
-									name="Confirm Password"
+								<CBPasswordField
+									name="confirmPassword"
 									label="Confirm Password *"
-									hint="Confirm your password."
-									:append-icon="confirmPasswordShown ? 'mdi-eye' : 'mdi-eye-off'"
-									:type="confirmPasswordShown ? 'text' : 'password'"
-									@click:append="confirmPasswordShown = !confirmPasswordShown"
-									:error-messages="errors.ConfirmPassword"
-									v-model="ConfirmPassword.value.value"></v-text-field>
+									hint="Confirm Password must match the Password field."
+									:errors="errors.ConfirmPassword"
+								/>
 							</v-col>
 							<v-col cols="12"
 								xl="5"
@@ -85,40 +80,27 @@
 <script setup>
 import { ref } from 'vue'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
-import { useField, useForm } from 'vee-validate'
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
 
-
-const passwordShown = ref(false)
-const confirmPasswordShown = ref(false)
-
-const { handleSubmit, errors, } = useForm({
-	validationSchema: {
-		Username: {
-			required: [true, 'Username'],
-			alpha: true,
-			min: 5,
-			max: 20,
-		},
-		Email: {
-			email: true,
-		},
-		Password: {
-			required: [true, 'Password'],
-			min: 9,
-			max: 20,
-		},
-		ConfirmPassword: {
-			required: [true, 'Confirm Password'],
-			confirmed: ['@Password', 'Confirm Password', 'Password'],
-		}
+const { handleSubmit, errors } = useForm({
+	initialValues: { 
+		username: ``,
+		email: ``,
+		password: ``,
+		confirmPassword: ``,
 	},
+	validationSchema: yup.object().shape({
+		// alpha validation
+		username: yup.string().min(5).max(20).required().label(`Username`),
+		email: yup.string().email().required().label(`Email`),
+		password: yup.string().min(9).max(20).required().label(`Password`),
+		// confirmed validation on password field
+		confirmPassword: yup.string().required().label(`Confirm Password`)
+	}),
 })
 
 const auth = getAuth()
-const Username = useField(`Username`)
-const Password = useField(`Password`)
-const Email = useField(`Email`)
-const ConfirmPassword = useField(`ConfirmPassword`)
 
 const logInError = ref(``)
 
