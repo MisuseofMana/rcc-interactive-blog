@@ -21,7 +21,6 @@
 					lg="4"
 					xl="4"
 					class="offset-sm-2 offset-md-3 offset-lg-4">
-					{{ realms }}
 					<p class="text-primary text-body-1 mb-3">Operator Clearance</p>
 					<BackButton class="mb-15"
 						text="/Submit a Photo"
@@ -60,19 +59,9 @@
 
 <script setup>
 import { useRandomNumber } from '~/composables/useRandomNumber'
-import { onMounted } from 'vue'
-import { useFirestore, useCollection } from 'vuefire'
-import { collection } from 'firebase/firestore'
 
 // eslint-disable-next-line no-undef
 const user = await getCurrentUser()
-const db = useFirestore()
-
-const realms = useCollection(collection(db, `realms`))
-
-onMounted(() => {
-	realms.value = useCollection(collection(db, `realms`))
-})
 
 // eslint-disable-next-line no-undef
 definePageMeta({
@@ -85,6 +74,9 @@ const musings = [
 	`Remember to submit to the appropriate realm.`,
 	`You seem focused. Did you discover a new realm?`,
 	`So glad to see you.`,
+	`You are paying attention, aren't you?`,
+	`What's next?`,
+	`Instabilities detected today, watch yourself in the realms.`,
 ]
 const chosenMusing = useRandomNumber(musings.length)
 const isAdmin = true

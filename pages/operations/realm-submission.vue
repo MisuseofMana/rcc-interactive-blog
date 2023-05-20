@@ -5,54 +5,65 @@
 			<v-row>
 				<v-col cols="12"
 					class="">
-					<h1 class="text-h1 text-center mb-5">Existing Realm Submission</h1>
+					<h1 class="text-h1 text-center mb-5">Photo Documentation</h1>
 					<p class="text-body-1 text-center mb-3">Submit one or multiple photos to a realm of your choosing.</p>
-					<p class="text-body-1 text-center mb-10">If you are unsure which realm you are submitting to, please select "Uncertain" as the Realm Name.</p>
+					<p class="text-body-1 text-center mb-10">If you are unsure which realm you've captured, please select "Uncertain" as the Realm Name and another Operator will categorize your submission in your place.</p>
 				</v-col>
 			</v-row>
 			<v-row v-for="(field, idx) in fields"
 				:key="field.key"
 				:class="idx > 0 ? 'mt-10' : 'mt-0'">
 				<v-col cols="12">
-					<div class="text-subtitle-1">
-						{{ field }}
-					</div>
-				</v-col>
-				<v-col cols="12">
-					<div class="text-subtitle-1 text-deep-orange-darken-4">
-						{{ errors }}
-					</div>
-				</v-col>
-				<v-col cols="12">
-					<div class="text-subtitle-1 text-white">
-						{{ meta }}
-					</div>
-				</v-col>
-				<v-col cols="12">
 					<h2 class="text-h4">
 						Submission #{{ idx + 1 }}
 					</h2>
 				</v-col>
 				<v-col cols="12"
-					xl="12"
+					md="6"
 					class="mb-5 text-primary">
-					<CBDropdownSelect 
+					<CBDropdownSelect
+						class="mb-5"
 						:errors="errors[`submissions[${idx}].realm`]"
 						hint="Be sure you select the realm you wish to submit evidence of."
 						:items="realmNames"
 						label="Realm Name"
 						:name="`submissions[${idx}].realm`"
 					/>
-				</v-col>	
-				<v-col cols="12"
-					xl="6">
 					<CBFileInput
+						class="mb-5"
 						:errors="errors[`submissions[${idx}].imageUrl`]"
 						hint="Upload an image representing one of the existing realms."
 						:items="realmNames"
 						label="Realm Name"
 						:name="`submissions[${idx}].imageUrl`"
+						@change="setImageSrc($event, idx)"
 					/>
+					<CBTextField
+						class="mb-5"
+						label="Image Alt Text"
+						:name="`submissions[${idx}].altText`"
+						hint="The alternative text to be used by screen readers. If left blank, Lore will become the alt text. "
+						:error-messages="errors.altText"
+					/>
+					<CBTextField
+						label="Image Name"
+						:name="`submissions[${idx}].imageName`"
+						hint="A name you want to give to the image you're uploading. If this field is left blank the file name will be generated."
+						:error-messages="errors.imageName"
+					/>
+				</v-col>	
+				<v-col cols="12" md="6">
+					<v-img
+						:src="imageUrlsArray[idx]"
+						:id="`imagePreview${idx}`"
+						class="realmImage"
+						aspect-ratio="1.5"
+						min-width="500px"
+						contain
+						lazy-src="/images/mocks/placeholder-wide.jpg"
+						alt="an image to submit documented from another realm">
+					</v-img>
+					<p class="text-primary minHeight text-body-1 mx-8 px-5 py-5 text-center"> {{ values.submissions[idx].lore }}</p>
 				</v-col>
 				<v-col cols="12"
 					xl="6">
@@ -94,6 +105,12 @@
 				</v-col>
 			</v-row>
 			<v-row>
+				<v-col cols="12" class="mt-10">
+					<p class="text-body-1 text-center">Double check your work, Operator.</p>
+					<p class="text-body-1 text-center">Improper submissions will be rejected and potentially lead to forefiture of your clearance.</p>
+				</v-col>
+			</v-row>
+			<v-row class="mt-10">
 				<v-col cols="6"
 					xl="6"
 					class="mb-15">
@@ -118,19 +135,48 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useFieldArray, useForm } from 'vee-validate'
 import * as yup from 'yup'
+import { getStorage, ref as firebaseRef, uploadBytes } from "firebase/storage"
+import { writeBatch, query, getDocs, doc, collection, where, setDoc } from "firebase/firestore"
+import { useFirestore, useCollection, useDocument } from 'vuefire'
 
-const blankSubmission = {
-	realm: null,
-	imageUrl: null,
-	lore: null
+const db = useFirestore()
+const q = query(collection(db, `realms`), where(`takingSubmissions`, `==`, true))
+// reference firestore
+const storage = getStorage()
+
+// data refs
+const realmNames = ref([
+	{ title: `Uncertain`, value: `uncertain`}
+])
+const imageUrlsArray = ref([])
+
+const setImageSrc = async (e, index) => {
+	imageUrlsArray.value[index] = URL.createObjectURL(e.target.files[0])
 }
 
-const { handleSubmit, errors, meta } = useForm({
+const querySnapshot = await getDocs(q)
+querySnapshot.forEach((doc) => {
+	realmNames.value.push({title: doc.data().title, value: doc.id})
+})
+
+// Get a new write batch
+const batch = writeBatch(db)
+
+const initalFormValues = {
+	realm: null,
+	imageUrl: null,
+	lore: null,
+	imageName: null,
+	altText: null
+}
+
+const { values, handleSubmit, errors, meta } = useForm({
 	initialValues: { 
 		submissions: [
-			blankSubmission,
+			initalFormValues,
 		]
 	},
 	validationSchema: yup.object().shape({
@@ -138,23 +184,30 @@ const { handleSubmit, errors, meta } = useForm({
 			yup.object().shape({
 				realm: yup.string().required().label(`Realm Name`),
 				imageUrl: yup.array().required().label(`Image Upload`),
-				lore: yup.string().required().label(`Image Lore`)
+				imageName: yup.string().label(`Image Name`),
+				altText: yup.string().max(150).label(`Image Alt Text`),
+				lore: yup.string().max(120).required().label(`Image Lore`)
 			})
 		)
 	})
 })
-
+	
 const { remove, push, fields } = useFieldArray(`submissions`)
 
 const submitRealms = handleSubmit(values => {
-	console.log(values)
+	values.submissions.forEach((submission) => {
+		// figure out how to submit to storage with auto id
+		const storageRef = firebaseRef(storage, `${submission.realm}`)
+		// sets a batch reference to the collection "submissions"
+		const batchRef = doc(collection(db, `submissions`))
+		// 
+		uploadBytes(storageRef, values.submissions[0].imageUrl[0]).then((snapshot) => {
+			console.log(snapshot)
+			console.log(`Uploaded a blob or file!`)
+		})
+		batch.set(batchRef, {
+			
+		})
+	})
 })
-
-const realmNames = [
-	`Uncertain`,
-	`Silent Shores`,
-	`Lost Colony`,
-	`Fenced City`,
-]
 </script>
-

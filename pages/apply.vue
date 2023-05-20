@@ -47,8 +47,8 @@
 								<CBPasswordField
 									name="confirmPassword"
 									label="Confirm Password *"
-									hint="Confirm Password must match the Password field."
-									:errors="errors.ConfirmPassword"
+									hint="Retype your password to make sure it's as intended."
+									:errors="errors.confirmPassword"
 								/>
 							</v-col>
 							<v-col cols="12"
@@ -83,7 +83,7 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 
-const { handleSubmit, errors } = useForm({
+const { handleSubmit, values, errors } = useForm({
 	initialValues: { 
 		username: ``,
 		email: ``,
@@ -92,11 +92,11 @@ const { handleSubmit, errors } = useForm({
 	},
 	validationSchema: yup.object().shape({
 		// alpha validation
-		username: yup.string().min(5).max(20).required().label(`Username`),
+		username: yup.string().matches(/^[a-zA-Z]+$/, `Username may only contain letters "a" to "z"`).min(5).max(20).required().label(`Username`),
 		email: yup.string().email().required().label(`Email`),
 		password: yup.string().min(9).max(20).required().label(`Password`),
 		// confirmed validation on password field
-		confirmPassword: yup.string().required().label(`Confirm Password`)
+		confirmPassword: yup.string().test(`passwords-match`, `Passwords must match`, value => { return values.password === value }).required().label(`Confirm Password`),
 	}),
 })
 

@@ -9,7 +9,7 @@
 						<v-card
 							variant="outlined"
 							color="deep-orange-darken-4"
-							class="pa-10 mb-5 text-primary">
+						class="pa-15 mb-5 text-deep-orange-darken-4">>
 							<div 
 								class="d-flex flex-column align-center justify-center">
 								<h1 class="text-deep-orange-darken-4 text-center text-h1 mb-5">

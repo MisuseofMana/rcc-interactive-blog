@@ -1,11 +1,11 @@
 <template>
-    <v-file-input label="Image Upload"
-        :error-messages="errors"
-        :hint="hint"
-        :name="name"
-        prepend-icon="mdi-camera"
-        v-model="value"
-        ></v-file-input>
+	<v-file-input label="Image Upload"
+		:error-messages="errors"
+		:hint="hint"
+		:name="name"
+		prepend-icon="mdi-camera"
+		v-model="value"
+	></v-file-input>
 </template>
 
 <script setup>

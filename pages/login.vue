@@ -15,23 +15,22 @@
 								<v-col cols="12"
 									xl="8"
 									class="offset-xl-2">
-									<v-text-field variant="outlined"
-										label="Username or Email *"
-										hint="Your assigned Operator identifier."
-										:error-messages="errors.Username"
-										v-model="Username.value.value"></v-text-field>
+									<CBTextField
+										label="Username *"
+										name="username"
+										hint=""
+										:error-messages="errors.username"
+									/>
 								</v-col>	
 								<v-col cols="12"
 									xl="8"
 									class="offset-xl-2">
-									<v-text-field variant="outlined"
+									<CBPasswordField
+										name="password"
 										label="Password *"
-										:append-icon="passwordShown ? 'mdi-eye' : 'mdi-eye-off'"
-										:type="passwordShown ? 'text' : 'password'"
-										hint="Your password."
-										@click:append="passwordShown = !passwordShown"
-										:error-messages="errors.Password"
-										v-model="Password.value.value"></v-text-field>
+										hint="Make it secure."
+										:errors="errors.password"
+									/>
 								</v-col>
 								<v-col cols="12"
 									xl="5"
@@ -63,40 +62,33 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-import { useField, useForm } from 'vee-validate'
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
 
-const passwordShown = ref(false)
-
-const { handleSubmit, errors } = useForm({
-	validationSchema: {
-		Username: {
-			required: [true, `Username`],
-			alpha: true,
-			min: 5,
-			max: 20,
-		},
-		Password: {
-			required: [true, `Password`],
-			min: 9,
-			max: 20,
-		},
+const { handleSubmit, values, errors } = useForm({
+	initialValues: { 
+		username: ``,
+		email: ``,
 	},
+	validationSchema: yup.object().shape({
+		username: yup.string().matches(/^[a-zA-Z]+$/, 'Username may only contain letters "a" to "z"').min(5).max(20).required().label(`Username`),
+		password: yup.string().min(9).max(20).required().label(`Password`),
+	})
 })
 
 const auth = getAuth()
-const username = useField(`username`)
-const password = useField(`password`)
 const logInError = ref(``)
 
+
 const userLoginString = computed(() => {
-	if(username?.value?.value && username?.value?.value.includes(`@`)) {
-		return username?.value.value
+	if(values.username && values.username.includes(`@`)) {
+		return values.username
 	}
-	else return `${username?.value.value}@CBArchives.com`
+	else return `${values.username}@CBArchives.com`
 })
 
 const logIn = handleSubmit(values => {
-	signInWithEmailAndPassword(auth, userLoginString.value, password.value)
+	signInWithEmailAndPassword(auth, userLoginString.value, values.password)
 		.then(() => {
 			// eslint-disable-next-line no-undef
 			navigateTo(`/operations/control`)
