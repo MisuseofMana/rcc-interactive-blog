@@ -3,6 +3,7 @@
 		:to="linkName"
 		class="text-decoration-none"
 		min-height="50px"
+		:loading="isLoading"
 		:height="smAndDown ? '55px' : '50px'"
 		min-width="100%"
 		:color="caution ? 'deep-orange-darken-4' : 'primary-darken-1'">
@@ -35,7 +36,8 @@ defineProps({
 	text: String,
 	realmIcons: Array,
 	linkName: String,
-	caution: Boolean
+	caution: Boolean,
+	isLoading: Boolean,
 })
 
 const { smAndDown } = useDisplay()

@@ -1,5 +1,5 @@
 <template>
-	<v-file-input label="Image Upload"
+	<v-file-input :label="label"
 		:error-messages="errors"
 		:hint="hint"
 		:name="name"

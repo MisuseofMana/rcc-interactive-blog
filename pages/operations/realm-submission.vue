@@ -19,7 +19,7 @@
 					</h2>
 				</v-col>
 				<v-col cols="12"
-					md="6"
+					md="5"
 					class="mb-5 text-primary">
 					<CBDropdownSelect
 						class="mb-5"
@@ -31,11 +31,10 @@
 					/>
 					<CBFileInput
 						class="mb-5"
-						:errors="errors[`submissions[${idx}].imageUrl`]"
+						:errors="errors[`submissions[${idx}].imageFile`]"
 						hint="Upload an image representing one of the existing realms."
-						:items="realmNames"
-						label="Realm Name"
-						:name="`submissions[${idx}].imageUrl`"
+						label="Image Upload"
+						:name="`submissions[${idx}].imageFile`"
 						@change="setImageSrc($event, idx)"
 					/>
 					<CBTextField
@@ -45,14 +44,14 @@
 						hint="The alternative text to be used by screen readers. If left blank, Lore will become the alt text. "
 						:error-messages="errors.altText"
 					/>
-					<CBTextField
-						label="Image Name"
-						:name="`submissions[${idx}].imageName`"
-						hint="A name you want to give to the image you're uploading. If this field is left blank the file name will be generated."
-						:error-messages="errors.imageName"
+					<CBTextArea
+						:name="`submissions[${idx}].lore`"
+						label="Image Lore"
+						:errors="errors[`submissions[${idx}].lore`]"
 					/>
 				</v-col>	
-				<v-col cols="12" md="6">
+				<v-col cols="12"
+					md="7">
 					<v-img
 						:src="imageUrlsArray[idx]"
 						:id="`imagePreview${idx}`"
@@ -64,14 +63,6 @@
 						alt="an image to submit documented from another realm">
 					</v-img>
 					<p class="text-primary minHeight text-body-1 mx-8 px-5 py-5 text-center"> {{ values.submissions[idx].lore }}</p>
-				</v-col>
-				<v-col cols="12"
-					xl="6">
-					<CBTextArea
-						:name="`submissions[${idx}].lore`"
-						label="Image Lore"
-						:errors="errors[`submissions[${idx}].lore`]"
-					/>
 				</v-col>
 				<v-col cols="12"
 					md="6"
@@ -105,7 +96,8 @@
 				</v-col>
 			</v-row>
 			<v-row>
-				<v-col cols="12" class="mt-10">
+				<v-col cols="12"
+					class="mt-10">
 					<p class="text-body-1 text-center">Double check your work, Operator.</p>
 					<p class="text-body-1 text-center">Improper submissions will be rejected and potentially lead to forefiture of your clearance.</p>
 				</v-col>
@@ -118,6 +110,7 @@
 						:caution="true"
 						variant="outlined"
 						link-name="/operations/control"
+						:isLoading="isUploadInProgress"
 						text="Cancel"/>
 				</v-col>
 				<v-col cols="6"
@@ -127,6 +120,7 @@
 						@click="submitRealms"
 						color="primary-darken-1"
 						class="text-primary"
+						:isLoading="isUploadInProgress"
 						text="Submit"/>
 				</v-col>
 			</v-row>
@@ -139,12 +133,16 @@ import { ref } from 'vue'
 import { useFieldArray, useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { getStorage, ref as firebaseRef, uploadBytes } from "firebase/storage"
-import { writeBatch, query, getDocs, doc, collection, where, setDoc } from "firebase/firestore"
-import { useFirestore, useCollection, useDocument } from 'vuefire'
+import { writeBatch, query, getDocs, doc, collection, where } from "firebase/firestore"
+import { useFirestore } from 'vuefire'
 
+import { customAlphabet } from 'nanoid'
+const nanoid = customAlphabet(`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`, 10)
+
+// reference firestore
 const db = useFirestore()
 const q = query(collection(db, `realms`), where(`takingSubmissions`, `==`, true))
-// reference firestore
+const querySnapshot = await getDocs(q)
 const storage = getStorage()
 
 // data refs
@@ -152,62 +150,97 @@ const realmNames = ref([
 	{ title: `Uncertain`, value: `uncertain`}
 ])
 const imageUrlsArray = ref([])
+const isUploadInProgress = ref(false)
 
+// methods
+// trigger with file event, create temp reference URL from blob
 const setImageSrc = async (e, index) => {
 	imageUrlsArray.value[index] = URL.createObjectURL(e.target.files[0])
 }
 
-const querySnapshot = await getDocs(q)
+// populate realm names with results from query
 querySnapshot.forEach((doc) => {
 	realmNames.value.push({title: doc.data().title, value: doc.id})
 })
 
-// Get a new write batch
+// Get a new write batch container to the firestore db
 const batch = writeBatch(db)
 
-const initalFormValues = {
-	realm: null,
-	imageUrl: null,
-	lore: null,
-	imageName: null,
-	altText: null
-}
-
-const { values, handleSubmit, errors, meta } = useForm({
+// destructure useForm from vv4
+const { values, handleSubmit, errors } = useForm({
 	initialValues: { 
-		submissions: [
-			initalFormValues,
+		submissions: [ 
+			{
+				realm: null,
+				imageFile: null,
+				lore: null,
+				altText: null,
+			}
 		]
 	},
+	// validation schema
 	validationSchema: yup.object().shape({
 		submissions: yup.array().of(
 			yup.object().shape({
 				realm: yup.string().required().label(`Realm Name`),
-				imageUrl: yup.array().required().label(`Image Upload`),
-				imageName: yup.string().label(`Image Name`),
-				altText: yup.string().max(150).label(`Image Alt Text`),
+				imageFile: yup.array().required().label(`Image Upload`),
+				altText: yup.string().nullable().max(150).label(`Image Alt Text`),
 				lore: yup.string().max(120).required().label(`Image Lore`)
 			})
 		)
 	})
 })
-	
+
+// setup submissions name as a form container for iterable form fields 
 const { remove, push, fields } = useFieldArray(`submissions`)
 
+// submit function which uploads 
 const submitRealms = handleSubmit(values => {
-	values.submissions.forEach((submission) => {
-		// figure out how to submit to storage with auto id
-		const storageRef = firebaseRef(storage, `${submission.realm}`)
-		// sets a batch reference to the collection "submissions"
-		const batchRef = doc(collection(db, `submissions`))
-		// 
-		uploadBytes(storageRef, values.submissions[0].imageUrl[0]).then((snapshot) => {
-			console.log(snapshot)
-			console.log(`Uploaded a blob or file!`)
-		})
-		batch.set(batchRef, {
+	if(isUploadInProgress.value === true) return
+	// swap variable to disable submission while loading
+	isUploadInProgress.value = true
+	// initalize a value for how many individual submissions exist
+	let howManySubmissions = values.submissions.length
+
+	// iterate over form values
+	values.submissions.forEach((submission, index) => {
+		console.log(submission)
+		// local data & BE reference
+		// const for id & storage path location
+		const imageId = nanoid()
+		// create storage reference const to firebase storage (image hosting)
+		const storageRef = firebaseRef(storage, imageId)
+
+		// sets a batch reference to the collection "submissions" for firestore (data hosting)
+		const batchRef = doc(db, `submissions`, imageId)
+		
+		// upload image to storage
+		uploadBytes(storageRef, values.submissions[index].imageFile[0]).then(() => {
+			// decrement counter
+			howManySubmissions--
+
+			// gate toggle of isUploadInProgress while howManySubmissions is longer than 
+			if(howManySubmissions > 0) {
+				return 
+			}
 			
+			// reset button loading  
+			isUploadInProgress.value = false
+		})
+
+		// add data to batch for uploading to firestore 
+		batch.set(batchRef, {
+			realm: submission.realm,
+			submittedAt: new Date(),
+			imageId,
+			lore: submission.lore,
+			altText: submission.altText,
+			// TODO - add submitted by field
 		})
 	})
+	batch.commit()
+	// TODO - Confirm success of batch upload and reset form
+	// TODO - add success messaging and inform user review will occur soon.
 })
 </script>
+<!-- TODO - Force particular file formats for imageUpload,  -->

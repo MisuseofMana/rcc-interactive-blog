@@ -1,15 +1,17 @@
 <template>
-    <v-textarea
-        class="text-primary primary"
-        prepend-icon="mdi-comment"
-        variant="filled"
-        :name="name"
-        :label="label"
-        :error-messages="errors"
-        counter="120"
-        auto-grow
-        v-model="value"
-    ></v-textarea>
+	<v-textarea
+		class="text-primary primary"
+		prepend-icon="mdi-comment"
+		variant="filled"
+		:name="name"
+		:label="label"
+		:error-messages="errors"
+		counter="120"
+		density="compact"
+		auto-grow
+		height="100px"
+		v-model="value"
+	></v-textarea>
 </template>
 
 <script setup>
