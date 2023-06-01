@@ -6,7 +6,7 @@
 				no-gutters>
 				<v-col class="d-flex justify-center align-center"
 					cols="12">
-					<Transition name="brainwash"
+					<transition name="brainwash"
 						mode="out-in">
 						<v-img 
 							max-width="200px"
@@ -15,7 +15,7 @@
 							:key="whichClutter"
 							:src="`/images/clutter/${whichClutter}.png`"
 							:alt="whichClutter"></v-img>
-					</Transition>
+					</transition>
 				</v-col>
 			</v-row>
 		</NuxtLayout>

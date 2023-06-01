@@ -5,9 +5,9 @@
 			<v-row>
 				<v-col cols="12"
 					class="">
-					<h1 class="text-h1 text-center mb-5">Photo Documentation</h1>
-					<p class="text-body-1 text-center mb-3">Submit one or multiple photos to a realm of your choosing.</p>
-					<p class="text-body-1 text-center mb-10">If you are unsure which realm you've captured, please select "Uncertain" as the Realm Name and another Operator will categorize your submission in your place.</p>
+					<h1 class="text-h1 text-center mb-5">Submit Evidence Of Realms</h1>
+					<p class="text-body-1 text-center mb-3">Submit one or multiple photos to a realm(s) of your choosing.</p>
+					<p class="text-body-1 text-center mb-10">If you are unsure which realm you've captured, please select "Uncertain" as the Realm Name and another Operator will categorize your submission.</p>
 				</v-col>
 			</v-row>
 			<v-row v-for="(field, idx) in fields"
@@ -25,7 +25,7 @@
 						class="mb-5"
 						:errors="errors[`submissions[${idx}].realm`]"
 						hint="Be sure you select the realm you wish to submit evidence of."
-						:items="realmNames"
+						:items="siteStore.realmNames"
 						label="Realm Name"
 						:name="`submissions[${idx}].realm`"
 					/>
@@ -57,7 +57,6 @@
 						:id="`imagePreview${idx}`"
 						class="realmImage"
 						aspect-ratio="1.5"
-						min-width="500px"
 						contain
 						lazy-src="/images/mocks/placeholder-wide.jpg"
 						alt="an image to submit documented from another realm">
@@ -133,22 +132,25 @@ import { ref } from 'vue'
 import { useFieldArray, useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { getStorage, ref as firebaseRef, uploadBytes } from "firebase/storage"
-import { writeBatch, query, getDocs, doc, collection, where } from "firebase/firestore"
+import { writeBatch, doc } from "firebase/firestore"
 import { useFirestore } from 'vuefire'
+import { useSiteStore } from '~/store/useSiteStore.js'
+import { useRealmNames } from '~/composables/firebase/useRealmNames'
 
 import { customAlphabet } from 'nanoid'
-const nanoid = customAlphabet(`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`, 10)
+const nanoid = customAlphabet(`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`, 15)
+
+useRealmNames()
+const siteStore = useSiteStore()
 
 // reference firestore
 const db = useFirestore()
-const q = query(collection(db, `realms`), where(`takingSubmissions`, `==`, true))
-const querySnapshot = await getDocs(q)
+
 const storage = getStorage()
 
-// data refs
-const realmNames = ref([
-	{ title: `Uncertain`, value: `uncertain`}
-])
+// eslint-disable-next-line no-undef
+const user = await getCurrentUser()
+
 const imageUrlsArray = ref([])
 const isUploadInProgress = ref(false)
 
@@ -157,11 +159,6 @@ const isUploadInProgress = ref(false)
 const setImageSrc = async (e, index) => {
 	imageUrlsArray.value[index] = URL.createObjectURL(e.target.files[0])
 }
-
-// populate realm names with results from query
-querySnapshot.forEach((doc) => {
-	realmNames.value.push({title: doc.data().title, value: doc.id})
-})
 
 // Get a new write batch container to the firestore db
 const batch = writeBatch(db)
@@ -204,14 +201,14 @@ const submitRealms = handleSubmit(values => {
 
 	// iterate over form values
 	values.submissions.forEach((submission, index) => {
-		console.log(submission)
 		// local data & BE reference
 		// const for id & storage path location
 		const imageId = nanoid()
 		// create storage reference const to firebase storage (image hosting)
-		const storageRef = firebaseRef(storage, imageId)
+		const storageRef = firebaseRef(storage, `${submission.realm}/${imageId}`)
 
-		// sets a batch reference to the collection "submissions" for firestore (data hosting)
+		// sets a batch reference to the collection "submissions" 
+		// under a randomly generated id for firestore (data hosting)
 		const batchRef = doc(db, `submissions`, imageId)
 		
 		// upload image to storage
@@ -231,11 +228,11 @@ const submitRealms = handleSubmit(values => {
 		// add data to batch for uploading to firestore 
 		batch.set(batchRef, {
 			realm: submission.realm,
-			submittedAt: new Date(),
+			submittedAt: new Date().getTime(),
+			submittedBy: user.displayName,
 			imageId,
 			lore: submission.lore,
 			altText: submission.altText,
-			// TODO - add submitted by field
 		})
 	})
 	batch.commit()

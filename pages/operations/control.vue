@@ -9,7 +9,8 @@
 					lg="6"
 					xl="6"
 					class="offset-sm-2 offset-md-3">
-					<p class="text-body-1 text-center">Hello <span class="text-deep-orange-darken-4">{{ user.displayName }}.</span></p>
+					<p v-if="user.displayName"
+						class="text-body-1 text-center">Hello <span class="text-deep-orange-darken-4">{{ user.displayName }}.</span></p>
 					<p class="text-subtitle-1 text-center mb-10">{{ musings[chosenMusing] }}</p>
 					<h1 class="text-h1 text-center mb-3">Control Panel</h1>
 				</v-col>

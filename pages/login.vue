@@ -71,14 +71,13 @@ const { handleSubmit, values, errors } = useForm({
 		email: ``,
 	},
 	validationSchema: yup.object().shape({
-		username: yup.string().matches(/^[a-zA-Z]+$/, 'Username may only contain letters "a" to "z"').min(5).max(20).required().label(`Username`),
+		username: yup.string().matches(/^[a-zA-Z]+$/, `Username may only contain letters "a" to "z"`).min(5).max(20).required().label(`Username`),
 		password: yup.string().min(9).max(20).required().label(`Password`),
 	})
 })
 
 const auth = getAuth()
 const logInError = ref(``)
-
 
 const userLoginString = computed(() => {
 	if(values.username && values.username.includes(`@`)) {

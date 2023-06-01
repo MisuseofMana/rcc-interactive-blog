@@ -105,12 +105,11 @@ const auth = getAuth()
 const logInError = ref(``)
 
 const createUser = handleSubmit(values => {
-	const fakeUserEmail = `${values.Username}@CBArchives.com`
-
-	createUserWithEmailAndPassword(auth, fakeUserEmail, values.Password)
+	const email = values.email ? values.email : `${values.username}@CBArchives.com`
+	createUserWithEmailAndPassword(auth, email, values.password)
 		.then(() => {
 			updateProfile(auth.currentUser, {
-				displayName: values.Username
+				displayName: values.username
 			})
 			// eslint-disable-next-line no-undef
 			navigateTo(`/operations/control`)

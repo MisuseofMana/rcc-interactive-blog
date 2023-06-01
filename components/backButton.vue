@@ -6,15 +6,15 @@
 		:loading="isLoading"
 		:height="smAndDown ? '55px' : '50px'"
 		min-width="100%"
-		:color="caution ? 'deep-orange-darken-4' : 'primary-darken-1'">
+		:color="computedColor">
 		<div v-if="frontIcon">
 			<v-icon class="mr-2"
 				size="25px"
-				:color="caution ? 'deep-orange-darken-4' : 'primary'"
+				:color="computedIconColor"
 				:icon="`mdi-${frontIcon}`"></v-icon>
 		</div>
 		<div class="text-body-1 text-uppercase mr-2"
-			:class="caution ? 'text-deep-orange-darken-4' : 'text-primary'">
+			:class="computedTextColor">
 			{{ text }}
 		</div>
 		<div v-if="realmIcons">
@@ -22,28 +22,42 @@
 				size="25px"
 				v-for="(items, index) in realmIcons"
 				:key="items+index"
-				:color="caution ? 'deep-orange-darken-4' : 'primary'"></v-icon>
+				:color="computedIconColor"></v-icon>
 		</div>
 	</v-btn>
 </template> 
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { useDisplay } from 'vuetify'
 
-defineProps({
+const props = defineProps({
 	frontIcon: String,
 	text: String,
 	realmIcons: Array,
 	linkName: String,
 	caution: Boolean,
+	warning: Boolean,
 	isLoading: Boolean,
 })
 
 const { smAndDown } = useDisplay()
-const isMounted = ref(false)
 
-onMounted(() => {
-	isMounted.value = true
+const computedColor = computed(() => {
+	if(props.caution) return `deep-orange-darken-4`
+	if(props.warning) return `yellow-darken-2`
+	return `primary-darken-1`
+})
+
+const computedIconColor = computed(() => {
+	if(props.caution) return `deep-orange-darken-4`
+	if(props.warning) return `yellow-darken-2`
+	return `primary`
+})
+
+const computedTextColor = computed(() => {
+	if(props.caution) return `text-deep-orange-darken-4`
+	if(props.warning) return `text-yellow-darken-2`
+	return `text-primary`
 })
 </script>

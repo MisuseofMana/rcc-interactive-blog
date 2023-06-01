@@ -1,52 +1,49 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<v-app>
-		<v-no-ssr>
-			<v-container>
-				<v-row>
-					<v-col cols="12"
-						sm="12"
-						md="12"
-						lg="12"
-						xl="8"
-						class="offset-xl-2">
-						<p
-							v-if="showDebug"
-							class="text-deep-orange-darken-4 text-body-1"
-						>
-							{{ name }}
-						</p>
-						<v-row>
-							<v-col cols="12"
-								sm="6"
-								md="4"
-								xl="4">
-								<BackButton
-									text="Return to Control Panel"
-									front-icon="eye-settings"
-									link-name="/operations/control" />
-							</v-col>
-						</v-row>
+		<v-container>
+			<v-row>
+				<v-col cols="12"
+					sm="12"
+					md="12"
+					lg="12"
+					xl="8"
+					class="offset-xl-2">
+					<p
+						v-if="showDebug"
+						class="text-deep-orange-darken-4 text-body-1"
+					>
+						{{ name }}
+					</p>
+					<v-row>
+						<v-col cols="12"
+							sm="6"
+							md="4"
+							xl="4">
+							<BackButton
+								text="Return to Control Panel"
+								front-icon="eye-settings"
+								link-name="/operations/control" />
+						</v-col>
+					</v-row>
 						
-						<v-main class="text-primary">
-							<slot class="mt-8"></slot>
-						</v-main>
+					<v-main class="text-primary">
+						<slot class="mt-8"></slot>
+					</v-main>
 						
 			
-						<v-footer
-							class="d-flex align-center pa-0 mt-15 mb-5"
-							:class="smAndDown ? 'justify-center flex-column' : 'justify-end'"
-							color="background"
-						>
-							<div class="text-primary text-body-1 mr-0 mr-md-5 mb-3 mb-md-0">
-								CRICKBURROW, &copy;2023 
-							</div>
-						</v-footer>
-					</v-col>
-				</v-row>
-			</v-container>
-			
-		</v-no-ssr>
+					<v-footer
+						class="d-flex align-center pa-0 mt-15 mb-5"
+						:class="smAndDown ? 'justify-center flex-column' : 'justify-end'"
+						color="background"
+					>
+						<div class="text-primary text-body-1 mr-0 mr-md-5 mb-3 mb-md-0">
+							CRICKBURROW, &copy;2023 
+						</div>
+					</v-footer>
+				</v-col>
+			</v-row>
+		</v-container>
 	</v-app>
 </template>
 
