@@ -14,6 +14,55 @@
 				class="pa-15 text-primary mb-8"
 				v-for="(submission, idx) in fields"
 				:key="submission.value.imageId">
+				
+				<v-overlay
+					v-model="submissionOverlays[idx]"
+					contained
+					class="align-center background-red justify-center text-primary text-center approvalScrim">
+					<h2 class="text-h4">Are you sure you want to approve this submission?</h2>
+					<p class="text-body-1 mb-8">Submission approval is only reversable by a member of the D.I.S.</p>
+					<v-row>
+						<v-col cols="12" md="6">
+							<BackButton class="mr-2 mb-3"
+								text="Yes, Approve This Submission"
+								:realm-icons="['check']"
+								@click="approveSubmission(idx)"/>
+						</v-col>
+						<v-col cols="12" md="6">
+							<BackButton class="mr-2 mb-3"
+								:warning="true"
+								variant="outlined"
+								text="No, wait. Nevermind."
+								:realm-icons="['cancel']"
+								@click="submissionOverlays[idx] = false"/>
+						</v-col>
+					</v-row>
+				</v-overlay>
+
+				<v-overlay
+					v-model="rejectionOverlays[idx]"
+					contained
+					class="align-center background-red justify-center text-primary text-center rejectionScrim">
+					<h2 class="text-h4 mb-2">Are you sure you want to reject this submission?</h2>
+					<p class="text-body-1 mb-8">Rejecting a submission can not be undone.</p>
+					<v-row>
+						<v-col cols="12" md="6">
+							<BackButton class="mr-2 mb-3"
+								text="Yes, Reject This Submission"
+								:realm-icons="['trash-can']"
+								@click="rejectSubmission(idx)"/>
+						</v-col>
+						<v-col cols="12" md="6">
+							<BackButton class="mr-2 mb-3"
+								:warning="true"
+								variant="outlined"
+								text="No, wait. Nevermind."
+								:realm-icons="['cancel']"
+								@click="rejectionOverlays[idx] = false"/>
+						</v-col>
+					</v-row>
+				</v-overlay>
+
 				<v-row class="text-primary">
 					<v-col cols="12"
 						lg="7">
@@ -51,43 +100,27 @@
 						/>
 						<p class="text-body-1 text-primary mb-2">:> Operator ID: {{ submission.value.submittedBy }}</p>
 						<p class="text-body-1 text-primary mb-4">:> Submission Date: {{ submission.value.submittedAt }}</p>
-						<v-row class="d-flex ">
+						<v-row class="d-flex">
 							<v-col cols="12"
 								lg="6">
 								<BackButton class="mr-2 mb-3"
 									text="Approve"
-									:realm-icons="['key']"/>
+									:realm-icons="['key']"
+									@click="submissionOverlays[idx] = true"/>
 							</v-col>
 							<v-col cols="12"
 								lg="6">
 								<BackButton class="mr-2 mb-3"
 									:caution="true"
 									variant="outlined"
-									text="Deny"
-									:realm-icons="['cancel']"/>
+									text="Reject"
+									:realm-icons="['cancel']"
+									@click="rejectionOverlays[idx] = true"/>
 							</v-col>
 						</v-row>
 					</v-col>
 				</v-row>
 			</v-card>
-			<!-- <v-row>
-				<v-col cols="12"
-					md="4">
-					<BackButton class="mr-2 mb-3"
-						text="Prev. Page"
-						:disabled="currentPage <= 1"
-						:realm-icons="['arrow-left']"
-					/>
-				</v-col>
-				<v-spacer/>
-				<v-col cols="12"
-					md="4">
-					<BackButton class="mr-2 mb-3"
-						text="Next Page"
-						:realm-icons="['arrow-right']"
-					/>
-				</v-col>
-			</v-row> -->
 		</v-container>
 	</NuxtLayout>
 </template>
@@ -107,8 +140,9 @@ const siteStore = useSiteStore()
 
 // data
 const totalSubmissions = ref(0)
-const batchOfSubmissions = ref([])
 const storage = getStorage()
+const submissionOverlays = ref([])
+const rejectionOverlays = ref([])
 
 // firestore setup
 const db = useFirestore()
@@ -137,6 +171,8 @@ getSubmissions.forEach((doc) => {
 				imageLink: url
 			})
 		})
+	submissionOverlays.value.push(false)
+	rejectionOverlays.value.push(false)
 })
 
 const { values, handleSubmit, errors } = useForm({
@@ -154,5 +190,29 @@ const { values, handleSubmit, errors } = useForm({
 
 const { remove, push, fields } = useFieldArray(`submissions`)
 
+// Use evt as index of submission to submit only the passed index from values
+const approveSubmission = handleSubmit((values, { evt }) => {
+		console.log(values)
+		console.log(evt)
+	})
+
+const rejectSubmission = handleSubmit(values => {
+	console.log(values)
+})
+
 </script>
+
+<style>
+
+.approvalScrim > .v-overlay__scrim {
+	background: rgb(var(--v-theme-primary-darken-3));
+	opacity: 75%;
+}
+
+.rejectionScrim > .v-overlay__scrim {
+	background: #BF360C;
+	opacity: 90%;
+}
+
+</style>
 

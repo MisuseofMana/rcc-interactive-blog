@@ -228,7 +228,7 @@ const submitRealms = handleSubmit(values => {
 		// add data to batch for uploading to firestore 
 		batch.set(batchRef, {
 			realm: submission.realm,
-			submittedAt: new Date().getTime(),
+			submittedAt: new Date().toDateString(),
 			submittedBy: user.displayName,
 			imageId,
 			lore: submission.lore,
