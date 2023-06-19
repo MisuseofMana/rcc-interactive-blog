@@ -17,3 +17,13 @@ input:-webkit-autofill:active{
 input:-webkit-autofill{
     -webkit-text-fill-color: #89f200 !important;
 }
+
+ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+}

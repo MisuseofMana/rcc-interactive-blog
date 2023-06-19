@@ -45,3 +45,30 @@
   opacity: 0;
   filter: blur(1rem);
 }
+
+@keyframes collapse {
+  0% {
+    transform: scaleY(0) scaleX(0);
+    opacity: 0;
+  }
+  25% {
+    transform: scaleY(0) scaleX(0) translateY(-300px);
+    opacity: 0.3;
+  }
+  75% {
+    transform: scaleY(.1) scaleX(1) translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1) scaleX(1) translateY(0px);
+    opacity: 1;
+  }
+}
+
+.collapse-enter-active {
+  animation: .7s ease-in collapse
+}
+
+.collapse-leave-active {
+  animation: .7s ease-out reverse collapse
+}

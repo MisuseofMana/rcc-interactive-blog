@@ -1,3 +1,5 @@
+<!-- TODO - Setup User Permissions -->
+
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<NuxtLayout name="admin">
@@ -11,47 +13,50 @@
 					class="offset-sm-2 offset-md-3">
 					<p v-if="user.displayName"
 						class="text-body-1 text-center">Hello <span class="text-deep-orange-darken-4">{{ user.displayName }}.</span></p>
-					<p class="text-subtitle-1 text-center mb-10">{{ musings[chosenMusing] }}</p>
+					<p class="text-subtitle-1 text-center">{{ musings[chosenMusing] }}</p>
 					<h1 class="text-h1 text-center mb-3">Control Panel</h1>
 				</v-col>
 			</v-row>
 			<v-row>
 				<v-col cols="12"
-					sm="8"
+					sm="6"
 					md="6"
-					lg="4"
-					xl="4"
-					class="offset-sm-2 offset-md-3 offset-lg-4">
-					<p class="text-primary text-body-1 mb-3">Operator Clearance</p>
-					<BackButton class="mb-15"
-						text="/Submit a Photo"
+					lg="6"
+					xl="6">
+					<p class="text-primary text-body-1 mb-3">Operator Clearance Options</p>
+					<ControlButton class="mb-3"
+						text=">: Submit a Photo"
 						:realm-icons="['camera']"
-						link-name="/operations/realm-submission"/>
-					
-					<p class="text-primary text-body-1 mb-3">Classified Clearance</p>
-					<BackButton class="mb-3"
-						text="/Realm Approval"
-						:realm-icons="['map-search-outline']"
-						:disabled="!isAdmin"
-						link-name="/operations/realm-approval"/>
-					<BackButton class="mb-15"
-						text="/Realm Management"
-						:realm-icons="['pencil']"
-						:disabled="!isAdmin"
-						link-name="/operations/realm-management"/>
-
-					<p class="text-body-1 mb-3 mt-15 text-primary"> Coming Soon...</p>
-					<BackButton class="mb-3"
-						text="/New Realm Proposal"
-						:realm-icons="['earth']"
-						disabled/>
-					<BackButton class="mb-3"
-						text="/Artifact Submission"
+						link-name="/operations/photo-submission"/>
+					<ControlButton class="mb-3"
+						text=">: Artifact Submission"
 						:realm-icons="['diamond-stone']"
 						disabled/>
-					<BackButton text="/Operator Settings"
+					<ControlButton text=">: Operator Settings"
 						:realm-icons="['cog']"
 						disabled/>
+				</v-col>
+				<v-col cols="12"
+					sm="6"
+					md="6"
+					lg="6"
+					xl="6">
+					<p class="text-primary text-body-1 mb-3">Director Clearance Options</p>
+					<ControlButton class="mb-3"
+						text=">: Photo Approval"
+						:realm-icons="['check-decagram-outline']"
+						:disabled="!isAdmin"
+						link-name="/operations/realm-approval"/>
+					<ControlButton class="mb-3"
+						text=">: Realm Management"
+						:realm-icons="['home-edit']"
+						:disabled="!isAdmin"
+						link-name="/operations/realm-management"/>
+					<ControlButton
+						text=">: New Realm Proposal"
+						:realm-icons="['earth']"
+						:disabled="!isAdmin"
+						link-name="/operations/realm-proposal"/>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -77,7 +82,7 @@ const musings = [
 	`So glad to see you.`,
 	`You are paying attention, aren't you?`,
 	`What's next?`,
-	`Instabilities detected today, watch yourself in the realms.`,
+	`Instabilities detected today, be cautious in the realms.`,
 ]
 const chosenMusing = useRandomNumber(musings.length)
 const isAdmin = true

@@ -12,10 +12,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, toRef } from 'vue'
 import { useField } from 'vee-validate'
 const confirmPasswordShown = ref(false)
-const { value } = useField(props.name)
 
 const props = defineProps({
 	label: {
@@ -39,4 +38,7 @@ const props = defineProps({
 		default: () => [`Some`, `Default`, `Options`]
 	}
 })
+
+const name = toRef(props, `name`)
+const { value } = useField(name, undefined)
 </script>

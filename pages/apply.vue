@@ -79,7 +79,10 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useFirestore } from 'vuefire'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { doc, setDoc } from "firebase/firestore"
+
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 
@@ -101,6 +104,7 @@ const { handleSubmit, values, errors } = useForm({
 })
 
 const auth = getAuth()
+const db = useFirestore()
 
 const logInError = ref(``)
 
@@ -109,6 +113,9 @@ const createUser = handleSubmit(values => {
 	createUserWithEmailAndPassword(auth, email, values.password)
 		.then(() => {
 			updateProfile(auth.currentUser, {
+				displayName: values.username
+			})
+			setDoc(doc(db, `users`, auth.currentUser.uid), {
 				displayName: values.username
 			})
 			// eslint-disable-next-line no-undef

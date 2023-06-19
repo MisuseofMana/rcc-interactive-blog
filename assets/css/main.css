@@ -45,9 +45,15 @@
 }
 
 .text-body-1 {
-    font-size: 1.4rem !important;
+    font-size: 1.6rem !important;
     font-weight: 100 !important;
-    line-height: 1.4rem !important;
+    line-height: 1.6rem !important;
+}
+
+.text-body-2 {
+    font-size: 1.2rem !important;
+    font-weight: 100 !important;
+    line-height: 1.2rem !important;
 }
 
 .text-subtitle-1 {
