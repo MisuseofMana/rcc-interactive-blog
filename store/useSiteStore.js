@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
 
 // You can name the return value of `defineStore()` anything you want,
@@ -9,5 +9,6 @@ export const useSiteStore = defineStore(`site`, () => {
 	const hasInteracted = ref(false)
 	const examAutoStart = ref(false)
 	const realmNames = ref([])
-	return { hasInteracted, examAutoStart, realmNames }
+	const realmData = reactive({})
+	return { hasInteracted, examAutoStart, realmNames, realmData }
 })

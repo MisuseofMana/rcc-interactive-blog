@@ -1,11 +1,12 @@
 <template>
-    <v-text-field
-    variant="outlined"
-    :name="name"
-    :label="label"
-    :hint="hint"
-    :error-messages="errors"
-    v-model="value"></v-text-field>
+	<v-text-field
+		variant="outlined"
+		:name="name"
+		autocomplete="off"
+		:label="label"
+		:hint="hint"
+		:error-messages="errors"
+		v-model="value"></v-text-field>
 </template>
 
 <script setup>

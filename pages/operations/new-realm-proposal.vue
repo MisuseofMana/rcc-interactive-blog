@@ -43,7 +43,7 @@
 						<p class="text-body-1 mb-1">Toggle Options</p>
 						<p class="text-body-2">Toggle "Has Semiotics" if you'd like the realm to be used in the Operator exam.</p>
 						<p class="text-body-2">Toggle "Accepting Submissions" if the realm should allow other Operators to submit imagery.</p>
-						<div class="d-flex align-center align-md-start flex-md-row mt-2">
+						<div class="d-flex align-center align-md-start mt-2">
 							<CBToggleSwitch
 								name="hasSemiotics"
 								label="Has Semiotics"
@@ -105,7 +105,7 @@
 						<CBTextArea
 							class="mb-5"
 							:name="`narrative`"
-							label="Realm Quip*"
+							label="Realm Narrative*"
 							hint="Should be musing information about the realm. Two short sentences or sentence fragments are appropriate."
 							:errors="errors[`narrative`]"
 						/>
@@ -143,15 +143,20 @@
 <script setup>
 import { computed } from 'vue'
 import { useForm } from 'vee-validate'
-import { setDoc, doc } from "firebase/firestore"
+import { setDoc, doc, serverTimestamp } from "firebase/firestore"
 import { useFirestore } from 'vuefire'
+
+// eslint-disable-next-line no-undef
+definePageMeta({
+	middleware: [`auth`],
+})
 
 // reference firestore
 const db = useFirestore()
 
 // methods
 const validationSchema = {
-	title: `required|alphaAndSpace|min:5|max:20|`,
+	title: `required|alphaAndSpace|min:5|max:20`,
 	abbTitle: `requiredAbbreviation:title,15|alphaSpaceAndDot|max:12`,
 	slug: `required|slug|min:3|max:20`,
 	narrative: `required|narrativeString|max:120`,
@@ -182,6 +187,7 @@ const submitRealms = handleSubmit( values => {
 		...values,
 		iconNames: [],
 		active: false,
+		lastUpdated: serverTimestamp()
 	}).then(() => {
 
 	})

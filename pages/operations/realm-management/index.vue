@@ -1,3 +1,8 @@
+<!-- Add Data Table -->
+<!-- Add Pagination -->
+<!-- Limit to 10 realms at a time -->
+<!-- Hook up to a BE -->
+
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<NuxtLayout name="sub-admin">
@@ -12,13 +17,13 @@
 			<v-row align="center"
 				justify="center">
 				<v-col cols="12"
+					v-for="(realm, index) in accessibleRealms"
 					sm="8"
 					md="6"
 					lg="3"
 					xl="3"
 					class="mb-10 grow"
 					:class="index === 0 || index % 2 === 0 ? `offset-sm-2 offset-md-3 offset-lg-0` : ``"
-					v-for="realm in accessibleRealms"
 					:key="realm.title"
 					@click="sendToEditRealm(realm.slug)">
 					<h2 v-if="realm.abbTitle"
@@ -47,7 +52,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { pages } from '../../realms.data'
+import { pages } from '~/data/realms.data.js'
 import { useClassifyRealm } from '~/composables/useClassifyRealm'
 import { useDisplay } from 'vuetify'
 

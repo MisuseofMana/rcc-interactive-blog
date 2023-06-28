@@ -4,7 +4,7 @@
 		<v-container class="my-5">
 			<v-row class="mb-15">
 				<v-col cols="12">
-					<h1 class="text-h1 text-center mb-4">Realm Approval</h1>
+					<h1 class="text-h1 text-center mb-4">Photo Approval</h1>
 					<p class="text-body-1 text-center mb-1">There are {{ totalSubmissions }} unapproved submissions.</p>
 				</v-col>
 			</v-row>

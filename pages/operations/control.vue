@@ -46,7 +46,7 @@
 						text=">: Photo Approval"
 						:realm-icons="['check-decagram-outline']"
 						:disabled="!isAdmin"
-						link-name="/operations/realm-approval"/>
+						link-name="/operations/photo-approval"/>
 					<ControlButton class="mb-3"
 						text=">: Realm Management"
 						:realm-icons="['home-edit']"
@@ -56,7 +56,7 @@
 						text=">: New Realm Proposal"
 						:realm-icons="['earth']"
 						:disabled="!isAdmin"
-						link-name="/operations/realm-proposal"/>
+						link-name="/operations/new-realm-proposal"/>
 				</v-col>
 			</v-row>
 		</v-container>

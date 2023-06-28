@@ -153,7 +153,6 @@ const siteStore = useSiteStore()
 
 // reference firestore
 const db = useFirestore()
-
 const storage = getStorage()
 
 // eslint-disable-next-line no-undef
