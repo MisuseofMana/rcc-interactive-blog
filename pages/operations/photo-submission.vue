@@ -1,8 +1,5 @@
 <!-- 
-TODO - Progress Bar
 TODO - Image Size Validataion
-TODO - Confirm success of batch upload and reset form
-TODO - add success messaging and inform user review will occur soon.
 -->
 
 <!-- eslint-disable vue/multi-word-component-names -->
@@ -17,88 +14,53 @@ TODO - add success messaging and inform user review will occur soon.
 				</v-col>
 			</v-row>
 			<form>
-				<v-row v-for="(field, idx) in fields"
-					:key="field.key"
-					:class="idx > 0 ? 'mt-10' : 'mt-0'">
+				<v-row>
 					<v-col cols="12">
-						<h2 class="text-h4">
-							Submission #{{ idx + 1 }}
-						</h2>
 					</v-col>
 					<v-col cols="12"
 						md="5"
 						class="mb-5 text-primary">
 						<CBDropdownSelect
 							class="mb-5"
-							:errors="errors[`submissions[${idx}].realm`]"
+							:errors="errors.realm"
 							hint="Be sure you select the realm you wish to submit evidence of."
-							:items="siteStore.realmNames"
+							:items="nameList"
 							label="Realm Name"
-							:name="`submissions[${idx}].realm`"
+							:name="`realm`"
 						/>
 						<CBFileInput
 							class="mb-5"
-							:errors="errors[`submissions[${idx}].imageFile`]"
+							:errors="errors.imageFile"
 							hint="Upload an image representing one of the existing realms."
 							label="Image Upload"
-							:name="`submissions[${idx}].imageFile`"
-							@change="setImageSrc($event, idx)"
+							:name="`imageFile`"
+							@change="setImageSrc($event)"
 						/>
 						<CBTextField
 							class="mb-5"
 							label="Image Alt Text"
-							:name="`submissions[${idx}].altText`"
+							:name="`altText`"
 							hint="The alternative text to be used by screen readers. If left blank, Lore will become the alt text. "
 							:error-messages="errors.altText"
 						/>
 						<CBTextArea
-							:name="`submissions[${idx}].lore`"
+							:name="`lore`"
 							label="Image Lore"
-							:errors="errors[`submissions[${idx}].lore`]"
+							:errors="errors.lore"
 						/>
 					</v-col>	
 					<v-col cols="12"
 						md="7">
 						<v-img
-							:src="imageUrlsArray[idx]"
-							:id="`imagePreview${idx}`"
+							:src="imageUrlsArray[0]"
+							:id="`imagePreview`"
 							class="realmImage"
 							aspect-ratio="1.5"
 							contain
 							lazy-src="/images/mocks/placeholder-wide.jpg"
 							alt="an image to submit documented from another realm">
 						</v-img>
-						<p class="text-primary minHeight text-body-1 mx-8 px-5 py-5 text-center"> {{ values.submissions[idx].lore }}</p>
-					</v-col>
-					<v-col cols="12"
-						md="6"
-						class="offset-md-6"
-						v-if="idx > 0">
-						<v-btn @click="updateAfterRemoval(idx)"
-							width="100%"
-							class="text-body-1"
-							size="large"
-							prepend-icon="mdi-minus"
-							color="deep-orange-darken-4"
-							variant="outlined"
-							rounded>
-							Remove Entry #{{ idx + 1 }}
-						</v-btn>
-					</v-col>
-					<v-col cols="12"
-						md="6"
-						class="d-flex justify-end mb-15 offset-md-6"
-						v-if="field.isLast">
-						<v-btn @click="addAnotherSubmission()"
-							width="100%"
-							class="text-body-1 text-primary"
-							size="large"
-							:color="idx <= 3 ? 'primary-darken-1' : 'deep-orange-darken-4'"
-							:prepend-icon="idx <= 3 ? 'mdi-plus' : 'mdi-cancel'"
-							rounded
-							:disabled="idx >= 4">
-							{{ idx <= 3 ? 'Add Another Entry' : 'Max Entries Reached'}}
-						</v-btn>
+						<p class="text-primary minHeight text-body-1 mx-8 px-5 py-5 text-center"> {{ values.lore }}</p>
 					</v-col>
 				</v-row>
 				<v-row>
@@ -110,8 +72,7 @@ TODO - add success messaging and inform user review will occur soon.
 				</v-row>
 				<v-row class="mt-10">
 					<v-col cols="6"
-						xl="6"
-						class="mb-15">
+						xl="6">
 						<BackButton
 							:caution="true"
 							variant="outlined"
@@ -120,8 +81,7 @@ TODO - add success messaging and inform user review will occur soon.
 							text="Cancel"/>
 					</v-col>
 					<v-col cols="6"
-						xl="6"
-						class="mb-15">
+						xl="6">
 						<BackButton
 							@click="submitRealms"
 							color="primary-darken-1"
@@ -130,26 +90,43 @@ TODO - add success messaging and inform user review will occur soon.
 							text="Submit"/>
 					</v-col>
 				</v-row>
+				<v-row v-if="isUploadInProgress">
+					<v-col cols="12"
+						md="6"
+						class="mb-4 offset-md-3">
+						<v-progress-linear
+							bg-color="primary"
+							color="primary"
+							rounded
+							stream
+							height="12px"
+							v-model="uploadProgress"
+							class="mb-3"
+						/>
+						<div v-if="true"
+							class="text-body-1 text-deep-orange-darken-4">
+							{{ uploadError }}
+						</div>
+					</v-col>
+				</v-row>
 			</form>
 		</v-container>
 	</NuxtLayout>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useFieldArray, useForm } from 'vee-validate'
+import { ref, computed } from 'vue'
+import { useForm } from 'vee-validate'
 import * as yup from 'yup'
-import { getStorage, ref as firebaseRef, uploadBytes } from "firebase/storage"
-import { writeBatch, doc } from "firebase/firestore"
+import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { doc, serverTimestamp, setDoc } from "firebase/firestore"
 import { useFirestore } from 'vuefire'
-import { useSiteStore } from '~/store/useSiteStore.js'
 import { useRealmNames } from '~/composables/firebase/useRealmNames'
 
 import { customAlphabet } from 'nanoid'
 const nanoid = customAlphabet(`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`, 15)
 
-useRealmNames()
-const siteStore = useSiteStore()
+const { nameList } = useRealmNames()
 
 // reference firestore
 const db = useFirestore()
@@ -158,8 +135,10 @@ const storage = getStorage()
 // eslint-disable-next-line no-undef
 const user = await getCurrentUser()
 
+const uploadProgress = ref(0)
 const imageUrlsArray = ref([])
 const isUploadInProgress = ref(false)
+const uploadError = ref(``)
 
 const blankSubmission = {
 	realm: ``,
@@ -170,45 +149,30 @@ const blankSubmission = {
 
 // methods
 // trigger with file event, create temp reference URL from blob
-const setImageSrc = async (e, index) => {
-	imageUrlsArray.value[index] = URL.createObjectURL(e.target.files[0])
+const setImageSrc = async (e) => {
+	imageUrlsArray.value[0] = URL.createObjectURL(e.target.files[0])
 }
-
-const addAnotherSubmission = () => {
-	push({
-		...blankSubmission,
-		realm: fields.value[fields.value.length - 1].value.realm || ``
-	})
-}
-
-const updateAfterRemoval = (index) => {
-	imageUrlsArray.value.splice(index, 1)
-	remove(index)
-}
-
-// Get a new write batch container to the firestore db
-const batch = writeBatch(db)
 
 // destructure useForm from vv4
-const { values, handleSubmit, errors } = useForm({
+const { values, handleSubmit, errors, resetForm } = useForm({
 	initialValues: { 
 		submissions: [blankSubmission]
 	},
 	// validation schema
 	validationSchema: yup.object().shape({
-		submissions: yup.array().of(
-			yup.object().shape({
-				realm: yup.string().required().label(`Realm Name`),
-				imageFile: yup.array().required().label(`Image Upload`),
-				altText: yup.string().nullable().max(150).label(`Image Alt Text`),
-				lore: yup.string().max(120).required().label(`Image Lore`)
-			})
-		)
+		realm: yup.string().required().label(`Realm Name`),
+		imageFile: yup.array().required().label(`Image Upload`),
+		altText: yup.string().nullable().max(150).label(`Image Alt Text`),
+		lore: yup.string().max(120).required().label(`Image Lore`)
 	})
 })
 
-// setup submissions name as a form container for iterable form fields 
-const { remove, push, fields } = useFieldArray(`submissions`)
+const findRealmName = (id) => {
+	const result = nameList.value.find(obj => {
+		return obj.value === id
+	})
+	return result.title
+}
 
 // submit function which uploads 
 const submitRealms = handleSubmit(values => {
@@ -216,44 +180,40 @@ const submitRealms = handleSubmit(values => {
 	// swap variable to disable submission while loading
 	isUploadInProgress.value = true
 	// initalize a value for how many individual submissions exist
-	let howManySubmissions = values.submissions.length
+	uploadProgress.value = 0
 
 	// iterate over form values
-	values.submissions.forEach((submission, index) => {
-		// local data & BE reference
-		// const for id & storage path location
-		const imageId = nanoid()
-		// create storage reference const to firebase storage (image hosting)
-		const storageRef = firebaseRef(storage, `${submission.realm}/${imageId}`)
-
-		// sets a batch reference to the collection "submissions" 
-		// under a randomly generated id for firestore (data hosting)
-		const batchRef = doc(db, `submissions`, imageId)
-		
-		// upload image to storage
-		uploadBytes(storageRef, values.submissions[index].imageFile[0]).then(() => {
-			// decrement counter
-			howManySubmissions--
-
-			// gate toggle of isUploadInProgress while howManySubmissions is longer than 
-			if(howManySubmissions > 0) {
-				return 
-			}
-			
-			// reset button loading  
-			isUploadInProgress.value = false
-		})
-
-		// add data to batch for uploading to firestore 
-		batch.set(batchRef, {
-			realm: submission.realm,
-			submittedAt: new Date().toDateString(),
-			submittedBy: user.displayName,
-			imageId,
-			lore: submission.lore,
-			altText: submission.altText,
-		})
-	})
-	batch.commit()
+	const imageId = nanoid()
+	const storageRef = firebaseRef(storage, `${values.realm}/${imageId}`)
+	
+	const uploadTask = uploadBytesResumable(storageRef, values.imageFile[0])
+	uploadTask.on(`state_changed`, 
+		(snapshot) => {
+			console.log(uploadProgress.value)
+			uploadProgress.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+		}, 
+		(error) => {
+			uploadError.value = error
+		}, 
+		() => {
+			getDownloadURL(firebaseRef(storage, `${values.realm}/${imageId}`))
+				.then((url) => {
+					setDoc(doc(db, `realms`, values.realm, `photographs`, imageId), {
+						realm: values.realm,
+						altText: values.altText,
+						lore: values.lore,
+						submittedAt: serverTimestamp(),
+						submittedBy: user.displayName,
+						realmName: findRealmName(values.realm),
+						published: false,
+						imageLink: url,
+					}).then(() => {
+						isUploadInProgress.value = false
+						resetForm()
+						imageUrlsArray.value = []
+					})
+				})
+		}
+	)
 })
 </script>

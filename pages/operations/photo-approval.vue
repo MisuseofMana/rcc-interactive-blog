@@ -5,31 +5,22 @@
 			<v-row class="mb-15">
 				<v-col cols="12">
 					<h1 class="text-h1 text-center mb-4">Photo Approval</h1>
-					<p class="text-body-1 text-center mb-1">There are {{ totalSubmissions }} unapproved submissions.</p>
 				</v-col>
 			</v-row>
 			<transition name="collapse">
-				<div v-if="totalSubmissions <= 0">
+				<div v-if="true">
 					<v-row>
-						<v-col cols="12">
+						<v-col cols="12"
+							md="4"
+							class="offset-md-4">
 							<div class="text-deep-orange-darken-1 d-flex align-center justify-center">
-								<v-icon class="mr-3"
-									size="large">mdi-cancel</v-icon>
-								<h2 class="text-h3 text-center mr-2">No Submissions to approve.</h2>
-								<v-icon size="large">mdi-cancel</v-icon>
+								<BackButton
+									rounded
+									text="Check For More Submissions"
+									front-icon="magnify"
+									@click="getSubmissions()"
+								/>
 							</div>
-							<div class="text-deep-orange-darken-1 d-flex align-center justify-center mb-15">
-								<h2 class="text-h4 text-center">You should go back.</h2>
-							</div>
-						</v-col>
-					</v-row>
-					<v-row>
-						<v-col cols="6"
-							class="offset-3">
-							<BackButton
-								text="Return to Control Panel"
-								front-icon="eye-settings"
-								link-name="/operations/control" />
 						</v-col>
 					</v-row>
 				</div>
@@ -101,8 +92,7 @@
 						<v-col cols="12"
 							lg="7">
 							<div class="d-flex align-center mb-3">
-								<h6 class="text-h6 text-primary">{{ submission.value.imageId }}: &nbsp;</h6>
-								<h5 class="text-h5 text-primary">Evidence of {{ getRealmNameProperCasing(submission.value.realm) }}</h5>
+								<h5 class="text-h5 text-primary">Evidence of {{ submission.value.realmName }}</h5>
 							</div>
 							<v-img class="realmImage mb-5"
 								cover
@@ -132,8 +122,8 @@
 								label="Image Lore"
 								:errors="errors[`submissions[${idx}].lore`]"
 							/>
-							<p class="text-body-1 text-primary mb-2">:> Operator ID: {{ submission.value.submittedBy }}</p>
-							<p class="text-body-1 text-primary mb-4">:> Submission Date: {{ submission.value.submittedAt }}</p>
+							<p class="text-body-1 text-primary mb-2">:> Submitted by: {{ submission.value.submittedBy }}</p>
+							<p class="text-body-1 text-primary mb-4">:> Submitted around {{ useLastUpdated(submission.value.submittedAt).lastUpdated.value }} ago</p>
 							<v-row class="d-flex">
 								<v-col cols="12"
 									lg="6">
@@ -161,13 +151,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { useFirestore } from 'vuefire'
 import { useFieldArray, useForm } from 'vee-validate'
 import * as yup from 'yup'
-import { getStorage, ref as firebaseRef, getDownloadURL } from "firebase/storage"
-import { collection, getDocs, query, limit, getCountFromServer, doc, updateDoc, setDoc, arrayUnion, deleteDoc } from "firebase/firestore"
+import { getDocs, query, limit, doc, updateDoc, setDoc, arrayUnion, deleteDoc, where, collectionGroup } from "firebase/firestore"
 import { useRealmNames } from '~/composables/firebase/useRealmNames'
+import { useLastUpdated } from '~/composables/useLastUpdated'
 import { useSiteStore } from '~/store/useSiteStore.js'
 
 useRealmNames()
@@ -178,43 +168,28 @@ const user = await getCurrentUser()
 
 // data
 const totalSubmissions = ref(0)
-const storage = getStorage()
 const submissionOverlays = ref([])
 const rejectionOverlays = ref([])
 const isSubmitting = ref(false)
 
 // firestore setup
 const db = useFirestore()
-const getSubmissionCount = await getCountFromServer(
-	collection(db, `submissions`)
-)
-const getSubmissions = await getDocs(
-	query(collection(db, `submissions`), limit(10))
-)
 
-const getRealmNameProperCasing = (realm) => {
-	const targetIndex = siteStore.realmNames.findIndex(name => {
-		return name.value === realm
+const getSubmissions = async () => {
+	const photos = query(collectionGroup(db, `photographs`, ), where(`published`, `==`, false), limit(4))
+	const submissions = await getDocs(photos)
+	submissions.forEach((doc) => {
+		push({...doc.data()})
+		submissionOverlays.value.push(false)
+		rejectionOverlays.value.push(false)
 	})
-	return siteStore.realmNames[targetIndex].title
 }
 
-// set page data
-totalSubmissions.value = getSubmissionCount.data().count
-getSubmissions.forEach((doc) => {
-	const { realm, imageId } = doc.data()
-	getDownloadURL(firebaseRef(storage, `${realm}/${imageId}`))
-		.then((url) => {
-			push({
-				...doc.data(),
-				imageLink: url
-			})
-		})
-	submissionOverlays.value.push(false)
-	rejectionOverlays.value.push(false)
+onBeforeMount(() => {
+	getSubmissions()
 })
 
-const { values, handleSubmit, errors } = useForm({
+const { handleSubmit, errors } = useForm({
 	// validation schema
 	validationSchema: yup.object().shape({
 		submissions: yup.array().of(

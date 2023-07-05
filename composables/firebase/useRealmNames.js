@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { initializeApp } from 'firebase/app'
 import { query, getDocs, collection, where, getFirestore } from "firebase/firestore"
@@ -16,8 +17,11 @@ const siteStore = useSiteStore()
 const db = getFirestore(firebaseApp)
 
 export function useRealmNames() {
+	const nameList = ref([])
+
 	const getRealmNames = async () => {
 		if (!siteStore.realmNames.length) {
+			console.log(`query`)
 			const getRealmsTakingSubmissions = await getDocs(
 				query(collection(db, `realms`), where(`takingSubmissions`, `==`, true))
 			)
@@ -27,7 +31,17 @@ export function useRealmNames() {
 				container.push({title: doc.data().title, value: doc.id})
 			})
 			siteStore.realmNames = container
+			nameList.value = container
+		}
+		else {
+			console.log(`from sitestore`)
+			nameList.value = siteStore.realmNames
 		}
 	}
+
 	getRealmNames()
+
+	return {
+		nameList,
+	}
 }

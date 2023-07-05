@@ -1,5 +1,6 @@
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { initializeApp } from 'firebase/app'
+import { ref } from 'vue'
 import { doc, getDoc, getFirestore } from "firebase/firestore"
 
 export const firebaseApp = initializeApp({
@@ -12,17 +13,29 @@ export const firebaseApp = initializeApp({
 	measurementId: `G-CLXB8V1MH8`
 })
 
-const route = useRoute()
 const siteStore = useSiteStore()
 const db = getFirestore(firebaseApp)
 
-export function useRealmData(afterwards) {
+export function useRealmData(realmSlug) {
+	const realm = ref(null)
+
 	const getRealmData = async () => {
-		if (!siteStore.realmData[route.params.realm]) {
-			const getCurrentRealmData = await getDoc(doc(db, `realms`, route.params.realm))
-			siteStore.realmData[route.params.realm] = getCurrentRealmData.data()
+		const docSnap = await getDoc(doc(db, `realms`, realmSlug))
+		if(siteStore?.realmData[realmSlug] != undefined) {
+			realm.value = siteStore.realmData[realmSlug]
+			return
 		}
-		afterwards(siteStore.realmData[route.params.realm])
+		else if (docSnap.exists()) {
+			realm.value = docSnap.data()
+			siteStore.realmData[realmSlug] = docSnap.data()
+		} else {
+			console.log(`No such document!`)
+		}
 	}
+	
 	getRealmData()
+	
+	return {
+		realm
+	}
 }

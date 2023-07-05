@@ -17,7 +17,7 @@
 								<CBTextField
 									label="Username *"
 									name="username"
-									hint="Your desired Operator identifier. Will be obfuscated and displayed alongside submissions."
+									hint="Your desired Operator identifier. Will be displayed alongside your submissions."
 									:error-messages="errors.username"
 								/>
 							</v-col>

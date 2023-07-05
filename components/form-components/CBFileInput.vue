@@ -22,8 +22,8 @@ const props = defineProps({
 		default: `fileinput`
 	},
 	errors: {
-		type: String, 
-		default: ``
+		type: [String, Array], 
+		default: () => []
 	},
 	hint: {
 		type: String, 
