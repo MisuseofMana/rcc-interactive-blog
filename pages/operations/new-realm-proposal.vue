@@ -146,10 +146,16 @@ import { useForm } from 'vee-validate'
 import { setDoc, doc, serverTimestamp } from "firebase/firestore"
 import { useFirestore } from 'vuefire'
 
+import { customAlphabet } from 'nanoid'
+const nanoid = customAlphabet(`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`, 15)
+
 // eslint-disable-next-line no-undef
 definePageMeta({
 	middleware: [`auth`],
 })
+
+// eslint-disable-next-line no-undef
+const user = await getCurrentUser()
 
 // reference firestore
 const db = useFirestore()
@@ -182,14 +188,17 @@ const realmNameTruncationLabel = computed(() => {
 	return values.title.length > 12 ? `Realm Name Truncation*` : `Realm Name Truncation`
 })
 
+const realmId = nanoid()
+
 const submitRealms = handleSubmit( values => {
-	setDoc(doc(db, `realms`, values.slug), {
+	setDoc(doc(db, `realms`, realmId), {
 		...values,
 		iconNames: [],
 		active: false,
+		submittedBy: user.displayName,
 		lastUpdated: serverTimestamp()
 	}).then(() => {
-
+		
 	})
 })
 </script>
