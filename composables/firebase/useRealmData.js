@@ -1,7 +1,7 @@
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { initializeApp } from 'firebase/app'
 import { ref } from 'vue'
-import { doc, getDoc, getFirestore } from "firebase/firestore"
+import { query, collection, where, getDocs, getFirestore } from "firebase/firestore"
 
 export const firebaseApp = initializeApp({
 	apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
@@ -16,20 +16,26 @@ export const firebaseApp = initializeApp({
 const siteStore = useSiteStore()
 const db = getFirestore(firebaseApp)
 
+// Just pass in the realm slug to the composable.
 export function useRealmData(realmSlug) {
 	const realm = ref(null)
 
 	const getRealmData = async () => {
-		const docSnap = await getDoc(doc(db, `realms`, realmSlug))
+		const q = query(collection(db, `realms`), where(`slug`, `==`, realmSlug))
+		const querySnap = await getDocs(q)
+		const realmResult = []
+		querySnap.forEach(doc => {
+			realmResult.push({...doc.data(), id: doc.id})
+			console.log(doc.data())
+		})
 		if(siteStore?.realmData[realmSlug] != undefined) {
+			// if site store has queried the realm already, return site cache
 			realm.value = siteStore.realmData[realmSlug]
 			return
 		}
-		else if (docSnap.exists()) {
-			realm.value = docSnap.data()
-			siteStore.realmData[realmSlug] = docSnap.data()
-		} else {
-			console.log(`No such document!`)
+		else {
+			siteStore.realmData[realmSlug] = realmResult[1]
+			realm.value = siteStore.realmData[realmSlug]
 		}
 	}
 	

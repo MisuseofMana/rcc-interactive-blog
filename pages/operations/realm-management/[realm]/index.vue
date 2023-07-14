@@ -233,7 +233,8 @@ const undoEdits = () => {
 const updateRealmData = handleSubmit( values => {
 	uploading.value = true
 	
-	const storageRef = firebaseRef(storage, `${realm.photoBucketId}/sigil`)
+	// Need to fix image uploading for realm sigil.
+	const storageRef = firebaseRef(storage, `${realm.id}/sigil`)
 	uploadBytes(storageRef, values.realmSigil[0]).then(() => {
 		uploading.value = false
 	})

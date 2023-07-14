@@ -193,7 +193,7 @@ const realmId = nanoid()
 const submitRealms = handleSubmit( values => {
 	setDoc(doc(db, `realms`, realmId), {
 		...values,
-		iconNames: [],
+		iconNames: ``,
 		active: false,
 		submittedBy: user.displayName,
 		lastUpdated: serverTimestamp()
