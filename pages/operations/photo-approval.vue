@@ -8,7 +8,7 @@
 				</v-col>
 			</v-row>
 			<transition name="collapse">
-				<div v-if="true">
+				<div v-if="!fields.length">
 					<v-row>
 						<v-col cols="12"
 							md="4"
@@ -91,9 +91,6 @@
 					<v-row class="text-primary">
 						<v-col cols="12"
 							lg="7">
-							<div class="d-flex align-center mb-3">
-								<h5 class="text-h5 text-primary">Evidence of {{ submission.value.realmName }}</h5>
-							</div>
 							<v-img class="realmImage mb-5"
 								cover
 								:src="submission.value.imageLink"
@@ -108,7 +105,7 @@
 								:items="siteStore.realmNames"
 								:hint="null"
 								label="Realm Name"
-								:name="`submissions[${idx}].realm`"
+								:name="`submissions[${idx}].realmId`"
 							/>
 							<CBTextField
 								class="text-primary"
@@ -179,7 +176,7 @@ const getSubmissions = async () => {
 	const photos = query(collectionGroup(db, `photographs`, ), where(`published`, `==`, false), limit(4))
 	const submissions = await getDocs(photos)
 	submissions.forEach((doc) => {
-		push({...doc.data()})
+		push({...doc.data(), photoId: doc.id})
 		submissionOverlays.value.push(false)
 		rejectionOverlays.value.push(false)
 	})
@@ -194,7 +191,7 @@ const { handleSubmit, errors } = useForm({
 	validationSchema: yup.object().shape({
 		submissions: yup.array().of(
 			yup.object().shape({
-				realm: yup.string().required().label(`Realm Name`),
+				realmId: yup.string().required().label(`Realm Name`),
 				altText: yup.string().nullable().max(150).label(`Image Alt Text`),
 				lore: yup.string().max(120).required().label(`Image Lore`)
 			})
@@ -214,16 +211,15 @@ const removeFromDom = (index) => {
 
 const approveSubmission = handleSubmit(({submissions}, { evt: index }) => {
 	isSubmitting.value = true
-	updateDoc(doc(db, `realms`, submissions[index].realm), {
-		documents: arrayUnion(submissions[index])
+	const { realmId, photoId, lore, altText} = submissions[index]
+	updateDoc(doc(db, `realms`, realm, `photographs`, photoId), {
+		published: true,
+		lore,
+		altText,
+		realmId,
 	}).then(() => {
-		setDoc(doc(db, `users`, user.uid, `approvals`, submissions[index].imageId), {
-			...submissions[index],
-		})
-		deleteDoc(doc(db, `submissions`, submissions[index].imageId))
 		removeFromDom(index)
-	}
-	)
+	})
 })
 
 const rejectSubmission = handleSubmit(({submissions}, { evt: index}) => {

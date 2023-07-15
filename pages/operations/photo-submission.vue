@@ -167,13 +167,6 @@ const { values, handleSubmit, errors, resetForm } = useForm({
 	})
 })
 
-const findRealmName = (id) => {
-	const result = nameList.value.find(obj => {
-		return obj.value === id
-	})
-	return result.title
-}
-
 // submit function which uploads 
 const submitRealms = handleSubmit(values => {
 	if(isUploadInProgress.value === true) return
@@ -199,12 +192,11 @@ const submitRealms = handleSubmit(values => {
 			getDownloadURL(firebaseRef(storage, `${values.realm}/${imageId}`))
 				.then((url) => {
 					setDoc(doc(db, `realms`, values.realm, `photographs`, imageId), {
-						realm: values.realm,
+						realmId: values.realm,
 						altText: values.altText,
 						lore: values.lore,
 						submittedAt: serverTimestamp(),
 						submittedBy: user.displayName,
-						realmName: findRealmName(values.realm),
 						published: false,
 						imageLink: url,
 					}).then(() => {
