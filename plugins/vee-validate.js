@@ -41,8 +41,8 @@ const alphaSpaceAndDot = defineRule(`alphaSpaceAndDot`, (value) => {
 })
 
 const narrativeString = defineRule(`narrativeString`, (value) => {
-	if (/^[A-Za-z0-9.\s?!:;#'"]+$/.test(value)) return true
-	return `Restricted to spaces, letters, numbers and the symbols (.?!:;#'").`
+	if (/^[A-Za-z0-9.\s?!:,;#'"]+$/.test(value)) return true
+	return `Restricted to spaces, letters, numbers and the symbols (.?!:,;#'").`
 })
 
 const slug = defineRule(`slug`, (value) => {
@@ -58,10 +58,10 @@ const requiredAbbreviation = defineRule(`requiredAbbreviation`, (value, [target,
 })
 
 const requiredIf = defineRule(`requiredIf`, (value, [target], ctx) => {
-	if (ctx.form[target] || value) {
-		return true
+	if (ctx.form[target] && !value) {
+		return `This field is required.`
 	}
-	return `This field is required.`
+	else return true
 })
 
 configure({

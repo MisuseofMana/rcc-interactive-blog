@@ -100,7 +100,7 @@
 								hint="Upload an image representing one of the existing realms."
 								label="Realm Sigil"
 								:name="`realmSigil`"
-								@change="setImageSrc($event, idx)"
+								@change="setImageSrc($event)"
 							/>	
 							<v-img
 								class="abberation mb-8"
@@ -125,8 +125,8 @@
 							text="Undo Edits"
 							rounded
 							:realm-icons="['undo']"
-							:disabled="!meta.dirty || uploading"
-							:loading="uploading"
+							:disabled="!meta.dirty || isUploading"
+							:loading="isUploading"
 							@click="undoEdits"/>
 					</v-col>	
 					<v-col cols="12"
@@ -136,7 +136,7 @@
 							:caution="false"
 							variant="elevated"
 							:text="false ? `Cannot Modify` :`Save Changes`"
-							:disabled="uploading"
+							:disabled="isUploading"
 							:realm-icons="['floppy']"
 							@click="updateRealmData"
 						/>
@@ -154,7 +154,7 @@
 import { computed, ref, watch } from 'vue'
 import { useForm } from 'vee-validate'
 import { doc, setDoc, serverTimestamp } from "firebase/firestore"
-import { getStorage, ref as firebaseRef, uploadBytes } from "firebase/storage"
+import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { useFirestore } from 'vuefire'
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { useRealmData } from '~/composables/firebase/useRealmData'
@@ -173,14 +173,17 @@ const { realm } = useRealmData(route.params.realm)
 const db = useFirestore()
 const storage = getStorage()
 
-const uploading = ref(false)
+const isUploading = ref(false)
+const uploadProgress = ref(0)
+const uploadError = ref(``)
+const images = ref([])
 
 // methods
 const validationSchema = {
 	title: `required|alphaAndSpace|min:5|max:20`,
 	abbTitle: `requiredAbbreviation:title,15|alphaSpaceAndDot|max:12`,
 	slug: `required|slug|min:3|max:20`,
-	narrative: `required|narrativeString|max:120`,
+	narrative: `required|narrativeString|max:150`,
 	realmSigil: ``,
 	realmCode: `requiredIf:hasSemiotics`,
 	iconNames: ``,
@@ -203,14 +206,13 @@ const { values, handleSubmit, errors, setValues, setFieldValue, meta} = useForm(
 	validationSchema,
 })
 
-watch(
-	() => realm.value,
-	(newValue) => {
+watch(realm, 
+	async (newValue) => {
+		images.value = [newValue.sigilImageLink]
+		newValue.realmSigil = [new File([newValue.sigilImageLink], `realm-sigil`)]
 		setValues(newValue)
 	}
 )
-
-const images = ref([])
 
 const setImageSrc = async (e) => {
 	setFieldValue(`realmSigil`, [e.target.files[0]])
@@ -230,21 +232,40 @@ const undoEdits = () => {
 	setValues(siteStore.realmData[route.params.realm])
 }
 
-const updateRealmData = handleSubmit( values => {
-	uploading.value = true
+const updateRealmData = handleSubmit(values => {
+	if(isUploading.value) return
+	isUploading.value = true
+	uploadProgress.value = 0
 	
-	// Need to fix image uploading for realm sigil.
 	const storageRef = firebaseRef(storage, `${realm.id}/sigil`)
-	uploadBytes(storageRef, values.realmSigil[0]).then(() => {
-		uploading.value = false
-	})
-	
-	setDoc(doc(db, `realms`, values.slug), {
-		...values,
-		updatedAt: serverTimestamp(),
-	}, { merge: true }).then(() => {
-		uploading.value = false
-	})
+	const uploadTask = uploadBytesResumable(storageRef, values.realmSigil[0])
+	uploadTask.on(`state_changed`,
+		(snapshot) => {
+			uploadProgress.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+		},
+		(error) => {
+			uploadError.value = error
+		},
+		() => {
+			getDownloadURL(firebaseRef(storage, `${realm.id}/sigil`))
+				.then((url) => {
+					console.log(url)
+					// delete realmSigil (an image file), replace w/ sigilImageLink in setDoc
+					const valuesAdjustedForPayload = {
+						...values
+					}
+					delete valuesAdjustedForPayload.realmSigil
+					setDoc(doc(db, `realms`, realm.id), {
+						...valuesAdjustedForPayload,
+						sigilImageLink: url,
+						lastUpdated: serverTimestamp(),
+						
+					}, { merge: true }).then(() => {
+						isUploading.value = false
+					})
+				})
+		}
+	)
 })
 </script>
 

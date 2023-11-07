@@ -32,26 +32,6 @@
 					<v-main class="text-primary">
 						<slot class="mt-8"></slot>
 					</v-main>
-						
-			
-					<v-footer
-						class="d-flex flex-column align-end pa-0 mt-15 mb-5"
-						:class="smAndDown ? 'justify-center flex-column' : 'justify-end'"
-						color="background"
-					>
-						<div class="text-primary text-body-1 mr-0 mr-md-5 mb-3">
-							CRICKBURROW, &copy;2023 
-						</div>
-						<div class="text-primary text-body-1 mr-0 mr-md-5 mb-1">
-							Privacy Policy
-						</div>
-						<div class="text-primary text-body-2 mr-0 mr-md-5">
-							Crickburrow will <strong>never</strong> sell your information.
-						</div>
-						<div class="text-primary text-body-2 mr-0 mr-md-5">
-							Emails are collected only as a recovery method and are used to send newsletters concerning public facing updates.
-						</div>
-					</v-footer>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -59,10 +39,8 @@
 </template>
 
 <script setup>
-import { useDisplay } from 'vuetify'
 import { usePageAudio } from '~/composables/usePageAudio'
 usePageAudio()
-const { smAndDown, name } = useDisplay()
 const showDebug = false
 </script>
 

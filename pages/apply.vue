@@ -1,6 +1,8 @@
+<!-- TODO: Add gate for users who have not completed the exam. -->
+
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<NuxtLayout name="admin">
+	<NuxtLayout name="signup">
 		<v-container class="my-5">
 			<v-row>
 				<v-col cols="12">
@@ -8,8 +10,10 @@
 						variant="outlined"
 						color="primary"
 						width="100%"
-						class="pa-15 text-primary">
-						<h1 class="text-h1 text-center mb-10">SIGN UP</h1>
+						class="px-15 py-6 text-primary">
+						<h1 class="text-h1 text-center mb-5">SIGN UP</h1>
+						<p class="text-body-1 mb-3">Well done, you are hereby granted category one Operator clearance, pending review.</p>
+						<p class="text-body-1 mb-10">Submit the following form and await further instructions.</p>
 						<v-row>
 							<v-col cols="12"
 								xl="8"
@@ -17,7 +21,7 @@
 								<CBTextField
 									label="Username *"
 									name="username"
-									hint="Your desired Operator identifier. Will be displayed alongside your submissions."
+									hint="Your desired Operator identifier. Will be displayed alongside your realm submissions."
 									:error-messages="errors.username"
 								/>
 							</v-col>
@@ -57,17 +61,9 @@
 								<p class="text-center text-deep-orange-darken-4 text-body-1 mb-3">{{ logInError }}</p>
 								<BackButton
 									@click="createUser"
-									color="primary-darken-1"
+									color="primary-darken-1 mb-5"
 									class="text-primary"
 									text="Apply to the Operations Team"/>
-							</v-col>
-							<v-col cols="12"
-								xl="3"
-								class="text-right text-subtitle-1 text-primary d-flex align-start justify-end">
-								<NuxtLink class="text-primary text-decoration-none"
-									to="/login">
-									I'm Already Registered
-								</NuxtLink>
 							</v-col>
 						</v-row>
 					</v-card>

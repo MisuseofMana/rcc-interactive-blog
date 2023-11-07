@@ -1,5 +1,9 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { useLastUpdated } from '@/composables/useLastUpdated'
+
+// eslint-disable-next-line no-undef
+const route = useRoute()
 
 // You can name the return value of `defineStore()` anything you want,
 // but it's best to use the name of the store and surround it with `use`
@@ -9,6 +13,12 @@ export const useSiteStore = defineStore(`site`, () => {
 	const hasInteracted = ref(false)
 	const examAutoStart = ref(false)
 	const realmNames = ref([])
-	const realmData = reactive({})
-	return { hasInteracted, examAutoStart, realmNames, realmData }
+	const realmData = reactive({
+		
+	})
+	const realmLastUpdated = computed(() => {
+		const { lastUpdated } = useLastUpdated(realmData[route.params.realm]?.lastUpdated)
+		return lastUpdated.value
+	})
+	return { hasInteracted, examAutoStart, realmNames, realmData, realmLastUpdated }
 })

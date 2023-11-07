@@ -48,7 +48,6 @@ export const pages = [
 			{ copy:`Outside at the well you may wish to pay homage to those who have lost this home before you.`, filePath: `well` },
 			{ copy:`We all leave Lierd, washed away by the ripples of the first curse.`, filePath: `sprawl` },
 			{ hint: true, copy: `They mountains here may prevent passing, consult with them to continue on. `, filePath: `wilds` },
-			{ copy:`Those who remain are caught in the basin pools.`, filePath: `basin` },
 			{ copy:`The fate of those sunken into the pools is a petrifying curse.`, filePath: `curse` },
 			{ hint: true, copy:`Where the water dwindles, the curse overflows. `, filePath: `flow` },
 			{ copy:`Pathways will present themselves, you can trust them. `, filePath: `path` },

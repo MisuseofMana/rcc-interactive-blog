@@ -1,14 +1,15 @@
 <template>
-	<v-row dense class="my-12">
+	<v-row dense
+		class="my-12">
 		<v-col cols="6"
 			sm="6"
 			md="3"
 			xl="2"
 			:class="alignRight ? `offset-xl-4` : ``">
 			<BackButton
-				text="/Briefing"
+				text="/Intro"
 				:realm-icons="['file-document-alert']"
-				link-name="/briefing" />
+				link-name="/intro" />
 		</v-col>
 		<v-col cols="6"
 			sm="6"
@@ -19,31 +20,45 @@
 				:realm-icons="['map-search-outline']"
 				link-name="/realms" />
 		</v-col>
-		<v-col cols="6"
+		<!-- <v-col cols="6"
 			sm="6"
 			md="3"
 			xl="2">
 			<BackButton text="/Artifacts"
 				:realm-icons="['diamond-stone']"
-				link-name="/artifacts" />
-		</v-col>
-		<v-col cols="6"
+				link-name="/artifacts" 
+				disabled
+			/>
+		</v-col> -->
+		<!-- <v-col cols="6"
 			sm="6"
 			md="3"
 			xl="2">
-			<BackButton text="/EXAM"
+			<BackButton text="/OPERATOR EXAM"
 				:realm-icons="['radar']"
 				:disabled="lockedFromExam"
 				link-name="/operator-exam" />
-		</v-col>
+		</v-col> -->
 	</v-row>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 
 defineProps({
 	alignRight: Boolean
+})
+
+onBeforeMount(() => {
+	if(localStorage.savedDay === undefined){
+		localStorage.savedDay = new Date().setHours(0,0,0,0)
+		localStorage.remainingAttempts = 5
+	}
+
+	if( localStorage.savedDay < new Date().setHours(0,0,0,0) ) {
+		localStorage.savedDay = new Date().setHours(0,0,0,0)
+		localStorage.remainingAttempts = 5
+	}
 })
 
 const lockedFromExam = computed(() => {

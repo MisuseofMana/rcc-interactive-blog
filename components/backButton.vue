@@ -18,9 +18,10 @@
 			{{ text }}
 		</div>
 		<div v-if="realmIcons">
-			<v-icon :icon="`mdi-${items}`"
-				size="25px"
+			<v-icon 
 				v-for="(items, index) in realmIcons"
+				:icon="`mdi-${items}`"
+				size="25px"
 				:key="items+index"
 				:color="computedIconColor"></v-icon>
 		</div>

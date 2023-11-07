@@ -15,23 +15,19 @@
 						class="pa-15 text-deep-orange-darken-4">
 						<div 
 							class="d-flex flex-column align-center justify-center">
-							<p class="text-body-1">Before you proceed,</p>
 							<h1 class="text-h1 mb-10">
-								THINK <strong class="font-weight-black">CAREFULLY</strong>.
+								OPERATOR EXAM
 							</h1>
-							<p class="text-body-1 mb-8">Please consider your understanding of the following.</p>
+							<p class="text-body-1 mb-8">This exam will test the following:</p>
 							<ul class="text-body-1 mb-8">
 								<li class="mb-1">
-									Are you paying attention?
+									Are you knowledgeable of the core realms?
 								</li>
 								<li class="mb-1">
-									Are you confident in you observations?
+									Do you understand the semiotics?
 								</li>
 								<li class="mb-1">
-									Have you gained the correct insights?
-								</li>
-								<li class="mb-1">
-									Can you recognize the documented realms and artifacts?
+									Can you intuit the path when there is little guidance?
 								</li>
 							</ul>
 							

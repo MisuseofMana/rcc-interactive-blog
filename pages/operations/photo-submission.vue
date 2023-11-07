@@ -8,15 +8,15 @@ TODO - Image Size Validataion
 		<v-container class="my-5">
 			<v-row>
 				<v-col cols="12">
-					<h1 class="text-h1 text-center mb-5">Submit Evidence Of Realms</h1>
-					<p class="text-body-1 text-center mb-3">Submit one or multiple photos to a realm(s) of your choosing.</p>
+					<h1 class="text-h1 text-center mb-5">Photographic Proof Of Realms</h1>
+					<p class="text-body-1 text-center mb-3">Submit photos to a realm of your choosing.</p>
 					<p class="text-body-1 text-center mb-10">If you are unsure which realm you've captured, please select "Uncertain" as the Realm Name and another Operator will categorize your submission.</p>
 				</v-col>
 			</v-row>
 			<form>
 				<v-row>
 					<v-col cols="12">
-					</v-col>
+					</v-col>  	
 					<v-col cols="12"
 						md="5"
 						class="mb-5 text-primary">
@@ -87,6 +87,7 @@ TODO - Image Size Validataion
 							color="primary-darken-1"
 							class="text-primary"
 							:isLoading="isUploadInProgress"
+							:disabled="isUploadInProgress"
 							text="Submit"/>
 					</v-col>
 				</v-row>
@@ -103,7 +104,7 @@ TODO - Image Size Validataion
 							v-model="uploadProgress"
 							class="mb-3"
 						/>
-						<div v-if="true"
+						<div v-if="uploadError"
 							class="text-body-1 text-deep-orange-darken-4">
 							{{ uploadError }}
 						</div>
@@ -115,7 +116,7 @@ TODO - Image Size Validataion
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage"
@@ -137,7 +138,6 @@ const user = await getCurrentUser()
 
 const uploadProgress = ref(0)
 const imageUrlsArray = ref([])
-const isUploadInProgress = ref(false)
 const uploadError = ref(``)
 
 const blankSubmission = {
@@ -154,7 +154,7 @@ const setImageSrc = async (e) => {
 }
 
 // destructure useForm from vv4
-const { values, handleSubmit, errors, resetForm } = useForm({
+const { values, handleSubmit, errors, resetForm, isSubmitting } = useForm({
 	initialValues: { 
 		submissions: [blankSubmission]
 	},
@@ -169,9 +169,6 @@ const { values, handleSubmit, errors, resetForm } = useForm({
 
 // submit function which uploads 
 const submitRealms = handleSubmit(values => {
-	if(isUploadInProgress.value === true) return
-	// swap variable to disable submission while loading
-	isUploadInProgress.value = true
 	// initalize a value for how many individual submissions exist
 	uploadProgress.value = 0
 
@@ -182,7 +179,6 @@ const submitRealms = handleSubmit(values => {
 	const uploadTask = uploadBytesResumable(storageRef, values.imageFile[0])
 	uploadTask.on(`state_changed`, 
 		(snapshot) => {
-			console.log(uploadProgress.value)
 			uploadProgress.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
 		}, 
 		(error) => {
@@ -200,7 +196,6 @@ const submitRealms = handleSubmit(values => {
 						published: false,
 						imageLink: url,
 					}).then(() => {
-						isUploadInProgress.value = false
 						resetForm()
 						imageUrlsArray.value = []
 					})

@@ -111,28 +111,50 @@
 						/>
 					</v-col>
 				</v-row>
-				<v-row>
-					<v-col cols="12">
-					</v-col>
-				</v-row>
 				<v-row class="mt-5">
 					<v-col cols="6"
 						xl="6"
-						class="mb-15">
+						class="mb-1">
 						<BackButton
 							:caution="true"
 							variant="outlined"
 							link-name="/operations/control"
+							:disabled="isSubmitting"
 							text="Cancel"/>
 					</v-col>
 					<v-col cols="6"
 						xl="6"
-						class="mb-15">
+						class="mb-1">
 						<BackButton
 							@click="submitRealms"
 							color="primary-darken-1"
 							class="text-primary"
+							:disabled="isSubmitting"
 							text="Submit"/>
+					</v-col>
+				</v-row>
+				<v-row>
+					<v-col cols="12"
+						class="mb-4">
+						<div class="d-flex align-end justify-end">
+							<v-progress-circular
+								v-if="isSubmitting"
+								size="50"
+								width="6"
+								bg-color="primary-darken-1"
+								color="primary"
+								indeterminate
+								class="mb-3"
+							/>
+						</div>
+						<div v-if="uploadError"
+							class="text-body-1 text-right text-deep-orange-darken-4">
+							{{ uploadError }}
+						</div>
+						<div v-if="successfullSubmit"
+							class="text-body-1 text-primary text-right">
+							Realm Proposal Submitted Successfully
+						</div>
 					</v-col>
 				</v-row>
 			</form>
@@ -141,7 +163,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useForm } from 'vee-validate'
 import { setDoc, doc, serverTimestamp } from "firebase/firestore"
 import { useFirestore } from 'vuefire'
@@ -160,26 +182,28 @@ const user = await getCurrentUser()
 // reference firestore
 const db = useFirestore()
 
+const uploadError = ref(``)
+const successfullSubmit = ref(false)
+
 // methods
 const validationSchema = {
 	title: `required|alphaAndSpace|min:5|max:20`,
 	abbTitle: `requiredAbbreviation:title,15|alphaSpaceAndDot|max:12`,
 	slug: `required|slug|min:3|max:20`,
-	narrative: `required|narrativeString|max:120`,
+	narrative: `required|narrativeString|max:150`,
 	realmCode: `requiredIf:hasSemiotics`
 }
 
 // destructure useForm from vv4
-const { values, handleSubmit, errors } = useForm({
+const { values, handleSubmit, errors, isSubmitting, resetForm } = useForm({
 	initialValues: {
 		hasSemiotics: false,
 		clearanceNeeded: false,
-		acceptingSubmissions: false,
+		takingSubmissions: false,
 		title: ``,
 		abbTitle: ``,
 		narrative: ``,
 		slug: ``,
-		realmCode: null,
 	},
 	validationSchema,
 })
@@ -187,6 +211,13 @@ const { values, handleSubmit, errors } = useForm({
 const realmNameTruncationLabel = computed(() => {
 	return values.title.length > 12 ? `Realm Name Truncation*` : `Realm Name Truncation`
 })
+
+const flashSuccessMessage = () => {
+	successfullSubmit.value = true
+	setTimeout(() => {
+		successfullSubmit.value = false
+	}, 3000)
+}
 
 const realmId = nanoid()
 
@@ -198,7 +229,11 @@ const submitRealms = handleSubmit( values => {
 		submittedBy: user.displayName,
 		lastUpdated: serverTimestamp()
 	}).then(() => {
-		
+		flashSuccessMessage()
+		resetForm()
 	})
+		.error((error) => {
+			uploadError.value = error
+		})
 })
 </script>

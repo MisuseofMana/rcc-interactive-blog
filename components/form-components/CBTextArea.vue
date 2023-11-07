@@ -6,7 +6,7 @@
 		:name="name"
 		:label="label"
 		:error-messages="errors"
-		counter="120"
+		counter="140"
 		density="compact"
 		:hint="hint"
 		auto-grow

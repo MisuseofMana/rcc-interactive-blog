@@ -1,17 +1,17 @@
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity .2s;
 }
 
 .fadeSwitch-enter-active, .fadeSwitch-leave-active { 
-  transition: opacity .5s; 
+  transition: opacity .2s; 
 }
 
 .brainwash-enter-active {
-  animation: brainwash-in 200ms;
+  animation: brainwash-in .5s;
 }
 
 .brainwash-leave-active {
-  animation: brainwash-out 200ms;
+  animation: brainwash-out .5s;
 }
 
 @keyframes brainwash-in {
