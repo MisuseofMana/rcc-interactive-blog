@@ -88,7 +88,7 @@
 						/>
 						<CBTextArea
 							class="mb-5"
-							:name="`narrative`"
+							name="narrative"
 							label="Realm Narrative*"
 							hint="Should be musing information about the realm. Two short sentences or sentence fragments are appropriate."
 							:errors="errors[`narrative`]"
@@ -99,7 +99,7 @@
 								:errors="errors[`realmSigil`]"
 								hint="Upload an image representing one of the existing realms."
 								label="Realm Sigil"
-								:name="`realmSigil`"
+								name="realmSigil"
 								@change="setImageSrc($event)"
 							/>	
 							<v-img
@@ -109,6 +109,14 @@
 								:src="images[0]"
 								alt="geometric shape"/>
 						</div>
+						<CBFileInput
+							class="mb-5"
+							:errors="errors['realmAudio']"
+							hint="Upload a looping audio file in MP3 format which will play when viewing the realm."
+							label="Realm Audio"
+							name="realmAudio"
+							@change="setAudioSrc($event)"
+						/>
 					</v-col>
 					<v-col cols="12"
 						md="4"
@@ -177,6 +185,7 @@ const isUploading = ref(false)
 const uploadProgress = ref(0)
 const uploadError = ref(``)
 const images = ref([])
+const audio = ref([])
 
 // methods
 const validationSchema = {
@@ -187,6 +196,7 @@ const validationSchema = {
 	realmSigil: ``,
 	realmCode: `requiredIf:hasSemiotics`,
 	iconNames: ``,
+	realmAudio: ``,
 }
 
 // destructure useForm from vv4
@@ -201,6 +211,7 @@ const { values, handleSubmit, errors, setValues, setFieldValue, meta} = useForm(
 		iconNames: ``,
 		slug: ``,
 		realmSigil: [],
+		realmAudio: [],
 		realmCode: null,
 	},
 	validationSchema,
@@ -216,6 +227,11 @@ watch(realm,
 
 const setImageSrc = async (e) => {
 	setFieldValue(`realmSigil`, [e.target.files[0]])
+	images.value = [URL.createObjectURL(e.target.files[0])]
+}
+
+const setAudioSrc = async (e) => {
+	setFieldValue(`realmAudio`, [e.target.files[0]])
 	images.value = [URL.createObjectURL(e.target.files[0])]
 }
 
@@ -238,8 +254,8 @@ const updateRealmData = handleSubmit(values => {
 	uploadProgress.value = 0
 	
 	const storageRef = firebaseRef(storage, `${realm.id}/sigil`)
-	const uploadTask = uploadBytesResumable(storageRef, values.realmSigil[0])
-	uploadTask.on(`state_changed`,
+	const sigilUploadTask = uploadBytesResumable(storageRef, values.realmSigil[0])
+	sigilUploadTask.on(`state_changed`,
 		(snapshot) => {
 			uploadProgress.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
 		},
@@ -249,8 +265,6 @@ const updateRealmData = handleSubmit(values => {
 		() => {
 			getDownloadURL(firebaseRef(storage, `${realm.id}/sigil`))
 				.then((url) => {
-					console.log(url)
-					// delete realmSigil (an image file), replace w/ sigilImageLink in setDoc
 					const valuesAdjustedForPayload = {
 						...values
 					}

@@ -3,14 +3,29 @@
 	<v-app>
 		<v-container>
 			<v-row>
-				<v-col cols="12"
-					sm="6"
-					md="4"
-					xl="4">
+				<v-col cols="3">
 					<BackButton
-						text="Return to Control Panel"
-						front-icon="eye-settings"
+						text="/Control"
+						:realm-icons="['eye-settings']"
 						link-name="/operations/control" />
+				</v-col>
+				<v-col cols="3">
+					<BackButton
+						text="/Realm List"
+						:realm-icons="['file']"
+						link-name="/operations/realm-management" />
+				</v-col>
+				<v-col cols="3">	
+					<BackButton
+						text="/New Realm"
+						:realm-icons="['shape-plus']"
+						link-name="/operations/new-realm-proposal" />
+				</v-col>
+				<v-col cols="3">
+					<BackButton
+						text="/New Photo"
+						:realm-icons="['camera-plus']"
+						link-name="/operations/photo-submission" />
 				</v-col>
 			</v-row>
 			<v-row class="mb-10 mt-10">

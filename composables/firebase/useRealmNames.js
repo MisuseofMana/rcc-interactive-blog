@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { initializeApp } from 'firebase/app'
-import { query, getDocs, collection, where, getFirestore } from "firebase/firestore"
+import { query, getDocs, collection, where, getFirestore, orderBy, limit } from "firebase/firestore"
 
 export const firebaseApp = initializeApp({
 	apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
@@ -20,10 +20,14 @@ export function useRealmNames() {
 	const nameList = ref([])
 
 	const getRealmNames = async () => {
-		if (!siteStore.realmNames.length) {
+		if (siteStore.realmNames.length) {
+			console.log(`from sitestore`)
+			nameList.value = siteStore.realmNames
+		}
+		else {
 			console.log(`query`)
 			const getRealmsTakingSubmissions = await getDocs(
-				query(collection(db, `realms`), where(`takingSubmissions`, `==`, true))
+				query(collection(db, `realms`),)
 			)
 			let container = [{ title: `Uncertain`, value: `uncertain`}]
 			// populate realm names with results from query
@@ -33,15 +37,50 @@ export function useRealmNames() {
 			siteStore.realmNames = container
 			nameList.value = container
 		}
-		else {
-			console.log(`from sitestore`)
-			nameList.value = siteStore.realmNames
-		}
 	}
 
 	getRealmNames()
 
 	return {
 		nameList,
+	}
+}
+
+export function useManageableRealms(first=10) {
+	const realmList = ref([])
+
+	const getRealmList = async () => {
+		if (siteStore.realmList.length) {
+			console.log(`from sitestore`)
+			realmList.value = siteStore.realmNames
+		}
+		else {
+			console.log(`query`)
+			const getRealmsTakingSubmissions = await getDocs(
+				query(collection(db, `realms`), orderBy(`title`), limit(first))
+			)
+			let container = []
+			// populate realm names with results from query
+			getRealmsTakingSubmissions.forEach((doc) => {
+				const { id } = doc
+				const {sigilImageLink, title, iconNames, slug, lastUpdated } = doc.data()
+				container.push({
+					title, 
+					id,
+					sigilImageLink,
+					iconNames,
+					slug,
+					lastUpdated
+				})
+			})
+			siteStore.realmNames = container
+			realmList.value = container
+		}
+	}
+	
+	getRealmList()
+
+	return {
+		realmList,
 	}
 }

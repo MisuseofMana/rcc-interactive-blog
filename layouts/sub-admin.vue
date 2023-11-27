@@ -22,6 +22,12 @@
 								:realm-icons="['eye-settings']"
 								link-name="/operations/control" />
 						</v-col>
+						<v-col cols="3">
+							<BackButton
+								text="/Realm List"
+								:realm-icons="['file']"
+								link-name="/operations/realm-management" />
+						</v-col>
 						<v-col cols="3">	
 							<BackButton
 								text="/New Realm"

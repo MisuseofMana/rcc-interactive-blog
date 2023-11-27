@@ -36,27 +36,14 @@
 			</v-row>
 			<form>
 				<v-row>
-					<v-col cols="12">
+					<v-col cols="12"
+						class="mb-10">
 						<!-- After Submission Options -->
 						<!-- Icons 1 through 3 - must be mdi icons (iconNames) array -->
 						<!-- Realm Sigil - Image Submission (realmSigil) -->
 						<p class="text-body-1 mb-1">Toggle Options</p>
 						<p class="text-body-2">Toggle "Has Semiotics" if you'd like the realm to be used in the Operator exam.</p>
 						<p class="text-body-2">Toggle "Accepting Submissions" if the realm should allow other Operators to submit imagery.</p>
-						<div class="d-flex align-center align-md-start mt-2">
-							<CBToggleSwitch
-								name="hasSemiotics"
-								label="Has Semiotics"
-							/>
-							<CBToggleSwitch
-								name="clearanceNeeded"
-								label="Clearance Needed"
-							/>
-							<CBToggleSwitch
-								name="takingSubmissions"
-								label="Accepting Submissions"
-							/>
-						</div>
 					</v-col>
 				</v-row>
 				<v-row>
@@ -78,7 +65,6 @@
 							:label="realmNameTruncationLabel"
 						/>
 						<CBTextField
-							class="mb-5"
 							name="subtitle"
 							:errors="errors[`subtitle`]"
 							hint="An adjective then noun works well here, e.g. Bountiful Archeology "
@@ -86,7 +72,6 @@
 						/>
 						<CBTextField
 							v-if="values.hasSemiotics"
-							class="mb-5"
 							:name="`realmCode`"
 							:errors="errors[`realmCode`]"
 							hint="If a realm has Semiotics it requires a 4 digit code comprised of 0 to 9, *, and # "
@@ -103,12 +88,29 @@
 							label="Realm Slug*"
 						/>
 						<CBTextArea
-							class="mb-5"
 							:name="`narrative`"
 							label="Realm Narrative*"
 							hint="Should be musing information about the realm. Two short sentences or sentence fragments are appropriate."
 							:errors="errors[`narrative`]"
 						/>
+					</v-col>
+				</v-row>
+				<v-row>
+					<v-col cols="12">
+						<div class="d-flex align-center align-md-start">
+							<CBToggleSwitch
+								name="hasSemiotics"
+								label="Has Semiotics"
+							/>
+							<CBToggleSwitch
+								name="clearanceNeeded"
+								label="Clearance Needed"
+							/>
+							<CBToggleSwitch
+								name="takingSubmissions"
+								label="Accepting Submissions"
+							/>
+						</div>
 					</v-col>
 				</v-row>
 				<v-row class="mt-5">

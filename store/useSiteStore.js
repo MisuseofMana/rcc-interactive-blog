@@ -13,6 +13,7 @@ export const useSiteStore = defineStore(`site`, () => {
 	const hasInteracted = ref(false)
 	const examAutoStart = ref(false)
 	const realmNames = ref([])
+	const realmList = ref([])
 	const realmData = reactive({
 		
 	})
@@ -20,5 +21,5 @@ export const useSiteStore = defineStore(`site`, () => {
 		const { lastUpdated } = useLastUpdated(realmData[route.params.realm]?.lastUpdated)
 		return lastUpdated.value
 	})
-	return { hasInteracted, examAutoStart, realmNames, realmData, realmLastUpdated }
+	return { hasInteracted, examAutoStart, realmNames, realmList, realmData, realmLastUpdated }
 })

@@ -17,7 +17,7 @@
 			<v-row align="center"
 				justify="center">
 				<v-col cols="12"
-					v-for="(realm, index) in accessibleRealms"
+					v-for="(realm, index) in realmList"
 					sm="8"
 					md="6"
 					lg="3"
@@ -26,23 +26,27 @@
 					:class="index === 0 || index % 2 === 0 ? `offset-sm-2 offset-md-3 offset-lg-0` : ``"
 					:key="realm.title"
 					@click="sendToEditRealm(realm.slug)">
-					<h2 v-if="realm.abbTitle"
-						class="text-h6 text-primary">{{ realm.abbTitle }}</h2>
-					<h2 v-else
-						class="text-h6 text-primary">{{ realm.title }}</h2>
-					<v-icon class="mr-4"
-						:size="iconWidth"
-						v-if="realm.publishedRecently"
-						color="yellow">mdi-alert-decagram</v-icon>
-					<v-icon class="mt-1 mb-4"
-						:size="iconWidth"
-						v-for="(items, index) in realm.iconNames"
-						:key="items + index"
-						color="primary">mdi-{{ items }}</v-icon>
+					<h2 class="text-h6 text-primary">{{ realm.abbTitle ? realm.abbTitle : realm.title }}</h2>
+					<div class="mt-1 mb-2">
+						<v-icon
+							:size="iconWidth"
+							v-if="useLastUpdated(realm.lastUpdated).isRecent.value"
+							color="yellow">mdi-alert-decagram</v-icon>
+						<v-icon v-if="realm.iconNames"
+							:size="iconWidth"
+							v-for="(items, index) in realm?.iconNames.split(',')"
+							:key="items + index"
+							color="primary">mdi-{{ items }}</v-icon>
+						<v-icon v-else
+							:size="iconWidth"
+							v-for="(icon, index) in ['help', 'help', 'help']"
+							:key="realm.slug + index"
+							color="primary">mdi-{{ icon }}</v-icon>
+					</div>
 					<v-img class="abberation"
 						max-height="500"
 						max-width="400"
-						:src="`/images/icons/${realm.slug}.png`"
+						:src="realm.sigilImageLink ||`/images/icons/placeholder-sigil.png`"
 						alt="a radial icon representing the realm you're visiting"></v-img>
 				</v-col>	
 			</v-row>
@@ -53,6 +57,8 @@
 <script setup>
 import { computed } from 'vue'
 import { pages } from '~/data/realms.data.js'
+import { useManageableRealms } from '~/composables/firebase/useRealmNames'
+import { useLastUpdated } from '~/composables/useLastUpdated'
 import { useClassifyRealm } from '~/composables/useClassifyRealm'
 import { useDisplay } from 'vuetify'
 
@@ -61,17 +67,15 @@ definePageMeta({
 	middleware: [`auth`],
 })
 
+const { realmList } = useManageableRealms()
+
 const { smAndDown } = useDisplay()
 const iconWidth = computed(() => {
 	return smAndDown ? `30px` : `20px`
 })
 
 const { classifiedRealms } = useClassifyRealm(pages)
-const accessibleRealms = computed(() => {
-	const destructableRealmsArray = [...classifiedRealms.value]
-	destructableRealmsArray.splice(destructableRealmsArray.indexOf(item => item.abbTitle === `Redacted`))[0]
-	return destructableRealmsArray
-})
+
 const sendToEditRealm = (slug) => {
 	// eslint-disable-next-line no-undef
 	navigateTo(`/operations/realm-management/${slug}`)

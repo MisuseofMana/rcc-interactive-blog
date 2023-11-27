@@ -213,9 +213,6 @@ export const pages = [
 		documents: [
 			{ copy:`Realms like these are rare works of art. The rivers of the Crickstream funnel here.`, filePath: `post` },
 			{ copy:`The artifacts here are permanent and irretrievable. Respect them and their meanings.`, filePath: `gate` },
-			{ hint: true, copy:`Meeting another Operator in this realm is unlikely, but delving into the Lagoon together is recommended.`, filePath: `drive` },
-			{ hint: true, copy:`Some artifacts here are yet to be interpreted. Do your best to form your own understanding of them.`, filePath: `curl` },
-			{ copy:`The petrified denizens of the Lagoon are stoic but are known to reanimate and travel.`, filePath: `cryptid` },
 			{ copy:`Stay cautious about these still beings, even those you are certain will remain so.`, filePath: `gaze` },
 			{ hint: true, copy:`Be observant of the gates and circles. They are chaotic thresholds.`, filePath: `wheel` },
 			{ copy:`Some calcified souls hold mundane objects, clinging to their old ways.`, filePath: `priest` },

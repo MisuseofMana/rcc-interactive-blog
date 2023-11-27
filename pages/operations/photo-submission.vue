@@ -56,7 +56,7 @@ TODO - Image Size Validataion
 							:id="`imagePreview`"
 							class="realmImage"
 							aspect-ratio="1.5"
-							contain
+							cover
 							lazy-src="/images/mocks/placeholder-wide.jpg"
 							alt="an image to submit documented from another realm">
 						</v-img>
@@ -77,7 +77,8 @@ TODO - Image Size Validataion
 							:caution="true"
 							variant="outlined"
 							link-name="/operations/control"
-							:isLoading="isUploadInProgress"
+							:isLoading="isSubmitting"
+							:disabled="isSubmitting"
 							text="Cancel"/>
 					</v-col>
 					<v-col cols="6"
@@ -86,16 +87,17 @@ TODO - Image Size Validataion
 							@click="submitRealms"
 							color="primary-darken-1"
 							class="text-primary"
-							:isLoading="isUploadInProgress"
-							:disabled="isUploadInProgress"
+							:isLoading="isSubmitting"
+							:disabled="isSubmitting"
 							text="Submit"/>
 					</v-col>
 				</v-row>
-				<v-row v-if="isUploadInProgress">
+				<v-row>
 					<v-col cols="12"
-						md="6"
+						md="8"
 						class="mb-4 offset-md-3">
 						<v-progress-linear
+							v-if="isSubmitting"
 							bg-color="primary"
 							color="primary"
 							rounded
@@ -111,7 +113,29 @@ TODO - Image Size Validataion
 					</v-col>
 				</v-row>
 			</form>
+			<v-snackbar
+				v-model="successfulUpload"
+			>
+				<p class="text-primary text-body-2">
+					Upload Succeeded
+				</p>
+
+				<template v-slot:actions>
+					<v-btn
+						color="primary"
+						variant="text"
+						@click="successfulUpload = false"
+					>
+						Close
+					</v-btn>
+				</template>
+			</v-snackbar>
 		</v-container>
+		<canvas
+			class="d-none"
+			id="compression-canvas"
+			width="700"
+			height="466"></canvas>
 	</NuxtLayout>
 </template>
 
@@ -139,6 +163,7 @@ const user = await getCurrentUser()
 const uploadProgress = ref(0)
 const imageUrlsArray = ref([])
 const uploadError = ref(``)
+const successfulUpload = ref(false)
 
 const blankSubmission = {
 	realm: ``,
@@ -151,6 +176,36 @@ const blankSubmission = {
 // trigger with file event, create temp reference URL from blob
 const setImageSrc = async (e) => {
 	imageUrlsArray.value[0] = URL.createObjectURL(e.target.files[0])
+	const helperImg = new Image()
+	helperImg.src = imageUrlsArray.value[0]
+
+	helperImg.onload = () => {
+		// window.URL.revokeObjectURL(blobURL)
+		const [newWidth, newHeight] = calculateSize(helperImg, 700, 466)
+		const canvas = document.getElementById(`compression-canvas`)
+		const ctx = canvas.getContext(`2d`)
+		ctx.drawImage(helperImg, 0, 0, newWidth, newHeight)
+
+	}
+}
+
+const calculateSize = (img, maxWidth, maxHeight) => {
+	let width = img.width
+	let height = img.height
+
+	// calculate the width and height, constraining the proportions
+	if (width > height) {
+		if (width > maxWidth) {
+			height = Math.round((height * maxWidth) / width)
+			width = maxWidth
+		}
+	} else {
+		if (height > maxHeight) {
+			width = Math.round((width * maxHeight) / height)
+			height = maxHeight
+		}
+	}
+	return [width, height]
 }
 
 // destructure useForm from vv4
@@ -175,32 +230,45 @@ const submitRealms = handleSubmit(values => {
 	// iterate over form values
 	const imageId = nanoid()
 	const storageRef = firebaseRef(storage, `${values.realm}/${imageId}`)
-	
-	const uploadTask = uploadBytesResumable(storageRef, values.imageFile[0])
-	uploadTask.on(`state_changed`, 
-		(snapshot) => {
-			uploadProgress.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-		}, 
-		(error) => {
-			uploadError.value = error
-		}, 
-		() => {
-			getDownloadURL(firebaseRef(storage, `${values.realm}/${imageId}`))
-				.then((url) => {
-					setDoc(doc(db, `realms`, values.realm, `photographs`, imageId), {
-						realmId: values.realm,
-						altText: values.altText,
-						lore: values.lore,
-						submittedAt: serverTimestamp(),
-						submittedBy: user.displayName,
-						published: false,
-						imageLink: url,
-					}).then(() => {
-						resetForm()
-						imageUrlsArray.value = []
+
+	const canvasRef = document.getElementById(`compression-canvas`)
+
+	canvasRef.toBlob((blob) => {
+		let compressedImage = new File([blob], values.imageFile[0].name)
+		const uploadTask = uploadBytesResumable(storageRef, compressedImage)
+
+		uploadTask.on(`state_changed`,
+			(snapshot) => {
+				uploadProgress.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+			}, 
+			(error) => {
+				uploadError.value = error
+			}, 
+			() => {
+				getDownloadURL(firebaseRef(storage, `${values.realm}/${imageId}`))
+					.then((url) => {
+						setDoc(doc(db, `realms`, values.realm, `photographs`, imageId), {
+							realmId: values.realm,
+							altText: values.altText ? values.altText : values.lore,
+							lore: values.lore,
+							submittedAt: serverTimestamp(),
+							submittedBy: user.displayName,
+							published: false,
+							imageLink: url,
+						}).then(() => {
+							resetForm({
+								values: {
+									realm: values.realm
+								}
+							})
+							imageUrlsArray.value = []
+						})
 					})
-				})
-		}
-	)
+				successfulUpload.value = true
+			}
+		)
+	}, `image/webp`, 1)
+
+	
 })
 </script>
