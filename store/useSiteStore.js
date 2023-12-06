@@ -14,12 +14,13 @@ export const useSiteStore = defineStore(`site`, () => {
 	const examAutoStart = ref(false)
 	const realmNames = ref([])
 	const realmList = ref([])
-	const realmData = reactive({
-		
-	})
+	const realmData = reactive({})
+	const realmPhotos = reactive({})
+	const realmCoverPhotos = reactive([])
+
 	const realmLastUpdated = computed(() => {
 		const { lastUpdated } = useLastUpdated(realmData[route.params.realm]?.lastUpdated)
 		return lastUpdated.value
 	})
-	return { hasInteracted, examAutoStart, realmNames, realmList, realmData, realmLastUpdated }
+	return { hasInteracted, examAutoStart, realmNames, realmList, realmData, realmLastUpdated, realmPhotos, realmCoverPhotos }
 })

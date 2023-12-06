@@ -4,6 +4,7 @@
 		:hint="hint"
 		:name="name"
 		prepend-icon="mdi-camera"
+		:disabled="disabled"
 		v-model="value"
 	></v-file-input>
 </template>
@@ -32,6 +33,10 @@ const props = defineProps({
 	items: {
 		type: Array, 
 		default: () => [`Some`, `Default`, `Options`]
+	},
+	disabled: {
+		type: Boolean,
+		default: false
 	}
 })
 

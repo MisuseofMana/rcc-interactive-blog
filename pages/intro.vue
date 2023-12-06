@@ -13,7 +13,7 @@
 					<v-col cols="6"
 						class="mb-sm-10 mb-md-0 offset-sm-1"
 					>
-						<h3 class="text-h2 mb-5">
+						<h3 class="text-h3 mb-5">
 							There are realms overlapping your own, they churn & muddy your unique experiences.
 						</h3>
 					</v-col>
@@ -39,8 +39,8 @@
 							The contents within are established protocols, terminology, realm classifications, and limited briefing.
 						</p>
 
-						<p class="text-h3 mb-5">
-							Return often, new realms are added as they are discovered. Operator recruitment will begin in 2024.
+						<p class="text-h4 mb-5">
+							Return often, new realms are added as they are discovered. Operator Exams will begin in early 2024.
 						</p>
 					</v-col>
 				</v-row> 

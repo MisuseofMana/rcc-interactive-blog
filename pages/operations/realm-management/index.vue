@@ -1,8 +1,3 @@
-<!-- Add Data Table -->
-<!-- Add Pagination -->
-<!-- Limit to 10 realms at a time -->
-<!-- Hook up to a BE -->
-
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<NuxtLayout name="sub-admin">
@@ -32,11 +27,13 @@
 							:size="iconWidth"
 							v-if="useLastUpdated(realm.lastUpdated).isRecent.value"
 							color="yellow">mdi-alert-decagram</v-icon>
-						<v-icon v-if="realm.iconNames"
-							:size="iconWidth"
-							v-for="(items, index) in realm?.iconNames.split(',')"
-							:key="items + index"
-							color="primary">mdi-{{ items }}</v-icon>
+						<div v-if="realm.iconNames">
+							<v-icon
+								:size="iconWidth"
+								v-for="(items, index) in realm?.iconNames.split(',')"
+								:key="items + index"
+								color="primary">mdi-{{ items }}</v-icon>
+						</div>
 						<v-icon v-else
 							:size="iconWidth"
 							v-for="(icon, index) in ['help', 'help', 'help']"
@@ -56,10 +53,8 @@
 
 <script setup>
 import { computed } from 'vue'
-import { pages } from '~/data/realms.data.js'
 import { useManageableRealms } from '~/composables/firebase/useRealmNames'
 import { useLastUpdated } from '~/composables/useLastUpdated'
-import { useClassifyRealm } from '~/composables/useClassifyRealm'
 import { useDisplay } from 'vuetify'
 
 // eslint-disable-next-line no-undef
@@ -73,8 +68,6 @@ const { smAndDown } = useDisplay()
 const iconWidth = computed(() => {
 	return smAndDown ? `30px` : `20px`
 })
-
-const { classifiedRealms } = useClassifyRealm(pages)
 
 const sendToEditRealm = (slug) => {
 	// eslint-disable-next-line no-undef

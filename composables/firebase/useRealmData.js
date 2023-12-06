@@ -1,7 +1,7 @@
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { initializeApp } from 'firebase/app'
 import { reactive } from 'vue'
-import { query, collection, where, getDocs, getFirestore } from "firebase/firestore"
+import { query, collection, collectionGroup, where, getDocs, getFirestore } from "firebase/firestore"
 
 export const firebaseApp = initializeApp({
 	apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
@@ -32,13 +32,17 @@ export function useRealmData(realmSlug) {
 				realmResult.push({...doc.data(), id: doc.id})
 			})
 			// assign siteStore & realm ref to realm at 0 index returned by query
-			siteStore.realmData[realmSlug] = realmResult[0]
-			Object.assign(realm, realmResult[0])
+			siteStore.realmData[realmSlug] = { 
+				...realmResult[0],
+				realmSigil: [new File([realmResult[0].sigilImageLink], `${realmResult[0].slug}.png`)],
+				realmAudio: [new File([realmResult[0].audioLink], `${realmResult[0].slug}.mp3`)],
+			}
+			Object.assign(realm, siteStore.realmData[realmSlug])
 			return
 		}
 		else {
 			// if site store contains realm data already, serve stored document
-			realm.value = siteStore.realmData[realmSlug]
+			Object.assign(realm, siteStore.realmData[realmSlug])
 		}
 	}
 	
@@ -47,5 +51,78 @@ export function useRealmData(realmSlug) {
 	
 	return {
 		realm
+	}
+}
+
+export function useCoverPhotos() {
+	const coverPhotos = reactive([])
+	const storedCoverPhotos = siteStore?.realmCoverPhotos
+	console.log(storedCoverPhotos)
+	
+	const getCoverPhotoData = async () => {
+		const photos = query(collectionGroup(db, `photographs`), where(`useAsCoverImage`, `==`, true))
+		const photosResult = []
+		
+		if(storedCoverPhotos.length === 0) {
+			const querySnapshot = await getDocs(photos)
+			querySnapshot.forEach((doc) => {
+				const {realmId, imageLink} = doc.data()
+				photosResult.push({ realmId, imageLink })
+			})
+			// assign siteStore & realm ref to realm at 0 index returned by query
+			siteStore.realmCoverPhotos = { 
+				...photosResult,
+			}
+			Object.assign(coverPhotos, siteStore.realmCoverPhotos)
+			return
+		}
+		else {
+			console.log(`from store`)
+			// if site store contains realm data already, serve stored document
+			Object.assign(coverPhotos, siteStore.realmCoverPhotos)
+		}
+	}
+	
+	// run the async query
+	getCoverPhotoData()
+	
+	return {
+		coverPhotos
+	}
+}
+
+export function useRealmPhotos(realmId) {
+	const photos = reactive([])
+	const storedPhotos = siteStore?.realmPhotos[realmId]
+
+	const getPhotoData = async () => {
+		const q = query(collection(db, `realms`, realmId, `photographs`))
+		const photosResult = []
+		
+		if(storedPhotos === undefined) {
+			// run query
+			const querySnap = await getDocs(q)
+			querySnap.forEach(doc => {
+				console.log(doc.data())
+				photosResult.push({...doc.data(), id: doc.id})
+			})
+			// assign siteStore & photos ref to realm at 0 index returned by query
+			siteStore.realmPhotos[realmId] = { 
+				...photosResult,
+			}
+			Object.assign(photos, siteStore.realmPhotos[realmId])
+			return
+		}
+		else {
+			// if site store contains photo data already, serve stored document
+			Object.assign(photos, siteStore.realmPhotos[realmId])
+		}
+	}
+	
+	// run the async query
+	getPhotoData()
+	
+	return {
+		photos
 	}
 }

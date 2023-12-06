@@ -4,7 +4,7 @@
 		<NuxtLayout name="default">
 			<BreadcrumbHeading text="REALMS"/>
 			<v-row class="mt-15">
-				<v-col v-for="(post, index) in classifiedRealms"
+				<v-col v-for="(post, index) in realmList"
 					:key="index"
 					cols="12"
 					sm="6"
@@ -20,25 +20,27 @@
 									{{ post.abbTitle ? post.abbTitle : post.title }}
 								</h3>
 							</div>
-							<p class="text-body-1 mb-4"
-								:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
-								{{ post.subtitle }}
-							</p>
-							<div class="d-flex justify-space-between align-center mb-1">
-								<p
-									class="text-subtitle-1"
+							<div>
+								<p class="text-body-2 mb-4"
 									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
-									{{ post.realmCipher }}
+									{{ post.subtitle }}
 								</p>
+							</div>
+							<div class="d-flex justify-space-between align-center mb-3">
+								<v-chip
+									class="text-subtitle-1"
+									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-info']">
+									{{ useRealmCipher(post.title).realmCipher }}
+								</v-chip>
 								<v-chip class="text-subtitle-1"
 									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
-									{{ post.designation }}
+									{{ useLastUpdated(post.lastUpdated).designation.value }}
 								</v-chip>
 							</div>
 							<div class="d-flex justify-space-between align-center mb-2">
 								<h4 class="text-h5"
 									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
-									{{ post.lastUpdated }}
+									{{ useLastUpdated(post.lastUpdated).lastUpdated.value }}
 								</h4>
 								<div>
 									<v-icon v-if="checkSemiotic(post, index)"
@@ -58,12 +60,12 @@
 			
 						<div class="shadow"
 							:class="[post.clearanceNeeded ? '' : 'grow']">
-							<NuxtLink v-if="!post.clearanceNeeded"
+							<NuxtLink v-if="true"
 								:to="`insights/${post.slug}`">
 								<v-img cover
 									class="realmImage"
 									lazy-src="/images/mocks/placeholder.jpg"
-									:src="`/images/${post.slug}/${getIndexOfCover(post, post.slug)}.jpg`"
+									:src="coverPhotos.find(photo => { return photo.realmId === post.id})?.imageLink"
 									alt="a photo representing the realm you're visiting">
 								</v-img>
 							</NuxtLink>
@@ -71,7 +73,7 @@
 								cover
 								class="clearanceRealmImage"
 								lazy-src="/images/mocks/placeholder.jpg"
-								:src="`/images/${post.slug}/${getIndexOfCover(post, post.slug)}.jpg`"
+								:src="coverPhotos.find(photo => { return photo.realmId === post.id}).imageLink"
 								alt="a photo representing the realm you're visiting">
 							</v-img>
 						</div>
@@ -80,7 +82,7 @@
 							<div>
 								<v-icon class="p-0 mr-2"
 									:color="post.clearanceNeeded ? 'grey-darken-1' : 'primary'"
-									v-for="(items, index) in post.iconNames"
+									v-for="(items, index) in post.iconNames.split(',')"
 									:key="items + index"
 									size="20px">mdi-{{ items }}</v-icon>
 							</div>
@@ -93,27 +95,27 @@
 </template>
 
 <script setup>
-import { pages } from './realms.data'
-import { useClassifyRealm } from '~/composables/useClassifyRealm'
-import { useRandomNumber } from '~/composables/useRandomNumber'
-const { classifiedRealms } = useClassifyRealm(pages)
+import { computed } from 'vue' 
+import { useManageableRealms } from '~/composables/firebase/useRealmNames'
+import { useCoverPhotos } from '~/composables/firebase/useRealmData'
 
-const getIndexOfCover = ({ documents }) => {
-	const randomIndex = useRandomNumber(documents.length)
-	const target = documents[randomIndex]
-	return target.filePath
-}
+import { useRealmCipher } from '~/composables/useRealmCipher'
+
+const { realmList } = useManageableRealms()
+const { coverPhotos } = useCoverPhotos()
 
 const checkSemiotic = (realm) => {
-	const indexOfRealm = realmsWithSemiotics.findIndex(item => {
+	const indexOfRealm = realmsWithSemiotics.value.findIndex(item => {
 		return item.slug === realm.slug
 	})
 	return indexOfRealm === new Date().getDay()
 
 }
 
-const realmsWithSemiotics = pages.filter(realm => {
-	if(realm.semiotics) return realm
+const realmsWithSemiotics = computed(() => {
+	return realmList.value.filter(realm => {
+		if(realm.hasSemiotics) return realm
+	})	
 })
 
 </script>

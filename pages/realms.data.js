@@ -2,22 +2,6 @@ export const pages = [
 	{
 		semiotics: true,
 		title: `Lost Colony`,
-		slug: `lost-colony`,
-		subtitle:`Foundation Realm`,
-		narrative:`The original operators tried to terraform the realms. Now we know better. Now we know the fools we were.`,
-		documents: [
-			{ hint: true, copy:`Operator 8 surveys the first realm.`, filePath: `site` },
-			{ copy:`What little the first realm offered, the original of us claimed.`, filePath: `mound` },
-			{ copy:`The original Operators built what they could. The realm stayed stubborn.`, filePath: `expanse` },
-			{ copy:`Infrastructure took slowly, through toil and technology and a stubborn will.`, filePath: `line` },
-			{ hint: true, copy:`Their constructs in the realm shook apart in time.`, filePath: `triangle` },
-			{ copy:`For longevity of the colony, they dug into the realm.`, filePath: `pipe` },
-			{ hint: true, copy:`There was no law, no cadence. The chasms came quickly.`, filePath: `lake` },
-			{ copy:`Containing the breath of the realm was a fools errand.`, filePath: `fountain` },
-			{ hint: true, copy:`They dreamed of staying in the realm, dreamed of a grail to drink from. Oh, how little we knew back then.`, filePath: `well` },
-			{ copy:`The divide of the colony set in. They sought a way to abandon the realm.`, filePath: `divide` },
-		],
-		iconNames: [`water-well`, `hammer-screwdriver`, `glass-mug`],
 		artifacts: [
 			{
 				path: `bell`,
@@ -34,15 +18,10 @@ export const pages = [
 				imageVertical: true,
 			},
 		],
-		publishDate: `10/14/2021`,
-		realmCode: `8391`
 	},
 	{
 		semiotics: true,
 		title: `Lierd`,
-		slug: `lierd`,
-		subtitle:`Cursed Birthplace`,
-		narrative:`If not for Lierd, there would be no curses, and no place for curses to be absolved.`,
 		documents:[
 			{ hint: true, copy:`Where Lierd begins, you'll find a home which no longer belongs to you`, filePath: `cabin` },
 			{ copy:`Outside at the well you may wish to pay homage to those who have lost this home before you.`, filePath: `well` },
@@ -53,7 +32,6 @@ export const pages = [
 			{ copy:`Pathways will present themselves, you can trust them. `, filePath: `path` },
 			{ hint: true, copy:`The fountain is the last gate out. Fall short, and you'll never leave Lierd.`, filePath: `fountain` },
 		],
-		iconNames: [`eye`, `ghost-outline`, `account-multiple-minus-outline`],
 		artifacts: [
 			{
 				path: `curse`,
@@ -84,21 +62,14 @@ export const pages = [
 				imageVertical: true,
 			},
 		],
-		publishDate: `2021-05-11`,
-		realmCode: `963*`
 	},
 	{
-		semiotics: false,
 		title: `Fenced City`,
-		slug: `fenced-city`,
-		subtitle:`The Contained Capitol`,
-		narrative:`Sprawling grids aligned. Populated by those who leave Lierd. We all arrive here one way or another.`,
 		documents: [
 			{ copy:`Towers emerge from the grid, all connected, all of the same tapestry.`, filePath: `corner` },
 			{ copy:`We on the ground are forgotten.`, filePath: `wall` },
 			{ copy:`Atop this realm are researchers observatories, studying the skies outside Lierd.`, filePath: `top` },
 		],
-		iconNames: [`city-variant-outline`, `lock`, `gate`],
 		artifacts: [
 			{
 				path: `gate`,
@@ -129,8 +100,6 @@ export const pages = [
 				imageVertical: true,
 			},
 		],
-		publishDate: `8/21/2020`,
-		realmCode: `#074`
 	},
 	{
 		semiotics: true,
@@ -228,10 +197,6 @@ export const pages = [
 	{
 		semiotics: true,
 		title: `Inhabited Realm`,
-		abbTitle: `Inhb. Realm`,
-		slug: `inhabited-realm`,
-		subtitle:`Population 202`,
-		narrative:`Visiting hours between 1300 and 1700. MANDATORY: Leave before the last hour ends.`,
 		documents: [
 			{ hint: true, copy:`During visitation, the population is docile. They live as mere memories.`, filePath: `ghost` },
 			{ copy:`Move beyond the caretakers, along the only road.`, filePath: `path` },
@@ -246,7 +211,6 @@ export const pages = [
 			{ hint: true, copy:`At the end of the stream is a lake. Swimming is prohibited.`, filePath: `fog` },
 			{ copy:`Beyond the lake is the factory, your path home is inside. Talk to no-one.`, filePath: `factory` },
 		],
-		iconNames: [`account-voice`, `ferry`, `warehouse`],
 		artifacts: [
 			{
 				path: `cabinet`,
@@ -277,8 +241,6 @@ export const pages = [
 				imageVertical: false,
 			},
 		],
-		publishDate: `9/21/2020`,
-		realmCode: `7823`
 	},
 	{
 		semiotics: false,
@@ -299,9 +261,6 @@ export const pages = [
 	{
 		semiotics: false,
 		title: `Relic Garden`,
-		slug: `relic-garden`,
-		subtitle:`Ruined Growth`,
-		narrative:`Documentation, record keeping. The woods before the witches. Consider the records here precious beyond all wealth.`,
 		documents: [
 			{ copy:`Unusable fibers, long dried in the heat of the days lived.`, filePath: `rattle` },
 			{ copy:`An unflecked bit of life, resistant to the creeping curses.`, filePath: `dragonfly` },
@@ -310,7 +269,6 @@ export const pages = [
 			{ copy:`The hair on the cases of seeds can slow curses.`, filePath: `bean` },
 			{ copy:`This growth on the wind returns to Lierd, follow it when you wish to return.`, filePath: `puff` },
 		],
-		iconNames: [`diamond-stone`, `leaf-off`, `chess-rook`],
 		artifacts: [
 			{
 				path: `pod`,
@@ -342,8 +300,6 @@ export const pages = [
 				imageVertical: false,
 			},
 		],
-		publishDate: `5/16/2021`,
-		realmCode: `49*1`
 	},
 	{
 		semiotics: true,

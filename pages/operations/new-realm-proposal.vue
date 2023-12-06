@@ -153,13 +153,26 @@
 							class="text-body-1 text-right text-deep-orange-darken-4">
 							{{ uploadError }}
 						</div>
-						<div v-if="successfullSubmit"
-							class="text-body-1 text-primary text-right">
-							Realm Proposal Submitted Successfully
-						</div>
 					</v-col>
 				</v-row>
 			</form>
+			<v-snackbar
+				v-model="successfulUpload"
+			>
+				<p class="text-primary text-body-2">
+					Upload Succeeded
+				</p>
+
+				<template v-slot:actions>
+					<v-btn
+						color="primary"
+						variant="text"
+						@click="successfulUpload = false"
+					>
+						Close
+					</v-btn>
+				</template>
+			</v-snackbar>
 		</v-container>
 	</NuxtLayout>
 </template>
@@ -185,7 +198,7 @@ const user = await getCurrentUser()
 const db = useFirestore()
 
 const uploadError = ref(``)
-const successfullSubmit = ref(false)
+const successfulUpload = ref(false)
 
 // methods
 const validationSchema = {
@@ -214,13 +227,6 @@ const realmNameTruncationLabel = computed(() => {
 	return values.title.length > 12 ? `Realm Name Truncation*` : `Realm Name Truncation`
 })
 
-const flashSuccessMessage = () => {
-	successfullSubmit.value = true
-	setTimeout(() => {
-		successfullSubmit.value = false
-	}, 3000)
-}
-
 const realmId = nanoid()
 
 const submitRealms = handleSubmit( values => {
@@ -231,7 +237,7 @@ const submitRealms = handleSubmit( values => {
 		submittedBy: user.displayName,
 		lastUpdated: serverTimestamp()
 	}).then(() => {
-		flashSuccessMessage()
+		successfulUpload.value = true
 		resetForm()
 	})
 		.error((error) => {

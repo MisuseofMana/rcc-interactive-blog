@@ -1,7 +1,3 @@
-<!-- 
-TODO - Image Size Validataion
--->
-
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<NuxtLayout name="sub-admin">
@@ -16,6 +12,10 @@ TODO - Image Size Validataion
 			<form>
 				<v-row>
 					<v-col cols="12">
+						<CBToggleSwitch
+							:name="`isCoverImage`"
+							label="Use as Cover Image"
+						/>
 					</v-col>  	
 					<v-col cols="12"
 						md="5"
@@ -170,6 +170,7 @@ const blankSubmission = {
 	imageFile: [],
 	lore: ``,
 	altText: ``,
+	isCoverImage: false
 }
 
 // methods
@@ -185,7 +186,6 @@ const setImageSrc = async (e) => {
 		const canvas = document.getElementById(`compression-canvas`)
 		const ctx = canvas.getContext(`2d`)
 		ctx.drawImage(helperImg, 0, 0, newWidth, newHeight)
-
 	}
 }
 
@@ -210,15 +210,14 @@ const calculateSize = (img, maxWidth, maxHeight) => {
 
 // destructure useForm from vv4
 const { values, handleSubmit, errors, resetForm, isSubmitting } = useForm({
-	initialValues: { 
-		submissions: [blankSubmission]
-	},
+	initialValues: blankSubmission,
 	// validation schema
 	validationSchema: yup.object().shape({
 		realm: yup.string().required().label(`Realm Name`),
 		imageFile: yup.array().required().label(`Image Upload`),
 		altText: yup.string().nullable().max(150).label(`Image Alt Text`),
-		lore: yup.string().max(120).required().label(`Image Lore`)
+		lore: yup.string().max(120).required().label(`Image Lore`),
+		isCoverImage: yup.boolean().label(`Use As Cover Image`)
 	})
 })
 
@@ -226,7 +225,6 @@ const { values, handleSubmit, errors, resetForm, isSubmitting } = useForm({
 const submitRealms = handleSubmit(values => {
 	// initalize a value for how many individual submissions exist
 	uploadProgress.value = 0
-
 	// iterate over form values
 	const imageId = nanoid()
 	const storageRef = firebaseRef(storage, `${values.realm}/${imageId}`)
@@ -255,10 +253,15 @@ const submitRealms = handleSubmit(values => {
 							submittedBy: user.displayName,
 							published: false,
 							imageLink: url,
+							useAsCoverImage: values.isCoverImage
 						}).then(() => {
 							resetForm({
 								values: {
-									realm: values.realm
+									realm: values.realm,
+									imageFile: [],
+									lore: ``,
+									altText: ``,
+									isCoverImage: false
 								}
 							})
 							imageUrlsArray.value = []

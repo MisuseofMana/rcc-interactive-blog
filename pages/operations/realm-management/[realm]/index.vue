@@ -100,7 +100,7 @@
 								hint="Upload an image representing one of the existing realms."
 								label="Realm Sigil"
 								name="realmSigil"
-								@change="setImageSrc($event)"
+								@change="setSource($event, `realmSigil`)"
 							/>	
 							<v-img
 								class="abberation mb-8"
@@ -115,7 +115,7 @@
 							hint="Upload a looping audio file in MP3 format which will play when viewing the realm."
 							label="Realm Audio"
 							name="realmAudio"
-							@change="setAudioSrc($event)"
+							@change="setSource($event, 'realmAudio')"
 						/>
 					</v-col>
 					<v-col cols="12"
@@ -143,14 +143,31 @@
 							rounded
 							:caution="false"
 							variant="elevated"
-							:text="false ? `Cannot Modify` :`Save Changes`"
-							:disabled="isUploading"
+							:text="!meta.dirty ? `No Changes Made` :`Save Changes`"
+							:disabled="isUploading || !meta.dirty"
 							:realm-icons="['floppy']"
 							@click="updateRealmData"
 						/>
 					</v-col>	
 				</v-row>
 			</v-card>
+			<v-snackbar
+				v-model="successfulUpload"
+			>
+				<p class="text-primary text-body-2">
+					Upload Succeeded
+				</p>
+
+				<template v-slot:actions>
+					<v-btn
+						color="primary"
+						variant="text"
+						@click="successfulUpload = false"
+					>
+						Close
+					</v-btn>
+				</template>
+			</v-snackbar>
 		</NuxtLayout>
 	</div>
 	<div v-else>
@@ -164,7 +181,6 @@ import { useForm } from 'vee-validate'
 import { doc, setDoc, serverTimestamp } from "firebase/firestore"
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { useFirestore } from 'vuefire'
-import { useSiteStore } from '~/store/useSiteStore.js'
 import { useRealmData } from '~/composables/firebase/useRealmData'
 
 // eslint-disable-next-line no-undef
@@ -172,20 +188,18 @@ definePageMeta({
 	middleware: [`auth`],
 })
 
-const siteStore = useSiteStore()
-
 // eslint-disable-next-line no-undef
 const route = useRoute()
 const { realm } = useRealmData(route.params.realm)
-
+const realmSnapshot = ref({})
 const db = useFirestore()
 const storage = getStorage()
 
 const isUploading = ref(false)
-const uploadProgress = ref(0)
-const uploadError = ref(``)
 const images = ref([])
-const audio = ref([])
+const successfulUpload = ref(false)
+const lockSigil = ref(false)
+const lockAudio = ref(false)
 
 // methods
 const validationSchema = {
@@ -193,14 +207,14 @@ const validationSchema = {
 	abbTitle: `requiredAbbreviation:title,15|alphaSpaceAndDot|max:12`,
 	slug: `required|slug|min:3|max:20`,
 	narrative: `required|narrativeString|max:150`,
-	realmSigil: ``,
+	realmSigil: `required`,
 	realmCode: `requiredIf:hasSemiotics`,
-	iconNames: ``,
-	realmAudio: ``,
+	iconNames: `required`,
+	realmAudio: `required`,
 }
 
 // destructure useForm from vv4
-const { values, handleSubmit, errors, setValues, setFieldValue, meta} = useForm({
+const { values, handleSubmit, errors, setFieldValue, meta, resetForm} = useForm({
 	initialValues: {
 		hasSemiotics: false,
 		clearanceNeeded: false,
@@ -220,19 +234,34 @@ const { values, handleSubmit, errors, setValues, setFieldValue, meta} = useForm(
 watch(realm, 
 	async (newValue) => {
 		images.value = [newValue.sigilImageLink]
-		newValue.realmSigil = [new File([newValue.sigilImageLink], `realm-sigil`)]
-		setValues(newValue)
+		if (newValue.sigilImageLink) {
+			lockSigil.value = newValue.sigilImageLink || false
+		}
+		if (newValue.audioLink) {
+			lockAudio.value = newValue.audioLink || false
+		}
+		const payloadValues = {
+			...newValue,
+			realmSigil: [new File([newValue.sigilImageLink], lockSigil.value ? `Read Only Image` : ``)],
+			realmAudio: [new File([newValue.audioLink], lockAudio.value ? `Read Only File` : ``)]
+		}
+		resetForm({
+			touched: false,
+			values: payloadValues
+		})
+		realmSnapshot.value = payloadValues
 	}
 )
 
-const setImageSrc = async (e) => {
-	setFieldValue(`realmSigil`, [e.target.files[0]])
-	images.value = [URL.createObjectURL(e.target.files[0])]
-}
-
-const setAudioSrc = async (e) => {
-	setFieldValue(`realmAudio`, [e.target.files[0]])
-	images.value = [URL.createObjectURL(e.target.files[0])]
+const setSource = async (e, inputName) => {
+	setFieldValue(inputName, [e.target.files[0]])
+	if(inputName === `realmSigil`) {
+		images.value = [URL.createObjectURL(e.target.files[0])]
+		lockSigil.value = false
+	}
+	if(inputName === `realmAudio`) {
+		lockAudio.value = false
+	}
 }
 
 // computeds
@@ -245,41 +274,76 @@ const realmNameTruncationLabel = computed(() => {
 })
 
 const undoEdits = () => {
-	setValues(siteStore.realmData[route.params.realm])
+	resetForm({
+		touched: false,
+		values: realmSnapshot.value
+	})
 }
 
-const updateRealmData = handleSubmit(values => {
-	if(isUploading.value) return
+const updateRealmData = handleSubmit(async (values) => {
+	if(isUploading.value || !meta.value.dirty) return
 	isUploading.value = true
-	uploadProgress.value = 0
-	
-	const storageRef = firebaseRef(storage, `${realm.id}/sigil`)
-	const sigilUploadTask = uploadBytesResumable(storageRef, values.realmSigil[0])
-	sigilUploadTask.on(`state_changed`,
-		(snapshot) => {
-			uploadProgress.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-		},
-		(error) => {
-			uploadError.value = error
-		},
-		() => {
-			getDownloadURL(firebaseRef(storage, `${realm.id}/sigil`))
-				.then((url) => {
-					const valuesAdjustedForPayload = {
-						...values
+
+	const uploadingPromises = []
+
+	const coercedFiles = [
+		{ inputType: `sigil`, file: values.realmSigil[0], storageRef: `${realm.id}/sigil`},
+		{ inputType: `audio`, file: values.realmAudio[0], storageRef: `${realm.id}/audio`}
+	]
+		
+	coercedFiles.map((file) => {	
+		const uploadPromise = new Promise((resolve, reject) => {
+			if(file.inputType === `sigil` && lockSigil.value) {
+				resolve({sigil: lockSigil.value})
+
+			}
+			else if(file.inputType === `audio` && lockAudio.value) {
+				resolve({audio: lockAudio.value})
+			}
+			else {
+				const storageRef = firebaseRef(storage, file.storageRef)
+				const uploadTask = uploadBytesResumable(storageRef, file.file)
+				uploadTask.on(`state_changed`,
+					null,
+					(error) => {
+						reject(error)
+						alert(error)
+					},
+					() => {
+						getDownloadURL(uploadTask.snapshot.ref)
+							.then((url) => {
+								resolve({[file.inputType]: url})
+							})
 					}
-					delete valuesAdjustedForPayload.realmSigil
-					setDoc(doc(db, `realms`, realm.id), {
-						...valuesAdjustedForPayload,
-						sigilImageLink: url,
-						lastUpdated: serverTimestamp(),
-						
-					}, { merge: true }).then(() => {
-						isUploading.value = false
-					})
-				})
-		}
-	)
+				)	
+			}
+		})
+
+		uploadingPromises.push(uploadPromise)
+	})
+
+	const files = await Promise.all(uploadingPromises)
+
+	let payloadFiles = {}
+	
+	files.forEach(file => {
+		payloadFiles = { ...payloadFiles, ...file }
+	})
+
+	const valuesAdjustedForPayload = {
+		...values,
+		sigilImageLink: payloadFiles.sigil,
+		audioLink: payloadFiles.audio,
+		lastUpdated: serverTimestamp(),
+	}
+	delete valuesAdjustedForPayload.realmSigil
+	delete valuesAdjustedForPayload.realmAudio
+	setDoc(doc(db, `realms`, realm.id), {
+		...valuesAdjustedForPayload,
+	}, { merge: true }).then(() => {
+		successfulUpload.value = true
+		isUploading.value = false
+	})
 })
 </script>
 
