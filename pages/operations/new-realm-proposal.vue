@@ -6,13 +6,7 @@
 				<v-col cols="12"
 					sm="2"
 					class="mb-5 d-flex align-center justify-center">
-					<v-img
-						min-width="150px"
-						max-width="250px"
-						contain
-						:aspect-ratio="1"
-						src="/images/mocks/dis-logo.png"
-						alt="logo for the Department of Inter-realm Studies"></v-img>
+					<DisLogo/>
 				</v-col>
 				<v-col cols="12"
 					sm="5"
@@ -29,7 +23,7 @@
 						<p class="text-body-2 ml-10 mb-3">New Realm - Clearance 1</p>
 						<ol class="text-decoration-none">
 							<li class="text-body-1 ml-10 mb-1">Use form N-RLM to submit a new realm to the archives.</li>
-							<li class="text-body-1 ml-10">Submitted realms will be approved to the archives by another Director at the DIS.</li>
+							<li class="text-body-1 ml-10">Submitted realms will be approved by a Director at the DIS.</li>
 						</ol>
 					</v-card>
 				</v-col>
@@ -183,9 +177,6 @@ import { useForm } from 'vee-validate'
 import { setDoc, doc, serverTimestamp } from "firebase/firestore"
 import { useFirestore } from 'vuefire'
 
-import { customAlphabet } from 'nanoid'
-const nanoid = customAlphabet(`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`, 15)
-
 // eslint-disable-next-line no-undef
 definePageMeta({
 	middleware: [`auth`],
@@ -227,10 +218,9 @@ const realmNameTruncationLabel = computed(() => {
 	return values.title.length > 12 ? `Realm Name Truncation*` : `Realm Name Truncation`
 })
 
-const realmId = nanoid()
-
 const submitRealms = handleSubmit( values => {
-	setDoc(doc(db, `realms`, realmId), {
+
+	setDoc(doc(db, `realms`, values.slug), {
 		...values,
 		iconNames: ``,
 		active: false,
@@ -240,7 +230,7 @@ const submitRealms = handleSubmit( values => {
 		successfulUpload.value = true
 		resetForm()
 	})
-		.error((error) => {
+		.catch((error) => {
 			uploadError.value = error
 		})
 })

@@ -32,11 +32,11 @@
 						md="10"
 						class="offset-md-1">
 						<p class="text-body-1 mb-5">
-							These archives document imagery and observations pertaining to the investigation of these realms.
+							For now, these archives contain imagery, observations, and solitary musings pertaining to the investigation of these realms. The realms are documented by an individual Operator, though recruitment is on the near horizon.
 						</p>
 
 						<p class="text-body-1 mb-8">
-							The contents within are established protocols, terminology, realm classifications, and limited briefing.
+							The contents within are established protocols, terminology, realm classifications, and limited briefing of the realms.
 						</p>
 
 						<p class="text-h4 mb-5">
@@ -73,7 +73,11 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
+import { useSiteStore } from '~/store/useSiteStore.js'
+
 const { mdAndUp, smAndUp } = useDisplay()
+const siteStore = useSiteStore()
+siteStore.$patch({currentSound: `audio/intro.mp3`})
 </script>
 
 <style scoped>

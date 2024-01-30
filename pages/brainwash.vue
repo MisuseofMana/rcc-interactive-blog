@@ -24,10 +24,10 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, onBeforeMount } from 'vue'
+import { useSiteStore } from '~/store/useSiteStore.js'
 import { useRandomNumber } from '~/composables/useRandomNumber'
-
-import { usePageAudio } from '~/composables/usePageAudio'
-usePageAudio()
+const siteStore = useSiteStore()
+siteStore.$patch({currentSound: `audio/brainwash.mp3`})
 
 
 const clutterNames = [ 

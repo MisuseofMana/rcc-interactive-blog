@@ -3,8 +3,7 @@
 	<NuxtLayout name="sub-admin">
 		<v-container class="my-5">
 			<v-row>
-				<v-col cols="12"
-					class="">
+				<v-col cols="12">
 					<h1 class="text-h1 text-center mb-5">Realm Management</h1>
 					<p class="text-body-1 text-center mb-10">Choose a realm to manage.</p>
 				</v-col>
@@ -12,23 +11,24 @@
 			<v-row align="center"
 				justify="center">
 				<v-col cols="12"
-					v-for="(realm, index) in realmList"
+					v-for="realm in realmList"
 					sm="8"
 					md="6"
 					lg="3"
 					xl="3"
-					class="mb-10 grow"
-					:class="index === 0 || index % 2 === 0 ? `offset-sm-2 offset-md-3 offset-lg-0` : ``"
+					class="mb-10"
 					:key="realm.title"
 					@click="sendToEditRealm(realm.slug)">
-					<h2 class="text-h6 text-primary">{{ realm.abbTitle ? realm.abbTitle : realm.title }}</h2>
-					<div class="mt-1 mb-2">
+					<h2 class="text-h4 text-primary">{{ realm.abbTitle ? realm.abbTitle : realm.title }}</h2>
+					<div class="mt-1 mb-2 d-flex">
 						<v-icon
+							class="mr-2"
 							:size="iconWidth"
 							v-if="useLastUpdated(realm.lastUpdated).isRecent.value"
 							color="yellow">mdi-alert-decagram</v-icon>
 						<div v-if="realm.iconNames">
 							<v-icon
+								class="mr-2"
 								:size="iconWidth"
 								v-for="(items, index) in realm?.iconNames.split(',')"
 								:key="items + index"

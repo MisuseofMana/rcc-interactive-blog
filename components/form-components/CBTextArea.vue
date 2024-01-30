@@ -6,7 +6,7 @@
 		:name="name"
 		:label="label"
 		:error-messages="errors"
-		counter="140"
+		:counter="counter"
 		density="compact"
 		:hint="hint"
 		auto-grow
@@ -39,6 +39,10 @@ const props = defineProps({
 	items: {
 		type: Array, 
 		default: () => [`Some`, `Default`, `Options`]
+	},
+	counter: {
+		type: String,
+		default: `200`,
 	}
 })
 

@@ -24,7 +24,6 @@
   
 <script setup>
 import { useDisplay } from 'vuetify'
-
 const { smAndDown, mdAndUp } = useDisplay()
 </script>
   

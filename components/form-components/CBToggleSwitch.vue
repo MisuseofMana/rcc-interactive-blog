@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { toRef, computed } from 'vue'
+import { toRef } from 'vue'
 import { useField } from 'vee-validate'
 
 const props = defineProps({
@@ -17,7 +17,6 @@ const props = defineProps({
 	},
 	name: {
 		type: String,
-		default: `default-switch-name`
 	},
 	color: {
 		type: String,

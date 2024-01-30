@@ -1,16 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<NuxtLayout name="default">
-		<v-row
-			class="mt-1 mb-15">
-			<v-col cols="12"
-				md="5">
-				<BackButton
-					frontIcon="arrow-left"
-					text="Abandon This Realm"
-					linkName="/realms" />
-			</v-col>
-		</v-row>
+	<NuxtLayout name="realm-viewing">
+		<BreadcrumbHeading text="REALM PHOTOS"/>
 
 		<v-row class="mb-1">
 			<v-col cols="4"
@@ -31,13 +22,13 @@
 					<h3 class="text-h3 mb-4">{{ realm.subtitle }}</h3>
 					<p class="text-body-1 mb-4">{{ realm.narrative }}</p>
 					<div class="d-flex justify-space-between align-center">
-						<div>
-							<v-icon class="mr-4"
+						<div class="d-flex align-center">
+							<v-icon class="mr-2"
 								:size="iconWidth"
-								v-if="realm.publishedRecently"
+								v-if="useLastUpdated(realm.lastUpdated).isRecent.value"
 								color="yellow">mdi-alert-decagram</v-icon>
 							<div v-if="realm?.iconNames?.length">
-								<v-icon class="my-5"
+								<v-icon class="mr-2"
 									:size="iconWidth"
 									v-for="(items, index) in realm?.iconNames.split(',')"
 									:key="items + index"
@@ -47,6 +38,32 @@
 						<p class="text-h4">{{ useLastUpdated(realm.lastUpdated).lastUpdated.value }}</p>
 					</div>
 				</div>
+			</v-col>
+		</v-row>
+
+		<v-row
+			class="mt-1">
+			<v-col cols="12"
+				md="5">
+				<BackButton
+					frontIcon="arrow-left"
+					text="Abandon This Realm"
+					linkName="/realms" />
+			</v-col>
+		</v-row>
+
+		<v-row>
+			<v-col cols="4">
+				<BackButton
+					text="/Realm Photos"
+					:realm-icons="['camera']"
+					:link-name="`/insights/${route.params.realm}`" />
+			</v-col>
+			<v-col cols="4">
+				<BackButton
+					text="/Realm Artifacts"
+					:realm-icons="['diamond-stone']"
+					:link-name="`/insights/${route.params.realm}/artifacts`" />
 			</v-col>
 		</v-row>
 
@@ -85,19 +102,35 @@
 					linkName="/realms" />
 			</v-col>
 		</v-row>
+
+		<v-row>
+			<v-col cols="4">
+				<BackButton
+					text="/Realm Photos"
+					:realm-icons="['camera']"
+					:link-name="`/insights/${route.params.realm}`" />
+			</v-col>
+			<v-col cols="4">
+				<BackButton
+					text="/Realm Artifacts"
+					:realm-icons="['diamond-stone']"
+					:link-name="`/insights/${route.params.realm}/artifacts`" />
+			</v-col>
+		</v-row>
 	</NuxtLayout>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { useDisplay } from 'vuetify'
-import { useRealmData, useRealmPhotos } from '~/composables/firebase/useRealmData'
+import { useRealmPhotos, useRealmData } from '~/composables/firebase/useRealmData'
+import { useLastUpdated } from '~/composables/useLastUpdated'
 
 // eslint-disable-next-line no-undef
 const route = useRoute()
 const { smAndDown } = useDisplay()
 const { realm } = useRealmData(route.params.realm)
-const { photos } = useRealmPhotos(`bizOcbX97wMTvAR`)
+const { photos } = useRealmPhotos(route.params.realm)
 
 const iconWidth = computed(() => {
 	return smAndDown ? `40px` : `32px`

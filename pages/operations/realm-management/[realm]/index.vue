@@ -117,6 +117,13 @@
 							name="realmAudio"
 							@change="setSource($event, 'realmAudio')"
 						/>
+						<CBTextField
+							class="mb-5"
+							:name="`audioCredits`"
+							:errors="errors[`audioCredits`]"
+							hint="Input a url for audio credits if sourced from somewhere requiring attribution."
+							label="Audio Credits URL"
+						/>
 					</v-col>
 					<v-col cols="12"
 						md="4"
@@ -227,6 +234,7 @@ const { values, handleSubmit, errors, setFieldValue, meta, resetForm} = useForm(
 		realmSigil: [],
 		realmAudio: [],
 		realmCode: null,
+		audioCredits: null
 	},
 	validationSchema,
 })

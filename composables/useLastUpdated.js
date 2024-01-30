@@ -13,7 +13,7 @@ export function useLastUpdated(timestamp){
 
 		lastUpdated.value = hPassed + `h`
 		if(hPassed >= 24) {
-			lastUpdated.value = (hPassed/24).toFixed(2) + `d`
+			lastUpdated.value = Math.floor(hPassed/24) + `d`
 		}
 		
 		if(dPassed >= 365) {

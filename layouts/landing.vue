@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<v-app full-height class="text-primary">
+	<v-app full-height
+		class="text-primary">
 		<v-no-ssr>
 			<p
 				v-if="showDebug"
@@ -15,11 +16,11 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
-import { usePageAudio } from '~/composables/usePageAudio'
-usePageAudio()
 
 const { name } = useDisplay()
 const showDebug = false
+import { usePageAudio } from '~/composables/usePageAudio'
+usePageAudio()
 </script>
 
 <style scoped>

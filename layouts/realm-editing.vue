@@ -35,10 +35,10 @@
 					class="mb-2">
 					<div>
 						<h2 class="text-h2 text-deep-orange-darken-4 ">CAUTION: CONSEQUENCES</h2>
-						<h3 class="text-h3 text-deep-orange-darken-4 mb-4">You are editing <strong class="text-decoration-underline">{{ siteStore.realmData[route.params.realm]?.title ?? `...` }}</strong></h3>
+						<h3 class="text-h3 text-deep-orange-darken-4 mb-4">You are editing <strong class="text-decoration-underline">{{ route.params.realm.split('-').join(' ').toUpperCase() ?? `...` }}</strong></h3>
 						<p class="text-body-1 text-deep-orange-darken-4 mb-15">Once saved, changes to the text are not recoverable and must be changed manually.</p>
 						<div class="d-flex justify-space-between align-center ">
-							<p class="text-body-1 text-primary">Last modified {{ siteStore.realmLastUpdated }} ago.</p>
+							<p class="text-body-1 text-primary">Last modified {{ useLastUpdated(realm.lastUpdated).lastUpdated.value }} ago.</p>
 						</div>
 					</div>
 				</v-col>
@@ -62,10 +62,10 @@
 				<v-col cols="12"
 					md="4">
 					<ControlButton class="mb-3"
-						text="X: Artifacts"
-						:realm-icons="['diamond']"
-						:disabled="true"
-						link-name="/"/>
+						text=">: Artifacts"
+						disabled
+						:realm-icons="['diamond-stone']"
+						:link-name="`/operations/realm-management/${route.params.realm}/artifacts`"/>
 				</v-col>
 			</v-row>
 						
@@ -90,14 +90,15 @@
 <script setup>
 import { useDisplay } from 'vuetify'
 import { usePageAudio } from '~/composables/usePageAudio'
-
-import { useSiteStore } from '~/store/useSiteStore.js'
-
-const siteStore = useSiteStore()
-usePageAudio()
+import { useRealmData } from '~/composables/firebase/useRealmData'
 
 // eslint-disable-next-line no-undef
 const route = useRoute()
+
+const { realm } = useRealmData(route.params.realm)
+
+usePageAudio()
+
 
 const { smAndDown } = useDisplay()
 </script>

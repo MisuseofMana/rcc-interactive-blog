@@ -100,6 +100,10 @@ import { useManageableRealms } from '~/composables/firebase/useRealmNames'
 import { useCoverPhotos } from '~/composables/firebase/useRealmData'
 
 import { useRealmCipher } from '~/composables/useRealmCipher'
+import { useSiteStore } from '~/store/useSiteStore.js'
+
+const siteStore = useSiteStore()
+siteStore.$patch({currentSound: `audio/realms.mp3`})
 
 const { realmList } = useManageableRealms()
 const { coverPhotos } = useCoverPhotos()

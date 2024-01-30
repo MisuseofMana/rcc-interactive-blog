@@ -57,6 +57,7 @@ export default defineNuxtConfig({
 		},
 	},
 	components:  [
+		{ path: `~/components/display-components`, global: true, pathPrefix: false },
 		{ path: `~/components/form-components`, global: true, pathPrefix: false },
 		{ path: `~/components/exam-components`, global: true, pathPrefix: false },
 		`~/components`,

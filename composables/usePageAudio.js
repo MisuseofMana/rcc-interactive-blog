@@ -1,53 +1,41 @@
 import { Howl } from 'Howler'
-import { onMounted, onUnmounted } from 'vue'
 import { useSiteStore } from '~/store/useSiteStore.js'
 
 export function usePageAudio() {
-	let target = ``
-	let currentSound = null
-	let currentlyPlaying
 	const siteStore = useSiteStore()
 	
-	onMounted(() => {
-		// eslint-disable-next-line no-undef
-		const route = useRoute()
-		const splitRoute = route.path.split(`/`)
-		splitRoute.shift()
+	// subscribe to siteStore events
+	siteStore.$subscribe((mutation, state) => {
+		// gate triggers unless there is a currentSound payload
+		if(mutation.type === `patch object`) {
+			// store howler reference
+			// trigger unlock event when sound is unlocked by user
+			const newSound = new Howl({
+				src: mutation.payload?.currentSound,
+				loop: true,
+				html5: true,
+				autoPlay: true,
+				volume: 0,
+				preload: true,
+			})
 
-		if(splitRoute.includes(`insights`)) {
-			target = splitRoute[1]
-		}
-		else {
-			target = splitRoute[0]
-		}
-
-		currentSound = new Howl({
-			src: [`/audio/${target}.mp3`],
-			loop: true,
-			volume: 0,
-			onunlock: function () {
+			// play new sound
+			newSound.play()
+			newSound.fade(0, 1, 1000)
+			
+			// add new sound to end of audioSequences array in siteStore
+			state.audioSequences.push(newSound)
+			console.log(state.audioSequences)
+			
+			if(state.audioSequences.length > 1) {
+				const oldSound = state.audioSequences[0]
+				oldSound.fade(1, 0, 1000)
 				setTimeout(() => {
-					siteStore.hasInteracted = true
-				}, 1100)
-			},
-		})
-		
-		currentlyPlaying = currentSound.play()
-		currentSound.fade(0, 1, 1000, currentlyPlaying)
-	})
+					oldSound.stop()
+					state.audioSequences.shift()
+				}, 1000)
+			}
 
-	onUnmounted(() => {
-		if(siteStore.hasInteracted) {
-			currentSound.fade(1, 0, 1000, currentlyPlaying)
 		}
-		else {
-			currentSound.stop(currentlyPlaying)
-		} 
-		// let realmTransition = new Howl({
-		// 	src: [`/audio/sound-effects/realmTransition.mp3`],
-		// 	loop: false,
-		// 	volume: .05
-		// })
-		// realmTransition.play()
 	})
 }

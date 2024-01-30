@@ -10,10 +10,13 @@ const route = useRoute()
 // and `Store` (e.g. `useUserStore`, `useCartStore`, `useProductStore`)
 // the first argument is a unique id of the store across your application
 export const useSiteStore = defineStore(`site`, () => {
+	const audioSequences = ref([])
+	const currentSound = ref(``)
 	const hasInteracted = ref(false)
 	const examAutoStart = ref(false)
 	const realmNames = ref([])
 	const realmList = ref([])
+	const realmArtifacts = ref([])
 	const realmData = reactive({})
 	const realmPhotos = reactive({})
 	const realmCoverPhotos = reactive([])
@@ -22,5 +25,5 @@ export const useSiteStore = defineStore(`site`, () => {
 		const { lastUpdated } = useLastUpdated(realmData[route.params.realm]?.lastUpdated)
 		return lastUpdated.value
 	})
-	return { hasInteracted, examAutoStart, realmNames, realmList, realmData, realmLastUpdated, realmPhotos, realmCoverPhotos }
+	return { hasInteracted, examAutoStart, realmNames, realmList, realmData, realmLastUpdated, realmPhotos, realmCoverPhotos, audioSequences, currentSound, realmArtifacts}
 })

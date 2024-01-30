@@ -1,5 +1,3 @@
-<!-- TODO - Setup User Permissions -->
-
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<NuxtLayout name="admin">
@@ -31,7 +29,7 @@
 					<ControlButton class="mb-3"
 						text=">: Artifact Submission"
 						:realm-icons="['diamond-stone']"
-						disabled/>
+						link-name="/operations/artifact-submission"/>
 					<ControlButton text=">: Operator Settings"
 						:realm-icons="['cog']"
 						disabled/>

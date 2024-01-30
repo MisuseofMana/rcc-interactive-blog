@@ -92,7 +92,7 @@ export const pages = [
 		semiotics: false,
 		title: `Fenced City`,
 		slug: `fenced-city`,
-		subtitle:`The Contained Capitol`,
+		subtitle:`The Contained Capital`,
 		narrative:`Sprawling grids aligned. Populated by those who leave Lierd. We all arrive here one way or another.`,
 		documents: [
 			{ copy:`Towers emerge from the grid, all connected, all of the same tapestry.`, filePath: `corner` },
