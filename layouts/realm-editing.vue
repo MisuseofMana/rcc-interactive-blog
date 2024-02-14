@@ -35,11 +35,8 @@
 					class="mb-2">
 					<div>
 						<h2 class="text-h2 text-deep-orange-darken-4 ">CAUTION: CONSEQUENCES</h2>
-						<h3 class="text-h3 text-deep-orange-darken-4 mb-4">You are editing <strong class="text-decoration-underline">{{ route.params.realm.split('-').join(' ').toUpperCase() ?? `...` }}</strong></h3>
+						<h3 class="text-h3 text-deep-orange-darken-4 mb-4">You are editing <strong class="text-decoration-underline">{{ route.params.realm.split('-').join(' ').toUpperCase()}}</strong></h3>
 						<p class="text-body-1 text-deep-orange-darken-4 mb-15">Once saved, changes to the text are not recoverable and must be changed manually.</p>
-						<div class="d-flex justify-space-between align-center ">
-							<p class="text-body-1 text-primary">Last modified {{ useLastUpdated(realm.lastUpdated).lastUpdated.value }} ago.</p>
-						</div>
 					</div>
 				</v-col>
 			</v-row>
@@ -90,15 +87,11 @@
 <script setup>
 import { useDisplay } from 'vuetify'
 import { usePageAudio } from '~/composables/usePageAudio'
-import { useRealmData } from '~/composables/firebase/useRealmData'
 
 // eslint-disable-next-line no-undef
 const route = useRoute()
 
-const { realm } = useRealmData(route.params.realm)
-
 usePageAudio()
-
 
 const { smAndDown } = useDisplay()
 </script>

@@ -14,37 +14,64 @@
 					v-for="realm in realmList"
 					sm="8"
 					md="6"
-					lg="3"
-					xl="3"
-					class="mb-10"
-					:key="realm.title"
-					@click="sendToEditRealm(realm.slug)">
-					<h2 class="text-h4 text-primary">{{ realm.abbTitle ? realm.abbTitle : realm.title }}</h2>
-					<div class="mt-1 mb-2 d-flex">
-						<v-icon
-							class="mr-2"
-							:size="iconWidth"
-							v-if="useLastUpdated(realm.lastUpdated).isRecent.value"
-							color="yellow">mdi-alert-decagram</v-icon>
-						<div v-if="realm.iconNames">
-							<v-icon
-								class="mr-2"
-								:size="iconWidth"
-								v-for="(items, index) in realm?.iconNames.split(',')"
-								:key="items + index"
-								color="primary">mdi-{{ items }}</v-icon>
+					lg="6"
+					xl="6"
+					class="mb-5"
+					:key="realm.title">
+					<v-card variant="outlined"
+						class="pa-5">
+						<div class="d-flex">
+							<div class="mr-3">
+								<v-img class="abberation cursor"
+									max-height="500"
+									min-width="100"
+									min-height="100"
+									max-width="400"
+									:src="realm.sigilImageLink ||`/images/icons/placeholder-sigil.png`"
+									alt="a radial icon representing the realm you're visiting"></v-img>
+							</div>
+							<div>
+								<h2 class="text-h4 text-primary">{{ realm.abbTitle ? realm.abbTitle : realm.title }}</h2>
+								<div class="d-flex">
+									<v-icon
+										class="mr-2"
+										:size="iconWidth"
+										v-if="useLastUpdated(realm.lastUpdated).isRecent.value"
+										color="yellow">mdi-alert-decagram</v-icon>
+									<div v-if="realm.iconNames">
+										<v-icon
+											class="mr-2"
+											:size="iconWidth"
+											v-for="(items, index) in realm?.iconNames.split(',')"
+											:key="items + index"
+											color="primary">mdi-{{ items }}</v-icon>
+									</div>
+									<v-icon v-else
+										:size="iconWidth"
+										v-for="(icon, index) in ['help', 'help', 'help']"
+										:key="realm.slug + index"
+										color="primary">mdi-{{ icon }}</v-icon>
+								</div>
+							</div>
 						</div>
-						<v-icon v-else
-							:size="iconWidth"
-							v-for="(icon, index) in ['help', 'help', 'help']"
-							:key="realm.slug + index"
-							color="primary">mdi-{{ icon }}</v-icon>
-					</div>
-					<v-img class="abberation"
-						max-height="500"
-						max-width="400"
-						:src="realm.sigilImageLink ||`/images/icons/placeholder-sigil.png`"
-						alt="a radial icon representing the realm you're visiting"></v-img>
+						<div class="mt-1 mb-2 d-flex">
+						</div>
+						<div class="mt-5">
+							<div>
+								<BackButton
+									text="Realm"
+									class="mb-2"
+									:realm-icons="['camera-control']"
+									:link-name="`/operations/realm-management/${realm.slug}`"
+								/>
+								<BackButton
+									text="Photos"
+									:realm-icons="['camera-enhance']"
+									:link-name="`/operations/realm-management/${realm.slug}/photographs`"
+								/>
+							</div>
+						</div>
+					</v-card>
 				</v-col>	
 			</v-row>
 		</v-container>
@@ -68,10 +95,5 @@ const { smAndDown } = useDisplay()
 const iconWidth = computed(() => {
 	return smAndDown ? `30px` : `20px`
 })
-
-const sendToEditRealm = (slug) => {
-	// eslint-disable-next-line no-undef
-	navigateTo(`/operations/realm-management/${slug}`)
-}
 </script>
 

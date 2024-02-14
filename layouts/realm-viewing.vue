@@ -38,9 +38,14 @@
 						<v-icon size="large"
 							class="mr-0 mr-md-5 mb-8 mb-md-0"
 							color="primary">mdi-eye-circle</v-icon>
-						<div class="mr-0 mb-8 mb-md-0">
+						<div class="mr-2 mb-8 mb-md-0">
 							<ExternalSiteButton text="SeanYager.com"
 								link-name="https://www.seanyager.com" />
+						</div>
+						<div>
+							<BackButton
+								text="/credits"
+								:link-name="`/credits`" />
 						</div>
 					</v-footer>
 				</v-col>

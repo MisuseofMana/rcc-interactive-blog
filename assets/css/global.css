@@ -48,6 +48,10 @@
 	transition: all .5s;
 }
 
+.cursor:hover {
+    cursor: pointer;
+}
+
 .realmImage {
 	cursor: pointer;
 }

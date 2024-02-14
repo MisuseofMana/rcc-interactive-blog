@@ -25,7 +25,6 @@ export function usePageAudio() {
 			
 			// add new sound to end of audioSequences array in siteStore
 			state.audioSequences.push(newSound)
-			console.log(state.audioSequences)
 			
 			if(state.audioSequences.length > 1) {
 				const oldSound = state.audioSequences[0]

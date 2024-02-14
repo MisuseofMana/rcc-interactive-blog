@@ -58,14 +58,14 @@
 							</div>
 						</div>
 			
-						<div class="shadow"
+						<div class="shadow mt-n6"
 							:class="[post.clearanceNeeded ? '' : 'grow']">
 							<NuxtLink v-if="true"
 								:to="`insights/${post.slug}`">
 								<v-img cover
 									class="realmImage"
 									lazy-src="/images/mocks/placeholder.jpg"
-									:src="coverPhotos.find(photo => { return photo.realmId === post.id})?.imageLink"
+									:src="coverPhotos?.find(photo => { return photo.realmId === post.id})?.imageLink"
 									alt="a photo representing the realm you're visiting">
 								</v-img>
 							</NuxtLink>
@@ -73,18 +73,24 @@
 								cover
 								class="clearanceRealmImage"
 								lazy-src="/images/mocks/placeholder.jpg"
-								:src="coverPhotos.find(photo => { return photo.realmId === post.id}).imageLink"
+								:src="coverPhotos?.find(photo => { return photo.realmId === post.id}).imageLink"
 								alt="a photo representing the realm you're visiting">
 							</v-img>
 						</div>
 
-						<div class="px-8">
+						<div class="px-8 mt-n5">
 							<div>
+								<v-icon v-if="useLastUpdated(post.lastUpdated).isRecent.value"
+									class="mr-2"
+									:color="post.clearanceNeeded ? 'grey-darken-1' : 'info'"
+									size="40px">
+									mdi-alert-decagram
+								</v-icon>
 								<v-icon class="p-0 mr-2"
 									:color="post.clearanceNeeded ? 'grey-darken-1' : 'primary'"
 									v-for="(items, index) in post.iconNames.split(',')"
 									:key="items + index"
-									size="20px">mdi-{{ items }}</v-icon>
+									size="40px">mdi-{{ items }}</v-icon>
 							</div>
 						</div>
 					</div>
@@ -95,7 +101,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue' 
+import { computed, onMounted, ref } from 'vue' 
 import { useManageableRealms } from '~/composables/firebase/useRealmNames'
 import { useCoverPhotos } from '~/composables/firebase/useRealmData'
 
@@ -106,14 +112,19 @@ const siteStore = useSiteStore()
 siteStore.$patch({currentSound: `audio/realms.mp3`})
 
 const { realmList } = useManageableRealms()
-const { coverPhotos } = useCoverPhotos()
+const coverPhotos = ref([])
+
+onMounted(() => {
+	useCoverPhotos().then(({coverPhotosData}) => {
+		coverPhotos.value = coverPhotosData.value
+	})
+}) 
 
 const checkSemiotic = (realm) => {
 	const indexOfRealm = realmsWithSemiotics.value.findIndex(item => {
 		return item.slug === realm.slug
 	})
 	return indexOfRealm === new Date().getDay()
-
 }
 
 const realmsWithSemiotics = computed(() => {

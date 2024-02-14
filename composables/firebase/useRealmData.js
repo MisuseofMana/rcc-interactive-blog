@@ -1,7 +1,7 @@
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { initializeApp } from 'firebase/app'
-import { reactive } from 'vue'
-import { query, collection, collectionGroup, where, getDocs, getFirestore, orderBy } from "firebase/firestore"
+import { ref } from 'vue'
+import { query, collection, collectionGroup, where, doc, getDoc, getDocs, getFirestore, orderBy } from "firebase/firestore"
 
 export const firebaseApp = initializeApp({
 	apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
@@ -13,154 +13,161 @@ export const firebaseApp = initializeApp({
 	measurementId: `G-CLXB8V1MH8`
 })
 
+// returnable refs
+// getRealmData
+const realmData = ref({})
+const realmError = ref(``)
+
+// getCoverPhotos
+const coverPhotosData = ref([])
+const coverPhotosError = ref(``)
+
+// getRealmPhotos
+const realmPhotosData = ref([])
+const realmPhotosError = ref(``)
+
+const artifactsData = ref([])
+const artifactsError = ref(``)
+
 const siteStore = useSiteStore()
 const db = getFirestore(firebaseApp)
 
-// Just pass in the realm slug to the composable.
-export function useRealmData(realmSlug) {
-	const realm = reactive({})
-	const storedRealm = siteStore?.realmData[realmSlug]
+const playAudio = (audioLink) => {
+	siteStore.$patch({currentSound: audioLink})
+}
 
-	const playAudio = () => {
-		siteStore.$patch({currentSound: realm.audioLink})
+// PROMISES
+// used to get the entire root doc of a specific realm
+async function getRealmDocData(realmName, options) {
+	// get realms doc (singular) where the slug equals the route param 'realm'
+	const queryForRealmData = doc(db, `realms`, realmName)
+
+	// if the realm is stored in the site store, return that version of it immediately
+	// and forego the subsequeryForRealmDatauent try catch block
+	if(Object.keys(siteStore?.realmData).includes(realmName)) {
+		realmData.value = siteStore.realmData[realmName]
+		if(options?.noMusic) return
+		playAudio(siteStore.realmData[realmName].audioLink)
+		return
 	}
 
-	const getRealmData = async () => {
-		const q = query(collection(db, `realms`), where(`slug`, `==`, realmSlug))
-		const realmResult = []
-		
-		if(storedRealm === undefined) {
-			// run query
-			const querySnap = await getDocs(q)
-			querySnap.forEach(doc => {
-				realmResult.push({...doc.data(), id: doc.id})
-			})
-			// assign siteStore & realm ref to realm at 0 index returned by query
-			siteStore.realmData[realmSlug] = { 
-				...realmResult[0],
-				realmSigil: [new File([realmResult[0].sigilImageLink], `${realmResult[0].slug}.png`)],
-				realmAudio: [new File([realmResult[0].audioLink], `${realmResult[0].slug}.mp3`)],
+	try {
+		const res = await getDoc(queryForRealmData)
+		if (res.exists()) {
+			realmData.value = {
+				...res.data(),
+				realmSigil: res.data().sigilImageLink ? [new File([res.data().sigilImageLink], `${res.data().slug}.png`)] : null,
+				realmAudio: res.data().audioLink ? [new File([res.data().audioLink], `${res.data().slug}.mp3`)] : null,
 			}
-			Object.assign(realm, siteStore.realmData[realmSlug])
-			playAudio()
-		}
-		else {
-			// if site store contains realm data already, serve stored document
-			Object.assign(realm, siteStore.realmData[realmSlug])
-			playAudio()
+			siteStore.realmData[realmName] = realmData.value
+			if(options?.noMusic) return
+			playAudio(realmData.value.audioLink)
 		}
 	}
-	
-	// run the async query
-	getRealmData()
-		
-	return {
-		realm
+	catch (error) {
+		if (error) {
+			realmError.value = realmError
+		}
 	}
 }
 
-export function useCoverPhotos() {
-	const coverPhotos = reactive([])
-	const storedCoverPhotos = siteStore?.realmCoverPhotos
+// used to get all cover photos to display on the homepage
+async function getCoverPhotos() {
+	const queryForCoverPhotos = query(collectionGroup(db, `photographs`), where(`useAsCoverImage`, `==`, true))
 	
-	const getCoverPhotoData = async () => {
-		const photos = query(collectionGroup(db, `photographs`), where(`useAsCoverImage`, `==`, true))
-		const photosResult = []
-		
-		if(storedCoverPhotos.length === 0) {
-			const querySnapshot = await getDocs(photos)
-			querySnapshot.forEach((doc) => {
-				const {realmId, imageLink} = doc.data()
-				photosResult.push({ realmId, imageLink })
-			})
-			// assign siteStore & realm ref to realm at 0 index returned by query
-			siteStore.realmCoverPhotos = { 
-				...photosResult,
-			}
-			Object.assign(coverPhotos, siteStore.realmCoverPhotos)
-			return
-		}
-		else {
-			// if site store contains realm data already, serve stored document
-			Object.assign(coverPhotos, siteStore.realmCoverPhotos)
+	if(siteStore?.realmCoverPhotos.length) {
+		coverPhotosData.value = siteStore.realmCoverPhotos
+		return
+	}
+
+
+	try {
+		const querySnapshot = await getDocs(queryForCoverPhotos)
+		querySnapshot.forEach((doc) => {
+			const {realmId, imageLink} = doc.data()
+			coverPhotosData.value.push({ realmId, imageLink })
+		})
+		// assign siteStore & realm ref to realm at 0 index returned by query
+		siteStore.realmCoverPhotos = { 
+			...coverPhotosData.value,
 		}
 	}
-	
-	// run the async query
-	getCoverPhotoData()
-	
-	return {
-		coverPhotos
+	catch (error) {
+		if (error) {
+			realmError.value = realmError
+		}
 	}
 }
 
-export function useRealmPhotos(realmSlug) {
-	const photos = reactive([])
-	const storedPhotos = siteStore?.realmPhotos[realmSlug]
+// used to get all realm photos to display on the insights pages
+async function getRealmPhotos(realmSlug) {
+	const queryForPhotos = query(collection(db, `realms`, realmSlug, `photographs`), orderBy(`order`))
 
-	const getPhotoData = async () => {
-		// orderBy(`order`)
-		const q = query(collection(db, `realms`, realmSlug, `photographs`), orderBy(`order`))
-		const photosResult = []
-		
-		if(storedPhotos === undefined) {
-			// run query
-			const querySnap = await getDocs(q)
-			querySnap.forEach(doc => {
-				photosResult.push({...doc.data(), id: doc.id})
-			})
-			// assign siteStore & photos ref to realm at 0 index returned by query
-			siteStore.realmPhotos[realmSlug] = { 
-				...photosResult,
-			}
-			Object.assign(photos, siteStore.realmPhotos[realmSlug])
-			return
-		}
-		else {
-			// if site store contains photo data already, serve stored document
-			Object.assign(photos, siteStore.realmPhotos[realmSlug])
-		}
+	if(Object.keys(siteStore?.realmPhotosData).includes(realmSlug)) {
+		realmPhotosData.value = siteStore.realmPhotosData[realmSlug]
+		return
 	}
-	
-	// run the async query
-	getPhotoData()
-	
-	return {
-		photos
+
+	try {
+		const querySnapshot = await getDocs(queryForPhotos)
+		realmPhotosData.value = []
+		querySnapshot.forEach((doc) => {
+			const allData = doc.data()
+			realmPhotosData.value.push({...allData, id: doc.id})
+		})
+		siteStore.realmPhotosData[realmSlug] = realmPhotosData.value
+	}
+	catch (error) {
+		if (error) {
+			console.log(error)
+			coverPhotosError.value = error
+		}
 	}
 }
 
-export function useRealmArtifacts(realmSlug) {
-	const artifacts = reactive([])
-	const storedArtifacts = siteStore?.realmArtifacts[realmSlug]
+async function getRealmArtifacts(realmSlug) {
+	const queryForArtifacts = query(collection(db, `realms`, realmSlug, `artifacts`))
 
-	const getArtifactData = async () => {
-		const q = query(collection(db, `realms`, realmSlug, `artifacts`))
-		const artifactsResult = []
+	if(Object.keys(siteStore?.realmArtifacts).includes(realmSlug)) {
+		artifactsData.value = siteStore.realmArtifacts[realmSlug]
+		return
+	}
 		
-		if(storedArtifacts === undefined) {
-			// run query
-			const querySnap = await getDocs(q)
-			querySnap.forEach(doc => {
-				artifactsResult.push({...doc.data(), id: doc.id})
-			})
-			// assign siteStore & artifacts ref to realm at 0 index returned by query
-			siteStore.realmArtifacts[realmSlug] = { 
-				...artifactsResult,
-			}
-			Object.assign(artifacts, siteStore.realmArtifacts[realmSlug])
-			return
-		}
-		else {
-			// if site store contains photo data already, serve stored document
-			Object.assign(artifacts, siteStore.realmArtifacts[realmSlug])
+	try {
+		const querySnapshot = getDocs(queryForArtifacts)
+		artifactsData.value = []
+		querySnapshot.forEach((doc) => {
+			const allData = doc.data()
+			artifactsData.value.push({...allData, id: doc.id})
+		})
+		siteStore.realmArtifacts[realmSlug] = realmPhotosData.value
+	}
+	catch (error) {
+		if(error) { 
+			console.log(error)
+			artifactsError.value = error
 		}
 	}
 	
-	// run the async query
-	getArtifactData()
-	
-	return {
-		artifacts
-	}
+}
+
+// EXPORTS
+export async function useRealmData(docName, options = {noMusic: false}) {
+	await getRealmDocData(docName, options)
+	return { realmData, realmError }
+}
+
+export async function useCoverPhotos() {
+	await getCoverPhotos()
+	return { coverPhotosData, coverPhotosError }
+}
+
+export async function useRealmPhotos(realmSlug) {
+	await getRealmPhotos(realmSlug)
+	return { realmPhotosData, realmPhotosError }
+}
+
+export async function useRealmArtifacts(realmSlug) {
+	await getRealmArtifacts(realmSlug)
+	return { artifactsData, artifactsError }
 }

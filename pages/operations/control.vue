@@ -23,11 +23,13 @@
 					xl="6">
 					<p class="text-primary text-body-1 mb-3">Operator Clearance Options</p>
 					<ControlButton class="mb-3"
-						text=">: Submit a Photo"
+						text=">: Submit Photo Evidence"
 						:realm-icons="['camera']"
+						disabled
 						link-name="/operations/photo-submission"/>
 					<ControlButton class="mb-3"
 						text=">: Artifact Submission"
+						disabled
 						:realm-icons="['diamond-stone']"
 						link-name="/operations/artifact-submission"/>
 					<ControlButton text=">: Operator Settings"
@@ -41,20 +43,21 @@
 					xl="6">
 					<p class="text-primary text-body-1 mb-3">Director Clearance Options</p>
 					<ControlButton class="mb-3"
-						text=">: Photo Approval"
-						:realm-icons="['check-decagram-outline']"
-						:disabled="!isAdmin"
-						link-name="/operations/photo-approval"/>
-					<ControlButton class="mb-3"
 						text=">: Realm Management"
 						:realm-icons="['home-edit']"
 						:disabled="!isAdmin"
 						link-name="/operations/realm-management"/>
 					<ControlButton
+						class="mb-3"
 						text=">: New Realm Proposal"
 						:realm-icons="['earth']"
 						:disabled="!isAdmin"
 						link-name="/operations/new-realm-proposal"/>
+					<ControlButton
+						text=">: Photo Approval"
+						:realm-icons="['check-decagram-outline']"
+						disabled
+						link-name="/operations/photo-approval"/>
 				</v-col>
 			</v-row>
 		</v-container>

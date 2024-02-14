@@ -51,6 +51,7 @@ const slug = defineRule(`slug`, (value) => {
 })
 
 const requiredAbbreviation = defineRule(`requiredAbbreviation`, (value, [target, stringLength], ctx) => {
+	if (ctx.form[target] === undefined) return true 
 	if (ctx.form[target].length < stringLength || value) {
 		return true
 	}

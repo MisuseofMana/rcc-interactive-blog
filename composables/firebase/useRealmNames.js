@@ -20,15 +20,18 @@ export function useRealmNames() {
 	const nameList = ref([])
 
 	const getRealmNames = async () => {
-		if (siteStore.realmNames.length) {
-			nameList.value = siteStore.realmNames
+		let container = []
+		if (siteStore.realmList.length) {
+			siteStore.realmList.forEach((item) => {
+				container.push({title: item.title, value: item.id})
+			})
+			nameList.value = container
 		}
 		else {
 			const getRealmsTakingSubmissions = await getDocs(
 				query(collection(db, `realms`))
 			)
 			//[{ title: `Uncertain`, value: `uncertain`}]
-			let container = []
 			// populate realm names with results from query
 			getRealmsTakingSubmissions.forEach((doc) => {
 				container.push({title: doc.data().title, value: doc.id})
@@ -45,12 +48,12 @@ export function useRealmNames() {
 	}
 }
 
-export function useManageableRealms(first=10) {
+export function useManageableRealms(first=15) {
 	const realmList = ref([])
 
 	const getRealmList = async () => {
 		if (siteStore.realmList.length) {
-			realmList.value = siteStore.realmNames
+			realmList.value = siteStore.realmList
 		}
 		else {
 			const getRealmsTakingSubmissions = await getDocs(
@@ -60,7 +63,6 @@ export function useManageableRealms(first=10) {
 			// populate realm names with results from query
 			getRealmsTakingSubmissions.forEach((doc) => {
 				const { id } = doc
-				// console.log(doc.data())
 				const {sigilImageLink, hasSemiotics, clearanceNeeded, abbTitle, subtitle, title, iconNames, slug, lastUpdated } = doc.data()
 				container.push({
 					title, 
@@ -75,7 +77,7 @@ export function useManageableRealms(first=10) {
 					lastUpdated
 				})
 			})
-			siteStore.realmNames = container
+			siteStore.realmList = container
 			realmList.value = container
 		}
 	}
@@ -84,5 +86,43 @@ export function useManageableRealms(first=10) {
 
 	return {
 		realmList,
+	}
+}
+
+export function useRealmCredits() {
+	const realmCredits = ref([])
+
+	const getRealmCredits = async () => {
+		if (siteStore.realmCredits.length) {
+			realmCredits.value = siteStore.realmCredits
+		}
+		else {
+			const getAllRealms = await getDocs(
+				query(collection(db, `realms`), orderBy(`title`))
+			)
+			let container = []
+			// populate realm names with results from query
+			getAllRealms.forEach((doc) => {
+				const { id } = doc
+				const {sigilImageLink, title, abbTitle, audioAuthorLink, audioAuthorName, audioLicenseLink} = doc.data()
+				container.push({
+					title, 
+					id,
+					abbTitle,
+					sigilImageLink,
+					audioAuthorLink,
+					audioAuthorName,
+					audioLicenseLink,
+				})
+			})
+			siteStore.realmCredits = container
+			realmCredits.value = container
+		}
+	}
+	
+	getRealmCredits()
+
+	return {
+		realmCredits,
 	}
 }

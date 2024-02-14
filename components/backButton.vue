@@ -4,6 +4,7 @@
 		class="text-decoration-none"
 		min-height="50px"
 		:loading="isLoading"
+		:disabled="caution"
 		:height="smAndDown ? '55px' : '50px'"
 		min-width="100%"
 		:color="computedColor">
@@ -38,6 +39,7 @@ const props = defineProps({
 	realmIcons: Array,
 	linkName: String,
 	caution: Boolean,
+	disabled: Boolean,
 	warning: Boolean,
 	isLoading: Boolean,
 })
@@ -51,13 +53,13 @@ const computedColor = computed(() => {
 })
 
 const computedIconColor = computed(() => {
-	if(props.caution) return `deep-orange-darken-4`
+	if(props.caution) return `red-lighten-4`
 	if(props.warning) return `yellow`
 	return `primary`
 })
 
 const computedTextColor = computed(() => {
-	if(props.caution) return `text-deep-orange-darken-4`
+	if(props.caution) return `text-red-lighten-3`
 	if(props.warning) return `text-yellow`
 	return `text-primary`
 })

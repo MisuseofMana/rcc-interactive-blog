@@ -2,16 +2,17 @@
 <template>
 	<NuxtLayout name="realm-viewing">
 		<BreadcrumbHeading text="REALM PHOTOS"/>
-
 		<v-row class="mb-1">
 			<v-col cols="4"
 				sm="5"
 				md="4">
-				<v-img class="abberation"
+				<v-img 
+					class="abberation"
 					max-height="500"
 					max-width="500"
-					:src="`/images/icons/${realm.slug}.png`"
+					:src="realm.sigilImageLink || `/images/icons/placeholder-sigil.png`"
 					alt="a radial icon representing the realm you're visiting"></v-img>
+
 			</v-col>
 			<v-col cols="12"
 				sm="7"
@@ -63,6 +64,7 @@
 				<BackButton
 					text="/Realm Artifacts"
 					:realm-icons="['diamond-stone']"
+					caution
 					:link-name="`/insights/${route.params.realm}/artifacts`" />
 			</v-col>
 		</v-row>
@@ -80,7 +82,7 @@
 					aspect-ratio="1.5"
 					:src="item.imageLink" />	
 				<span class="pl-2 mr-5 mt-n2 mb-1 zUp text-subtitle-2 text-subtitle-1 d-flex align-center justify-space-between">
-					<p class="mt-2">
+					<p class="text-subtitle-2 text-primary-darken-3 mt-2">
 						{{ item.submittedBy }}
 					</p>
 					<v-badge floating
@@ -88,7 +90,7 @@
 						color="primary"
 						v-if="item.hasSemiotic"></v-badge>
 				</span>
-				<p class="text-primary minHeight text-body-1 mx-8 px-5 py-5 text-center"> {{ item.lore }}</p>
+				<p class="text-primary minHeight text-body-1 mx-8 py-1 text-center"> {{ item.lore }}</p>
 			</v-col>
 		</v-row>
 
@@ -121,7 +123,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useRealmPhotos, useRealmData } from '~/composables/firebase/useRealmData'
 import { useLastUpdated } from '~/composables/useLastUpdated'
@@ -129,8 +131,17 @@ import { useLastUpdated } from '~/composables/useLastUpdated'
 // eslint-disable-next-line no-undef
 const route = useRoute()
 const { smAndDown } = useDisplay()
-const { realm } = useRealmData(route.params.realm)
-const { photos } = useRealmPhotos(route.params.realm)
+const realm = ref({})
+const photos = ref({})
+
+onMounted(() => {
+	useRealmData(route.params.realm).then(({realmData}) => {
+		realm.value = realmData.value
+	})
+	useRealmPhotos(route.params.realm).then(({realmPhotosData}) => {
+		photos.value = realmPhotosData.value
+	})
+}) 
 
 const iconWidth = computed(() => {
 	return smAndDown ? `40px` : `32px`

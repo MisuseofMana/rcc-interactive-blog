@@ -70,6 +70,7 @@
 					<BackButton
 						text="/Realm Artifacts"
 						:realm-icons="['diamond-stone']"
+						disabled
 						:link-name="`/insights/${route.params.realm}/artifacts`" />
 				</v-col>
 			</v-row>
@@ -127,15 +128,25 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { useDisplay } from 'vuetify'
 const { smAndDown } = useDisplay()
-import { useRealmArtifacts } from '~/composables/firebase/useRealmData'
-import { useRealmData } from '~/composables/firebase/useRealmData'
+import { useRealmData, useRealmArtifacts } from '~/composables/firebase/useRealmData'
 
 // eslint-disable-next-line no-undef
 const route = useRoute()
-const { realm } = useRealmData(route.params.realm)
-const { artifacts } = useRealmArtifacts(route.params.realm)
+const realm = ref({})
+const artifacts = ref({})
+
+onMounted(() => {
+	useRealmData(route.params.realm).then(({realmData}) => {
+		realm.value = realmData.value
+	})
+	useRealmArtifacts(route.params.realm).then(({artifactsData}) => {
+		artifacts.value = artifactsData.value
+	})
+}) 
+
 </script>
 
 <style lang="scss" scoped>

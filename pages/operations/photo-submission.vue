@@ -180,6 +180,8 @@
 			</form>
 			<v-snackbar
 				v-model="successfulUpload"
+				timer
+				timeout="1500"
 			>
 				<p class="text-primary text-body-2">
 					Upload Succeeded
