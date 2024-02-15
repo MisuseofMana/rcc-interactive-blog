@@ -4,7 +4,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "npm run build -- --preset=firebase && firebase emulators:start",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
