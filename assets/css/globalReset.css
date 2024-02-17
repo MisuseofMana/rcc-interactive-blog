@@ -27,3 +27,7 @@ ol {
     margin-inline-end: 0;
     padding-inline-start: 0;
 }
+
+.v-btn--disabled.v-btn--variant-elevated .v-btn__overlay {
+    opacity: 0 !important;
+}

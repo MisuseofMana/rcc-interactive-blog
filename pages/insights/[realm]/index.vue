@@ -43,7 +43,7 @@
 		</v-row>
 
 		<v-row
-			class="mt-1">
+			class="mt-1 mb-15">
 			<v-col cols="12"
 				md="5">
 				<BackButton
@@ -53,7 +53,7 @@
 			</v-col>
 		</v-row>
 
-		<v-row>
+		<!-- <v-row>
 			<v-col cols="4">
 				<BackButton
 					text="/Realm Photos"
@@ -67,7 +67,7 @@
 					caution
 					:link-name="`/insights/${route.params.realm}/artifacts`" />
 			</v-col>
-		</v-row>
+		</v-row> -->
 
 		<v-row class="mb-10">
 			<v-col cols="12"
@@ -105,7 +105,7 @@
 			</v-col>
 		</v-row>
 
-		<v-row>
+		<!-- <v-row>
 			<v-col cols="4">
 				<BackButton
 					text="/Realm Photos"
@@ -116,9 +116,10 @@
 				<BackButton
 					text="/Realm Artifacts"
 					:realm-icons="['diamond-stone']"
+					caution
 					:link-name="`/insights/${route.params.realm}/artifacts`" />
 			</v-col>
-		</v-row>
+		</v-row> -->
 	</NuxtLayout>
 </template>
 

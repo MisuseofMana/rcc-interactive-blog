@@ -56,7 +56,7 @@
 								<v-col cols="12"
 									sm="6">
 									<BackButton class="mr-2"
-										:caution="true"
+										warning
 										variant="outlined"
 										text="Retake Exam"
 										:realm-icons="['key']"

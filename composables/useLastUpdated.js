@@ -17,7 +17,7 @@ export function useLastUpdated(timestamp){
 		}
 		
 		if(dPassed >= 365) {
-			lastUpdated.value = `~` + (dPassed/365).toFixed(2) + `y`
+			lastUpdated.value = (dPassed/365).toFixed(2) + `y`
 		}
 
 		if (dPassed <= 3) designation.value = `Emergent`

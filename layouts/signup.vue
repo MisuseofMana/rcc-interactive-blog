@@ -16,6 +16,20 @@
 						{{ name }}
 					</p>
 
+					<v-row class="mx-1">
+						<v-col cols="12"
+							sm="6"
+							md="4"
+							xl="3">
+							<BackButton
+								warning
+								variant="outlined"
+								text="Leave Sign Up"
+								front-icon="arrow-left"
+								link-name="/brainwash" />
+						</v-col>
+					</v-row>
+
 					<v-main class="text-primary">
 						<slot class="mt-8"></slot>
 					</v-main>

@@ -6,8 +6,22 @@ export function usePageAudio() {
 	
 	// subscribe to siteStore events
 	siteStore.$subscribe((mutation, state) => {
+		const stopOldSound = () => {
+			if(state.audioSequences.length > 1) {
+				const oldSound = state.audioSequences[0]
+				oldSound.fade(1, 0, 1000)
+				setTimeout(() => {
+					oldSound.stop()
+					state.audioSequences.shift()
+				}, 1000)
+			}
+		}
 		// gate triggers unless there is a currentSound payload
 		if(mutation.type === `patch object`) {
+			if (mutation.payload?.currentSound === null) {
+				stopOldSound()
+				return
+			}
 			// store howler reference
 			// trigger unlock event when sound is unlocked by user
 			const newSound = new Howl({
@@ -26,15 +40,7 @@ export function usePageAudio() {
 			// add new sound to end of audioSequences array in siteStore
 			state.audioSequences.push(newSound)
 			
-			if(state.audioSequences.length > 1) {
-				const oldSound = state.audioSequences[0]
-				oldSound.fade(1, 0, 1000)
-				setTimeout(() => {
-					oldSound.stop()
-					state.audioSequences.shift()
-				}, 1000)
-			}
-
+			stopOldSound()
 		}
 	})
 }

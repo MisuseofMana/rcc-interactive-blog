@@ -161,10 +161,9 @@
 					md="4">
 					<BackButton class="mr-2"
 						rounded
-						:caution="false"
 						variant="elevated"
 						:text="!meta.dirty ? `No Changes Made` :`Save Changes`"
-						:disabled="isUploading || !meta.dirty"
+						:caution="isUploading || !meta.dirty"
 						:realm-icons="['floppy']"
 						@click="updateRealmData"
 					/>

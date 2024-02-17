@@ -1,6 +1,7 @@
 <template>
 	<v-card nuxt
 		:to="linkName"
+		:disabled="disabled"
 		class="text-decoration-none d-flex align-center justify-center"
 		min-height="100px"
 		min-width="100%"
@@ -43,20 +44,20 @@ const props = defineProps({
 const { smAndDown } = useDisplay()
 
 const computedColor = computed(() => {
-	if(props.caution || props.disabled) return `deep-orange-darken-4`
+	if(props.caution || props.disabled) return `grey-darken-4`
 	if(props.warning) return `yellow-darken-2`
 	return `primary-darken-1`
 })
 
 const computedIconColor = computed(() => {
-	if(props.disabled) return `deep-orange-lighten-1`
+	if(props.disabled) return `grey-darken-3`
 	if(props.caution) return `deep-orange-darken-4`
 	if(props.warning) return `yellow-darken-2`
 	return `primary`
 })
 
 const computedTextColor = computed(() => {
-	if(props.disabled) return `text-deep-orange-lighten-1`
+	if(props.disabled) return `text-grey-darken-3`
 	if(props.caution) return `text-deep-orange-darken-4`
 	if(props.warning) return `text-yellow-darken-2`
 	return `text-primary`

@@ -132,7 +132,7 @@
 								<v-col cols="12"
 									lg="6">
 									<BackButton class="mr-2 mb-3"
-										:caution="true"
+										warning
 										variant="outlined"
 										text="Reject"
 										:realm-icons="['cancel']"

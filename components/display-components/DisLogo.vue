@@ -7,11 +7,3 @@
 		src="/images/mocks/dis-logo.png"
 		alt="logo for the Department of Inter-realm Studies"></v-img>
 </template>
-
-<script setup>
-
-</script>
-
-<style lang="scss" scoped>
-
-</style>

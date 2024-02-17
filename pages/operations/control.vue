@@ -6,12 +6,12 @@
 				<v-col cols="12"
 					sm="8"
 					md="6"
-					lg="6"
-					xl="6"
-					class="offset-sm-2 offset-md-3">
-					<p v-if="user.displayName"
-						class="text-body-1 text-center">Hello <span class="text-deep-orange-darken-4">{{ user.displayName }}.</span></p>
-					<p class="text-subtitle-1 text-center">{{ musings[chosenMusing] }}</p>
+					lg="8"
+					xl="8"
+					class="offset-sm-2 offset-md-3 offset-lg-2">
+					<p
+						class="text-body-1 mb-2 text-center">Hello <span class="text-deep-orange-darken-4">{{ userDisplayName }}</span></p>
+					<p class="text-subtitle-1 mb-4 text-center">{{ musings[chosenMusing] }}</p>
 					<h1 class="text-h1 text-center mb-3">Control Panel</h1>
 				</v-col>
 			</v-row>
@@ -65,10 +65,21 @@
 </template>
 
 <script setup>
+import { onBeforeMount, ref } from 'vue'
 import { useRandomNumber } from '~/composables/useRandomNumber'
 
+const userDisplayName = ref(`...`)
+
+onBeforeMount(async () => {
 // eslint-disable-next-line no-undef
-const user = await getCurrentUser()
+	const user = await getCurrentUser()
+	userDisplayName.value = user.displayName
+	console.log(user.displayName)
+	if(user.displayName !== `Operations`) {
+		// eslint-disable-next-line no-undef
+		navigateTo(`/brainwash`)
+	}
+})
 
 // eslint-disable-next-line no-undef
 definePageMeta({

@@ -139,7 +139,7 @@
 					<v-col cols="6"
 						xl="6">
 						<BackButton
-							:caution="true"
+							warning
 							variant="outlined"
 							link-name="/operations/control"
 							:isLoading="isSubmitting"

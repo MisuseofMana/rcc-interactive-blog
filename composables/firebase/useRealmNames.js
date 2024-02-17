@@ -10,7 +10,7 @@ export const firebaseApp = initializeApp({
 	storageBucket: `crickburrowarchives.appspot.com`,
 	messagingSenderId: `708349315619`,
 	appId: `1:708349315619:web:5a599bfa7961f0bf217f96`,
-	measurementId: `G-CLXB8V1MH8`
+	measurementId: `G-CLXB8V1MH8`,
 })
 
 const siteStore = useSiteStore()

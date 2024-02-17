@@ -48,7 +48,7 @@
 								<v-col cols="12"
 									sm="12">
 									<BackButton class="mr-2"
-										:caution="true"
+										warning
 										variant="outlined"
 										text="Begin Exam"
 										:disabled="examDisabled"

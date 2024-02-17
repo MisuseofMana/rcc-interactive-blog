@@ -112,7 +112,7 @@
 						xl="6"
 						class="mb-1">
 						<BackButton
-							:caution="true"
+							caution
 							variant="outlined"
 							link-name="/operations/control"
 							:disabled="isSubmitting"

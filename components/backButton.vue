@@ -47,19 +47,19 @@ const props = defineProps({
 const { smAndDown } = useDisplay()
 
 const computedColor = computed(() => {
-	if(props.caution) return `deep-orange-darken-4`
+	if(props.caution) return `grey-darken-4`
 	if(props.warning) return `yellow-darken-4`
 	return `primary-darken-1`
 })
 
 const computedIconColor = computed(() => {
-	if(props.caution) return `red-lighten-4`
+	if(props.caution) return `grey-darken-3`
 	if(props.warning) return `yellow`
 	return `primary`
 })
 
 const computedTextColor = computed(() => {
-	if(props.caution) return `text-red-lighten-3`
+	if(props.caution) return `text-grey-darken-3`
 	if(props.warning) return `text-yellow`
 	return `text-primary`
 })

@@ -47,13 +47,11 @@ export default defineNuxtConfig({
 			measurementId: `G-CLXB8V1MH8`
 		},
 		appCheck: {
-			// Allows you to use a debug token in development
 			// eslint-disable-next-line no-undef
 			debug: process.env.NODE_ENV !== `production`,
+			key: `6LdIXHUpAAAAAJfD6lUv4mIDGDmtU-bStxX2YLU_`,
 			isTokenAutoRefreshEnabled: true,
 			provider: `ReCaptchaV3`,
-			// Find the instructions in the Firebase documentation, link above
-			key: `6LejtlUlAAAAAEvIfVKCit8UQxmBMvnIBPoWEYoa`,
 		},
 	},
 	components:  [

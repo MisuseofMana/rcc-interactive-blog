@@ -54,13 +54,17 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import { useRealmCredits } from '~/composables/firebase/useRealmNames'
+import { useSiteStore } from '~/store/useSiteStore.js'
 
-// eslint-disable-next-line no-undef
-definePageMeta({
-	middleware: [`auth`],
+const siteStore = useSiteStore()
+
+onMounted(() => {
+	siteStore.$patch({currentSound: null})
 })
 
 const { realmCredits } = useRealmCredits()
+
 </script>
 
