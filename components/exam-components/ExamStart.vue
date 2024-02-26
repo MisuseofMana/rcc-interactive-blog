@@ -13,15 +13,14 @@
 						variant="outlined"
 						color="deep-orange-darken-4"
 						class="pa-15 text-deep-orange-darken-4">
-						<div 
-							class="d-flex flex-column align-center justify-center">
-							<h1 class="text-h1 mb-10">
+						<div>
+							<h1 class="text-h1 mb-5">
 								OPERATOR EXAM
 							</h1>
-							<p class="text-body-1 mb-8">This exam will test the following:</p>
-							<ul class="text-body-1 mb-8">
+							<h2 class="text-h4 mb-5">This exam will test the following:</h2>
+							<ul class="text-body-1 mb-10 ml-10">
 								<li class="mb-1">
-									Are you knowledgeable of the core realms?
+									Are you knowledgeable of the realms?
 								</li>
 								<li class="mb-1">
 									Do you understand the semiotics?
@@ -31,16 +30,14 @@
 								</li>
 							</ul>
 							
-							<p class="text-body-1 mb-3">Still feeling lost or uncertain?</p>
-							<p class="text-body-1 mb-3">It would be best to brush up in <strong class="font-weight-black">/briefing</strong> before the exam.</p>
-							<p class="text-body-1 mb-6">Once started you will have 30 seconds to answer each question.</p>
-							<p class="text-body-1 mb-15">You have {{ remainingAttempts }} attempts remaining today.</p>
+							<h2 class="text-h4 mb-5">Still feeling lost or uncertain?</h2>
+							<p class="text-body-1 mb-15">It would be best to brush up in <strong class="font-weight-black">/briefing</strong> before the exam. Once started you will have 30 seconds to answer each question.</p>
+							<p class="text-body-1 mb-10">You have {{ remainingAttempts }} attempts remaining today.</p>
 							
 							<v-row>
 								<v-col cols="12"
 									sm="12">
 									<BackButton class="mr-2"
-										variant="outlined"
 										text="Back to /Briefing"
 										:realm-icons="['map-search-outline']"
 										link-name="/briefing" />
@@ -49,7 +46,6 @@
 									sm="12">
 									<BackButton class="mr-2"
 										warning
-										variant="outlined"
 										text="Begin Exam"
 										:disabled="examDisabled"
 										:realm-icons="['key']"

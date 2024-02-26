@@ -1,65 +1,68 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<NuxtLayout name="admin">
-		<v-container class="my-5"
-			v-if="passedCheck">
-			<v-row>
-				<v-col cols="12">
-					<v-card
-						variant="outlined"
-						color="primary"
-						width="100%"
-						class="pa-15 text-primary">
-						<div>
-							<form autocomplete="off">
-								<v-row>
-									<v-col cols="12"
-										xl="8"
-										class="offset-xl-2">
-										<CBTextField
-											label="Username or Email*"
-											name="username"
-											hint="If you did not provide an email address use you Username, otherwise use your Email."
-											:error-messages="errors.username"
-										/>
-									</v-col>	
-									<v-col cols="12"
-										xl="8"
-										class="offset-xl-2">
-										<CBPasswordField
-											name="password"
-											label="Password *"
-											autocomplete="off"
-											hint="Enter your password."
-											:errors="errors.password"
-										/>
-									</v-col>
-									<v-col cols="12"
-										xl="5"
-										class="offset-xl-2 mb-5">
-										<p class="text-center text-deep-orange-darken-4 text-body-1 mb-10">{{ logInError }}</p>
-										<BackButton
-											@click="logIn"
-											color="primary-darken-1"
-											class="text-primary"
-											text="Log In"/>
-									</v-col>
-									<v-col cols="12"
-										xl="3"
-										class="text-right text-subtitle-1 text-primary">
-										<NuxtLink class="text-primary text-decoration-none"
-											to="/apply">
-											Or Sign Up
-										</NuxtLink>
-									</v-col>
-								</v-row>
-							</form>
-						</div>
-					</v-card>
-				</v-col>
-			</v-row>
-		</v-container>
-	</NuxtLayout>
+	<div>
+		<NuxtLayout name="admin">
+			<v-container class="my-5"
+				v-if="passedCheck">
+				<v-row>
+					<v-col cols="12">
+						<v-card
+							variant="outlined"
+							color="primary"
+							width="100%"
+							class="pa-15 text-primary">
+							<h1 class="text-h1 text-center mb-10">Log In</h1>
+							<div>
+								<form autocomplete="off">
+									<v-row>
+										<v-col cols="12"
+											xl="8"
+											class="offset-xl-2">
+											<CBTextField
+												label="Username or Email*"
+												name="username"
+												hint="If you did not provide an email address use you Username, otherwise use your Email."
+												:error-messages="errors.username"
+											/>
+										</v-col>	
+										<v-col cols="12"
+											xl="8"
+											class="offset-xl-2">
+											<CBPasswordField
+												name="password"
+												label="Password *"
+												autocomplete="off"
+												hint="Enter your password."
+												:errors="errors.password"
+											/>
+										</v-col>
+										<v-col cols="12"
+											xl="5"
+											class="offset-xl-2 mb-5">
+											<p class="text-center text-deep-orange-darken-4 text-body-1 mb-10">{{ logInError }}</p>
+											<BackButton
+												@click="logIn"
+												color="primary-darken-1"
+												class="text-primary"
+												text="Log In"/>
+										</v-col>
+										<v-col cols="12"
+											xl="3"
+											class="text-right text-subtitle-1 text-primary">
+											<NuxtLink class="text-primary text-decoration-none"
+												to="/apply">
+												Or Sign Up
+											</NuxtLink>
+										</v-col>
+									</v-row>
+								</form>
+							</div>
+						</v-card>
+					</v-col>
+				</v-row>
+			</v-container>
+		</NuxtLayout>
+	</div>
 </template>
 
 <script setup>

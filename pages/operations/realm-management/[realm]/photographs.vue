@@ -32,15 +32,16 @@
 					<v-row>
 						<v-col cols="12"
 							v-if="!rearrangeMode">
-							<div class="d-flex">
+							<div class="d-flex justify-space-between">
 								<CBToggleSwitch
-									class="text-primary"
+									class="text-primary primary mr-5"
+									color="primary"
 									:name="`photos[${idx}].hasSemiotic`"
 									v-model="photo.value.hasSemiotic"
 									label="Image Has Semiotic"
 								/>
 								<CBToggleSwitch
-									class="text-primary"
+									class="text-primary mr-5"
 									:name="`photos[${idx}].published`"
 									v-model="photo.value.published"
 									label="Is Published"
@@ -197,16 +198,16 @@
 						</v-col>
 						<v-col cols="12"
 							lg="6"
-							class="d-lg-flex"
+							class="d-md-flex"
 							v-if="!rearrangeMode">
-							<BackButton class="mr-2"
+							<BackButton 
 								color="primary-darken-2"
 								variant="outlined"
 								text="Undo Edits"
 								rounded
 								:realm-icons="['undo']"
 								@click="undoPhotoEdits(idx)"/>
-							<BackButton class="mr-2 mb-3"
+							<BackButton class="ml-10 mb-3"
 								rounded
 								:warning="photo?.value?.hasSemiotic"
 								:text="photo?.value?.hasSemiotic ? `Save With Caution` :`Save Changes`"

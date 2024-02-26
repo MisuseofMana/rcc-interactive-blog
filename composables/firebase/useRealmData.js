@@ -29,16 +29,17 @@ const realmPhotosError = ref(``)
 const artifactsData = ref([])
 const artifactsError = ref(``)
 
-const siteStore = useSiteStore()
 const db = getFirestore(firebaseApp)
 
 const playAudio = (audioLink) => {
+	const siteStore = useSiteStore()
 	siteStore.$patch({currentSound: audioLink})
 }
 
 // PROMISES
 // used to get the entire root doc of a specific realm
 async function getRealmDocData(realmName, options) {
+	const siteStore = useSiteStore()
 	// get realms doc (singular) where the slug equals the route param 'realm'
 	const queryForRealmData = doc(db, `realms`, realmName)
 
@@ -73,6 +74,7 @@ async function getRealmDocData(realmName, options) {
 
 // used to get all cover photos to display on the homepage
 async function getCoverPhotos() {
+	const siteStore = useSiteStore()
 	const queryForCoverPhotos = query(collectionGroup(db, `photographs`), where(`useAsCoverImage`, `==`, true))
 	
 	if(siteStore?.realmCoverPhotos.length) {
@@ -101,6 +103,7 @@ async function getCoverPhotos() {
 
 // used to get all realm photos to display on the insights pages
 async function getRealmPhotos(realmSlug) {
+	const siteStore = useSiteStore()
 	const queryForPhotos = query(collection(db, `realms`, realmSlug, `photographs`), orderBy(`order`))
 
 	if(Object.keys(siteStore?.realmPhotosData).includes(realmSlug)) {
@@ -126,6 +129,7 @@ async function getRealmPhotos(realmSlug) {
 }
 
 async function getRealmArtifacts(realmSlug) {
+	const siteStore = useSiteStore()
 	const queryForArtifacts = query(collection(db, `realms`, realmSlug, `artifacts`))
 
 	if(Object.keys(siteStore?.realmArtifacts).includes(realmSlug)) {

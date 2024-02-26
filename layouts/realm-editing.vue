@@ -28,14 +28,26 @@
 						link-name="/operations/photo-submission" />
 				</v-col>
 			</v-row>
-			<v-row class="mb-10 mt-10">
+			<v-row class="mb-10 mt-10 d-flex align-center">
+				<v-col cols="4"
+					sm="4"
+					md="4"
+					class="offset-4 offset-md-0">
+					<v-img class="errorAbberation"
+						max-height="500"
+						min-width="100"
+						min-height="100"
+						max-width="400"
+						:src="realm?.sigilImageLink ||`/images/icons/placeholder-sigil.png`"
+						alt="a radial icon representing the realm you're visiting"></v-img>
+				</v-col>
 				<v-col cols="12"
 					sm="7"
-					md="10"
+					md="8"
 					class="mb-2">
 					<div>
-						<h2 class="text-h2 text-deep-orange-darken-4 ">CAUTION: CONSEQUENCES</h2>
-						<h3 class="text-h3 text-deep-orange-darken-4 mb-4">You are editing <strong class="text-decoration-underline">{{ route.params.realm.split('-').join(' ').toUpperCase()}}</strong></h3>
+						<h2 class="text-h2 mb-4 text-deep-orange-darken-4 ">CAUTION: CONSEQUENCES</h2>
+						<p class="text-body-1 text-deep-orange-darken-4 mb-4">You are editing <strong class="text-decoration-underline">{{ route.params.realm.split('-').join(' ').toUpperCase()}}</strong></p>
 						<p class="text-body-1 text-deep-orange-darken-4 mb-15">Once saved, changes to the text are not recoverable and must be changed manually.</p>
 					</div>
 				</v-col>

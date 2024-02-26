@@ -7,32 +7,42 @@
 }
 
 .brainwash-enter-active {
-  animation: brainwash-in .5s;
+  animation: brainwash-in .2s;
 }
 
 .brainwash-leave-active {
-  animation: brainwash-out .5s;
+  animation: brainwash-out .2s;
 }
 
 @keyframes brainwash-in {
   0% {
-    transform: translateX(10%);
+    /* transform: translateX(40%); */
     opacity: 0;
   }
+  /* 50% {
+    transform: translateX(-8%);
+    opacity: 1;
+  } */
   100% {
-    transform: translateX(0%);
+    /* transform: translateX(0%); */
     opacity: 1;
   }
 }
 
 @keyframes brainwash-out {
   0% {
-    transform: translateX(0%);
     opacity: 1;
   }
+  /* 50% {
+    transform: translateX(8%);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  } */
   100% {
-    transform: translateX(-10%);
-    opacity: 0;
+    /* transform: translateX(-40%); */
+    opacity:0
   }
 }
 

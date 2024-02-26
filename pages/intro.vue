@@ -77,7 +77,7 @@ import { useSiteStore } from '~/store/useSiteStore.js'
 
 const { mdAndUp, smAndUp } = useDisplay()
 const siteStore = useSiteStore()
-siteStore.$patch({currentSound: `audio/intro.mp3`})
+siteStore.$patch({currentSound: `audio/intro.mp3`, volume: 0.08})
 </script>
 
 <style scoped>

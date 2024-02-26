@@ -13,10 +13,10 @@ export const firebaseApp = initializeApp({
 	measurementId: `G-CLXB8V1MH8`,
 })
 
-const siteStore = useSiteStore()
 const db = getFirestore(firebaseApp)
 
 export function useRealmNames() {
+	const siteStore = useSiteStore()
 	const nameList = ref([])
 
 	const getRealmNames = async () => {
@@ -49,6 +49,7 @@ export function useRealmNames() {
 }
 
 export function useManageableRealms(first=15) {
+	const siteStore = useSiteStore()
 	const realmList = ref([])
 
 	const getRealmList = async () => {
