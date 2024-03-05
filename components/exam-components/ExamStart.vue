@@ -36,19 +36,23 @@
 							
 							<v-row>
 								<v-col cols="12"
-									sm="12">
+									sm="12"
+									md="6">
 									<BackButton class="mr-2"
 										text="Back to /Briefing"
 										:realm-icons="['map-search-outline']"
-										link-name="/briefing" />
+										link-name="/briefing" 
+										front-icon="arrow-left-bold"/>
 								</v-col>
 								<v-col cols="12"
-									sm="12">
+									sm="12"
+									md="6">
 									<BackButton class="mr-2"
 										warning
 										text="Begin Exam"
 										:disabled="examDisabled"
-										:realm-icons="['key']"
+										front-icon="key"
+										:realm-icons="['arrow-right-bold']"
 										@click="startExam"/>
 								</v-col>
 							</v-row>

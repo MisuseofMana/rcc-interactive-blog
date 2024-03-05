@@ -1,8 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<div>
+	<v-app>
 		<slot />
-	</div>
+	</v-app>
 </template>
 
 <script setup>

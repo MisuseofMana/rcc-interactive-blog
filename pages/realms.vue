@@ -6,11 +6,11 @@
 				<v-col v-for="(post, index) in realmList"
 					:key="index"
 					cols="12"
-					sm="6"
+					sm="8"
 					md="6"
 					lg="4"
 					xl="4"
-					class="mb-15">
+					class="mb-15 offset-sm-2 offset-md-0">
 					<div class="border mx-5">
 						<div class="px-8">
 							<div class="d-flex justify-space-between align-end mb-1">
@@ -63,6 +63,8 @@
 								:to="`/insights/${post.slug}`">
 								<v-img cover
 									class="realmImage"
+									min-width="300"
+									min-height="300"
 									lazy-src="/images/mocks/placeholder.jpg"
 									:src="coverPhotos?.find(photo => { return photo.realmId === post.id})?.imageLink"
 									alt="a photo representing the realm you're visiting">

@@ -82,7 +82,6 @@ async function getCoverPhotos() {
 		return
 	}
 
-
 	try {
 		const querySnapshot = await getDocs(queryForCoverPhotos)
 		querySnapshot.forEach((doc) => {

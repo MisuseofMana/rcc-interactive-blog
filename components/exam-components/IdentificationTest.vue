@@ -3,29 +3,33 @@
 		<v-row no-gutters
 			dense>
 			<v-col cols="12"
-				lg="6"
+				lg="12"
 				xl="4"
-				class="offset-lg-3 offset-xl-4">
-				<v-row no-gutters dense v-if="question !== null">
+				class="offset-xl-4">
+				<v-row no-gutters
+					dense
+					v-if="questions !== null">
 					<v-col cols="12"
 						class="text-center text-primary text-h3">
-						<p>{{ which.realmCipher }}</p>
+						<p>{{ useProperCaseFromSlug(correct.realmId) }}</p>
 					</v-col>
 					<v-col 
-						v-for="(item, index) in question"
-						:key="item.documentPath"
+						v-for="(item, index) in questions"
+						:key="item.realmId"
 						cols="6"
 						sm="5"
 						md="4"
-						lg="6"
+						lg="3"
 						:class="index === 0 || index % 2 === 0 ? `offset-sm-1 offset-md-2 offset-lg-0` : ``">
 						<div class="grow">
 							<v-img
-								@click="checkAnswer(item.realmCipher)"
+								@click="checkAnswer(item.realmId)"
 								class="realmImage"
 								cover
+								min-width="250"
+								min-height="250"
 								lazy-src="/images/mocks/placeholder.jpg"
-								:src="`/images/${item.folderPath}/${item.documentPath}.jpg`"
+								:src="item.imageLink"
 								alt="an image taken from another realm">
 							</v-img>
 						</div>	
@@ -38,16 +42,15 @@
 </template>
 
 <script setup>
-import { useGenerateExamQuestion } from '~/composables/useGenerateExamQuestion'
+import { useGenerateIdentificationQuestion } from '~/composables/useGenerateExamQuestion'
+import { useProperCaseFromSlug } from '~/composables/useCaseModification'
+const { questions, correct } = useGenerateIdentificationQuestion()
 
 const emit = defineEmits([`solved`, `failed`])
 
-const { which, question } = useGenerateExamQuestion()
-
 const checkAnswer = (guess) => {
-	if(guess === which.value.realmCipher) emit(`solved`)
+	if(guess === correct.value.realmId) emit(`solved`)
 	else emit(`failed`)
 }
-
 
 </script>

@@ -1,28 +1,20 @@
-import { ref, onMounted } from 'vue'
-import { useRandomNumber } from '~/composables/useRandomNumber'
-import { useClassifyRealm } from '~/composables/useClassifyRealm'
-import { pages } from '../pages/realms.data'
+import { ref } from 'vue'
+import { useRandomNumber, useRandomNumberArray } from '~/composables/useRandomNumber'
+import { useCoverPhotos } from '~/composables/firebase/useRealmData'
 
-export function useGenerateExamQuestion(){
-	const { classifiedRealms } = useClassifyRealm(pages)
-	const question = ref(null)
-    const which = ref(null)
-	onMounted(() => {
-		let returnedArray = [{},{},{},{}]
-		let destructableRealmsArray = [...classifiedRealms.value]
-		destructableRealmsArray.splice(destructableRealmsArray.indexOf(item => item.abbTitle === `Redacted`))[0]
+export function useGenerateIdentificationQuestion(){
+	const questions = ref(null)
+	const correct = ref(null)
+	let coverPhotos = []
+	let returnedArray = [{},{},{},{}]
+
+	useCoverPhotos().then(({coverPhotosData}) => {
+		coverPhotos = coverPhotosData.value
 		returnedArray.forEach((_item, index) => {
-			const removedRealm = destructableRealmsArray.splice(useRandomNumber(destructableRealmsArray.length),1)[0]
-			const lengthOfDocuments = removedRealm.documents.length
-			returnedArray[index] = {
-				documentPath: removedRealm.documents[useRandomNumber(lengthOfDocuments)].filePath,
-				realmName: removedRealm.title,
-				folderPath: removedRealm.slug,
-				realmCipher: removedRealm.realmCipher
-			}
+			returnedArray[index] = coverPhotos.splice(useRandomNumber(coverPhotos.length),1)[0] 
 		})
-		which.value = returnedArray[useRandomNumber(returnedArray.length)]
-		question.value = returnedArray
+		questions.value = returnedArray
+		correct.value = returnedArray[useRandomNumber(returnedArray.length)]
 	})
-	return { question, which }
+	return { questions, correct }
 }
