@@ -9,13 +9,6 @@
 					lg="12"
 					xl="8"
 					class="offset-xl-2">
-					<p
-						v-if="showDebug"
-						class="text-deep-orange-darken-4 text-body-1" 
-					>
-						{{ name }}
-					</p>
-
 					<h1 class="text-primary mb-3"
 						:class="smAndDown ? ' text-center text-h1' : 'text-h1'">
 						CRICKBURROW ARCHIVES
@@ -67,7 +60,7 @@
 import { useDisplay } from 'vuetify'
 import { usePageAudio } from '~/composables/usePageAudio'
 usePageAudio()
-const { smAndDown, name } = useDisplay()
+const { smAndDown } = useDisplay()
 </script>
 
 

@@ -1,4 +1,4 @@
-import { Howl } from 'Howler'
+import { Howl } from 'howler'
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { onMounted, ref } from 'vue'
 

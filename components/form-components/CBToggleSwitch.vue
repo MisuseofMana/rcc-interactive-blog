@@ -2,7 +2,6 @@
 	<v-switch v-model="value"
 		:label="label"
 		:color="color"
-		inset
 		hide-details></v-switch>
 </template>
 

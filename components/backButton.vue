@@ -10,6 +10,7 @@
 		<div class="d-flex align-center justify-center">
 			<div v-if="frontIcon">
 				<v-icon class="mr-2"
+					size="x-large"
 					:color="computedIconColor"
 					:icon="`mdi-${frontIcon}`"></v-icon>
 			</div>
@@ -20,6 +21,7 @@
 			<div v-if="realmIcons">
 				<v-icon 
 					v-for="(items, index) in realmIcons"
+					size="x-large"
 					:icon="`mdi-${items}`"
 					:key="items+index"
 					:color="computedIconColor"></v-icon>

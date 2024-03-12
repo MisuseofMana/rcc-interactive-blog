@@ -34,11 +34,11 @@
 					md="4"
 					class="offset-4 offset-md-0">
 					<v-img class="errorAbberation"
-						max-height="500"
+						max-height="300"
 						min-width="100"
 						min-height="100"
-						max-width="400"
-						:src="realm?.sigilImageLink ||`/images/icons/placeholder-sigil.png`"
+						max-width="300"
+						:src="sigilLink ||`/images/icons/placeholder-sigil.png`"
 						alt="a radial icon representing the realm you're visiting"></v-img>
 				</v-col>
 				<v-col cols="12"
@@ -97,13 +97,22 @@
 </template>
 
 <script setup>
+import { onMounted, ref} from 'vue'
 import { useDisplay } from 'vuetify'
 import { usePageAudio } from '~/composables/usePageAudio'
+import { useRealmData } from '~/composables/firebase/useRealmData'
 
 // eslint-disable-next-line no-undef
 const route = useRoute()
-
 usePageAudio()
+
+const sigilLink = ref(``)
+
+onMounted(() => {
+	useRealmData(route.params.realm, {noMusic: true}).then(({realmData}) => {
+		sigilLink.value = realmData.value.sigilImageLink
+	})
+}) 
 
 const { smAndDown } = useDisplay()
 </script>

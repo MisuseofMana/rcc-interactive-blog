@@ -91,6 +91,7 @@ export function useManageableRealms(first=15) {
 }
 
 export function useRealmCredits() {
+	const siteStore = useSiteStore()
 	const realmCredits = ref([])
 
 	const getRealmCredits = async () => {

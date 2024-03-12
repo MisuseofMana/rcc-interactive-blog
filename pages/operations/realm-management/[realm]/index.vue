@@ -1,193 +1,195 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<NuxtLayout name="realm-editing">
-		<h4 class="text-h4 mb-3">{{ realmSnapshot?.title }} Data</h4>
-		<v-card variant="outlined"
-			color="primary-darken-1"
-			class="pa-15 text-primary mb-15">
-			<v-row>
-				<v-col cols="12"
-					md="12"
-					class="mb-5 text-primary">
-					<div class="d-flex align-center justify-center align-md-start">
-						<CBToggleSwitch
-							name="hasSemiotics"
-							label="Has Semiotics"
+	<div>
+		<NuxtLayout name="realm-editing">
+			<h4 class="text-h4 mb-3">{{ realmSnapshot?.title }} Data</h4>
+			<v-card variant="outlined"
+				color="primary-darken-1"
+				class="pa-15 text-primary mb-15">
+				<v-row>
+					<v-col cols="12"
+						md="12"
+						class="mb-5 text-primary">
+						<div class="d-flex align-center justify-space-between align-md-start">
+							<CBToggleSwitch
+								name="hasSemiotics"
+								label="Has Semiotics"
+							/>
+							<CBToggleSwitch
+								name="clearanceNeeded"
+								label="Clearance Needed"
+							/>
+							<CBToggleSwitch
+								name="takingSubmissions"
+								label="Accepting Submissions"
+							/>
+						</div>
+					</v-col>
+				</v-row>
+				<v-row>
+					<v-col cols="12"
+						md="6"
+						class="mb-5 text-primary">
+						<CBTextField
+							class="mb-5"
+							name="title"
+							:errors="errors[`title`]"
+							hint="A proper noun case name for the realm."
+							label="Realm Name*"
 						/>
-						<CBToggleSwitch
-							name="clearanceNeeded"
-							label="Clearance Needed"
+						<CBTextField
+							class="mb-5"
+							:name="`abbTitle`"
+							:errors="errors[`abbTitle`]"
+							hint="A truncation to use in place of longer realm names. e.g. Agg. Lagoon, Inhb. Realm"
+							:label="realmNameTruncationLabel"
 						/>
-						<CBToggleSwitch
-							name="takingSubmissions"
-							label="Accepting Submissions"
+						<CBTextField
+							class="mb-5"
+							name="subtitle"
+							:errors="errors[`subtitle`]"
+							hint="An adjective then noun works well here, e.g. Bountiful Archeology "
+							label="Realm Subtitle*"
 						/>
-					</div>
-				</v-col>
-			</v-row>
-			<v-row>
-				<v-col cols="12"
-					md="6"
-					class="mb-5 text-primary">
-					<CBTextField
-						class="mb-5"
-						name="title"
-						:errors="errors[`title`]"
-						hint="A proper noun case name for the realm."
-						label="Realm Name*"
-					/>
-					<CBTextField
-						class="mb-5"
-						:name="`abbTitle`"
-						:errors="errors[`abbTitle`]"
-						hint="A truncation to use in place of longer realm names. e.g. Agg. Lagoon, Inhb. Realm"
-						:label="realmNameTruncationLabel"
-					/>
-					<CBTextField
-						class="mb-5"
-						name="subtitle"
-						:errors="errors[`subtitle`]"
-						hint="An adjective then noun works well here, e.g. Bountiful Archeology "
-						label="Realm Subtitle*"
-					/>
-					<v-sheet class="text-primary mb-2 d-flex align-center justify-start"
-						height="30px">
-						<v-icon v-for="(icon, index) in computedRealmIcons"
-							size="25px"
-							class="mr-2"
-							:key="`icon${index}`"
-							:icon="`mdi-${icon}`">
-						</v-icon>
-					</v-sheet>
-					<CBTextField
-						class="mb-5"
-						name="iconNames"
-						:errors="errors[`iconNames`]"
-						hint="Comma separated values of Material Design Icon names. If the icons display above your input is valid."
-						label="Realm Icons*"
-					/>
-					<CBTextField
-						v-if="values.hasSemiotics"
-						class="mb-5"
-						:name="`realmCode`"
-						:errors="errors[`realmCode`]"
-						hint="If a realm has Semiotics it requires a 4 digit code comprised of 0 to 9, *, and # "
-						label="Realm Code*"
-					/>
-				</v-col>
-				<v-col cols="12"
-					md="6"
-					class="text-primary">
-					<CBTextField
-						class="mb-5"
-						:name="`slug`"
-						:errors="errors[`slug`]"
-						hint="A hyphenated URL path, lowercase letters & hyphens only. e.g. silent-shores"
-						label="Realm Slug*"
-					/>
-					<CBTextArea
-						class="mb-5"
-						name="narrative"
-						label="Realm Narrative*"
-						hint="Should be musing information about the realm. Two short sentences or sentence fragments are appropriate."
-						:errors="errors[`narrative`]"
-					/>
-					<div class="d-flex">
+						<v-sheet class="text-primary mb-2 d-flex align-center justify-start"
+							height="30px">
+							<v-icon v-for="(icon, index) in computedRealmIcons"
+								size="25px"
+								class="mr-2"
+								:key="`icon${index}`"
+								:icon="`mdi-${icon}`">
+							</v-icon>
+						</v-sheet>
+						<CBTextField
+							class="mb-5"
+							name="iconNames"
+							:errors="errors[`iconNames`]"
+							hint="Comma separated values of Material Design Icon names. If the icons display above your input is valid."
+							label="Realm Icons*"
+						/>
+						<CBTextField
+							v-if="values.hasSemiotics"
+							class="mb-5"
+							:name="`realmCode`"
+							:errors="errors[`realmCode`]"
+							hint="If a realm has Semiotics it requires a 4 digit code comprised of 0 to 9, *, and # "
+							label="Realm Code*"
+						/>
+					</v-col>
+					<v-col cols="12"
+						md="6"
+						class="text-primary">
+						<CBTextField
+							class="mb-5"
+							:name="`slug`"
+							:errors="errors[`slug`]"
+							hint="A hyphenated URL path, lowercase letters & hyphens only. e.g. silent-shores"
+							label="Realm Slug*"
+						/>
+						<CBTextArea
+							class="mb-5"
+							name="narrative"
+							label="Realm Narrative*"
+							hint="Should be musing information about the realm. Two short sentences or sentence fragments are appropriate."
+							:errors="errors[`narrative`]"
+						/>
+						<div class="d-flex">
+							<CBFileInput
+								class="mb-5 mr-4"
+								:errors="errors[`realmSigil`]"
+								hint="Upload an image representing one of the existing realms."
+								label="Realm Sigil"
+								name="realmSigil"
+								@change="setSource($event, `realmSigil`)"
+							/>	
+							<v-img
+								class="abberation mb-8"
+								contain
+								max-width="100px"
+								:src="images[0]"
+								alt="geometric shape"/>
+						</div>
 						<CBFileInput
-							class="mb-5 mr-4"
-							:errors="errors[`realmSigil`]"
-							hint="Upload an image representing one of the existing realms."
-							label="Realm Sigil"
-							name="realmSigil"
-							@change="setSource($event, `realmSigil`)"
-						/>	
-						<v-img
-							class="abberation mb-8"
-							contain
-							max-width="100px"
-							:src="images[0]"
-							alt="geometric shape"/>
-					</div>
-					<CBFileInput
-						class="mb-5"
-						:errors="errors['realmAudio']"
-						hint="Upload a looping audio file in MP3 format which will play when viewing the realm."
-						label="Realm Audio"
-						name="realmAudio"
-						@change="setSource($event, 'realmAudio')"
-					/>
-					<CBTextField
-						class="mb-5"
-						:name="`audioLicenseLink`"
-						:errors="errors[`audioLicenseLink`]"
-						hint="Input a url to the CC License if sourced from somewhere requiring attribution."
-						label="Audio License URL"
-					/>
-					<CBTextField
-						class="mb-5"
-						:name="`audioAuthorLink`"
-						:errors="errors[`audioAuthorLink`]"
-						hint="Input a url to the original audio posted by the audio author if sourced from somewhere requiring attribution."
-						label="Audio Author URL"
-					/>
-					<CBTextField
-						class="mb-5"
-						:name="`audioAuthorName`"
-						:errors="errors[`audioAuthorName`]"
-						hint="Input the name of the author if sourced from somewhere requiring attribution."
-						label="Audio Author Name"
-					/>
-				</v-col>
-				<v-col cols="12"
-					md="4"
-					class="text-primary">
-					<CBToggleSwitch
-						name="isPublished"
-						label="Is Published"
-					/>
-				</v-col>
-				<v-col cols="12"
-					md="4">
-					<BackButton class="mr-2 mb-3"
-						variant="outlined"
-						text="Undo Edits"
-						rounded
-						:realm-icons="['undo']"
-						:disabled="!meta.dirty || isUploading"
-						:loading="isUploading"
-						@click="undoEdits"/>
-				</v-col>	
-				<v-col cols="12"
-					md="4">
-					<BackButton class="mr-2"
-						rounded
-						variant="elevated"
-						:text="!meta.dirty ? `No Changes Made` :`Save Changes`"
-						:caution="isUploading || !meta.dirty"
-						:realm-icons="['floppy']"
-						@click="updateRealmData"
-					/>
-				</v-col>	
-			</v-row>
-		</v-card>
-		<v-snackbar
-			v-model="successfulUpload"
-		>
-			<p class="text-primary text-body-2">
-				Upload Succeeded
-			</p>
+							class="mb-5"
+							:errors="errors['realmAudio']"
+							hint="Upload a looping audio file in MP3 format which will play when viewing the realm."
+							label="Realm Audio"
+							name="realmAudio"
+							@change="setSource($event, 'realmAudio')"
+						/>
+						<CBTextField
+							class="mb-5"
+							:name="`audioLicenseLink`"
+							:errors="errors[`audioLicenseLink`]"
+							hint="Input a url to the CC License if sourced from somewhere requiring attribution."
+							label="Audio License URL"
+						/>
+						<CBTextField
+							class="mb-5"
+							:name="`audioAuthorLink`"
+							:errors="errors[`audioAuthorLink`]"
+							hint="Input a url to the original audio posted by the audio author if sourced from somewhere requiring attribution."
+							label="Audio Author URL"
+						/>
+						<CBTextField
+							class="mb-5"
+							:name="`audioAuthorName`"
+							:errors="errors[`audioAuthorName`]"
+							hint="Input the name of the author if sourced from somewhere requiring attribution."
+							label="Audio Author Name"
+						/>
+					</v-col>
+					<v-col cols="12"
+						md="4"
+						class="text-primary">
+						<CBToggleSwitch
+							name="isPublished"
+							label="Is Published"
+						/>
+					</v-col>
+					<v-col cols="12"
+						md="4">
+						<BackButton class="mr-2 mb-3"
+							variant="outlined"
+							text="Undo Edits"
+							rounded
+							:realm-icons="['undo']"
+							:disabled="!meta.dirty || isUploading"
+							:loading="isUploading"
+							@click="undoEdits"/>
+					</v-col>	
+					<v-col cols="12"
+						md="4">
+						<BackButton class="mr-2"
+							rounded
+							variant="elevated"
+							:text="!meta.dirty ? `No Changes Made` :`Save Changes`"
+							:caution="isUploading || !meta.dirty"
+							:realm-icons="['floppy']"
+							@click="updateRealmData"
+						/>
+					</v-col>	
+				</v-row>
+			</v-card>
+			<v-snackbar
+				v-model="successfulUpload"
+			>
+				<p class="text-primary text-body-2">
+					Upload Succeeded
+				</p>
 
-			<template v-slot:actions>
-				<v-btn
-					color="primary"
-					variant="text"
-					@click="successfulUpload = false"
-				>
-					Close
-				</v-btn>
-			</template>
-		</v-snackbar>
-	</NuxtLayout>
+				<template v-slot:actions>
+					<v-btn
+						color="primary"
+						variant="text"
+						@click="successfulUpload = false"
+					>
+						Close
+					</v-btn>
+				</template>
+			</v-snackbar>
+		</NuxtLayout>
+	</div>
 </template>
 
 <script setup>

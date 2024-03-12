@@ -10,8 +10,9 @@
 					dense
 					v-if="questions !== null">
 					<v-col cols="12"
-						class="text-center text-primary text-h3">
-						<p>{{ useProperCaseFromSlug(correct.realmId) }}</p>
+						class="text-center text-primary text-body-1">
+						<h1 class="text-body-2">Question #1:</h1>
+						<p>Correctly identify {{ useProperCaseFromSlug(correct.realmId) }}.</p>
 					</v-col>
 					<v-col 
 						v-for="(item, index) in questions"
@@ -42,9 +43,9 @@
 </template>
 
 <script setup>
-import { useGenerateIdentificationQuestion } from '~/composables/useGenerateExamQuestion'
+import { useGenerateSymbolQuestion } from '~/composables/useExam'
 import { useProperCaseFromSlug } from '~/composables/useCaseModification'
-const { questions, correct } = useGenerateIdentificationQuestion()
+const { questions, correct } = useGenerateSymbolQuestion()
 
 const emit = defineEmits([`solved`, `failed`])
 
@@ -52,5 +53,4 @@ const checkAnswer = (guess) => {
 	if(guess === correct.value.realmId) emit(`solved`)
 	else emit(`failed`)
 }
-
 </script>

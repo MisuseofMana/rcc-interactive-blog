@@ -92,7 +92,7 @@
 					</v-row>
 					<v-row>
 						<v-col cols="12">
-							<div class="d-flex align-center align-md-start">
+							<div class="d-flex align-center justify-space-between align-md-start">
 								<CBToggleSwitch
 									name="hasSemiotics"
 									label="Has Semiotics"
@@ -113,7 +113,6 @@
 							xl="6"
 							class="mb-1">
 							<BackButton
-								caution
 								variant="outlined"
 								link-name="/operations/control"
 								:disabled="isSubmitting"

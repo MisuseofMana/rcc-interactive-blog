@@ -27,6 +27,17 @@
 								front-icon="arrow-left"
 								link-name="/brainwash" />
 						</v-col>
+						<v-col cols="12"
+							sm="6"
+							md="4"
+							xl="4"
+							class="offset-md-4">
+							<BackButton
+								variant="outlined"
+								text="Sign Out"
+								front-icon="radiology-box-outline"
+								@click="logOut()"/>
+						</v-col>
 					</v-row>
 
 					<v-main class="text-primary">
@@ -40,8 +51,18 @@
 
 <script setup>
 import { usePageAudio } from '~/composables/usePageAudio'
+import { getAuth, signOut } from "firebase/auth"
 usePageAudio()
 const showDebug = false
+const logOut = () => {
+	const auth = getAuth()
+	signOut(auth).then(() => {
+		// eslint-disable-next-line no-undef
+		navigateTo(`/brainwash`)
+	}).catch((error) => {
+		console.log(error)
+	})
+}
 </script>
 
 
