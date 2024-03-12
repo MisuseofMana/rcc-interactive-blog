@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<v-container class="my-5">
-		<v-row>
+		<v-row v-if="false">
 			<v-col cols="12"
 				sm="12"
 				md="12"
@@ -65,7 +65,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, } from 'vue'
+navigateTo(`/brainwash`)
 const emit = defineEmits([`solved`])
 const startExam = () => {
 	localStorage.remainingAttempts--
