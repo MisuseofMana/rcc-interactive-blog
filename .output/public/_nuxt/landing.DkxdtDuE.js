@@ -1,0 +1,1 @@
+import{u as a}from"./usePageAudio.CjV2TLob.js";import{i as e,w as o,cm as r,h as s,cn as p}from"./entry.ChAOt23L.js";import"./howler.DaSYxFA4.js";import"./_commonjsHelpers.Cpj98o6Y.js";import"./useSiteStore.Cb1hoYNs.js";const d={__name:"landing",setup(n){return a(),(t,i)=>(s(),e(r,null,{default:o(()=>[p(t.$slots,"default")]),_:3}))}};export{d as default};

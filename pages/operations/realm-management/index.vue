@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useManageableRealms } from '~/composables/firebase/useRealmNames'
 import { useLastUpdated } from '~/composables/useLastUpdated'
 import { useDisplay } from 'vuetify'
@@ -91,7 +91,12 @@ definePageMeta({
 	middleware: [`auth`],
 })
 
-const { realmList } = useManageableRealms()
+const realmList = ref([])
+
+useManageableRealms().then(({realmListData}) => {
+	realmList.value = realmListData.value
+})
+
 
 const { smAndDown } = useDisplay()
 const iconWidth = computed(() => {

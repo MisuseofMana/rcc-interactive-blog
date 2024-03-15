@@ -15,6 +15,46 @@ export const firebaseApp = initializeApp({
 
 const db = getFirestore(firebaseApp)
 
+const realmListData = ref([])
+const realmListError = ref(``)
+
+async function getManageableRealmsData(first=15) {
+	const siteStore = useSiteStore()
+
+	try {
+		if (siteStore.realmList.length) {
+			realmListData.value = siteStore.realmList
+			return
+		}
+
+		const res = await getDocs(
+			query(collection(db, `realms`), orderBy(`title`), limit(first))
+		)
+		res.forEach((doc) => {
+			const { id } = doc
+			const {sigilImageLink, hasSemiotics, clearanceNeeded, abbTitle, subtitle, title, iconNames, slug, lastUpdated } = doc.data()
+			realmListData.value.push({
+				title, 
+				clearanceNeeded,
+				id,
+				subtitle,
+				abbTitle,
+				sigilImageLink,
+				iconNames,
+				hasSemiotics,
+				slug,
+				lastUpdated
+			})
+		})
+		siteStore.realmList = realmListData.value
+	}
+	catch (error) {
+		if (error) {
+			realmListError.value = error
+		}
+	}
+}
+
 export function useRealmNames() {
 	const siteStore = useSiteStore()
 	const nameList = ref([])
@@ -45,48 +85,6 @@ export function useRealmNames() {
 
 	return {
 		nameList,
-	}
-}
-
-export function useManageableRealms(first=15) {
-	const siteStore = useSiteStore()
-	const realmList = ref([])
-
-	const getRealmList = async () => {
-		if (siteStore.realmList.length) {
-			realmList.value = siteStore.realmList
-		}
-		else {
-			const getRealmsTakingSubmissions = await getDocs(
-				query(collection(db, `realms`), orderBy(`title`), limit(first))
-			)
-			let container = []
-			// populate realm names with results from query
-			getRealmsTakingSubmissions.forEach((doc) => {
-				const { id } = doc
-				const {sigilImageLink, hasSemiotics, clearanceNeeded, abbTitle, subtitle, title, iconNames, slug, lastUpdated } = doc.data()
-				container.push({
-					title, 
-					clearanceNeeded,
-					id,
-					subtitle,
-					abbTitle,
-					sigilImageLink,
-					iconNames,
-					hasSemiotics,
-					slug,
-					lastUpdated
-				})
-			})
-			siteStore.realmList = container
-			realmList.value = container
-		}
-	}
-	
-	getRealmList()
-
-	return {
-		realmList,
 	}
 }
 
@@ -127,4 +125,9 @@ export function useRealmCredits() {
 	return {
 		realmCredits,
 	}
+}
+
+export async function useManageableRealms() {
+	await getManageableRealmsData()
+	return { realmListData, realmListError }
 }

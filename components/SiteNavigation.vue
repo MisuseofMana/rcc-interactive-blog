@@ -20,7 +20,7 @@
 				:realm-icons="['map-search-outline']"
 				link-name="/realms" />
 		</v-col>
-		<!-- <v-col cols="6"
+		<v-col cols="6"
 			sm="6"
 			md="4"
 			xl="2">
@@ -28,7 +28,7 @@
 				:realm-icons="['radar']"
 				:disabled="lockedFromExam"
 				link-name="/operator-exam" />
-		</v-col> -->
+		</v-col>
 	</v-row>
 </template>
 

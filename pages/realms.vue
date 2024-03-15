@@ -112,10 +112,13 @@ import { useSiteStore } from '~/store/useSiteStore.js'
 const siteStore = useSiteStore()
 siteStore.$patch({currentSound: `audio/realms.mp3`, volume: 0.1})
 
-const { realmList } = useManageableRealms()
 const coverPhotos = ref([])
+const realmList = ref([])
 
 onMounted(() => {
+	useManageableRealms().then(({realmListData}) => {
+		realmList.value = realmListData.value
+	})
 	useCoverPhotos().then(({coverPhotosData}) => {
 		coverPhotos.value = coverPhotosData.value
 	})

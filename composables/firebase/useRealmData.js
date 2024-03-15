@@ -76,13 +76,12 @@ async function getRealmDocData(realmName, options) {
 async function getCoverPhotos() {
 	const siteStore = useSiteStore()
 	const queryForCoverPhotos = query(collectionGroup(db, `photographs`), where(`useAsCoverImage`, `==`, true))
-	
-	if(siteStore?.realmCoverPhotos.length) {
-		coverPhotosData.value = siteStore.realmCoverPhotos
-		return
-	}
 
 	try {
+		if(Object.entries(siteStore?.realmCoverPhotos).length) {
+			coverPhotosData.value = Object.values(siteStore?.realmCoverPhotos)
+			return
+		}
 		const querySnapshot = await getDocs(queryForCoverPhotos)
 		querySnapshot.forEach((doc) => {
 			const {realmId, imageLink} = doc.data()

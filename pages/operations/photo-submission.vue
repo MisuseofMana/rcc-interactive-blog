@@ -200,7 +200,6 @@
 				</v-snackbar>
 			</v-container>
 			<canvas
-				class="d-none"
 				id="compression-canvas"
 				width="700"
 				height="466"></canvas>

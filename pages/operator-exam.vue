@@ -47,7 +47,10 @@ const questions = [
 	`ExamStart`,
 	`IdentificationTest`,
 	`SymbolTest`,
-	`ArtifactTest`,
+	`SigilTest`,
+	`HarderIdentificationTest`,
+	`HarderSymbolTest`,
+	`HarderSigilTest`,
 	`KeycodeTest`,
 	`ExamPassed`
 ]

@@ -1,0 +1,1 @@
+import{bd as r,be as a,n as s}from"./entry.ChAOt23L.js";import{g as o}from"./composables.DzwuPr63.js";const c=r(async(n,u)=>{let e,t;if(!([e,t]=a(()=>o()),e=await e,t(),e))return s({path:"/brainwash"})});export{c as default};

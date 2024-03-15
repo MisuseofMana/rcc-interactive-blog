@@ -248,7 +248,7 @@ const validationSchema = {
 }
 
 // destructure useForm from vv4
-const { values, handleSubmit, errors, setFieldValue, meta, resetForm} = useForm({
+const { values, handleSubmit, errors, setFieldValue, meta, resetForm } = useForm({
 	initialValues: {
 		hasSemiotics: false,
 		clearanceNeeded: false,
