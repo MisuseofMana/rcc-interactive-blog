@@ -1,4 +1,4 @@
-import { Howl } from 'Howler'
+import { Howl } from 'howler'
 
 export function usePlaySound(targetSound, callback) {
 	const currentSound = new Howl({

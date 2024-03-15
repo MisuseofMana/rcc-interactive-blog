@@ -1,150 +1,152 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<NuxtLayout name="sub-admin">
-		<v-container class="my-5">
-			<v-row class="mb-15">
-				<v-col cols="12">
-					<h1 class="text-h1 text-center mb-4">Photo Approval</h1>
-				</v-col>
-			</v-row>
-			<transition name="collapse">
-				<div v-if="!fields.length">
-					<v-row>
-						<v-col cols="12"
-							md="4"
-							class="offset-md-4">
-							<div class="text-deep-orange-darken-1 d-flex align-center justify-center">
-								<BackButton
-									rounded
-									text="Check For More Submissions"
-									front-icon="magnify"
-									@click="getSubmissions()"
-								/>
-							</div>
-						</v-col>
-					</v-row>
-				</div>
-			</transition>
-			<transition-group name="collapse">
-				<v-card variant="outlined"
-					color="primary-darken-1"
-					class="pa-15 text-primary mb-8"
-					v-for="(submission, idx) in fields"
-					:key="submission.value.imageId">
-					<v-overlay
-						v-model="submissionOverlays[idx]"
-						contained
-						class="align-center background-red justify-center text-primary text-center approvalScrim">
-						<h2 class="text-h4">Are you sure you want to approve this submission?</h2>
-						<p class="text-body-1 mb-8">Submission approval is only reversable by a member of the D.I.S.</p>
+	<div>
+		<NuxtLayout name="sub-admin">
+			<v-container class="my-5">
+				<v-row class="mb-15">
+					<v-col cols="12">
+						<h1 class="text-h1 text-center mb-4">Photo Approval</h1>
+					</v-col>
+				</v-row>
+				<transition name="collapse">
+					<div v-if="!fields.length">
 						<v-row>
 							<v-col cols="12"
-								md="6">
-								<BackButton class="mr-2 mb-3"
-									text="Yes, Approve This Submission"
-									:realm-icons="['check']"
-									@click="approveSubmission(idx)"
-									:isLoading="isSubmitting"
-								/>
-							</v-col>
-							<v-col cols="12"
-								md="6">
-								<BackButton class="mr-2 mb-3"
-									:warning="true"
-									variant="outlined"
-									text="No, wait. Nevermind."
-									:isLoading="isSubmitting"
-									:realm-icons="['cancel']"
-									@click="submissionOverlays[idx] = false"/>
+								md="4"
+								class="offset-md-4">
+								<div class="text-deep-orange-darken-1 d-flex align-center justify-center">
+									<BackButton
+										rounded
+										text="Check For More Submissions"
+										front-icon="magnify"
+										@click="getSubmissions()"
+									/>
+								</div>
 							</v-col>
 						</v-row>
-					</v-overlay>
-
-					<v-overlay
-						v-model="rejectionOverlays[idx]"
-						contained
-						class="align-center background-red justify-center text-primary text-center rejectionScrim">
-						<h2 class="text-h4 mb-2">Are you sure you want to reject this submission?</h2>
-						<p class="text-body-1 mb-8">Rejecting a submission can not be undone.</p>
-						<v-row>
-							<v-col cols="12"
-								md="6">
-								<BackButton class="mr-2 mb-3"
-									text="Yes, Reject This Submission"
-									:realm-icons="['trash-can']"
-									@click="rejectSubmission(idx)"
-									:isLoading="isSubmitting"/>
-							</v-col>
-							<v-col cols="12"
-								md="6">
-								<BackButton class="mr-2 mb-3"
-									:warning="true"
-									variant="outlined"
-									text="No, wait. Nevermind."
-									:realm-icons="['cancel']"
-									@click="rejectionOverlays[idx] = false"
-									:isLoading="isSubmitting"/>
-							</v-col>
-						</v-row>
-					</v-overlay>
-
-					<v-row class="text-primary">
-						<v-col cols="12"
-							lg="7">
-							<v-img class="realmImage mb-5"
-								cover
-								:src="submission.value.imageLink"
-								lazy-src="/images/mocks/placeholder-wide.jpg"
-								:alt="submission.value.altText"/>
-						</v-col>	
-						<v-col cols="12"
-							lg="5">
-							<CBDropdownSelect
-								class="text-primary"
-								:errors="errors[`submissions[${idx}].realm`]"
-								:items="siteStore.realmNames"
-								:hint="null"
-								label="Realm Name"
-								:name="`submissions[${idx}].realmId`"
-							/>
-							<CBTextField
-								class="text-primary"
-								label="Image Alt Text"
-								:name="`submissions[${idx}].altText`"
-								:hint="null"
-								:error-messages="errors.altText"
-							/>
-							<CBTextArea
-								:name="`submissions[${idx}].lore`"
-								label="Image Lore"
-								:errors="errors[`submissions[${idx}].lore`]"
-							/>
-							<p class="text-body-1 text-primary mb-2">:> Submitted by: {{ submission.value.submittedBy }}</p>
-							<p class="text-body-1 text-primary mb-4">:> Submitted around {{ useLastUpdated(submission.value.submittedAt).lastUpdated.value }} ago</p>
-							<v-row class="d-flex">
+					</div>
+				</transition>
+				<transition-group name="collapse">
+					<v-card variant="outlined"
+						color="primary-darken-1"
+						class="pa-15 text-primary mb-8"
+						v-for="(submission, idx) in fields"
+						:key="submission.value.imageId">
+						<v-overlay
+							v-model="submissionOverlays[idx]"
+							contained
+							class="align-center background-red justify-center text-primary text-center approvalScrim">
+							<h2 class="text-h4">Are you sure you want to approve this submission?</h2>
+							<p class="text-body-1 mb-8">Submission approval is only reversable by a member of the D.I.S.</p>
+							<v-row>
 								<v-col cols="12"
-									lg="6">
+									md="6">
 									<BackButton class="mr-2 mb-3"
-										text="Approve"
-										:realm-icons="['key']"
-										@click="submissionOverlays[idx] = true"/>
+										text="Yes, Approve This Submission"
+										:realm-icons="['check']"
+										@click="approveSubmission(idx)"
+										:isLoading="isSubmitting"
+									/>
 								</v-col>
 								<v-col cols="12"
-									lg="6">
+									md="6">
 									<BackButton class="mr-2 mb-3"
-										warning
+										:warning="true"
 										variant="outlined"
-										text="Reject"
+										text="No, wait. Nevermind."
+										:isLoading="isSubmitting"
 										:realm-icons="['cancel']"
-										@click="rejectionOverlays[idx] = true"/>
+										@click="submissionOverlays[idx] = false"/>
 								</v-col>
 							</v-row>
-						</v-col>
-					</v-row>
-				</v-card>
-			</transition-group>
-		</v-container>
-	</NuxtLayout>
+						</v-overlay>
+
+						<v-overlay
+							v-model="rejectionOverlays[idx]"
+							contained
+							class="align-center background-red justify-center text-primary text-center rejectionScrim">
+							<h2 class="text-h4 mb-2">Are you sure you want to reject this submission?</h2>
+							<p class="text-body-1 mb-8">Rejecting a submission can not be undone.</p>
+							<v-row>
+								<v-col cols="12"
+									md="6">
+									<BackButton class="mr-2 mb-3"
+										text="Yes, Reject This Submission"
+										:realm-icons="['trash-can']"
+										@click="rejectSubmission(idx)"
+										:isLoading="isSubmitting"/>
+								</v-col>
+								<v-col cols="12"
+									md="6">
+									<BackButton class="mr-2 mb-3"
+										:warning="true"
+										variant="outlined"
+										text="No, wait. Nevermind."
+										:realm-icons="['cancel']"
+										@click="rejectionOverlays[idx] = false"
+										:isLoading="isSubmitting"/>
+								</v-col>
+							</v-row>
+						</v-overlay>
+
+						<v-row class="text-primary">
+							<v-col cols="12"
+								lg="7">
+								<v-img class="realmImage mb-5"
+									cover
+									:src="submission.value.imageLink"
+									lazy-src="/images/mocks/placeholder-wide.jpg"
+									:alt="submission.value.altText"/>
+							</v-col>	
+							<v-col cols="12"
+								lg="5">
+								<CBDropdownSelect
+									class="text-primary"
+									:errors="errors[`submissions[${idx}].realm`]"
+									:items="siteStore.realmNames"
+									:hint="null"
+									label="Realm Name"
+									:name="`submissions[${idx}].realmId`"
+								/>
+								<CBTextField
+									class="text-primary"
+									label="Image Alt Text"
+									:name="`submissions[${idx}].altText`"
+									:hint="null"
+									:error-messages="errors.altText"
+								/>
+								<CBTextArea
+									:name="`submissions[${idx}].lore`"
+									label="Image Lore"
+									:errors="errors[`submissions[${idx}].lore`]"
+								/>
+								<p class="text-body-1 text-primary mb-2">:> Submitted by: {{ submission.value.submittedBy }}</p>
+								<p class="text-body-1 text-primary mb-4">:> Submitted around {{ useLastUpdated(submission.value.submittedAt).lastUpdated.value }} ago</p>
+								<v-row class="d-flex">
+									<v-col cols="12"
+										lg="6">
+										<BackButton class="mr-2 mb-3"
+											text="Approve"
+											:realm-icons="['key']"
+											@click="submissionOverlays[idx] = true"/>
+									</v-col>
+									<v-col cols="12"
+										lg="6">
+										<BackButton class="mr-2 mb-3"
+											warning
+											variant="outlined"
+											text="Reject"
+											:realm-icons="['cancel']"
+											@click="rejectionOverlays[idx] = true"/>
+									</v-col>
+								</v-row>
+							</v-col>
+						</v-row>
+					</v-card>
+				</transition-group>
+			</v-container>
+		</NuxtLayout>
+	</div>
 </template>
 
 <script setup>

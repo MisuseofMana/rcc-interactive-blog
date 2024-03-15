@@ -2,7 +2,6 @@
 	<v-switch v-model="value"
 		:label="label"
 		:color="color"
-		inset
 		hide-details></v-switch>
 </template>
 
@@ -26,3 +25,9 @@ const props = defineProps({
 const name = toRef(props, `name`)
 const { value } = useField(name, undefined)
 </script>
+
+<!-- <style lang="scss" scoped>
+:deep(.v-switch__track) {
+	background-color: rgb(var(--v-theme-primary)) !important;
+}
+</style> -->

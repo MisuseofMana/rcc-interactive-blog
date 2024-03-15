@@ -1,0 +1,1 @@
+import{b9 as a,ba as r,n as s}from"./entry.BEHNrUNK.js";import{g as o}from"./composables.CIgnywY2.js";const c=a(async(n,u)=>{let e,t;if(!([e,t]=r(()=>o()),e=await e,t(),e))return s({path:"/brainwash"})});export{c as default};
