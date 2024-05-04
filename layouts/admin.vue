@@ -50,9 +50,7 @@
 </template>
 
 <script setup>
-import { usePageAudio } from '~/composables/usePageAudio'
 import { getAuth, signOut } from "firebase/auth"
-usePageAudio()
 const showDebug = false
 const logOut = () => {
 	const auth = getAuth()

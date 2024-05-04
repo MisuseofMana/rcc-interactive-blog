@@ -58,8 +58,6 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
-import { usePageAudio } from '~/composables/usePageAudio'
-usePageAudio()
 const { smAndDown } = useDisplay()
 </script>
 

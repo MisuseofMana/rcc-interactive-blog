@@ -50,9 +50,9 @@
 										sm="6">
 										<BackButton class="mr-2"
 											variant="outlined"
-											text="/Briefing"
+											text="/Intro"
 											:realm-icons="['map-search-outline']"
-											link-name="/briefing" />
+											link-name="/intro" />
 									</v-col>
 									<v-col cols="12"
 										sm="6">

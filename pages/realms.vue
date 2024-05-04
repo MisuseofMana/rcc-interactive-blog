@@ -42,13 +42,13 @@
 									{{ useLastUpdated(post.lastUpdated).lastUpdated.value }}
 								</h4>
 								<div>
-									<v-icon v-if="checkSemiotic(post, index)"
+									<v-icon v-if="post.hasSemiotics"
 										class="mr-2"
 										:color="post.clearanceNeeded ? 'grey-darken-1' : 'teal-accent-3'"
 										size="20px">
 										mdi-eye-circle
 									</v-icon>
-									<v-icon v-if="post.isRecent"
+									<v-icon v-if="useLastUpdated(post.lastUpdated).isRecent.value"
 										:color="post.clearanceNeeded ? 'grey-darken-1' : 'yellow-accent-3'"
 										size="20px">
 										mdi-alert-decagram
@@ -81,12 +81,6 @@
 
 						<div class="px-8 mt-n5">
 							<div>
-								<v-icon v-if="useLastUpdated(post.lastUpdated).isRecent.value"
-									class="mr-2"
-									:color="post.clearanceNeeded ? 'grey-darken-1' : 'info'"
-									size="40px">
-									mdi-alert-decagram
-								</v-icon>
 								<v-icon class="p-0 mr-2"
 									:color="post.clearanceNeeded ? 'grey-darken-1' : 'primary'"
 									v-for="(items, index) in post.iconNames.split(',')"
@@ -107,10 +101,15 @@ import { useManageableRealms } from '~/composables/firebase/useRealmNames'
 import { useCoverPhotos } from '~/composables/firebase/useRealmData'
 
 import { useRealmCipher } from '~/composables/useRealmCipher'
-import { useSiteStore } from '~/store/useSiteStore.js'
+import { useAudioStore } from '~/store/useAudioStore.js'
 
-const siteStore = useSiteStore()
-siteStore.$patch({currentSound: `audio/realms.mp3`, volume: 0.1})
+const audioStore = useAudioStore()
+audioStore.$patch((state) => {
+	state.currentSound = { 
+		soundLink: `audio/realms.mp3`,
+		volume: 0.1,
+	}
+})
 
 const coverPhotos = ref([])
 const realmList = ref([])
@@ -123,19 +122,6 @@ onMounted(() => {
 		coverPhotos.value = coverPhotosData.value
 	})
 }) 
-
-const checkSemiotic = (realm) => {
-	const indexOfRealm = realmsWithSemiotics.value.findIndex(item => {
-		return item.slug === realm.slug
-	})
-	return indexOfRealm === new Date().getDay()
-}
-
-const realmsWithSemiotics = computed(() => {
-	return realmList.value.filter(realm => {
-		if(realm.hasSemiotics) return realm
-	})	
-})
 
 </script>
 

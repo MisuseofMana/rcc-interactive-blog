@@ -1,26 +1,26 @@
 <template>
 	<v-row class="mt-5">
-		<v-col class="d-flex justify-center">
+		<v-col cols="6"
+			class="offset-3">
 			<v-card
-				max-width="400px"
 				variant="outlined"
 				color="primary-darken-1"
 				class="pa-15 text-primary">
 				<div class="d-flex align-center justify-center mb-8">
 					<v-icon :icon="`mdi-${icon}`"
-						size="30px"
+						size="75px"
 						v-for="(icon, index) in targetRealm.iconNames"
 						:key="icon+index"
 						color="primary"/>
 				</div>
-				<div class="text-primary text-h3 d-flex justify-space-around align-end mb-6 inputReadout">
+				<div class="text-primary text-h3 d-flex justify-space-around align-end mb-6 pa-5 text-decoration-underline inputReadout">
 					<div v-for="(entry, index) in computedDigits"
 						:key="`entry-${index}`"
 					>
 						{{ entry }}
 					</div>
 				</div>
-				<div class="d-flex justify-space-between mb-2">
+				<div class="d-flex justify-space-around mb-2">
 					<div @click="addNumToAccessCode('1')"
 						class="customButton mr-2 text-primary text-h3">1</div>
 					<div @click="addNumToAccessCode('2')"
@@ -28,7 +28,7 @@
 					<div @click="addNumToAccessCode('3')"
 						class="customButton text-primary text-h3">3</div>
 				</div>
-				<div class="d-flex justify-space-between mb-2">
+				<div class="d-flex justify-space-around mb-2">
 					<div @click="addNumToAccessCode('4')"
 						class="customButton mr-2 text-primary text-h3">4</div>
 					<div @click="addNumToAccessCode('5')"
@@ -36,7 +36,7 @@
 					<div @click="addNumToAccessCode('6')"
 						class="customButton text-primary text-h3">6</div>
 				</div>
-				<div class="d-flex justify-space-between mb-2">
+				<div class="d-flex justify-space-around mb-2">
 					<div @click="addNumToAccessCode('7')"
 						class="customButton mr-2 text-primary text-h3">7</div>
 					<div @click="addNumToAccessCode('8')"
@@ -44,7 +44,7 @@
 					<div @click="addNumToAccessCode('9')"
 						class="customButton text-primary text-h3">9</div>
 				</div>
-				<div class="d-flex justify-space-between">
+				<div class="d-flex justify-space-around">
 					<div @click="addNumToAccessCode('*')"
 						class="customButton mr-2 text-primary text-h3">*</div>
 					<div @click="addNumToAccessCode('0')"

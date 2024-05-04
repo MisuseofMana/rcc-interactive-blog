@@ -1,4 +1,5 @@
 import { useSiteStore } from '~/store/useSiteStore.js'
+import { useAudioStore } from '~/store/useAudioStore.js'
 import { initializeApp } from 'firebase/app'
 import { ref } from 'vue'
 import { query, collection, collectionGroup, where, doc, getDoc, getDocs, getFirestore, orderBy } from "firebase/firestore"
@@ -32,8 +33,12 @@ const artifactsError = ref(``)
 const db = getFirestore(firebaseApp)
 
 const playAudio = (audioLink) => {
-	const siteStore = useSiteStore()
-	siteStore.$patch({currentSound: audioLink})
+	const audioStore = useAudioStore()
+	audioStore.$patch((state) => {
+		state.currentSound = { 
+			soundLink: audioLink,
+		}
+	})
 }
 
 // PROMISES

@@ -91,10 +91,10 @@ onMounted(() => {
 		questionIndex.value++
 		siteStore.examAutoStart = false
 	}
-	// tickingClock = setInterval(() => {
-	// 	progressNumber.value += 100 / 30
-	// 	if(progressNumber.value >= 100 && (questionIndex.value > 0 && questionIndex.value < 4)) sendToDebriefing()
-	// }, 1000)
+	tickingClock = setInterval(() => {
+		progressNumber.value += 100 / 30
+		if(progressNumber.value >= 100 && (questionIndex.value > 0 && questionIndex.value < 4)) sendToDebriefing()
+	}, 1000)
 })
 
 onBeforeUnmount(() => {

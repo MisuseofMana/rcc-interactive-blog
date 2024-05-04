@@ -31,7 +31,7 @@
 							</ul>
 							
 							<h2 class="text-h4 mb-5">Still feeling lost or uncertain?</h2>
-							<p class="text-body-1 mb-15">It would be best to brush up in <strong class="font-weight-black">/briefing</strong> before the exam. Once started you will have 30 seconds to answer each question.</p>
+							<p class="text-body-1 mb-15">It would be best to brush up in <strong class="font-weight-black">/info</strong> before the exam. Once started you will have 30 seconds to answer each question.</p>
 							<p class="text-body-1 mb-10">You have {{ remainingAttempts }} attempts remaining today.</p>
 							
 							<v-row>
@@ -39,9 +39,9 @@
 									sm="12"
 									md="6">
 									<BackButton class="mr-2"
-										text="Back to /Briefing"
+										text="Back to /Intro"
 										:realm-icons="['map-search-outline']"
-										link-name="/briefing" 
+										link-name="/intro" 
 										front-icon="arrow-left-bold"/>
 								</v-col>
 								<v-col cols="12"

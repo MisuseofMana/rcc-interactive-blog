@@ -99,12 +99,10 @@
 <script setup>
 import { onMounted, ref} from 'vue'
 import { useDisplay } from 'vuetify'
-import { usePageAudio } from '~/composables/usePageAudio'
 import { useRealmData } from '~/composables/firebase/useRealmData'
 
 // eslint-disable-next-line no-undef
 const route = useRoute()
-usePageAudio()
 
 const sigilLink = ref(``)
 

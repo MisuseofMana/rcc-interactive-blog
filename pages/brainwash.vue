@@ -43,10 +43,15 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, onBeforeMount } from 'vue'
-import { useSiteStore } from '~/store/useSiteStore.js'
 import { useRandomNumber} from '~/composables/useRandomNumber'
-const siteStore = useSiteStore()
-siteStore.$patch({currentSound: `audio/brainwash.mp3`})
+import { useAudioStore } from '~/store/useAudioStore.js'
+
+const audioStore = useAudioStore()
+audioStore.$patch((state) => {
+	state.currentSound = { 
+		soundLink: `audio/brainwash.mp3`,
+	}
+})
 
 
 const clutterNames = [ 

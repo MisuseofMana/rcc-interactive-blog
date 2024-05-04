@@ -56,8 +56,6 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
-import { usePageAudio } from '~/composables/usePageAudio'
-usePageAudio()
 const { smAndDown, name } = useDisplay()
 const showDebug = false
 </script>

@@ -15,9 +15,12 @@
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useDisplay } from 'vuetify'
+import { usePageAudio } from '~/composables/usePageAudio'
 
 const { name } = useDisplay()
 const showDebug = false
+
+usePageAudio()
 
 const isFullHeight = computed(() => {
 	const route = useRoute()
@@ -28,6 +31,7 @@ const isFullHeight = computed(() => {
 		return false
 	}
 })
+
 </script>
 
 <style scoped>

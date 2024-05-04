@@ -18,7 +18,47 @@ const db = getFirestore(firebaseApp)
 const realmListData = ref([])
 const realmListError = ref(``)
 
+const semioticsListData = ref([])
+const semioticsListError = ref(``)
+
 async function getManageableRealmsData(first=15) {
+	const siteStore = useSiteStore()
+
+	try {
+		if (siteStore.realmList.length) {
+			realmListData.value = siteStore.realmList
+			return
+		}
+
+		const res = await getDocs(
+			query(collection(db, `realms`), orderBy(`title`), limit(first))
+		)
+		res.forEach((doc) => {
+			const { id } = doc
+			const {sigilImageLink, hasSemiotics, clearanceNeeded, abbTitle, subtitle, title, iconNames, slug, lastUpdated } = doc.data()
+			realmListData.value.push({
+				title, 
+				clearanceNeeded,
+				id,
+				subtitle,
+				abbTitle,
+				sigilImageLink,
+				iconNames,
+				hasSemiotics,
+				slug,
+				lastUpdated
+			})
+		})
+		siteStore.realmList = realmListData.value
+	}
+	catch (error) {
+		if (error) {
+			realmListError.value = error
+		}
+	}
+}
+
+async function getRealmsWithSemiotics(first=15) {
 	const siteStore = useSiteStore()
 
 	try {
@@ -130,4 +170,9 @@ export function useRealmCredits() {
 export async function useManageableRealms() {
 	await getManageableRealmsData()
 	return { realmListData, realmListError }
+}
+
+export async function useRealmsWithSemiotics() {
+	await getRealmsWithSemiotics()
+	return { semioticsListData, semioticsListError }
 }

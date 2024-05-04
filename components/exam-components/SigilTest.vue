@@ -42,14 +42,11 @@
 
 <script setup>
 import { useGenerateSymbolQuestion } from '~/composables/useExam'
-import { useProperCaseFromSlug } from '~/composables/useCaseModification'
 const { questions, correct } = useGenerateSymbolQuestion()
 
 const emit = defineEmits([`solved`, `failed`])
 
 const checkAnswer = (guess) => {
-	console.log(guess)
-	console.log(correct.value)
 	if (guess === correct.value.slug) emit(`solved`)
 	else emit(`failed`)
 }

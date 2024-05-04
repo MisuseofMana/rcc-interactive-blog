@@ -10,10 +10,6 @@ const route = useRoute()
 // and `Store` (e.g. `useUserStore`, `useCartStore`, `useProductStore`)
 // the first argument is a unique id of the store across your application
 export const useSiteStore = defineStore(`site`, () => {
-	// audio related data for audio that plays on each realm
-	const audioSequences = ref([])
-	const currentSound = ref(``)
-	const hasInteracted = ref(false)
 	
 	// operator exam data
 	const examAutoStart = ref(false)
@@ -21,6 +17,7 @@ export const useSiteStore = defineStore(`site`, () => {
 	// front facing realm data
 	const realmNames = ref([])
 	const realmList = ref([])
+	const semioticRealms = ref([])
 	const realmArtifacts = ref({})
 	const realmData = reactive({})
 	const realmPhotosData = reactive({})
@@ -32,17 +29,15 @@ export const useSiteStore = defineStore(`site`, () => {
 		return lastUpdated.value
 	})
 	return { 
-		hasInteracted, 
 		examAutoStart,
+		semioticRealms,
 		realmNames,
 		realmList,
 		realmData,
 		realmLastUpdated,
 		realmPhotosData,
 		realmCoverPhotos,
-		audioSequences,
-		currentSound,
 		realmArtifacts,
-		realmCredits
+		realmCredits,
 	}
 })

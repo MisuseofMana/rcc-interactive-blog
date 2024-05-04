@@ -49,3 +49,32 @@ export function useGenerateSymbolQuestion(){
 	
 	return { questions, correct }
 }
+
+export function useGenerateKeycode(){
+	const questions = ref(null)
+	const correct = ref(null)
+	const photos = ref([])
+	let questionsArray = [{},{},{},{}]
+	const dataContainer = ref([])
+
+	useCoverPhotos().then(({coverPhotosData}) => {
+		photos.value = coverPhotosData.value
+		useManageableRealms().then(({realmListData}) => {
+			dataContainer.value = [ ...realmListData.value ]
+			questionsArray.forEach((_item, index) => {
+				const selected = dataContainer.value.splice(useRandomNumber(dataContainer.value.length),1)[0]
+				questionsArray[index] = 
+					{
+						...selected,
+						icons: selected?.iconNames.split(`,`),
+						coverImage: photos.value.find((photo) => photo.realmId === selected?.id)?.imageLink
+					}
+			})
+			questions.value = questionsArray
+			correct.value = questionsArray[useRandomNumber(questionsArray.length)]
+		})
+	})
+
+	
+	return { questions, correct }
+}

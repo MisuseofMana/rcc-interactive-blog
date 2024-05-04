@@ -56,14 +56,14 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
 import { useRealmCredits } from '~/composables/firebase/useRealmNames'
-import { useSiteStore } from '~/store/useSiteStore.js'
+import { useAudioStore } from '~/store/useAudioStore.js'
 
-const siteStore = useSiteStore()
-
-onMounted(() => {
-	siteStore.$patch({currentSound: null})
+const audioStore = useAudioStore()
+audioStore.$patch((state) => {
+	state.currentSound = { 
+		soundLink: null,
+	}
 })
 
 const { realmCredits } = useRealmCredits()

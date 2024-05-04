@@ -165,11 +165,12 @@
 						v-model="photo.value.imageFile"
 						prepend-icon="mdi-camera"></v-file-input> -->
 								<CBTextArea
+									class="mb-5"
 									:name="`photos[${idx}].lore`"
 									label="Image Lore"
 									v-model="photo.value.lore"
 									counter="200"
-									hint="Should be musing information about the artifact. One or two short sentences or sentence fragments are appropriate."
+									hint="One or two musing sentences about the image."
 								/>
 								<h5 v-if="photo.value?.order != null"
 									class="text-h5 text-paragraph text-primary">Archived as #{{ photo.value?.order >= 0 ? photo.value.order : 'X' }}</h5>

@@ -74,11 +74,17 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
-import { useSiteStore } from '~/store/useSiteStore.js'
+import { useAudioStore } from '~/store/useAudioStore.js'
+
+const audioStore = useAudioStore()
+audioStore.$patch((state) => {
+	state.currentSound = { 
+		soundLink: `audio/intro.mp3`,
+		volume: 0.08,
+	}
+})
 
 const { mdAndUp, smAndUp } = useDisplay()
-const siteStore = useSiteStore()
-siteStore.$patch({currentSound: `audio/intro.mp3`, volume: 0.08})
 </script>
 
 <style scoped>
