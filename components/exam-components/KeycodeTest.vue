@@ -6,10 +6,10 @@
 				variant="outlined"
 				color="primary-darken-1"
 				class="pa-15 text-primary">
-				<div class="d-flex align-center justify-center mb-8">
+				<div v-if="targetRealm?.iconNames" class="d-flex align-center justify-center mb-8">
 					<v-icon :icon="`mdi-${icon}`"
 						size="75px"
-						v-for="(icon, index) in targetRealm.iconNames"
+						v-for="(icon, index) in targetRealm?.iconNames.split(',')"
 						:key="icon+index"
 						color="primary"/>
 				</div>
@@ -59,25 +59,32 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { pages } from '../../pages/realms.data'
 import { usePlaySound } from '~/composables/usePlaySound'
+import { useRealmsWithSemiotics } from '~/composables/firebase/useRealmNames'
 
-const realmsWithSemiotics = pages.filter(realm => {
-	if(realm.semiotics) return realm
+const targetRealm = ref({
+	iconNames: ``,
+})
+
+useRealmsWithSemiotics().then(({semioticRealms}) => {
+	targetRealm.value = semioticRealms.value[new Date().getDay()]
 })
 
 const disabled = ref(false)
 
 const emit = defineEmits([`solved`, `failed`])
-const targetRealm = realmsWithSemiotics[new Date().getDay()]
 
 const addNumToAccessCode = (num) => {
 	if(disabled.value) return
+	let numberToSound = num
+	if(num === '*') numberToSound = 'star'
+	if(num === '#') numberToSound = 'pound'
+	usePlaySound({targetSound: numberToSound, vol: 0.1})
 	digits.value.push(`${num}`)
-	if(targetRealm.realmCode === digits.value.join(``)) emit(`solved`)
+	if(targetRealm.value.realmCode === digits.value.join(``)) emit(`solved`)
 	else if(digits.value.length >= reset.length) {
 		disabled.value = true
-		usePlaySound(`disconnected`, () => {
+		usePlaySound({targetSound: `disconnected`}, () => {
 			emit(`failed`)
 		})
 	}

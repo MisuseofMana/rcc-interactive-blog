@@ -23,7 +23,7 @@
 									Are you knowledgeable of the realms?
 								</li>
 								<li class="mb-1">
-									Do you understand the semiotics?
+									Do you understand the semiotics in the realms?
 								</li>
 								<li class="mb-1">
 									Can you intuit the path when there is little guidance?

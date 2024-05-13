@@ -26,7 +26,7 @@ export function usePageAudio() {
 		}
 
 		// gate triggers unless there is a currentSound payload
-		if (currentSound === null) {
+		if (currentSound.soundLink === null) {
 			stopOldSound()
 			return
 		}

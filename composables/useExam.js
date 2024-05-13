@@ -53,12 +53,10 @@ export function useGenerateSymbolQuestion(){
 export function useGenerateKeycode(){
 	const questions = ref(null)
 	const correct = ref(null)
-	const photos = ref([])
-	let questionsArray = [{},{},{},{}]
 	const dataContainer = ref([])
 
-	useCoverPhotos().then(({coverPhotosData}) => {
-		photos.value = coverPhotosData.value
+	useRealmsWithSemiotics().then(({semioticRealms}) => {
+		console.log(semioticRealms)
 		useManageableRealms().then(({realmListData}) => {
 			dataContainer.value = [ ...realmListData.value ]
 			questionsArray.forEach((_item, index) => {

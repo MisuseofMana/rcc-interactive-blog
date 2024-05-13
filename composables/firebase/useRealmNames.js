@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { initializeApp } from 'firebase/app'
-import { query, getDocs, collection, getFirestore, orderBy, limit } from "firebase/firestore"
+import { query, getDocs, collection, getFirestore, orderBy, where, limit } from "firebase/firestore"
 
 export const firebaseApp = initializeApp({
 	apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
@@ -18,8 +18,8 @@ const db = getFirestore(firebaseApp)
 const realmListData = ref([])
 const realmListError = ref(``)
 
-const semioticsListData = ref([])
-const semioticsListError = ref(``)
+const semioticRealms = ref([])
+const semioticError = ref(``)
 
 async function getManageableRealmsData(first=15) {
 	const siteStore = useSiteStore()
@@ -58,35 +58,28 @@ async function getManageableRealmsData(first=15) {
 	}
 }
 
-async function getRealmsWithSemiotics(first=15) {
+async function getRealmsWithSemiotics(first=7) {
 	const siteStore = useSiteStore()
 
 	try {
-		if (siteStore.realmList.length) {
-			realmListData.value = siteStore.realmList
+		if (siteStore.semioticRealms.length) {
+			semioticRealms.value = siteStore.semioticRealms
 			return
 		}
 
 		const res = await getDocs(
-			query(collection(db, `realms`), orderBy(`title`), limit(first))
+			query(collection(db, `realms`), where(`hasSemiotics`, `==`, true), limit(first))
 		)
 		res.forEach((doc) => {
 			const { id } = doc
-			const {sigilImageLink, hasSemiotics, clearanceNeeded, abbTitle, subtitle, title, iconNames, slug, lastUpdated } = doc.data()
-			realmListData.value.push({
-				title, 
-				clearanceNeeded,
+			const { realmCode, iconNames } = doc.data()
+			semioticRealms.value.push({
 				id,
-				subtitle,
-				abbTitle,
-				sigilImageLink,
+				realmCode,
 				iconNames,
-				hasSemiotics,
-				slug,
-				lastUpdated
 			})
 		})
-		siteStore.realmList = realmListData.value
+		siteStore.semioticRealms = semioticRealms.value
 	}
 	catch (error) {
 		if (error) {
@@ -174,5 +167,5 @@ export async function useManageableRealms() {
 
 export async function useRealmsWithSemiotics() {
 	await getRealmsWithSemiotics()
-	return { semioticsListData, semioticsListError }
+	return { semioticRealms, semioticError }
 }
