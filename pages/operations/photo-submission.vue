@@ -199,6 +199,70 @@
 					</template>
 				</v-snackbar>
 			</v-container>
+
+			<CBDropdownSelect
+				class="mb-5"
+				hint="Which semiotic should be attached to this image?"
+				:items="semioticsList"
+				label="Which Semiotic?"
+				:name="`whichSemiotic`"
+				@update:modelValue="drawSemioticOnCanvas"
+			/>
+
+			<CBDropdownSelect
+				class="mb-5"
+				hint="Which render mode should be used?"
+				:items="renderModes"
+				label="Which Render Mode?"
+				:name="`renderMode`"
+				@update:modelValue="drawSemioticOnCanvas"
+			/>
+
+			<v-btn
+				color="primary"
+				variant="text"
+				@click="() => {
+					overlayY -= 10
+					drawSemioticOnCanvas()
+				}"
+			>
+			<v-icon size="x-large">mdi-arrow-up</v-icon>
+			</v-btn>
+
+			<v-btn
+				color="primary"
+				variant="text"
+				@click="() => {
+					overlayX += 10
+					drawSemioticOnCanvas()
+				}"
+			>
+			<v-icon size="x-large">mdi-arrow-right</v-icon>
+			</v-btn>
+
+			<v-btn
+				size="large"
+				color="primary"
+				variant="text"
+				@click="() => {
+					overlayY += 10
+					drawSemioticOnCanvas()
+				}"
+			>
+				<v-icon size="x-large">mdi-arrow-down</v-icon>
+			</v-btn>
+
+			<v-btn
+				color="primary"
+				variant="text"
+				@click="() => {
+					overlayX -= 10
+					drawSemioticOnCanvas()
+				}"
+			>
+			<v-icon size="x-large">mdi-arrow-left</v-icon>
+			</v-btn>
+
 			<canvas
 				id="compression-canvas"
 				width="700"
@@ -215,6 +279,7 @@ import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } 
 import { doc, serverTimestamp, setDoc } from "firebase/firestore"
 import { useFirestore } from 'vuefire'
 import { useRealmNames } from '~/composables/firebase/useRealmNames'
+import { onKeyStroke } from '@vueuse/core'
 
 import { customAlphabet } from 'nanoid'
 const nanoid = customAlphabet(`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`, 15)
@@ -233,6 +298,65 @@ const imageUrlsArray = ref([])
 const uploadError = ref(``)
 const successfulUpload = ref(false)
 
+// semiotics
+const overlayX = ref(0)
+const overlayY = ref(0)
+const semioticsList = ref([
+	{ title: 'Star', value: 'star' },
+	{ title: 'Pound', value: 'pound' },
+	{ title: 'Zero', value: '0' },
+	{ title: 'One', value: '1' },
+	{ title: 'Two', value: '2' },
+	{ title: 'Three', value: '3' },
+	{ title: 'Four', value: '4' },
+	{ title: 'Five', value: '5' },
+	{ title: 'Six', value: '6' },
+	{ title: 'Seven', value: '7' },
+	{ title: 'Eight', value: '8' },
+	{ title: 'Nine', value: '9' },
+])
+
+const renderModes = ref([
+	{ title: 'Lighter', value: 'lighter' },
+	{ title: 'Multiply', value: 'multiply' },
+	{ title: 'Screen', value: 'screen' },
+	{ title: 'Overlay', value: 'overlay' },
+	{ title: 'Darken', value: 'darken' },
+	{ title: 'Lighten', value: 'lighten' },
+	{ title: 'Color Dodge', value: 'color-dodge' },
+	{ title: 'Color Burn', value: 'color-burn' },
+	{ title: 'Hard Light', value: 'hard-light' },
+	{ title: 'Soft Light', value: 'soft-light' },
+	{ title: 'Difference', value: 'difference' },
+	{ title: 'Exclusion', value: 'exclusion' },
+	{ title: 'Hue', value: 'hue' },
+	{ title: 'Saturation', value: 'saturation' },
+	{ title: 'Color', value: 'color' },
+	{ title: 'Luminosity', value: 'luminosity' }
+])
+
+// keytracking for semiotic placement
+onKeyStroke('ArrowDown', (e) => {
+	e.preventDefault()
+	overlayY.value += 5
+	drawSemioticOnCanvas()
+})
+onKeyStroke('ArrowUp', (e) => {
+	e.preventDefault()
+	overlayY.value -= 5
+	drawSemioticOnCanvas()
+})
+onKeyStroke('ArrowLeft', (e) => {
+	e.preventDefault()
+	overlayX.value -= 5
+	drawSemioticOnCanvas()
+})
+onKeyStroke('ArrowRight', (e) => {
+	e.preventDefault()
+	overlayX.value += 5
+	drawSemioticOnCanvas()
+})
+
 const blankSubmission = {
 	realm: ``,
 	imageFile: [],
@@ -243,9 +367,7 @@ const blankSubmission = {
 }
 
 // methods
-// trigger with file event, create temp reference URL from blob
-const setImageSrc = async (e) => {
-	imageUrlsArray.value[0] = URL.createObjectURL(e.target.files[0])
+const drawPhotoToCanvas = () => {
 	const helperImg = new Image()
 	helperImg.src = imageUrlsArray.value[0]
 
@@ -254,8 +376,27 @@ const setImageSrc = async (e) => {
 		const [newWidth, newHeight] = calculateSize(helperImg, 700, 466)
 		const canvas = document.getElementById(`compression-canvas`)
 		const ctx = canvas.getContext(`2d`)
+		ctx.globalCompositeOperation = 'normal'
 		ctx.drawImage(helperImg, 0, 0, newWidth, newHeight)
 	}
+}
+
+const drawSemioticOnCanvas = () => {
+	drawPhotoToCanvas()
+	const overlay = new Image()
+	overlay.src = `/images/semiotics/${values.whichSemiotic}.png`
+	const canvas = document.getElementById(`compression-canvas`)
+	const ctx = canvas.getContext(`2d`)
+	overlay.onload = () => {
+		ctx.globalCompositeOperation = values.renderMode
+		ctx.drawImage(overlay, overlayX.value, overlayY.value, 100, 100);
+	}
+}
+
+// trigger with file event, create temp reference URL from blob
+const setImageSrc = async (e) => {
+	imageUrlsArray.value[0] = URL.createObjectURL(e.target.files[0])
+	drawPhotoToCanvas()
 }
 
 const calculateSize = (img, maxWidth, maxHeight) => {
