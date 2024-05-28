@@ -23,6 +23,7 @@ export const useSiteStore = defineStore(`site`, () => {
 	const realmPhotosData = reactive({})
 	const realmCoverPhotos = reactive([])
 	const realmCredits = ref([])
+	const semioticsData = ref([])
 
 	const realmLastUpdated = computed(() => {
 		const { lastUpdated } = useLastUpdated(realmData[route.params.realm]?.lastUpdated)
@@ -31,6 +32,7 @@ export const useSiteStore = defineStore(`site`, () => {
 	return { 
 		examAutoStart,
 		semioticRealms,
+		semioticsData,
 		realmNames,
 		realmList,
 		realmData,

@@ -241,7 +241,7 @@
 				</v-row>
 				<v-snackbar
 					v-model="successfulUpload"
-					timer
+					timer="primary"
 					timeout="1500"
 				>
 					<p class="text-primary text-body-2">
@@ -280,7 +280,6 @@ const rearrangeMode = ref(false)
 const resetValues = ref([])
 
 const successfulUpload = ref(false)
-
 
 // eslint-disable-next-line no-undef
 definePageMeta({

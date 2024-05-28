@@ -2,9 +2,8 @@
 <template>
 	<div>
 		<NuxtLayout name="realm-editing">
-			<h4 class="text-h4 mb-3">{{ realmSnapshot?.title }} Data</h4>
+			<h4 class="text-h4 mt-15 mb-5">{{ realmSnapshot?.title }} Data</h4>
 			<v-card variant="outlined"
-				color="primary-darken-1"
 				class="pa-15 text-primary mb-15">
 				<v-row>
 					<v-col cols="12"

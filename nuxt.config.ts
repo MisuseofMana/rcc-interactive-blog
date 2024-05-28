@@ -58,6 +58,7 @@ export default defineNuxtConfig({
 		{ path: `~/components/display-components`, global: true, pathPrefix: false },
 		{ path: `~/components/form-components`, global: true, pathPrefix: false },
 		{ path: `~/components/exam-components`, global: true, pathPrefix: false },
+		{ path: `~/components/semiotic-components`, global: true, pathPrefix: false },
 		`~/components`,
 	],
 	// page level transitions

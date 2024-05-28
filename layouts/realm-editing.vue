@@ -53,7 +53,7 @@
 				</v-col>
 			</v-row>
 
-			<v-row class="mb-8">
+			<v-row>
 				<v-col cols="12"
 					md="4">
 					<ControlButton class="mb-3"
@@ -64,17 +64,24 @@
 				<v-col cols="12"
 					md="4">
 					<ControlButton class="mb-3"
-						text=">: Photographs"
+						text=">: Photos"
 						:realm-icons="['camera']"
 						:link-name="`/operations/realm-management/${route.params.realm}/photographs`"/>
 				</v-col>
-				<v-col cols="12"
-					md="4">
+				<!-- <v-col cols="12"
+					md="3">
 					<ControlButton class="mb-3"
 						text=">: Artifacts"
 						disabled
 						:realm-icons="['diamond-stone']"
 						:link-name="`/operations/realm-management/${route.params.realm}/artifacts`"/>
+				</v-col> -->
+				<v-col cols="12"
+					md="4">
+					<ControlButton class="mb-3"
+						text=">: Semiotics"
+						:realm-icons="['dots-circle']"
+						:link-name="`/operations/realm-management/${route.params.realm}/semiotics`"/>
 				</v-col>
 			</v-row>
 						

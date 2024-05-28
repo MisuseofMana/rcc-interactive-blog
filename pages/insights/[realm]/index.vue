@@ -77,10 +77,15 @@
 					:key="index + `photo`"
 					class="d-flex justify-center flex-column">
 					<v-img contain
+						v-if="!item.hasSemiotic"
 						class="realmImage"
 						lazy-src="/images/mocks/placeholder-wide.jpg"
 						aspect-ratio="1.5"
-						:src="item.imageLink" />	
+						:src="item.imageLink" />
+						<SemioticImage
+						v-else
+						:photo="item"
+						/>
 					<span class="pl-2 mr-5 mt-n2 mb-1 zUp text-subtitle-2 text-subtitle-1 d-flex align-center justify-space-between">
 						<p class="text-subtitle-2 text-primary-darken-3 mt-2">
 							{{ item.submittedBy }}

@@ -32,7 +32,6 @@
 </template>
 
 <script setup>
-import { pages } from '../../pages/realms.data'
 import { ref, onMounted } from 'vue'
 import { useRandomNumber } from '~/composables/useRandomNumber'
 
