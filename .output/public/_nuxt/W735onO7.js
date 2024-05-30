@@ -1,0 +1,1 @@
+import{x as t,h as o,i as r,a7 as a,B as n}from"./DAMA_ESs.js";const s={};function c(e,i){return o(),r(n,a(e.attrs,{"min-width":"150px",contain:"","aspect-ratio":1,src:"/images/mocks/dis-logo.png",alt:"logo for the Department of Inter-realm Studies"}),null,16)}const _=t(s,[["render",c]]);export{_ as default};
