@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<v-container class="my-5">
-		<v-row >
+		<v-row>
 			<v-col cols="12"
 				sm="12"
 				md="12"

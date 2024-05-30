@@ -161,22 +161,19 @@ const renderModes = ref([
 	{ title: 'Luminosity', value: 'luminosity' }
 ])
 
-const dialog = ref(false)
-
 const drawPhotoToCanvas = () => {
 	const ctx = semioticCanvas.value.getContext(`2d`)
 	const helperImg = new Image()
-	console.log(helperImg)
 	helperImg.crossOrigin = ""
 	ctx.globalCompositeOperation = 'normal'
 	helperImg.onload = () => {
-		// const overlay = new Image()
-		// overlay.src = `/images/semiotics/${selectedSemiotic.value}.png`
-		// overlay.onload = () => {
-		// 	ctx.globalCompositeOperation = selectedMode.value
-		// 	ctx.drawImage(overlay, overlayX.value, overlayY.value, 100, 100);
-		// }
-		// ctx.drawImage(helperImg, 0, 0, 700, 466)
+		const overlay = new Image()
+		overlay.src = `/images/semiotics/${selectedSemiotic.value}.png`
+		overlay.onload = () => {
+			ctx.globalCompositeOperation = selectedMode.value
+			ctx.drawImage(overlay, overlayX.value, overlayY.value, 100, 100);
+		}
+		ctx.drawImage(helperImg, 0, 0, 700, 466)
 	}
 	helperImg.src = props.photoData.value.imageLink
 }
