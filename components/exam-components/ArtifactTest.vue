@@ -32,10 +32,8 @@
 </template>
 
 <script setup>
-import { pages } from '../../pages/realms.data'
 import { ref, onMounted } from 'vue'
 import { useRandomNumber } from '~/composables/useRandomNumber'
-import { useClassifyRealm } from '~/composables/useClassifyRealm'
 
 const emit = defineEmits([`solved`, `failed`])
 
@@ -48,9 +46,9 @@ const checkAnswer = (guess) => {
 	else emit(`failed`)
 }
 
-const { classifiedRealms } = useClassifyRealm(pages)
 
 onMounted(() => {
+	return
 	let returnedArray = [{},{},{},{}]
 	let destructableRealmsArray = [...classifiedRealms.value]
 	

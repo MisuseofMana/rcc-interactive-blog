@@ -1,33 +1,35 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-	<NuxtLayout name="landing">
-		<v-container>
-			<v-row v-if="(questionIndex >= 1 && questionIndex < questions.length - 1 )">
-				<v-col cols="12">
-					<v-progress-linear
-						bg-color="primary"
-						color="primary"
-						rounded
-						v-model="progressNumber"
-						class="mb-3"/>
-				</v-col>
-			</v-row>
-			<v-row dense
-				no-gutters>
-				<v-col cols="12">
-					<transition name="page"
-						mode="out-in">
-						<component @solved="nextQuestion"
-							@failed="sendToDebriefing"
-							:is="currentQuestion"
-							:key="currentQuestion"
-						>
-						</component>
-					</transition>
-				</v-col>
-			</v-row>
-		</v-container>
-	</NuxtLayout>
+	<div>
+		<NuxtLayout name="landing">
+			<v-container>
+				<v-row v-if="(questionIndex >= 1 && questionIndex < questions.length - 1 )">
+					<v-col cols="12">
+						<v-progress-linear
+							bg-color="primary"
+							color="primary"
+							rounded
+							v-model="progressNumber"
+							class="mb-3"/>
+					</v-col>
+				</v-row>
+				<v-row dense
+					no-gutters>
+					<v-col cols="12">
+						<transition name="page"
+							mode="out-in">
+							<component @solved="nextQuestion"
+								@failed="sendToDebriefing"
+								:is="currentQuestion"
+								:key="currentQuestion"
+							>
+							</component>
+						</transition>
+					</v-col>
+				</v-row>
+			</v-container>
+		</NuxtLayout>
+	</div>
 </template>
 
 <script setup>
@@ -45,7 +47,10 @@ const questions = [
 	`ExamStart`,
 	`IdentificationTest`,
 	`SymbolTest`,
-	`ArtifactTest`,
+	`SigilTest`,
+	`HarderIdentificationTest`,
+	`HarderSymbolTest`,
+	`HarderSigilTest`,
 	`KeycodeTest`,
 	`ExamPassed`
 ]

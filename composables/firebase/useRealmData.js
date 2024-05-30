@@ -1,4 +1,5 @@
 import { useSiteStore } from '~/store/useSiteStore.js'
+import { useAudioStore } from '~/store/useAudioStore.js'
 import { initializeApp } from 'firebase/app'
 import { ref } from 'vue'
 import { query, collection, collectionGroup, where, doc, getDoc, getDocs, getFirestore, orderBy } from "firebase/firestore"
@@ -29,16 +30,24 @@ const realmPhotosError = ref(``)
 const artifactsData = ref([])
 const artifactsError = ref(``)
 
-const siteStore = useSiteStore()
+const semioticsData = ref([])
+const semioticsError = ref(``)
+
 const db = getFirestore(firebaseApp)
 
 const playAudio = (audioLink) => {
-	siteStore.$patch({currentSound: audioLink})
+	const audioStore = useAudioStore()
+	audioStore.$patch((state) => {
+		state.currentSound = { 
+			soundLink: audioLink,
+		}
+	})
 }
 
 // PROMISES
 // used to get the entire root doc of a specific realm
 async function getRealmDocData(realmName, options) {
+	const siteStore = useSiteStore()
 	// get realms doc (singular) where the slug equals the route param 'realm'
 	const queryForRealmData = doc(db, `realms`, realmName)
 
@@ -73,15 +82,14 @@ async function getRealmDocData(realmName, options) {
 
 // used to get all cover photos to display on the homepage
 async function getCoverPhotos() {
+	const siteStore = useSiteStore()
 	const queryForCoverPhotos = query(collectionGroup(db, `photographs`), where(`useAsCoverImage`, `==`, true))
-	
-	if(siteStore?.realmCoverPhotos.length) {
-		coverPhotosData.value = siteStore.realmCoverPhotos
-		return
-	}
-
 
 	try {
+		if(Object.entries(siteStore?.realmCoverPhotos).length) {
+			coverPhotosData.value = Object.values(siteStore?.realmCoverPhotos)
+			return
+		}
 		const querySnapshot = await getDocs(queryForCoverPhotos)
 		querySnapshot.forEach((doc) => {
 			const {realmId, imageLink} = doc.data()
@@ -101,6 +109,7 @@ async function getCoverPhotos() {
 
 // used to get all realm photos to display on the insights pages
 async function getRealmPhotos(realmSlug) {
+	const siteStore = useSiteStore()
 	const queryForPhotos = query(collection(db, `realms`, realmSlug, `photographs`), orderBy(`order`))
 
 	if(Object.keys(siteStore?.realmPhotosData).includes(realmSlug)) {
@@ -125,7 +134,35 @@ async function getRealmPhotos(realmSlug) {
 	}
 }
 
+// used to get all realm photo data where photos have semiotics
+async function getSemioticPhotos(realmSlug) {
+	const siteStore = useSiteStore()
+	const queryForPhotos = query(collection(db, `realms`, realmSlug, `photographs`), orderBy(`order`), where(`hasSemiotic`, `==`, true))
+
+	if(Object.keys(siteStore?.semioticsData).includes(realmSlug)) {
+		semioticsData.value = siteStore.semioticsData[realmSlug]
+		return
+	}
+
+	try {
+		const querySnapshot = await getDocs(queryForPhotos)
+		semioticsData.value = []
+		querySnapshot.forEach((doc) => {
+			const allData = doc.data()
+			semioticsData.value.push({...allData, id: doc.id})
+		})
+		siteStore.semioticsData[realmSlug] = semioticsData.value
+	}
+	catch (error) {
+		if (error) {
+			console.log(error)
+			semioticsError.value = error
+		}
+	}
+}
+
 async function getRealmArtifacts(realmSlug) {
+	const siteStore = useSiteStore()
 	const queryForArtifacts = query(collection(db, `realms`, realmSlug, `artifacts`))
 
 	if(Object.keys(siteStore?.realmArtifacts).includes(realmSlug)) {
@@ -170,4 +207,9 @@ export async function useRealmPhotos(realmSlug) {
 export async function useRealmArtifacts(realmSlug) {
 	await getRealmArtifacts(realmSlug)
 	return { artifactsData, artifactsError }
+}
+
+export async function useRealmSemioticPhotos(realmSlug) {
+	await getSemioticPhotos(realmSlug)
+	return { semioticsData, semioticsError }
 }

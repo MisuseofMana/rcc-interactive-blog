@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { useSiteStore } from '~/store/useSiteStore.js'
 import { initializeApp } from 'firebase/app'
-import { query, getDocs, collection, getFirestore, orderBy, limit } from "firebase/firestore"
+import { query, getDocs, collection, getFirestore, orderBy, where, limit } from "firebase/firestore"
 
 export const firebaseApp = initializeApp({
 	apiKey: `AIzaSyBveK6gIB_9MdjUlyi70KOyCo-dMO2yKHY`,
@@ -13,10 +13,83 @@ export const firebaseApp = initializeApp({
 	measurementId: `G-CLXB8V1MH8`,
 })
 
-const siteStore = useSiteStore()
 const db = getFirestore(firebaseApp)
 
+const realmListData = ref([])
+const realmListError = ref(``)
+
+const semioticRealms = ref([])
+const semioticError = ref(``)
+
+async function getManageableRealmsData(first=15) {
+	const siteStore = useSiteStore()
+
+	try {
+		if (siteStore.realmList.length) {
+			realmListData.value = siteStore.realmList
+			return
+		}
+
+		const res = await getDocs(
+			query(collection(db, `realms`), orderBy(`title`), limit(first))
+		)
+		res.forEach((doc) => {
+			const { id } = doc
+			const {sigilImageLink, hasSemiotics, clearanceNeeded, abbTitle, subtitle, title, iconNames, slug, lastUpdated } = doc.data()
+			realmListData.value.push({
+				title, 
+				clearanceNeeded,
+				id,
+				subtitle,
+				abbTitle,
+				sigilImageLink,
+				iconNames,
+				hasSemiotics,
+				slug,
+				lastUpdated
+			})
+		})
+		siteStore.realmList = realmListData.value
+	}
+	catch (error) {
+		if (error) {
+			realmListError.value = error
+		}
+	}
+}
+
+async function getRealmsWithSemiotics(first=7) {
+	const siteStore = useSiteStore()
+
+	try {
+		if (siteStore.semioticRealms.length) {
+			semioticRealms.value = siteStore.semioticRealms
+			return
+		}
+
+		const res = await getDocs(
+			query(collection(db, `realms`), where(`hasSemiotics`, `==`, true), limit(first))
+		)
+		res.forEach((doc) => {
+			const { id } = doc
+			const { realmCode, iconNames } = doc.data()
+			semioticRealms.value.push({
+				id,
+				realmCode,
+				iconNames,
+			})
+		})
+		siteStore.semioticRealms = semioticRealms.value
+	}
+	catch (error) {
+		if (error) {
+			realmListError.value = error
+		}
+	}
+}
+
 export function useRealmNames() {
+	const siteStore = useSiteStore()
 	const nameList = ref([])
 
 	const getRealmNames = async () => {
@@ -48,48 +121,8 @@ export function useRealmNames() {
 	}
 }
 
-export function useManageableRealms(first=15) {
-	const realmList = ref([])
-
-	const getRealmList = async () => {
-		if (siteStore.realmList.length) {
-			realmList.value = siteStore.realmList
-		}
-		else {
-			const getRealmsTakingSubmissions = await getDocs(
-				query(collection(db, `realms`), orderBy(`title`), limit(first))
-			)
-			let container = []
-			// populate realm names with results from query
-			getRealmsTakingSubmissions.forEach((doc) => {
-				const { id } = doc
-				const {sigilImageLink, hasSemiotics, clearanceNeeded, abbTitle, subtitle, title, iconNames, slug, lastUpdated } = doc.data()
-				container.push({
-					title, 
-					clearanceNeeded,
-					id,
-					subtitle,
-					abbTitle,
-					sigilImageLink,
-					iconNames,
-					hasSemiotics,
-					slug,
-					lastUpdated
-				})
-			})
-			siteStore.realmList = container
-			realmList.value = container
-		}
-	}
-	
-	getRealmList()
-
-	return {
-		realmList,
-	}
-}
-
 export function useRealmCredits() {
+	const siteStore = useSiteStore()
 	const realmCredits = ref([])
 
 	const getRealmCredits = async () => {
@@ -125,4 +158,14 @@ export function useRealmCredits() {
 	return {
 		realmCredits,
 	}
+}
+
+export async function useManageableRealms() {
+	await getManageableRealmsData()
+	return { realmListData, realmListError }
+}
+
+export async function useRealmsWithSemiotics() {
+	await getRealmsWithSemiotics()
+	return { semioticRealms, semioticError }
 }

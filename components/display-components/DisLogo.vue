@@ -1,7 +1,7 @@
 <template>
 	<v-img
+		v-bind="attrs"
 		min-width="150px"
-		max-width="250px"
 		contain
 		:aspect-ratio="1"
 		src="/images/mocks/dis-logo.png"

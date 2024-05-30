@@ -19,13 +19,24 @@
 						<v-col cols="12"
 							sm="6"
 							md="4"
-							xl="3">
+							xl="4">
 							<BackButton
 								warning
 								variant="outlined"
 								text="Leave Operations"
 								front-icon="arrow-left"
 								link-name="/brainwash" />
+						</v-col>
+						<v-col cols="12"
+							sm="6"
+							md="4"
+							xl="4"
+							class="offset-md-4">
+							<BackButton
+								variant="outlined"
+								text="Sign Out"
+								front-icon="radiology-box-outline"
+								@click="logOut()"/>
 						</v-col>
 					</v-row>
 
@@ -39,9 +50,17 @@
 </template>
 
 <script setup>
-import { usePageAudio } from '~/composables/usePageAudio'
-usePageAudio()
+import { getAuth, signOut } from "firebase/auth"
 const showDebug = false
+const logOut = () => {
+	const auth = getAuth()
+	signOut(auth).then(() => {
+		// eslint-disable-next-line no-undef
+		navigateTo(`/brainwash`)
+	}).catch((error) => {
+		console.log(error)
+	})
+}
 </script>
 
 

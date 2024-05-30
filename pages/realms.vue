@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
 	<div>
 		<NuxtLayout name="default">
@@ -7,11 +6,11 @@
 				<v-col v-for="(post, index) in realmList"
 					:key="index"
 					cols="12"
-					sm="6"
+					sm="8"
 					md="6"
 					lg="4"
 					xl="4"
-					class="mb-15">
+					class="mb-15 offset-sm-2 offset-md-0">
 					<div class="border mx-5">
 						<div class="px-8">
 							<div class="d-flex justify-space-between align-end mb-1">
@@ -34,7 +33,7 @@
 								</v-chip>
 								<v-chip class="text-subtitle-1"
 									:class="[post.clearanceNeeded ? 'text-grey-darken-1' : 'text-primary']">
-									{{ useLastUpdated(post.lastUpdated).designation.value }}
+									{{ useRealmDesignation(post.lastUpdated) }}
 								</v-chip>
 							</div>
 							<div class="d-flex justify-space-between align-center mb-2">
@@ -43,13 +42,13 @@
 									{{ useLastUpdated(post.lastUpdated).lastUpdated.value }}
 								</h4>
 								<div>
-									<v-icon v-if="checkSemiotic(post, index)"
+									<v-icon v-if="post.hasSemiotics"
 										class="mr-2"
 										:color="post.clearanceNeeded ? 'grey-darken-1' : 'teal-accent-3'"
 										size="20px">
 										mdi-eye-circle
 									</v-icon>
-									<v-icon v-if="post.isRecent"
+									<v-icon v-if="useLastUpdated(post.lastUpdated).isRecent.value"
 										:color="post.clearanceNeeded ? 'grey-darken-1' : 'yellow-accent-3'"
 										size="20px">
 										mdi-alert-decagram
@@ -61,9 +60,11 @@
 						<div class="shadow mt-n6"
 							:class="[post.clearanceNeeded ? '' : 'grow']">
 							<NuxtLink v-if="true"
-								:to="`insights/${post.slug}`">
+								:to="`/insights/${post.slug}`">
 								<v-img cover
 									class="realmImage"
+									min-width="300"
+									min-height="300"
 									lazy-src="/images/mocks/placeholder.jpg"
 									:src="coverPhotos?.find(photo => { return photo.realmId === post.id})?.imageLink"
 									alt="a photo representing the realm you're visiting">
@@ -80,12 +81,6 @@
 
 						<div class="px-8 mt-n5">
 							<div>
-								<v-icon v-if="useLastUpdated(post.lastUpdated).isRecent.value"
-									class="mr-2"
-									:color="post.clearanceNeeded ? 'grey-darken-1' : 'info'"
-									size="40px">
-									mdi-alert-decagram
-								</v-icon>
 								<v-icon class="p-0 mr-2"
 									:color="post.clearanceNeeded ? 'grey-darken-1' : 'primary'"
 									v-for="(items, index) in post.iconNames.split(',')"
@@ -106,32 +101,27 @@ import { useManageableRealms } from '~/composables/firebase/useRealmNames'
 import { useCoverPhotos } from '~/composables/firebase/useRealmData'
 
 import { useRealmCipher } from '~/composables/useRealmCipher'
-import { useSiteStore } from '~/store/useSiteStore.js'
+import { useAudioStore } from '~/store/useAudioStore.js'
 
-const siteStore = useSiteStore()
-siteStore.$patch({currentSound: `audio/realms.mp3`})
+const audioStore = useAudioStore()
+audioStore.$patch((state) => {
+	state.currentSound = { 
+		soundLink: `audio/realms.mp3`,
+		volume: 0.1,
+	}
+})
 
-const { realmList } = useManageableRealms()
 const coverPhotos = ref([])
+const realmList = ref([])
 
 onMounted(() => {
+	useManageableRealms().then(({realmListData}) => {
+		realmList.value = realmListData.value
+	})
 	useCoverPhotos().then(({coverPhotosData}) => {
 		coverPhotos.value = coverPhotosData.value
 	})
 }) 
-
-const checkSemiotic = (realm) => {
-	const indexOfRealm = realmsWithSemiotics.value.findIndex(item => {
-		return item.slug === realm.slug
-	})
-	return indexOfRealm === new Date().getDay()
-}
-
-const realmsWithSemiotics = computed(() => {
-	return realmList.value.filter(realm => {
-		if(realm.hasSemiotics) return realm
-	})	
-})
 
 </script>
 

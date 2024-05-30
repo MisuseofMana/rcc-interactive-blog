@@ -2,29 +2,30 @@
 	<v-btn nuxt
 		:to="linkName"
 		class="text-decoration-none"
-		min-height="50px"
 		:loading="isLoading"
 		:disabled="caution"
 		:height="smAndDown ? '55px' : '50px'"
 		min-width="100%"
 		:color="computedColor">
-		<div v-if="frontIcon">
-			<v-icon class="mr-2"
-				size="25px"
-				:color="computedIconColor"
-				:icon="`mdi-${frontIcon}`"></v-icon>
-		</div>
-		<div class="text-body-1 text-uppercase mr-2"
-			:class="computedTextColor">
-			{{ text }}
-		</div>
-		<div v-if="realmIcons">
-			<v-icon 
-				v-for="(items, index) in realmIcons"
-				:icon="`mdi-${items}`"
-				size="25px"
-				:key="items+index"
-				:color="computedIconColor"></v-icon>
+		<div class="d-flex align-center justify-center">
+			<div v-if="frontIcon">
+				<v-icon class="mr-2"
+					size="x-large"
+					:color="computedIconColor"
+					:icon="`mdi-${frontIcon}`"></v-icon>
+			</div>
+			<div class="text-body-1 text-uppercase mr-2"
+				:class="computedTextColor">
+				{{ text }}
+			</div>
+			<div v-if="realmIcons">
+				<v-icon 
+					v-for="(items, index) in realmIcons"
+					size="x-large"
+					:icon="`mdi-${items}`"
+					:key="items+index"
+					:color="computedIconColor"></v-icon>
+			</div>
 		</div>
 	</v-btn>
 </template> 
@@ -48,7 +49,7 @@ const { smAndDown } = useDisplay()
 
 const computedColor = computed(() => {
 	if(props.caution) return `grey-darken-4`
-	if(props.warning) return `yellow-darken-4`
+	if(props.warning) return `deep-orange-darken-4`
 	return `primary-darken-1`
 })
 
