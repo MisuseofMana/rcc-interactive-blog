@@ -6,6 +6,10 @@
   "hosting": {
     "site": "crickburrowarchives",
     "public": ".output/public",
+    "github": {
+      "repo": "misuseofmana/rcc-interactive-blog",
+      "branch": "main"
+    },
     "cleanUrls": true,
     "rewrites": [
       {
