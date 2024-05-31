@@ -5,14 +5,15 @@ import vuetify from 'vite-plugin-vuetify'
 // @ts-ignore
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
-	ssr: false,
 	nitro: {
-        output: {
-            dir: 'docs',
-            serverDir: 'docs/server',
-            publicDir: 'docs/public'
-        }
-    },
+		firebase: {
+		  gen: 2
+		},
+		output: {
+			dir: 'docs'
+		},
+	},
+	ssr: false,
 	css: [
 		`~/assets/css/transitions.css`,
 		`~/assets/css/globalReset.css`, 
@@ -23,13 +24,6 @@ export default defineNuxtConfig({
 		`~/assets/css/main.css`,
 		`@mdi/font/css/materialdesignicons.css`
 	],
-	vite: {
-		// @ts-ignore
-		// curently this will lead to a type error, but hopefully will be fixed soon #justBetaThings
-		ssr: {
-			noExternal: [`vuetify`], // add the vuetify vite plugin
-		},
-	},
 	modules: [
 		// @ts-ignore
 		// this adds the vuetify vite plugin
