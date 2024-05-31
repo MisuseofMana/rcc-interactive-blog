@@ -1,11 +1,11 @@
 {
   "functions": {
-    "source": ".output/server",
+    "source": "docs/server",
     "runtime": "nodejs16"
   },
   "hosting": {
     "site": "crickburrowarchives",
-    "public": ".output/public",
+    "public": "docs/public",
     "github": {
       "repo": "misuseofmana/rcc-interactive-blog",
       "branch": "main"
