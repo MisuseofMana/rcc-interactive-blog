@@ -6,6 +6,13 @@ import vuetify from 'vite-plugin-vuetify'
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
 	ssr: false,
+	nitro: {
+        output: {
+            dir: 'docs',
+            serverDir: 'docs/server',
+            publicDir: 'docs/public'
+        }
+    },
 	css: [
 		`~/assets/css/transitions.css`,
 		`~/assets/css/globalReset.css`, 
