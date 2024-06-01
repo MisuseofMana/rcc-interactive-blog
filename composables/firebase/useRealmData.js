@@ -35,11 +35,12 @@ const semioticsError = ref(``)
 
 const db = getFirestore(firebaseApp)
 
-const playAudio = (audioLink) => {
+const playAudio = (audioLink, volume = 1) => {
 	const audioStore = useAudioStore()
 	audioStore.$patch((state) => {
 		state.currentSound = { 
 			soundLink: audioLink,
+			volume
 		}
 	})
 }
@@ -56,7 +57,7 @@ async function getRealmDocData(realmName, options) {
 	if(Object.keys(siteStore?.realmData).includes(realmName)) {
 		realmData.value = siteStore.realmData[realmName]
 		if(options?.noMusic) return
-		playAudio(siteStore.realmData[realmName].audioLink)
+		playAudio(siteStore.realmData[realmName].audioLink, siteStore.realmData[realmName].audioVolume)
 		return
 	}
 
@@ -70,7 +71,7 @@ async function getRealmDocData(realmName, options) {
 			}
 			siteStore.realmData[realmName] = realmData.value
 			if(options?.noMusic) return
-			playAudio(realmData.value.audioLink)
+			playAudio(realmData.value.audioLink, realmData.value.audioVolume)
 		}
 	}
 	catch (error) {

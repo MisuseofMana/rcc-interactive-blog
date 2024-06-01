@@ -6,7 +6,7 @@
     "generate": "nuxt generate",
     "preview": "firebase emulators:start",
     "postinstall": "nuxt prepare",
-    "firebaseLocal": "npm run generate -- --preset=firebase && firebase emulators:start"
+    "deploy": "npm run generate && firebase deploy"
   },
   "devDependencies": {
     "@mdi/font": "^7.1.96",

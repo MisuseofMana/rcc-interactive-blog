@@ -118,6 +118,13 @@
 						/>
 						<CBTextField
 							class="mb-5"
+							:name="`audioVolume`"
+							:errors="errors[`audioVolume`]"
+							hint="Input an integer between 0.1 and 1"
+							label="Audio Volume"
+						/>
+						<CBTextField
+							class="mb-5"
 							:name="`audioLicenseLink`"
 							:errors="errors[`audioLicenseLink`]"
 							hint="Input a url to the CC License if sourced from somewhere requiring attribution."
@@ -256,6 +263,7 @@ const { values, handleSubmit, errors, setFieldValue, meta, resetForm } = useForm
 		abbTitle: ``,
 		narrative: ``,
 		iconNames: ``,
+		audioVolume: ``,
 		slug: ``,
 		realmSigil: [],
 		realmAudio: [],

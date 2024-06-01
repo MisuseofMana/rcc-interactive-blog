@@ -50,6 +50,7 @@ const audioStore = useAudioStore()
 audioStore.$patch((state) => {
 	state.currentSound = { 
 		soundLink: `audio/brainwash.mp3`,
+		volume: 0.5
 	}
 })
 

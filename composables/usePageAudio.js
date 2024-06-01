@@ -12,6 +12,7 @@ export function usePageAudio() {
 	const volume = ref(1)
 
 	audioStore.$subscribe((_mutation, { currentSound }) => {
+		console.log(currentSound.volume)
 		volume.value = currentSound?.volume || 1
 			
 		const stopOldSound = () => {

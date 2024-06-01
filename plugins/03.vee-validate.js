@@ -98,7 +98,7 @@ const generateRules = () => {
 		requiredAbbreviation,
 		slug,
 		narrativeString,
-		requiredIf
+		requiredIf,
 	}
 }
 

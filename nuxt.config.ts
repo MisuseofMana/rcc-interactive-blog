@@ -6,12 +6,9 @@ import vuetify from 'vite-plugin-vuetify'
 // eslint-disable-next-line no-undef
 export default defineNuxtConfig({
 	nitro: {
+		preset: 'firebase',
 		firebase: {
 		  gen: 2
-		},
-		output: {
-			dir: 'docs',
-			publicDir: 'docs'
 		},
 	},
 	ssr: false,
