@@ -93,6 +93,7 @@
 import { onMounted } from 'vue'
 onMounted(() => {
 	localStorage.remainingAttempts++
+	localStorage.passedExam = true
 })
 </script>
 

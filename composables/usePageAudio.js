@@ -1,35 +1,38 @@
 import { Howl } from 'howler'
 import { useAudioStore } from '~/store/useAudioStore.js'
+import { useTrackStore } from '~/store/useTrackStore.js'
 import { ref } from 'vue'
 
 // usePageAudio is installed on pages at the layout level
 // there may need to be a change made where the subscription happens in mutation calls
 // for some reason the function is running twice.
 export function usePageAudio() {
-	const audioSequences = ref([])
 
 	const audioStore = useAudioStore()
+	const trackStore = useTrackStore()
 	const volume = ref(1)
 
 	audioStore.$subscribe((_mutation, { currentSound }) => {
-		console.log(currentSound.volume)
 		volume.value = currentSound?.volume || 1
-			
-		const stopOldSound = () => {
-			if(audioSequences.value.length > 1) {
-				const oldSound = audioSequences.value[0].sound
-				oldSound.fade(audioSequences.value[0].sound._volume, 0, 1000)
-				setTimeout(() => {
-					oldSound.stop()
-					audioSequences.value.shift()
-				}, 1000)
-			}
+		
+		if (currentSound.soundLink === null) {
+			trackStore.audioQueue.forEach((track) => {
+				console.log(track.sound)
+				track.sound.fade(track.sound._volume, 0, 1000)
+			})
+			trackStore.audioQueue = []
+			return
 		}
 
-		// gate triggers unless there is a currentSound payload
-		if (currentSound.soundLink === null) {
-			stopOldSound()
-			return
+		const stopOldSound = () => {
+			if(trackStore.audioQueue.length > 1) {
+				const oldSound = trackStore.audioQueue[0].sound
+				oldSound.fade(trackStore.audioQueue[0].sound._volume, 0, 1000)
+				setTimeout(() => {
+					oldSound.stop()
+					trackStore.audioQueue.shift()
+				}, 1000)
+			}
 		}
 
 		// store howler reference
@@ -41,6 +44,11 @@ export function usePageAudio() {
 			autoPlay: true,
 			volume: 0,
 			preload: true,
+			onfade: function() {
+				if (newSound.volume() === 0) {
+					newSound.stop()
+				}
+			}
 		})
 
 		// play new sound
@@ -48,8 +56,8 @@ export function usePageAudio() {
 		// fade sound in
 		newSound.fade(0, volume.value, 1000)
 			
-		// add new sound to end of audioSequences array in audioStore
-		audioSequences.value.push({sound: newSound, volume})
+		// add new sound to end of trackStore.audioQueue array in trackStore
+		trackStore.audioQueue.push({sound: newSound, volume})
 		stopOldSound()
 	})
 }

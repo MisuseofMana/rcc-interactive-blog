@@ -36,6 +36,15 @@
 import { usePlaySound } from '~/composables/usePlaySound'
 import { ref, computed, onMounted, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useSiteStore } from '~/store/useSiteStore.js'
+import { useAudioStore } from '~/store/useAudioStore.js'
+
+const audioStore = useAudioStore()
+audioStore.$patch((state) => {
+	state.currentSound = { 
+		soundLink: null,
+	}
+})
+
 const siteStore = useSiteStore()
 
 // eslint-disable-next-line no-undef
