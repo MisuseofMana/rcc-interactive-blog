@@ -10,7 +10,8 @@ export default defineNuxtConfig({
 		  gen: 2
 		},
 		output: {
-			dir: 'docs'
+			dir: 'docs',
+			publicDir: 'docs'
 		},
 	},
 	ssr: false,
