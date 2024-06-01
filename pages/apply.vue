@@ -120,10 +120,10 @@ const logInError = ref(``)
 const passedCheck = ref(false)
 
 onBeforeMount(() => {
-	if(localStorage.passedExam === `true`) {
-		passedCheck.value = true
-		return
-	}
+	// if(localStorage.passedExam === `true`) {
+	// 	passedCheck.value = true
+	// 	return
+	// }
 	// eslint-disable-next-line no-undef
 	navigateTo(`/brainwash`)
 })
