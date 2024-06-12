@@ -8,7 +8,7 @@
 			<v-img v-if="which"
 				class="realmImage"
 				cover
-				max-width="500px"
+				max-width="300px"
 				aspect-ratio="1.5"
 				:src="`/images/artifacts/${which.path}.jpg`"
 				alt="an image representing an artifact of the realm"/>

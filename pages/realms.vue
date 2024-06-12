@@ -96,7 +96,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue' 
+import { onMounted, ref } from 'vue' 
 import { useManageableRealms } from '~/composables/firebase/useRealmNames'
 import { useCoverPhotos } from '~/composables/firebase/useRealmData'
 

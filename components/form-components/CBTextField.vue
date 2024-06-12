@@ -1,6 +1,5 @@
 <template>
 	<v-text-field
-		v-bind="attrs"
 		variant="outlined"
 		:name="name"
 		autocomplete="off"

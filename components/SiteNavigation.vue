@@ -4,8 +4,8 @@
 		<v-col cols="6"
 			sm="6"
 			md="4"
-			xl="2"
-			:class="alignRight ? `offset-xl-4` : ``">
+			xl="3"
+			:class="alignRight ? `offset-xl-3` : ``">
 			<BackButton
 				text="/Intro"
 				:realm-icons="['file-document-alert']"
@@ -14,7 +14,7 @@
 		<v-col cols="6"
 			sm="6"
 			md="4"
-			xl="2">
+			xl="3">
 			<BackButton
 				text="/Realms"
 				:realm-icons="['map-search-outline']"
@@ -23,7 +23,7 @@
 		<v-col cols="6"
 			sm="6"
 			md="4"
-			xl="2">
+			xl="3">
 			<BackButton text="/OPERATOR EXAM"
 				:realm-icons="['radar']"
 				:disabled="lockedFromExam"

@@ -259,6 +259,7 @@ const { values, handleSubmit, errors, setFieldValue, meta, resetForm } = useForm
 		hasSemiotics: false,
 		clearanceNeeded: false,
 		acceptingSubmissions: false,
+		isPublished: false,
 		title: ``,
 		abbTitle: ``,
 		narrative: ``,

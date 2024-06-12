@@ -5,26 +5,26 @@
 				class="text-center text-primary text-body-1">
 				<p>Correctly identify {{ useProperCaseFromSlug(correct?.realmId) }}.</p>
 			</v-col>
+		</v-row>
+		<v-row>
 			<v-col 
 				v-for="item in questions"
 				:key="item.realmId"
-				cols="6"
-				sm="5"
-				md="3"
+				cols="12"
+				sm="12"
+				md="6"
 				lg="3"
+				xl="4"
 			>
-				<div class="grow">
-					<v-img
-						@click="checkAnswer(item.realmId)"
-						class="realmImage"
-						cover
-						min-width="250"
-						min-height="250"
-						lazy-src="/images/mocks/placeholder.jpg"
-						:src="item.imageLink"
-						alt="an image taken from another realm">
-					</v-img>
-				</div>	
+				<v-img
+					@click="checkAnswer(item.realmId)"
+					class="realmImage"
+					cover
+					apect-ratio="1.5"
+					lazy-src="/images/mocks/placeholder.jpg"
+					:src="item.imageLink"
+					alt="an image taken from another realm">
+				</v-img>
 			</v-col>
 		</v-row>
 	</v-container>

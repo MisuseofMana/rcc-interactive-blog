@@ -200,25 +200,12 @@
 				</v-snackbar>
 			</v-container>
 
-			<CBDropdownSelect
-				class="mb-5"
-				hint="Which semiotic should be attached to this image?"
-				:items="semioticsList"
-				label="Which Semiotic?"
-				:name="`whichSemiotic`"
-				@update:modelValue="drawSemioticOnCanvas"
-			/>
-
-			<CBDropdownSelect
-				class="mb-5"
-				hint="Which render mode should be used?"
-				:items="renderModes"
-				label="Which Render Mode?"
-				:name="`renderMode`"
-				@update:modelValue="drawSemioticOnCanvas"
-			/>
-
 			<canvas
+				id="full-size-canvas"
+				class="d-none"
+				></canvas>
+			<canvas
+				class="d-none"
 				id="compression-canvas"
 				width="700"
 				height="466"></canvas>
@@ -263,16 +250,40 @@ const blankSubmission = {
 
 // methods
 const drawPhotoToCanvas = () => {
-	const helperImg = new Image()
-	helperImg.src = imageUrlsArray.value[0]
+	const image = new Image()
+	image.src = imageUrlsArray.value[0]
 
-	helperImg.onload = () => {
+	image.onload = () => {
 		// window.URL.revokeObjectURL(blobURL)
-		const [newWidth, newHeight] = calculateSize(helperImg, 700, 466)
-		const canvas = document.getElementById(`compression-canvas`)
+		const canvas = document.getElementById(`full-size-canvas`)
 		const ctx = canvas.getContext(`2d`)
+		const compcanvas = document.getElementById(`compression-canvas`)
+		const compctx = compcanvas.getContext(`2d`)
 		ctx.globalCompositeOperation = 'normal'
-		ctx.drawImage(helperImg, 0, 0, newWidth, newHeight)
+
+		const aspectRatio = 1.5;
+            let targetWidth, targetHeight;
+            
+            // Calculate the target dimensions to maintain a 1.5 aspect ratio
+            if (image.width / image.height > aspectRatio) {
+                targetHeight = image.height;
+                targetWidth = image.height * aspectRatio;
+            } else {
+                targetWidth = image.width;
+                targetHeight = image.width / aspectRatio;
+            }
+            
+            // Center the cropped area
+            const offsetX = (image.width - targetWidth) / 2;
+            const offsetY = (image.height - targetHeight) / 2;
+            
+            // Set canvas dimensions to the target dimensions
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            
+            // Draw the clipped image on the canvas
+            ctx.drawImage(image, offsetX, offsetY, targetWidth, targetHeight, 0, 0, targetWidth, targetHeight);
+            compctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, 700, 466);
 	}
 }
 
