@@ -84,6 +84,10 @@ onBeforeMount(() => {
 		// eslint-disable-next-line no-undef
 		navigateTo(`/brainwash`)
 	}
+	if(siteStore.examAutoStart) {
+		questionIndex.value++
+		siteStore.examAutoStart = false
+	}
 })
 
 onMounted(() => {
@@ -96,10 +100,6 @@ onMounted(() => {
 		localStorage.savedDay = new Date().setHours(0,0,0,0)
 	}
 
-	if(siteStore.examAutoStart) {
-		questionIndex.value++
-		siteStore.examAutoStart = false
-	}
 	tickingClock = setInterval(() => {
 		progressNumber.value += 100 / 30
 		if(progressNumber.value >= 100 && (questionIndex.value > 0 && questionIndex.value < 4)) sendToDebriefing()

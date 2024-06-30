@@ -1,7 +1,10 @@
 <template>
 	<v-row class="mt-5">
-		<v-col cols="6"
-			class="offset-3">
+		<v-col cols="12"
+			md="6"
+			lg="5"
+			xl="4"
+			class="offset-md-3 offset-lg-4 offset-xl-4">
 			<v-card
 				variant="outlined"
 				color="primary-darken-1"

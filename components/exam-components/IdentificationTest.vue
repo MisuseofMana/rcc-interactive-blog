@@ -14,14 +14,14 @@
 				sm="12"
 				md="6"
 				lg="3"
-				xl="4"
+				xl="3"
 			>
 				<v-img
 					@click="checkAnswer(item.realmId)"
 					class="realmImage"
 					cover
 					apect-ratio="1.5"
-					lazy-src="/images/mocks/placeholder.jpg"
+					lazy-src="/images/mocks/lazyload.jpg"
 					:src="item.imageLink"
 					alt="an image taken from another realm">
 				</v-img>
